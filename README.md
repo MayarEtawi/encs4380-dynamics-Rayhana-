@@ -1,2 +1,2 @@
 # encs4380-dynamics--Rayhana-
-update
+ In Module 1: AI tools were used to help organize design ideas for the website and explore suitable styling options. They were also used to assist with small CSS interactions, such as hover effects that make the module icons and other interface elements move or change appearance when the user points at them. The final design decisions and implementation were reviewed and adapted for the project.
