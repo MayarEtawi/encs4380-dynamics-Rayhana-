@@ -34,17 +34,7 @@ body {
 
     border-bottom: 1px solid #e1e8e3;
 }
-.university {
 
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.bzu-logo {
-    width: 300px;
-    height: 60px;
-    object-fit: contain;
-}
 .university h2 {
 
     margin: 0;
