@@ -1,1 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Module 1 - First-Order Time Response</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+
+<body>
+
+    <header class="top-header">
+
+        <div class="university">
+
+            <img src="bzu-logo.png"
+                 alt="Birzeit University"
+                 class="bzu-logo">
+
+            <div>
+                <h2>ENCS4380</h2>
+                <p>Dynamic Characteristics Toolkit</p>
+            </div>
+
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="module1.html" class="active">Module 1</a>
+        </nav>
+
+    </header>
+
+
+    <main class="module1-container">
+
+        <section class="module1-title">
+
+            <h1>Module 1 — First-Order Time Response</h1>
+
+            <p>
+                Explore how gain K and time constant τ
+                affect the response of a first-order sensor.
+            </p>
+
+        </section>
+
+
+        <section class="module1-equation-section">
+
+            <div class="equation-box">
+
+                <h3>System Equation</h3>
+
+                <div class="equation">
+                    τ dy/dt + y = Kx
+                </div>
+
+                <p>
+                    This equation describes a first-order system.
+                    The output does not change instantly;
+                    it approaches its final value gradually.
+                </p>
+
+            </div>
+
+
+            <div class="parameter-box">
+
+                <h3>What do K and τ mean?</h3>
+
+                <p>
+                    <strong>K Gain:</strong>
+                    controls the final output level.
+                </p>
+
+                <p>
+                    <strong>τ Time Constant:</strong>
+                    controls how fast the response changes.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="module1-controls">
+
+            <div class="control-card">
+
+                <label for="kSlider">
+                    Gain K:
+                    <span id="kValue">1.0</span>
+                </label>
+
+                <input
+                    type="range"
+                    id="kSlider"
+                    min="0.5"
+                    max="5"
+                    step="0.1"
+                    value="1"
+                >
+
+            </div>
+
+
+            <div class="control-card">
+
+                <label for="tauSlider">
+                    Time Constant τ:
+                    <span id="tauValue">1.0</span> s
+                </label>
+
+                <input
+                    type="range"
+                    id="tauSlider"
+                    min="0.1"
+                    max="5"
+                    step="0.1"
+                    value="1"
+                >
+
+            </div>
+
+
+            <div class="control-card">
+
+                <label for="inputType">
+                    Input Type
+                </label>
+
+                <select id="inputType">
+
+                    <option value="step">
+                        Step
+                    </option>
+
+                    <option value="ramp">
+                        Ramp
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+        <section class="predict-card">
+
+            <h2>Predict, then check</h2>
+
+            <p>
+                What happens to the response when τ increases?
+            </p>
+
+            <select id="prediction">
+
+                <option value="">
+                    Choose your prediction
+                </option>
+
+                <option value="faster">
+                    Response becomes faster
+                </option>
+
+                <option value="slower">
+                    Response becomes slower
+                </option>
+
+                <option value="same">
+                    Response stays the same
+                </option>
+
+            </select>
+
+            <button id="checkPrediction">
+                Check Answer
+            </button>
+
+            <p id="predictionResult"></p>
+
+        </section>
+
+
+        <section class="module1-response-grid">
+
+            <div class="response-card">
+
+                <h2>Sensor Response</h2>
+
+                <div id="responsePlot"></div>
+
+            </div>
+
+
+            <div class="results-panel">
+
+                <div class="result-card">
+
+                    <p>At t = τ</p>
+
+                    <h2 id="tauResult">
+                        63.2%
+                    </h2>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <p>At t = 3τ</p>
+
+                    <h2 id="threeTauResult">
+                        95%
+                    </h2>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <p>Ramp Lag</p>
+
+                    <h2 id="rampLagResult">
+                        —
+                    </h2>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <p>Steady-State Error</p>
+
+                    <h2 id="steadyErrorResult">
+                        —
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="error-card">
+
+            <h2>Error Fraction — Log Scale</h2>
+
+            <p>
+                For the first-order step response,
+                the error fraction decreases exponentially.
+            </p>
+
+            <div id="errorPlot"></div>
+
+        </section>
+
+
+        <section class="validation-card">
+
+            <h2>Validation Check</h2>
+
+            <div class="validation-row">
+
+                <span>
+                    Expected at t = τ
+                </span>
+
+                <span>
+                    63.2%
+                </span>
+
+                <span id="tauValidation">
+                    PASS
+                </span>
+
+            </div>
+
+
+            <div class="validation-row">
+
+                <span>
+                    Expected at t = 3τ
+                </span>
+
+                <span>
+                    95%
+                </span>
+
+                <span id="threeTauValidation">
+                    PASS
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
