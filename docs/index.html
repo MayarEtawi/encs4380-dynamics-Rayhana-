@@ -1,1 +1,182 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ENCS4380 Dynamic Characteristics Toolkit</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="top-header">
+
+        <div class="university">
+            <img src="bzu-logo.png" class="bzu-logo" alt="Birzeit University Logo">
+
+            <div>
+                <h2>ENCS4380</h2>
+                <p>Dynamic Characteristics Toolkit</p>
+            </div>
+        </div>
+
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="#about">About</a>
+        </nav>
+
+    </header>
+
+
+    <main class="home-container">
+
+        <section class="hero">
+
+            <h1>Choose a Module</h1>
+
+            <p>
+                Select a module to explore the sensor's
+                dynamic characteristics.
+            </p>
+
+        </section>
+
+
+        <section class="modules-grid">
+
+            <!-- MODULE 1 -->
+
+            <article class="module-card available">
+
+                <div class="module-icon">
+                    <svg viewBox="0 0 120 90" class="response-icon">
+                        <line x1="15" y1="75" x2="105" y2="75"></line>
+                        <line x1="15" y1="75" x2="15" y2="10"></line>
+
+                        <path d="M15 72
+                            C25 70, 35 55, 45 42
+                            C60 25, 75 20, 100 20">
+                        </path>
+                    </svg>
+                </div>
+                    
+
+                <h2>Module 1</h2>
+
+                <h3>
+                    First-Order<br>
+                    Time Response
+                </h3>
+
+                <span class="status available-status">
+                    ✓ Available
+                </span>
+
+                <a href="module1.html" class="module-button active-button">
+                    Open Module →
+                </a>
+
+
+            </article>
+
+
+            <!-- MODULE 2 -->
+
+            <article class="module-card">
+
+                <div class="module-icon gray">
+                    ∿
+                </div>
+
+                <h2>Module 2</h2>
+
+                <h3>
+                    First-Order<br>
+                    Frequency Response
+                </h3>
+
+                <span class="status coming-status">
+                    ◷ Coming Soon
+                </span>
+
+                <button class="module-button disabled-button" disabled>
+                    Open Module
+                </button>
+
+            </article>
+
+
+            <!-- MODULE 3 -->
+
+            <article class="module-card">
+
+                <div class="module-icon gray">
+                    〰
+                </div>
+
+                <h2>Module 3</h2>
+
+                <h3>
+                    Second-Order<br>
+                    Response
+                </h3>
+
+                <span class="status coming-status">
+                    ◷ Coming Soon
+                </span>
+
+                <button class="module-button disabled-button" disabled>
+                    Open Module
+                </button>
+
+            </article>
+
+
+            <!-- MODULE 4 -->
+
+            <article class="module-card">
+
+                <div class="module-icon gray">
+                    ?
+                </div>
+
+                <h2>Module 4</h2>
+
+                <h3>
+                    Guess the Sensor
+                </h3>
+
+                <span class="status coming-status">
+                    ◷ Coming Soon
+                </span>
+
+                <button class="module-button disabled-button" disabled>
+                    Open Module
+                </button>
+
+            </article>
+
+        </section>
+
+
+        <section id="about" class="about-section">
+
+            <h2>About the Toolkit</h2>
+
+            <p>
+                This interactive toolkit helps students understand
+                sensor dynamic characteristics through live controls,
+                equations and response plots.
+            </p>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
