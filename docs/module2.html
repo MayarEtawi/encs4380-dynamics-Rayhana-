@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Module 2 — First-Order Frequency Response</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark: #075c31;
+            --green: #087a3e;
+            --border: #8bc89a;
+            --blue: #244bff;
+            --output: #10a329;
+            --orange: #ff9700;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #143c20;
+            background: linear-gradient(
+                120deg,
+                #f7fff5,
+                #e7fbe6 55%,
+                #f4fff3
+            );
+            line-height: 1.55;
+        }
+
+        header {
+            background: linear-gradient(110deg, #07612f, #098142);
+            color: white;
+            padding: 16px 3%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+       
+
+        nav a {
+            padding: 8px 14px;
+            border-radius: 8px;
+            color: inherit;
+            text-decoration: none;
+            font-weight: bold;
+        }
+         nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a.active {
+            background: white;
+            color: var(--dark);
+        }
+
+        header nav a:hover {
+            background: #ddf5dc;
+            color: var(--dark);
+        }
+
+        main {
+            max-width: 1500px;
+            width: 96%;
+            margin: 24px auto 50px;
+        }
+
+        h1 {
+            font-size: clamp(21px, 2.4vw, 30px);
+            line-height: 1.25;
+            margin: 0;
+        }
+
+        .page-title {
+            color: var(--dark);
+            margin-bottom: 24px;
+        }
+
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        /* General sections */
+
+        .section {
+            padding: 25px;
+            background: white;
+            border: 1px solid #c3ddc1;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            scroll-margin-top: 20px;
+        }
+
+        .section h2 {
+            font-size: 23px;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .section p {
+            font-size: 14px;
+            color: #506451;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .equations {
+            font: 22px/2 Georgia, serif;
+            color: #173d20;
+            padding: 10px 0;
+        }
+
+        .model-column + .model-column {
+            border-left: 1px solid #dcebd9;
+            padding-left: 24px;
+        }
+
+        .section label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 0 8px;
+        }
+
+        .section input,
+        .section select {
+            width: 100%;
+            min-height: 42px;
+        }
+
+        input,
+        select,
+        button {
+            font: inherit;
+        }
+
+        input[type="number"],
+        select {
+            background: white;
+            color: #173b22;
+            border: 1px solid #b1c8b1;
+            border-radius: 6px;
+            padding: 7px 9px;
+            max-width: 100%;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: #10953c;
+            min-height: 26px;
+            cursor: pointer;
+        }
+
+        button {
+            border: 1px solid var(--green);
+            background: var(--green);
+            color: white;
+            border-radius: 8px;
+            padding: 11px 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .feedback {
+            padding: 14px 17px;
+            margin: 18px 0 0 !important;
+            background: #f2f9ef;
+            border: 1px solid #dcebd5;
+            border-radius: 8px;
+        }
+
+        .feedback.correct {
+            background: #e3f6dc;
+            color: #245529;
+        }
+
+        .feedback.incorrect {
+            background: #fff3df;
+            color: #754e1e;
+        }
+
+        /* Live workspace */
+
+        .workspace-title {
+            display: flex;
+            align-items: center;
+            margin: 0 0 18px;
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 270px minmax(0, 1fr);
+            gap: 16px;
+            align-items: stretch;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            min-width: 0;
+            box-shadow: 0 3px 9px #1953290b;
+        }
+
+        .panel-title {
+            background: linear-gradient(100deg, #d6f5cd, #bcecbc);
+            margin: 0;
+            padding: 8px 14px;
+            color: #144c20;
+            font-size: 19px;
+            line-height: 1.3;
+        }
+
+        /* Controls */
+
+        .controls-body {
+            padding: 16px;
+        }
+
+        .control {
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid #dfe8dd;
+        }
+
+        .control label {
+            font-weight: bold;
+            display: block;
+            font-size: 17px;
+        }
+
+        .control p {
+            font-size: 13px;
+            color: #435a47;
+            margin: 0 0 10px;
+        }
+
+        .number-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .number-row input {
+            width: 130px;
+            min-width: 0;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #536b56;
+        }
+
+        .control-message {
+            font-size: 12px;
+            color: #a33625;
+            margin: 12px 0 0;
+        }
+
+        .control-message:empty,
+        .plot-note:empty,
+        .feedback:empty {
+            display: none;
+        }
+
+        /* Live metrics */
+
+        .metric-title {
+            font-size: 16px;
+            margin: 0 0 12px;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .metric {
+            border: 1px solid #bbdab8;
+            border-radius: 8px;
+            background: linear-gradient(125deg, #edffe7, #d9f4ce);
+            padding: 11px 4px;
+            text-align: center;
+        }
+
+        .metric span,
+        .metric strong,
+        .result-box strong,
+        .result-box span {
+            display: block;
+        }
+
+        .metric span {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .metric strong {
+            font-size: 22px;
+            overflow-wrap: anywhere;
+            color: #143d1b;
+        }
+
+        #cutoffResult {
+            font-size: 18px;
+            white-space: nowrap;
+        }
+
+        /* Charts */
+
+        .plot-area {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .wave-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .window-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .window-control select {
+            padding: 2px 8px;
+            font-size: 12px;
+            width: 136px;
+        }
+
+        .wave-chart,
+        .bode-chart {
+            width: 100%;
+            display: block;
+        }
+
+        .wave-chart {
+            height: 220px;
+        }
+
+        .bode-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .bode-chart {
+            height: 235px;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            padding: 0 14px 10px;
+            font-size: 11px;
+            color: #334b36;
+        }
+
+        .key {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .key::before {
+            content: "";
+            display: inline-block;
+            width: 18px;
+            border-top: 2px solid var(--blue);
+        }
+
+        .key.output::before {
+            border-color: var(--output);
+        }
+
+        .key.cutoff::before {
+            border-color: var(--output);
+            border-top-style: dashed;
+        }
+
+        .key.selected::before {
+            width: 8px;
+            height: 8px;
+            border: 0;
+            border-radius: 50%;
+            background: var(--orange);
+        }
+
+        .plot-note {
+            padding: 9px 14px;
+            margin: 0;
+            font-size: 12px;
+            color: #4a624d;
+        }
+
+        .compact-text {
+            margin: 10px 0 0;
+        }
+
+        .panel-heading {
+            margin: 0;
+            font: inherit;
+        }
+/* Calculators */
+
+        #calculators {
+            margin-top: 28px;
+        }
+
+        .result-box {
+            padding: 18px;
+            background: linear-gradient(125deg, #eeffe7, #dbf3cf);
+            border: 1px solid #c8e2bf;
+            border-radius: 8px;
+            margin: 18px 0;
+        }
+
+        .result-box strong {
+            font-size: 30px;
+            color: #14622f;
+        }
+
+        .result-box span {
+            font-size: 13px;
+        }
+
+        .formula {
+            font-family: Georgia, serif;
+            overflow-wrap: anywhere;
+        }
+
+        .error-calculator {
+            padding: 22px 25px;
+        }
+
+        .error-calculator .error-intro {
+            margin-bottom: 18px;
+        }
+        .error-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            gap: 24px;
+        }
+        .error-formulas {
+            align-self: center;
+        }
+
+        .error-calculator .equations {
+            padding: 0;
+            font-size: 21px;
+            line-height: 1.7;
+        }
+        .error-calculator #errorMagnitude {
+            margin: 10px 0 0;
+        }
+
+        .error-calculator .result-box {
+            margin: 0;
+            padding: 16px 20px;
+        }
+
+        .error-calculator #errorExplanation {
+            margin: 8px 0 0;
+            font-size: 13px;
+        }
+/* Validation */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 13px 10px;
+            border-bottom: 1px solid #e1ebdd;
+        }
+
+        th {
+            background: #edf8e8;
+        }
+
+        .pass {
+            color: #177033;
+            font-weight: bold;
+        }
+
+        .fail {
+            color: #a22a20;
+        }
+
+        :focus-visible {
+            outline: 3px solid #e7ab38;
+            outline-offset: 3px;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            button,
+            .metric,
+            .section {
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+
+            button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 10px #164d2218;
+            }
+
+            .metric:hover,
+            .section:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 7px 18px #164d2210;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .workspace {
+                grid-template-columns: 230px minmax(0, 1fr);
+            }
+
+            .controls-body {
+                padding: 13px;
+            }
+
+            .metric strong {
+                font-size: 19px;
+            }
+
+            .window-control {
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .brand {
+                font-size: 18px;
+            }
+
+            .workspace,
+            .bode-grid,
+            .two-columns,
+            .error-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-body {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .control {
+                margin: 0;
+            }
+
+            .metric-group {
+                grid-column: 1 / -1;
+            }
+
+            .metrics {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .model-column + .model-column {
+                border-left: 0;
+                border-top: 1px solid #dcebd9;
+                padding: 18px 0 0;
+            }
+
+            .wave-header {
+                flex-wrap: wrap;
+            }
+
+            .wave-chart {
+                height: 250px;
+            }
+
+            .bode-chart {
+                height: 260px;
+            }
+
+            .section,
+            .error-calculator {
+                padding: 20px;
+            }
+
+            .error-layout {
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .controls-body {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .control {
+                padding-bottom: 14px;
+            }
+
+            .metric-group {
+                grid-column: auto;
+            }
+
+            .actions button {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+            }
+
+            button:hover,
+            .metric:hover,
+            .section:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        ENCS4380 / Dynamic Characteristics Toolkit
+    </div>
+
+    <nav aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="module1.html">Module 1</a>
+
+        <a href="module2.html" class="active" aria-current="page">
+            Module 2
+        </a>
+    </nav>
+</header>
+
+<main>
+
+    <h1 class="page-title">First-order frequency response</h1>
+
+    <!-- 1. SYSTEM MODEL -->
+
+    <section class="section" id="system-model">
+        <h2>System Model</h2>
+
+        <div class="two-columns">
+
+            <div class="model-column">
+                <h3>Frequency-response equations</h3>
+
+                <div class="equations">
+                    G(s) = 1 / (τs + 1)<br>
+                    M = 1 / √(1 + (ωτ)²)<br>
+                    φ = −atan(ωτ)
+                </div>
+
+                <p>
+                    M is the amplitude ratio.
+                    Negative phase means the output lags the input.
+                </p>
+            </div>
+
+            <div class="model-column">
+                <h3>Input and output</h3>
+
+                <div class="equations">
+                    x(t) = sin(ωt)<br>
+                    y(t) = M sin(ωt + φ)<br>
+                    ω = 2πf
+                </div>
+
+                <p>
+                    Unit gain K = 1, steady state.
+                    f in Hz, ω in rad/s, τ in seconds.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- 2. PREDICT, THEN CHECK -->
+
+    <section class="section" id="predict">
+        <h2>Predict, then check</h2>
+
+        <p>
+            Choose an experiment and predict its outcome.
+            Test prediction applies the requested change to the live plots.
+            You can also change the controls yourself before checking.
+        </p>
+
+        <div class="two-columns">
+
+            <div>
+                <label for="scenario">Experiment</label>
+
+                <select id="scenario">
+                    <option value="fUp">
+                        Increase frequency · keep τ fixed
+                    </option>
+
+                    <option value="fDown">
+                        Decrease frequency · keep τ fixed
+                    </option>
+
+                    <option value="tauUp">
+                        Increase τ · keep frequency fixed
+                    </option>
+
+                    <option value="tauDown">
+                        Decrease τ · keep frequency fixed
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <label for="prediction">Your prediction</label>
+
+                <select id="prediction">
+                    <option value="">Choose an answer</option>
+
+                    <option value="smaller">
+                        Smaller amplitude and greater phase lag
+                    </option>
+
+                    <option value="larger">
+                        Larger amplitude and smaller phase lag
+                    </option>
+
+                    <option value="same">
+                        No change
+                    </option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="actions">
+            <button id="checkPrediction" type="button">
+                Test prediction →
+            </button>
+        </div>
+
+        <p
+            id="predictionResult"
+            class="feedback"
+            aria-live="polite"
+        ></p>
+    </section>
+
+    <!-- 3. LIVE WORKSPACE -->
+
+    <div class="workspace-title">
+        <h2>Frequency response · Live workspace</h2>
+    </div>
+
+    <div class="workspace">
+
+        <!-- LEFT: CONTROLS AND RESULTS -->
+
+        <aside class="panel" aria-label="Sensor controls and live results">
+            <h2 class="panel-title">CONTROLS</h2>
+
+            <div class="controls-body">
+
+                <div class="control">
+                    <label for="tauNumber">Time constant τ</label>
+
+                    <p>First-order system time constant.</p>
+
+                    <div class="number-row">
+                        <span>τ =</span>
+
+                        <input
+                            id="tauNumber"
+                            type="number"
+                            min="0.0001"
+                            max="10"
+                            step="any"
+                            value="0.2"
+                        >
+
+                        <span>s</span>
+                    </div>
+
+                    <input
+                        id="tauSlider"
+                        aria-label="Time constant, logarithmic slider"
+                        type="range"
+                        min="-4"
+                        max="1"
+                        step="0.001"
+                        value="-0.69897"
+                    >
+
+                    <div class="range-labels">
+                        <span>0.0001 s</span>
+                        <span>10 s</span>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <label for="frequencyNumber">
+                        Excitation frequency f
+                    </label>
+
+                    <p>Sine input frequency.</p>
+
+                    <div class="number-row">
+                        <span>f =</span>
+
+                        <input
+                            id="frequencyNumber"
+                            type="number"
+                            min="0.01"
+                            max="1000"
+                            step="any"
+                            value="0.3183098861837907"
+                        >
+
+                        <span>Hz</span>
+                    </div>
+
+                    <input
+                        id="frequencySlider"
+                        aria-label="Frequency, logarithmic slider"
+                        type="range"
+                        min="-2"
+                        max="3"
+                        step="0.001"
+                        value="-0.49715"
+                    >
+
+                    <div class="range-labels">
+                        <span>0.01 Hz</span>
+                        <span>1000 Hz</span>
+                    </div>
+
+                    <p id="omegaText" class="compact-text"></p>
+                </div>
+
+                <div class="metric-group">
+                    <h3 class="metric-title">
+                        Current / calculated metrics
+                    </h3>
+
+                    <div class="metrics">
+
+                        <div class="metric">
+                            <span>M</span>
+                            <strong id="magnitudeResult"></strong>
+                        </div>
+
+                        <div class="metric">
+                            <span>Phase</span>
+                            <strong id="phaseResult"></strong>
+                        </div>
+
+                        <div class="metric">
+                            <span>Cutoff fc</span>
+                            <strong id="cutoffResult"></strong>
+                        </div>
+
+                        <div class="metric">
+                            <span>Error</span>
+                            <strong id="errorResult"></strong>
+                        </div>
+
+                    </div>
+
+                    <p
+                        id="controlMessage"
+                        class="control-message"
+                        role="status"
+                    ></p>
+                </div>
+
+            </div>
+        </aside>
+
+        <!-- RIGHT: THREE CHARTS -->
+
+        <div class="plot-area">
+
+            <section class="panel">
+                <div class="panel-title wave-header">
+                    <h2 class="panel-heading">
+                        Input &amp; output
+                    </h2>
+
+                    <label class="window-control" for="timeWindow">
+                        Time window:
+
+                        <select id="timeWindow">
+                            <option value="10">10 s · Fixed</option>
+                            <option value="5">5 s · Fixed</option>
+                            <option value="1">1 s · Fixed</option>
+                            <option value="0.1">0.1 s · Fixed</option>
+                            <option value="0.01">0.01 s · Fixed</option>
+                            <option value="100">100 s · Fixed</option>
+                            <option value="auto">4 periods · Auto</option>
+                        </select>
+                    </label>
+                </div>
+
+                <svg
+                    id="sinePlot"
+                    class="wave-chart"
+                    role="img"
+                    aria-label="Input and output versus time"
+                ></svg>
+
+                <div class="chart-legend">
+                    <span class="key">Input</span>
+                    <span class="key output">Output</span>
+                </div>
+
+                <p class="plot-note" id="samplingNote"></p>
+            </section>
+
+            <div class="bode-grid">
+
+                <section class="panel">
+                    <h2 class="panel-title">Bode magnitude</h2>
+
+                    <svg
+                        id="magnitudePlot"
+                        class="bode-chart"
+                        role="img"
+                        aria-label="Magnitude in decibels versus logarithmic angular frequency"
+                    ></svg>
+
+                    <div class="chart-legend">
+                        <span class="key">Magnitude</span>
+                        <span class="key cutoff">Cutoff</span>
+                        <span class="key selected">
+                            Selected frequency
+                        </span>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <h2 class="panel-title">Bode phase</h2>
+
+                    <svg
+                        id="phasePlot"
+                        class="bode-chart"
+                        role="img"
+                        aria-label="Phase in degrees versus logarithmic angular frequency"
+                    ></svg>
+
+                    <div class="chart-legend">
+                        <span class="key">Phase</span>
+                        <span class="key cutoff">Cutoff</span>
+                        <span class="key selected">
+                            Selected frequency
+                        </span>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 4. CALCULATORS -->
+
+    <div id="calculators">
+
+        <section class="section error-calculator">
+            <h2>Dynamic-error calculator</h2>
+            <p class="error-intro">A negative value means the output amplitude is smaller than the input amplitude.</p>
+            <div class="error-layout">
+                <div class="error-formulas">
+                    <div class="equations">
+                        δ = M − 1<br>
+                        Error (%) = (M − 1) × 100
+                    </div>
+                    <p id="errorMagnitude"></p>
+                </div>
+                <div class="result-box" aria-live="polite">
+                    <span>Dynamic error</span>
+                    <strong id="calculatorError"></strong>
+                    <span id="decimalError"></span>
+                    <p id="errorExplanation"></p>
+                </div>
+            </div>
+        </section>
+
+</div>
+
+    <!-- 5. VALIDATION -->
+
+    <section class="section" id="validation">
+        <h2>Homework Validation — Checks 2 and 3</h2>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Check</th>
+                        <th>Expected</th>
+                        <th>Calculated</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+
+                <tbody id="validationRows"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <noscript>
+        Enable JavaScript to use the calculations and plots.
+    </noscript>
+
+</main>
+
+<script>
+"use strict";
+
+/* =====================================
+   MODEL AND SETTINGS
+===================================== */
+
+const $ = id => document.getElementById(id);
+
+const state = {
+    tau: 0.2,
+    frequency: 1 / Math.PI
+};
+
+const bounds = {
+    tau: [0.0001, 10],
+    frequency: [0.01, 1000]
+};
+
+const colors = {
+    input: "#244bff",
+    output: "#10a329",
+    point: "#ff9700"
+};
+
+let predictionStart = null;
+let plotFrame = null;
+
+/*
+ * Bode axes stay stable during ordinary changes.
+ * They expand if the selected frequency or cutoff moves outside.
+ */
+let bodeMin = -1;
+let bodeMax = 2;
+
+const fmt = value => Number(value.toPrecision(5)).toString();
+
+const controlUnit = key =>
+    key === "tau" ? " seconds" : " hertz";
+
+function clearControlMessage() {
+    $("controlMessage").textContent = "";
+}
+
+function response(tau, omega) {
+    const magnitude = 1 / Math.hypot(1, omega * tau);
+    const phase = -Math.atan(omega * tau);
+
+    return {
+        magnitude,
+        phase,
+        degrees: phase * 180 / Math.PI,
+        db: 20 * Math.log10(magnitude),
+        error: magnitude - 1
+    };
+}
+
+function maximumTau(frequency, loss) {
+    return Math.sqrt(
+        1 / (1 - loss / 100) ** 2 - 1
+    ) / (2 * Math.PI * frequency);
+}
+
+/* =====================================
+   SVG DRAWING
+===================================== */
+
+function svgNode(tag, attributes, text) {
+    const node = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        tag
+    );
+
+    Object.entries(attributes).forEach(([key, value]) => {
+        node.setAttribute(key, value);
+    });
+
+    if (text !== undefined) {
+        node.textContent = text;
+    }
+
+    return node;
+}
+
+function chart(id, config) {
+    const svg = $(id);
+
+    const width = Math.max(240, svg.clientWidth);
+    const height = svg.clientHeight;
+
+    svg.replaceChildren();
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+    const left = 52;
+    const right = width - 20;
+    const top = 17;
+    const bottom = height - 42;
+
+    const x = value => left +
+        (value - config.xMin) /
+        (config.xMax - config.xMin) *
+        (right - left);
+
+    const y = value => bottom -
+        (value - config.yMin) /
+        (config.yMax - config.yMin) *
+        (bottom - top);
+
+    function add(tag, attributes, text) {
+        const node = svgNode(tag, attributes, text);
+        svg.append(node);
+        return node;
+    }
+
+    const grid = {
+        stroke: "#dbe1dd",
+        "stroke-width": 1
+    };
+
+    // Horizontal grid and labels.
+    config.yTicks.forEach(value => {
+        add("line", {
+            x1: left,
+            x2: right,
+            y1: y(value),
+            y2: y(value),
+            ...grid
+        });
+
+        add("text", {
+            x: left - 7,
+            y: y(value) + 4,
+            "text-anchor": "end",
+            "font-size": 11,
+            fill: "#344738"
+        }, fmt(value));
+    });
+
+    const ticks = config.log
+        ? Array.from(
+            { length: config.xMax - config.xMin + 1 },
+            (_, index) => config.xMin + index
+        )
+        : Array.from(
+            { length: 6 },
+            (_, index) => config.xMax * index / 5
+        );
+
+    // Vertical grid and labels.
+    ticks.forEach((value, index) => {
+        add("line", {
+            x1: x(value),
+            x2: x(value),
+            y1: top,
+            y2: bottom,
+            ...grid
+        });
+
+        if (
+            ticks.length <= 7 ||
+            index % 2 === 0 ||
+            index === ticks.length - 1
+        ) {
+            add("text", {
+                x: x(value),
+                y: bottom + 17,
+                "text-anchor": "middle",
+                "font-size": 11,
+                fill: "#344738"
+            }, config.log ? "10^" + value : fmt(value));
+        }
+    });
+
+    // Minor logarithmic grid.
+    if (config.log) {
+        for (
+            let decade = config.xMin;
+            decade < config.xMax;
+            decade++
+        ) {
+            for (let n = 2; n <= 9; n++) {
+                const position = x(decade + Math.log10(n));
+
+                add("line", {
+                    x1: position,
+                    x2: position,
+                    y1: top,
+                    y2: bottom,
+                    stroke: "#eff2ef",
+                    "stroke-width": 0.7
+                });
+            }
+        }
+    }
+
+    add("rect", {
+        x: left,
+        y: top,
+        width: right - left,
+        height: bottom - top,
+        fill: "none",
+        stroke: "#a5b3a8"
+    });
+
+    // Clip curves to the chart area.
+    const defs = add("defs", {});
+    const clip = svgNode("clipPath", {
+        id: id + "-clip"
+    });
+
+    clip.append(svgNode("rect", {
+        x: left,
+        y: top,
+        width: right - left,
+        height: bottom - top
+    }));
+
+    defs.append(clip);
+
+    const group = add("g", {
+        "clip-path": `url(#${id}-clip)`
+    });
+
+    config.curves.forEach(curve => {
+        group.append(svgNode("polyline", {
+            points: curve.points.map(([a, b]) =>
+                x(a) + "," + y(b)
+            ).join(" "),
+            fill: "none",
+            stroke: curve.color,
+            "stroke-width": 2,
+            "stroke-linejoin": "round"
+        }));
+    });
+
+    // Cutoff and selected-frequency markers.
+    (config.markers || []).forEach(marker => {
+        if (marker.line) {
+            group.append(svgNode("line", {
+                x1: x(marker.x),
+                x2: x(marker.x),
+                y1: top,
+                y2: bottom,
+                stroke: marker.color,
+                "stroke-width": 1.5,
+                "stroke-dasharray": "5 4"
+            }));
+        }
+
+        const dot = svgNode("circle", {
+            cx: x(marker.x),
+            cy: y(marker.y),
+            r: 4.5,
+            fill: marker.color,
+            stroke: "#fff",
+            "stroke-width": 0.7
+        });
+
+        dot.append(svgNode("title", {}, marker.label));
+        group.append(dot);
+    });
+
+    add("text", {
+        x: (left + right) / 2,
+        y: height - 6,
+        "text-anchor": "middle",
+        "font-size": 12,
+        fill: "#233d29"
+    }, config.xLabel);
+
+    add("text", {
+        transform: `translate(14 ${(top + bottom) / 2}) rotate(-90)`,
+        "text-anchor": "middle",
+        "font-size": 12,
+        fill: "#233d29"
+    }, config.yLabel);
+}
+
+/* =====================================
+   RESPONSE PLOTS
+===================================== */
+
+function drawPlots() {
+    const omega = 2 * Math.PI * state.frequency;
+    const result = response(state.tau, omega);
+
+    const endTime = $("timeWindow").value === "auto"
+        ? 4 / state.frequency
+        : Number($("timeWindow").value);
+
+    const cycles = endTime * state.frequency;
+
+    const samples = Math.max(
+        800,
+        Math.min(16000, Math.ceil(cycles * 60))
+    );
+
+    const input = [];
+    const output = [];
+
+    /*
+     * Avoid drawing misleading undersampled waveforms
+     * when too many cycles fit into the selected window.
+     */
+    if (cycles <= 200) {
+        for (let i = 0; i <= samples; i++) {
+            const time = endTime * i / samples;
+
+            input.push([
+                time,
+                Math.sin(omega * time)
+            ]);
+
+            output.push([
+                time,
+                result.magnitude *
+                    Math.sin(omega * time + result.phase)
+            ]);
+        }
+    }
+
+    $("samplingNote").textContent = cycles > 200
+        ? "Too many cycles for this time window. Select “4 periods · Auto” or a shorter fixed window to inspect the waveform."
+        : cycles > 40
+            ? "Dense waveform: choose a shorter time window or “4 periods · Auto” to inspect individual cycles."
+            : "";
+
+    chart("sinePlot", {
+        xMin: 0,
+        xMax: endTime,
+        yMin: -1.5,
+        yMax: 1.5,
+        yTicks: [-1.5, -1, -0.5, 0, 0.5, 1, 1.5],
+        xLabel: "Time t (s)",
+        yLabel: "Amplitude",
+        curves: [
+            {
+                points: input,
+                color: colors.input
+            },
+            {
+                points: output,
+                color: colors.output
+            }
+        ]
+    });
+
+    const cutoff = 1 / state.tau;
+
+    bodeMin = Math.min(
+        bodeMin,
+        Math.floor(Math.log10(Math.min(cutoff, omega)))
+    );
+
+    bodeMax = Math.max(
+        bodeMax,
+        Math.ceil(Math.log10(Math.max(cutoff, omega)))
+    );
+
+    const magnitude = [];
+    const phase = [];
+
+    for (let i = 0; i <= 500; i++) {
+        const logOmega =
+            bodeMin + (bodeMax - bodeMin) * i / 500;
+
+        const current = response(state.tau, 10 ** logOmega);
+
+        magnitude.push([logOmega, current.db]);
+        phase.push([logOmega, current.degrees]);
+    }
+
+    const floor = Math.min(
+        -45,
+        Math.floor(result.db / 10) * 10 - 5
+    );
+
+    const common = {
+        xMin: bodeMin,
+        xMax: bodeMax,
+        log: true,
+        xLabel: "ω (rad/s)"
+    };
+
+    chart("magnitudePlot", {
+        ...common,
+        yMin: floor,
+        yMax: 5,
+
+        yTicks: floor === -45
+            ? [-40, -30, -20, -10, 0, 5]
+            : [
+                floor,
+                Math.round(floor * 0.75),
+                Math.round(floor * 0.5),
+                Math.round(floor * 0.25),
+                0
+            ],
+
+        yLabel: "Magnitude (dB)",
+
+        curves: [
+            {
+                points: magnitude,
+                color: colors.input
+            }
+        ],
+
+        markers: [
+            {
+                x: Math.log10(cutoff),
+                y: 20 * Math.log10(1 / Math.sqrt(2)),
+                color: colors.output,
+                line: true,
+                label: `Cutoff: ${fmt(cutoff)} rad/s, −3.01 dB`
+            },
+            {
+                x: Math.log10(omega),
+                y: result.db,
+                color: colors.point,
+                label:
+                    `Selected: ${fmt(omega)} rad/s, ` +
+                    `${result.db.toFixed(2)} dB`
+            }
+        ]
+    });
+
+    chart("phasePlot", {
+        ...common,
+        yMin: -90,
+        yMax: 0,
+        yTicks: [-90, -60, -45, -30, 0],
+        yLabel: "Phase (°)",
+
+        curves: [
+            {
+                points: phase,
+                color: colors.input
+            }
+        ],
+
+        markers: [
+            {
+                x: Math.log10(cutoff),
+                y: -45,
+                color: colors.output,
+                line: true,
+                label: `Cutoff: ${fmt(cutoff)} rad/s, −45°`
+            },
+            {
+                x: Math.log10(omega),
+                y: result.degrees,
+                color: colors.point,
+                label:
+                    `Selected: ${fmt(omega)} rad/s, ` +
+                    `${result.degrees.toFixed(2)}°`
+            }
+        ]
+    });
+}
+
+function schedulePlots() {
+    if (plotFrame !== null) {
+        cancelAnimationFrame(plotFrame);
+    }
+
+    plotFrame = requestAnimationFrame(() => {
+        plotFrame = null;
+        drawPlots();
+    });
+}
+
+/* =====================================
+   PREDICTION EXPERIMENTS
+===================================== */
+
+const experiments = {
+    fUp: {
+        key: "frequency",
+        fixed: "tau",
+        direction: 1,
+        answer: "smaller"
+    },
+
+    fDown: {
+        key: "frequency",
+        fixed: "tau",
+        direction: -1,
+        answer: "larger"
+    },
+
+    tauUp: {
+        key: "tau",
+        fixed: "frequency",
+        direction: 1,
+        answer: "smaller"
+    },
+
+    tauDown: {
+        key: "tau",
+        fixed: "frequency",
+        direction: -1,
+        answer: "larger"
+    }
+};
+
+function predictionStatus() {
+    $("predictionResult").className = "feedback";
+    $("predictionResult").textContent = "";
+}
+
+function resetPrediction() {
+    predictionStart = null;
+    $("prediction").value = "";
+    predictionStatus();
+}
+
+/* =====================================
+   CONTROLS AND LIVE RESULTS
+===================================== */
+
+function sync() {
+    for (const key of ["tau", "frequency"]) {
+        $(key + "Number").value = state[key];
+        $(key + "Slider").value = Math.log10(state[key]);
+
+        $(key + "Slider").setAttribute(
+            "aria-valuetext",
+            fmt(state[key]) + controlUnit(key)
+        );
+    }
+}
+
+function update() {
+    const omega = 2 * Math.PI * state.frequency;
+    const result = response(state.tau, omega);
+    const error = result.error * 100;
+
+    $("omegaText").textContent =
+        `ω = ${fmt(omega)} rad/s`;
+
+    $("magnitudeResult").textContent =
+        result.magnitude.toFixed(4);
+
+    $("phaseResult").textContent =
+        result.degrees.toFixed(2) + "°";
+
+    $("cutoffResult").textContent =
+        Number(
+            (1 / (2 * Math.PI * state.tau)).toPrecision(4)
+        ) + " Hz";
+
+    $("errorResult").textContent =
+        error.toFixed(2) + "%";
+$("errorMagnitude").textContent =
+        "Current amplitude ratio M = " +
+        result.magnitude.toFixed(4);
+
+    $("calculatorError").textContent =
+        error.toFixed(2) + "%";
+
+    $("decimalError").textContent =
+        "δ = " + result.error.toFixed(4);
+
+    $("errorExplanation").textContent =
+        `The output amplitude is ${(-error).toFixed(2)}% ` +
+        "smaller than the input amplitude.";
+
+    predictionStatus();
+    schedulePlots();
+}
+
+for (const key of ["tau", "frequency"]) {
+    $(key + "Slider").addEventListener("input", () => {
+        state[key] = 10 ** Number($(key + "Slider").value);
+
+        sync();
+
+        clearControlMessage();
+        update();
+    });
+
+    $(key + "Number").addEventListener("input", () => {
+        const value = Number($(key + "Number").value);
+        const [min, max] = bounds[key];
+
+        if (
+            !Number.isFinite(value) ||
+            value < min ||
+            value > max
+        ) {
+            $("controlMessage").textContent =
+                `Enter a value from ${min} to ${max}. ` +
+                "The plots retain the last valid settings.";
+
+            return;
+        }
+
+        state[key] = value;
+        $(key + "Slider").value = Math.log10(value);
+
+        $(key + "Slider").setAttribute(
+            "aria-valuetext",
+            fmt(value) + controlUnit(key)
+        );
+
+        clearControlMessage();
+        update();
+    });
+}
+
+$("timeWindow").addEventListener("change", schedulePlots);
+
+window.addEventListener("resize", schedulePlots);
+
+$("scenario").addEventListener("change", resetPrediction);
+
+$("prediction").addEventListener("change", () => {
+    predictionStart = $("prediction").value
+        ? { ...state }
+        : null;
+
+    predictionStatus();
+});
+
+$("checkPrediction").addEventListener("click", () => {
+    if (!predictionStart || !$("prediction").value) {
+        $("predictionResult").textContent =
+            "Choose your prediction first so we can compare it with the result.";
+
+        $("prediction").focus();
+        return;
+    }
+
+    const experiment = experiments[$("scenario").value];
+
+    const fixed =
+        Math.abs(
+            state[experiment.fixed] -
+            predictionStart[experiment.fixed]
+        ) <= 1e-9 * predictionStart[experiment.fixed];
+
+    const moved =
+        (
+            state[experiment.key] -
+            predictionStart[experiment.key]
+        ) * experiment.direction >
+        1e-9 * predictionStart[experiment.key];
+
+    if (!(fixed && moved)) {
+        const [min, max] = bounds[experiment.key];
+
+        const next = Math.min(
+            max,
+            Math.max(
+                min,
+                predictionStart[experiment.key] *
+                (experiment.direction === 1 ? 2 : 0.5)
+            )
+        );
+
+        if (next === predictionStart[experiment.key]) {
+            $("predictionResult").textContent =
+                "This experiment starts at the control limit. " +
+                "Move away from the limit and choose your prediction again, " +
+                "or select the opposite experiment.";
+
+            return;
+        }
+
+        state[experiment.fixed] =
+            predictionStart[experiment.fixed];
+
+        state[experiment.key] = next;
+        sync();
+
+        clearControlMessage();
+        update();
+    }
+    const correct =
+        $("prediction").value === experiment.answer;
+
+    $("predictionResult").className =
+        "feedback " + (correct ? "correct" : "incorrect");
+
+    $("predictionResult").textContent =
+        correct ? "Correct" : "False";
+});
+
+/* =====================================
+   HOMEWORK VALIDATION
+===================================== */
+
+function validation() {
+    const result = response(0.2, 2);
+    const tau = maximumTau(100, 5);
+
+    const rows = [
+        [
+            "2: Amplitude, τ = 0.2 s, ω = 2 rad/s",
+            "0.93 ± 0.005",
+            result.magnitude,
+            0.93,
+            0.005,
+            ""
+        ],
+
+        [
+            "2: Phase lag, τ = 0.2 s, ω = 2 rad/s",
+            "21.8° ± 0.1°",
+            -result.degrees,
+            21.8,
+            0.1,
+            "°"
+        ],
+
+        [
+            "3: Maximum τ, 100 Hz, 5% loss",
+            "0.52 ms ± 0.01 ms",
+            tau * 1000,
+            0.52,
+            0.01,
+            " ms"
+        ],
+
+        [
+            "3: Phase lag at 50 Hz using τmax",
+            "9.3° ± 0.1°",
+            -response(tau, 100 * Math.PI).degrees,
+            9.3,
+            0.1,
+            "°"
+        ]
+    ];
+
+    rows.forEach(
+        ([name, expected, value, target, tolerance, unit]) => {
+            const row = document.createElement("tr");
+
+            const pass =
+                Math.abs(value - target) <= tolerance;
+
+            [
+                name,
+                expected,
+                value.toFixed(4) + unit,
+                pass ? "PASS" : "FAIL"
+            ].forEach((text, index) => {
+                const cell = document.createElement("td");
+
+                cell.textContent = text;
+
+                if (index === 3) {
+                    cell.className = pass ? "pass" : "fail";
+                }
+
+                row.append(cell);
+            });
+
+            $("validationRows").append(row);
+        }
+    );
+}
+
+/* INITIAL DISPLAY */
+
+sync();
+validation();
+update();
+
+</script>
+
+</body>
+</html>
