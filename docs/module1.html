@@ -12,23 +12,20 @@
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 
-<body>
+<body onload="drawResponse()">
 
+    <!-- HEADER -->
     <header class="top-header">
 
-        
-
-            
-            <div>
-                <h2>ENCS4380</h2>
-                <p>Dynamic Characteristics Toolkit</p>
-            </div>
-
-        
+        <div>
+            <h2>ENCS4380</h2>
+            <p>Dynamic Characteristics Toolkit</p>
+        </div>
 
         <nav>
             <a href="index.html">Home</a>
             <a href="module1.html" class="active">Module 1</a>
+            <a href="module2.html">Module 2</a>
         </nav>
 
     </header>
@@ -36,6 +33,7 @@
 
     <main class="module1-container">
 
+        <!-- PAGE TITLE -->
         <section class="module1-title">
 
             <h1>Module 1 — First-Order Time Response</h1>
@@ -48,6 +46,7 @@
         </section>
 
 
+        <!-- SYSTEM MODEL -->
         <section class="module1-equation-section">
 
             <div class="equation-box">
@@ -86,217 +85,283 @@
         </section>
 
 
-        <section class="module1-controls">
+        <!-- PREDICT -->
+        <section class="predict-card">
 
-            <div class="control-card">
-
-                <label for="kSlider">
-                    Gain K:
-                    <span id="kValue">1.0</span>
-                </label>
-
-                <input
-                    type="range"
-                    id="kSlider"
-                    min="0.5"
-                    max="6"
-                    step="0.1"
-                    value="1"
-                >
-
-            </div>
-
-
-            <div class="control-card">
-
-                <label for="tauSlider">
-                    Time Constant τ:
-                    <span id="tauValue">1.0</span> s
-                </label>
-
-                <input
-                    type="range"
-                    id="tauSlider"
-                    min="0.1"
-                    max="6"
-                    step="0.1"
-                    value="1"
-                >
-
-            </div>
-
-
-            <div class="control-card">
-
-                <label for="inputType">
-                    Input Type
-                </label>
-
-                <select id="inputType">
-
-                    <option value="step">
-                        Step
-                    </option>
-
-                    <option value="ramp">
-                        Ramp
-                    </option>
-
-                </select>
-
-            </div>
-
-        </section>
-     <section class="predict-card">
-
-    <h2>Predict, then check</h2>
-
-    
-    <p>
-        What happens to the response when τ increases?
-    </p>
-
-    <select id="predictionTau">
-
-        <option value="">
-            Choose your prediction
-        </option>
-
-        <option value="faster">
-            Response becomes faster
-        </option>
-
-        <option value="slower">
-            Response becomes slower
-        </option>
-
-        <option value="same">
-            Response stays the same
-        </option>
-
-    </select>
-
-    <button id="checkPredictionTau">
-        Check Answer
-    </button>
-
-    <p id="predictionResultTau"></p>
-
-
-    <hr>
-
-
-   
-    <p>
-        What happens to the final output when K increases?
-    </p>
-
-    <select id="predictionK">
-
-        <option value="">
-            Choose your prediction
-        </option>
-
-        <option value="increase">
-            Final output increases
-        </option>
-
-        <option value="decrease">
-            Final output decreases
-        </option>
-
-        <option value="same">
-            Final output stays the same
-        </option>
-
-    </select>
-
-    <button id="checkPredictionK">
-        Check Answer
-    </button>
-
-    <p id="predictionResultK"></p>
-
-</section>
-
-        <section class="module1-response-grid">
-
-            <div class="response-card">
-
-                <h2>Sensor Response</h2>
-
-                <div id="responsePlot"></div>
-
-            </div>
-
-
-            <div class="results-panel">
-
-                <div class="result-card">
-
-                    <p>At t = τ</p>
-
-                    <h2 id="tauResult">
-                        0.0
-                    </h2>
-
-                </div>
-
-
-                <div class="result-card">
-
-                    <p>At t = 3τ</p>
-
-                    <h2 id="threeTauResult">
-                       0.0
-                    </h2>
-
-                </div>
-
-
-                <div class="result-card">
-
-                    <p>Ramp Lag</p>
-
-                    <h2 id="rampLagResult">
-                        —
-                    </h2>
-
-                </div>
-
-
-                <div class="result-card">
-
-                    <p>Steady-State Error</p>
-
-                    <h2 id="steadyErrorResult">
-                        —
-                    </h2>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="error-card">
-
-            <h2>Error Fraction — Log Scale</h2>
+            <h2>Predict, then check</h2>
 
             <p>
-                For the first-order step response,
-                the error fraction decreases exponentially.
+                What happens to the response when τ increases?
             </p>
 
-            <div id="errorPlot"></div>
+            <select id="predictionTau">
+                <option value="">Choose your prediction</option>
+                <option value="faster">Response becomes faster</option>
+                <option value="slower">Response becomes slower</option>
+                <option value="same">Response stays the same</option>
+            </select>
+
+            <button id="checkPredictionTau">
+                Check Answer
+            </button>
+
+            <p id="predictionResultTau"></p>
+
+            <hr>
+
+            <p>
+                What happens to the final output when K increases?
+            </p>
+
+            <select id="predictionK">
+                <option value="">Choose your prediction</option>
+                <option value="increase">Final output increases</option>
+                <option value="decrease">Final output decreases</option>
+                <option value="same">Final output stays the same</option>
+            </select>
+
+            <button id="checkPredictionK">
+                Check Answer
+            </button>
+
+            <p id="predictionResultK"></p>
 
         </section>
 
 
+        <!-- LIVE WORKSPACE -->
+        <section class="module1-workspace">
+
+            <!-- LEFT: CONTROLS -->
+            <aside class="module1-controls">
+
+                <h2 class="controls-title">
+                    CONTROLS
+                </h2>
+
+                <div class="controls-body">
+
+
+                    <!-- K -->
+                    <div class="control-card">
+
+                        <label for="kSlider">
+                            Gain K
+                        </label>
+
+                        <div class="number-row">
+
+                            <span>K =</span>
+
+                            <span
+                                id="kValue"
+                                class="value-box"
+                            >
+                                1
+                            </span>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="kSlider"
+                            min="0.5"
+                            max="6"
+                            step="0.1"
+                            value="1"
+                        >
+
+                    </div>
+
+
+                    <!-- TAU -->
+                    <div class="control-card">
+
+                        <label for="tauSlider">
+                            Time Constant τ
+                        </label>
+
+                        <div class="number-row">
+
+                            <span>τ =</span>
+
+                            <span
+                                id="tauValue"
+                                class="value-box"
+                            >
+                                1
+                            </span>
+
+                            <span>s</span>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="tauSlider"
+                            min="0.1"
+                            max="6"
+                            step="0.1"
+                            value="1"
+                        >
+
+                    </div>
+
+
+                    <!-- INPUT TYPE -->
+                    <div class="control-card input-type-card">
+
+                        <label for="inputType">
+                            Input Type
+                        </label>
+
+                        <select id="inputType">
+
+                            <option value="step">
+                                Step
+                            </option>
+
+                            <option value="ramp">
+                                Ramp
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- LIVE RESULTS 2x2 -->
+                    <div class="control-results">
+
+                        <div class="result-card">
+
+                            <p>At t = τ</p>
+
+                            <h2 id="tauResult">
+                                0.0
+                            </h2>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <p>At t = 3τ</p>
+
+                            <h2 id="threeTauResult">
+                                0.0
+                            </h2>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <p>Ramp Lag</p>
+
+                            <h2 id="rampLagResult">
+                                —
+                            </h2>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <p>Steady-State Error</p>
+
+                            <h2 id="steadyErrorResult">
+                                —
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- RIGHT: GRAPHS -->
+            <div class="plot-area">
+
+
+                <!-- RESPONSE -->
+                <div class="response-card">
+
+                    <div class="plot-header">
+
+                        <h2>
+                            Input &amp; output
+                        </h2>
+
+                        <label
+                            class="window-control"
+                            for="timeWindow"
+                        >
+                            Time window:
+
+                            <select id="timeWindow">
+
+                                <option value="10">
+                                    10 s · Fixed
+                                </option>
+
+                                <option value="5">
+                                    5 s · Fixed
+                                </option>
+
+                                <option value="1">
+                                    1 s · Fixed
+                                </option>
+
+                                <option value="0.1">
+                                    0.1 s · Fixed
+                                </option>
+
+                                <option value="auto">
+                                    Auto
+                                </option>
+
+                            </select>
+
+                        </label>
+
+                    </div>
+
+
+                    <div id="responsePlot"></div>
+
+                </div>
+
+
+                <!-- ERROR -->
+                <div class="error-card">
+
+                    <div class="plot-header">
+
+                        <h2>
+                            Error Fraction — Log Scale
+                        </h2>
+
+                    </div>
+
+                    <div id="errorPlot"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- VALIDATION -->
         <section class="validation-card">
 
-            <h2>Validation Check</h2>
+            <h2>
+                Validation Check
+            </h2>
 
             <div class="validation-row">
 
@@ -326,7 +391,7 @@
                 </span>
 
                 <span id="threeTauValidation">
-                     —
+                    —
                 </span>
 
             </div>

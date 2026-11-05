@@ -6,13 +6,12 @@ body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff 0%,
-            #f7fbf8 60%,
-            #e8f5ec 100%
-        );
+    background: linear-gradient(
+        120deg,
+        #f7fff5,
+        #e7fbe6 55%,
+        #f4fff3
+    );
 
     color: #10251a;
     min-height: 100vh;
@@ -23,58 +22,51 @@ body {
 /* HEADER */
 /* ============================= */
 .top-header {
+    background-color: #087a3e;
+    color: white;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    padding: 22px 7%;
-
-    background: white;
-
-    border-bottom: 1px solid #e1e8e3;
+    padding: 16px 3%;
 }
 
-.university h2 {
-
-    margin: 0;
-
-    color: #075c31;
-
-    font-size: 27px;
-}
-
-
-.university p {
-
-    margin: 4px 0 0;
-
-    font-size: 17px;
-}
-nav {
-
-    display: flex;
-    gap: 18px;
-}
-nav a {
-
-    text-decoration: none;
-
-    color: #1c3025;
-
-    padding: 11px 20px;
-
-    border-radius: 10px;
-
-    font-weight: bold;
-}
-nav a.active {
-
-    background: #087a3e;
-
+.top-header h2 {
     color: white;
+    font-size: 21px;
+    margin: 0;
 }
 
+.top-header p {
+    color: white;
+    font-size: 14px;
+    margin: 0;
+}
+
+.top-header nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-header nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.top-header nav a:hover {
+    background-color: white;
+    color: #087a3e;
+}
+
+.top-header nav a.active {
+    background-color: white;
+    color: #087a3e;
+}
 
 /* ============================= */
 /* HERO */
@@ -413,192 +405,111 @@ nav a:hover,
 /* ============================= */
 
 .module1-container {
-    width: 90%;
-    max-width: 1400px;
-    margin: 40px auto 80px;
+    width: 96%;
+    max-width: 1500px;
+    margin: 24px auto 50px;
 }
 
 .module1-title {
-    text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 24px;
 }
 
 .module1-title h1 {
-    color: #0b2b1b;
-    font-size: 42px;
-    margin-bottom: 10px;
+    color: #075c31;
+    font-size: 30px;
+    margin: 0;
 }
 
 .module1-title p {
-    color: #69736d;
-    font-size: 18px;
+    color: #506451;
+    font-size: 14px;
+    margin-top: 8px;
 }
 
 
-/* Equation + parameter explanation */
+/* ============================= */
+/* SYSTEM MODEL */
+/* ============================= */
 
 .module1-equation-section {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 25px;
-    margin-bottom: 30px;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+
+    background: white;
+    border: 1px solid #c3ddc1;
+    border-radius: 12px;
+
+    padding: 25px;
+    margin-bottom: 24px;
 }
 
 .equation-box,
 .parameter-box {
-    background: white;
-    border: 1px solid #dfe7e1;
-    border-radius: 18px;
-    padding: 25px;
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
 }
 
-.equation-box:hover,
-.parameter-box:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 12px 28px rgba(0, 0, 0, 0.08);
+.parameter-box {
+    border-left: 1px solid #dcebd9;
+    padding-left: 24px;
 }
 
 .equation-box h3,
 .parameter-box h3 {
-    color: #087a3e;
+    color: #075c31;
     margin-top: 0;
 }
 
 .equation {
     font-family: Georgia, serif;
-    font-size: 34px;
-    color: #0b2b1b;
+    font-size: 28px;
+    color: #173d20;
     margin: 20px 0;
 }
 
 .equation-box p,
 .parameter-box p {
-    color: #69736d;
+    color: #506451;
     line-height: 1.6;
 }
 
 
-/* Controls */
-
-.module1-controls {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.control-card {
-    background: white;
-    border: 1px solid #dfe7e1;
-    border-radius: 18px;
-    padding: 22px;
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.control-card:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 12px 28px rgba(0, 0, 0, 0.08);
-}
-
-.control-card label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.control-card input,
-.control-card select {
-    width: 100%;
-}
-
-
-/* Response graph + results */
-
-.module1-response-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 25px;
-    margin-bottom: 30px;
-}
-
-.response-card,
-.result-card,
-.predict-card,
-.error-card,
-.validation-card {
-    background: white;
-    border: 1px solid #dfe7e1;
-    border-radius: 18px;
-    padding: 25px;
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.response-card:hover,
-.result-card:hover,
-.predict-card:hover,
-.error-card:hover,
-.validation-card:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 12px 28px rgba(0, 0, 0, 0.08);
-}
-
-.response-card h2,
-.predict-card h2,
-.error-card h2,
-.validation-card h2 {
-    color: #087a3e;
-}
-
-.results-panel {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-}
-
-.result-card p {
-    margin: 0 0 8px;
-    color: #69736d;
-}
-
-.result-card h2 {
-    margin: 0;
-    color: #087a3e;
-}
-
-
-/* Predict section */
+/* ============================= */
+/* PREDICT THEN CHECK */
+/* ============================= */
 
 .predict-card {
-    margin-bottom: 30px;
+    background: white;
+    border: 1px solid #c3ddc1;
+    border-radius: 12px;
+
+    padding: 25px;
+    margin-bottom: 24px;
+}
+
+.predict-card h2 {
+    color: #075c31;
+    margin-top: 0;
 }
 
 .predict-card select {
     width: 260px;
     max-width: 100%;
-    padding: 10px;
+
+    padding: 9px;
+
+    border: 1px solid #b1c8b1;
+    border-radius: 6px;
 }
 
 .predict-card button {
-    padding: 11px 18px;
+    padding: 11px 20px;
     margin-left: 10px;
 
-    border: none;
+    border: 1px solid #087a3e;
     border-radius: 8px;
 
     background: #087a3e;
@@ -606,44 +517,391 @@ nav a:hover,
 
     font-weight: bold;
     cursor: pointer;
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease;
 }
 
 .predict-card button:hover {
-    transform: translateY(-3px);
     background: #066532;
 }
 
 
-/* Error + validation */
+/* ============================= */
+/* LIVE WORKSPACE */
+/* ============================= */
 
-.error-card,
+.module1-workspace {
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    gap: 16px;
+    align-items: start;
+    margin-bottom: 24px;
+}
+
+
+/* LEFT CONTROLS */
+
+.module1-controls {
+    background: white;
+    border: 1px solid #8bc89a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.controls-title {
+    margin: 0;
+    padding: 8px 14px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #d6f5cd,
+            #bcecbc
+        );
+
+    color: #144c20;
+    font-size: 19px;
+}
+
+.controls-body {
+    padding: 16px;
+}
+
+
+/* EACH CONTROL */
+
+.control-card {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #dfe8dd;
+
+    border-radius: 0;
+
+    padding: 0 0 14px;
+    margin-bottom: 14px;
+}
+
+.control-card:last-of-type {
+    margin-bottom: 12px;
+}
+
+.control-card label {
+    display: block;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    color: #143d1b;
+
+    margin-bottom: 8px;
+}
+
+
+/* NUMBER BOX */
+
+.number-row {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 8px;
+}
+
+.number-row input[type="number"] {
+    width: 110px;
+
+    padding: 7px 9px;
+
+    border: 1px solid #b1c8b1;
+    border-radius: 7px;
+
+    background: white;
+
+    font-size: 15px;
+}
+
+
+/* GREEN SLIDERS */
+
+.control-card input[type="range"] {
+    width: 100%;
+
+    accent-color: #10953c;
+
+    cursor: pointer;
+}
+
+
+/* INPUT TYPE */
+
+.input-type-card select {
+    width: 100%;
+
+    padding: 7px 9px;
+
+    border: 1px solid #b1c8b1;
+    border-radius: 6px;
+
+    background: white;
+}
+
+
+/* ============================= */
+/* RESULTS INSIDE CONTROLS */
+/* ============================= */
+
+.control-results {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 8px;
+
+    margin-top: 4px;
+}
+
+.result-card {
+    border: 1px solid #bbdab8;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            125deg,
+            #edffe7,
+            #d9f4ce
+        );
+
+    padding: 9px 4px;
+
+    text-align: center;
+}
+
+.result-card p {
+    margin: 0 0 4px;
+
+    color: #435a47;
+
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.result-card h2 {
+    margin: 0;
+
+    color: #143d1b;
+
+    font-size: 17px;
+}
+
+
+/* ============================= */
+/* RIGHT SIDE */
+/* ============================= */
+
+.plot-area {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+
+    min-width: 0;
+}
+
+
+/* GRAPH CARDS */
+
+.response-card,
+.error-card {
+    background: white;
+
+    border: 1px solid #8bc89a;
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    padding: 0;
+}
+
+
+/* GREEN GRAPH HEADER */
+
+.plot-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 8px 14px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #d6f5cd,
+            #bcecbc
+        );
+}
+
+.plot-header h2 {
+    margin: 0;
+    padding: 0;
+
+    background: none;
+
+    color: #144c20;
+
+    font-size: 19px;
+}
+
+
+/* TIME WINDOW */
+
+.window-control {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 13px;
+
+    font-weight: normal;
+}
+
+.window-control select {
+    width: 170px;
+
+    padding: 5px 10px;
+
+    border: 1px solid #b1c8b1;
+    border-radius: 8px;
+
+    background: white;
+}
+
+
+/* RESPONSE PLOT */
+
+#responsePlot {
+    width: 100%;
+
+    min-height: 330px;
+}
+
+
+/* ERROR PLOT */
+
+#errorPlot {
+    width: 100%;
+
+    min-height: 260px;
+}
+
+
+/* LEGEND */
+
+.plot-legend {
+    display: flex;
+
+    gap: 20px;
+
+    padding: 0 18px 12px;
+
+    font-size: 12px;
+}
+
+.input-key::before,
+.output-key::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 20px;
+
+    margin-right: 6px;
+
+    vertical-align: middle;
+
+    border-top: 2px solid;
+}
+
+.input-key::before {
+    border-color: #244bff;
+}
+
+.output-key::before {
+    border-color: #10a329;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    .module1-workspace {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* Validation Card */
+
 .validation-card {
+    background: white;
+    border: 1px solid #c3ddc1;
+    border-radius: 12px;
+
+    padding: 24px;
+    margin-top: 24px;
     margin-bottom: 30px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.validation-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.10);
+}
+
+.validation-card h2 {
+    color: #075c31;
+    margin-top: 0;
+    margin-bottom: 18px;
 }
 
 .validation-row {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
 
-    padding: 12px 0;
+    padding: 12px 10px;
 
-    border-bottom: 1px solid #e4e9e5;
+    border-bottom: 1px solid #e1ebdd;
 }
 
+.validation-row:last-child {
+    border-bottom: none;
+}
+/* Hover animation for top cards */
 
-/* Responsive */
-
-@media (max-width: 900px) {
-
-    .module1-equation-section,
-    .module1-controls,
-    .module1-response-grid {
-        grid-template-columns: 1fr;
-    }
-
+.equation-box,
+.parameter-box,
+.predict-card {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
+.equation-box:hover,
+.parameter-box:hover,
+.predict-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.10);
+}
