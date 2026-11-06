@@ -1,4 +1,3 @@
-/* Module 3 interface. Shared model functions live in module3-model.js. */
 (function () {
     'use strict';
     const D = window.Dynamics3;
@@ -60,8 +59,8 @@
         $('poleExplanation').textContent = d.zeta === 0
             ? 'Purely imaginary poles: sustained oscillation with no decay.'
             : d.zeta < 1 ? 'Complex-conjugate poles in the left half-plane: decaying oscillations.'
-            : d.zeta === 1 || d.regime === 'Critically damped' ? 'A repeated negative real pole: critical damping without overshoot.'
-            : 'Two distinct negative real poles: a nonoscillatory approach to equilibrium.';
+                : d.zeta === 1 || d.regime === 'Critically damped' ? 'A repeated negative real pole: critical damping without overshoot.'
+                    : 'Two distinct negative real poles: a nonoscillatory approach to equilibrium.';
         const notes = [];
         if (snapshot.window.limited) notes.push('Auto duration is limited to 300 s. Some measurements may lie beyond the window.');
         if (snapshot.response.resolutionLimited) notes.push('Dense oscillations: select a shorter window to inspect individual cycles.');
@@ -96,8 +95,10 @@
         const derived = D.derive(parameters), auto = D.autoWindow(derived);
         const windowConfig = $('timeWindow').value === 'auto' ? auto : { end: Number($('timeWindow').value), limited: false };
         const measures = D.metrics(parameters, windowConfig.end, derived);
-        snapshot = { parameters: { ...parameters }, derived, metrics: measures, window: windowConfig,
-            response: D.response(parameters, windowConfig.end, derived, measures) };
+        snapshot = {
+            parameters: { ...parameters }, derived, metrics: measures, window: windowConfig,
+            response: D.response(parameters, windowConfig.end, derived, measures)
+        };
         renderMeasurements(); runSolver(); renderCharts();
         // Listeners receive independent copies, so extensions cannot alter simulator state.
         subscribers.forEach(callback => notify(callback));
@@ -138,8 +139,10 @@
         svg.append(node('line', { x1: left, x2: right, y1: Y(f), y2: Y(f), stroke: '#708378', 'stroke-dasharray': '6 4' }));
         curves.forEach(c => {
             const path = c.times.map((t, i) => `${i ? 'L' : 'M'}${X(t).toFixed(2)},${Y(c.values[i]).toFixed(2)}`).join(' ');
-            svg.append(node('path', { d: path, fill: 'none', stroke: c.color, 'stroke-width': c.dashed ? 2 : 2.4,
-                ...(c.dashed ? { 'stroke-dasharray': '6 4' } : {}) }));
+            svg.append(node('path', {
+                d: path, fill: 'none', stroke: c.color, 'stroke-width': c.dashed ? 2 : 2.4,
+                ...(c.dashed ? { 'stroke-dasharray': '6 4' } : {})
+            }));
         });
         if (withMetrics) {
             const m = snapshot.metrics;
@@ -198,7 +201,7 @@
         const repeated = Math.abs(poles[0].re - poles[1].re) < 1e-10 && Math.abs(poles[0].im - poles[1].im) < 1e-10;
         (repeated ? [poles[0]] : poles).forEach((p, i) => {
             const x = X(p.re), y = Y(p.im), g = node('g');
-            g.append(node('path', { d: `M${x-5},${y-5}L${x+5},${y+5}M${x-5},${y+5}L${x+5},${y-5}`, fill: 'none', stroke: '#087a3e', 'stroke-width': 2.5 }));
+            g.append(node('path', { d: `M${x - 5},${y - 5}L${x + 5},${y + 5}M${x - 5},${y + 5}L${x + 5},${y - 5}`, fill: 'none', stroke: '#087a3e', 'stroke-width': 2.5 }));
             g.append(node('title', {}, 'Pole ' + poleString(p)));
             g.append(node('text', { x: x + 9, y: y + (!repeated && i === 1 ? 18 : -9) }, repeated ? '×2' : 'p' + (i + 1))); svg.append(g);
         });

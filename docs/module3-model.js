@@ -1,4 +1,3 @@
-/* Shared second-order mechanics. Browser global and Node export; no dependencies. */
 (function (root, factory) {
     const api = factory();
     if (typeof module === 'object' && module.exports) module.exports = api;
@@ -92,8 +91,10 @@
         } else if (d.zeta >= 1 && normalized(end) >= 0.98) {
             settlingTime = crossing(0, end, t => normalized(t) < 0.98);
         }
-        return { t10, t90, riseTime: t10 === null || t90 === null ? null : t90 - t10,
-            peakTime, peakExists: oscillates, overshootPercent, settlingTime };
+        return {
+            t10, t90, riseTime: t10 === null || t90 === null ? null : t90 - t10,
+            peakTime, peakExists: oscillates, overshootPercent, settlingTime
+        };
     }
     function response(p, end, d = derive(p), measures = metrics(p, end, d)) {
         const periods = end * d.omegaN * Math.sqrt(Math.max(0, 1 - d.zeta ** 2)) / (2 * Math.PI);
@@ -106,8 +107,10 @@
         }
         const time = [...new Set(times)].sort((a, b) => a - b);
         const values = time.map(t => exactAt(t, p, d));
-        return { time, displacement: values.map(v => v.x), velocity: values.map(v => v.v),
-            resolutionLimited: desired > count };
+        return {
+            time, displacement: values.map(v => v.x), velocity: values.map(v => v.v),
+            resolutionLimited: desired > count
+        };
     }
     function derivative(x, v, p) { return [v, (p.force - p.b * v - p.k * x) / p.m]; }
     function integrate(p, end, h, method = 'rk4') {
@@ -143,8 +146,10 @@
                 time.push(next); displacement.push(x); velocity.push(v);
             }
         }
-        return { ok: true, time, displacement, velocity, steps, maxError,
-            rmse: Math.sqrt(squareError / steps), method, h };
+        return {
+            ok: true, time, displacement, velocity, steps, maxError,
+            rmse: Math.sqrt(squareError / steps), method, h
+        };
     }
     function stability(p, h, method) {
         const { poles } = derive(p);
@@ -152,8 +157,10 @@
             const z = { re: h * re, im: h * im };
             let result = { re: 1, im: 0 }, term = { re: 1, im: 0 };
             for (let n = 1; n <= (method === 'euler' ? 1 : 4); n++) {
-                term = { re: (term.re * z.re - term.im * z.im) / n,
-                    im: (term.re * z.im + term.im * z.re) / n };
+                term = {
+                    re: (term.re * z.re - term.im * z.im) / n,
+                    im: (term.re * z.im + term.im * z.re) / n
+                };
                 result.re += term.re; result.im += term.im;
             }
             return Math.hypot(result.re, result.im) <= 1 + 1e-12;
@@ -163,10 +170,14 @@
         const p = { m: 1, b: 2, k: 4, force: 1 };
         const under = metrics(p, 10), critical = metrics({ ...p, b: 4 }, 10);
         return [
-            { check: '4 · ζ = 0.5: peak overshoot', expected: '16.3% ± 0.1 percentage point',
-                value: under.overshootPercent, unit: '%', pass: Math.abs(under.overshootPercent - 16.3) <= 0.1 },
-            { check: '5 · ζ = 1: no overshoot', expected: '0% (tolerance 0.001 percentage point)',
-                value: critical.overshootPercent, unit: '%', pass: Math.abs(critical.overshootPercent) <= 0.001 }
+            {
+                check: '4 · ζ = 0.5: peak overshoot', expected: '16.3% ± 0.1 percentage point',
+                value: under.overshootPercent, unit: '%', pass: Math.abs(under.overshootPercent - 16.3) <= 0.1
+            },
+            {
+                check: '5 · ζ = 1: no overshoot', expected: '0% (tolerance 0.001 percentage point)',
+                value: critical.overshootPercent, unit: '%', pass: Math.abs(critical.overshootPercent) <= 0.001
+            }
         ];
     }
     return { bounds, validate, derive, exactAt, autoWindow, metrics, response, integrate, stability, validations };
