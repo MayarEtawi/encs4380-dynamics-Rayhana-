@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="module3.css">
     <script src="module3-model.js" defer></script>
     <script src="module3.js" defer></script>
+    <script src="module3-state-space.js" defer></script>
 </head>
 <body class="module3-page">
     <a class="skip-link" href="#main">Skip to simulator</a>
@@ -24,7 +25,7 @@
             <p class="eyebrow">MODULE 3 · SECOND-ORDER DYNAMICS</p>
             <h1>Second-order response</h1>
             <p>Explore how mass, damping, and spring stiffness shape a sensor’s response to a sudden force.</p>
-            <nav class="section-links" aria-label="On this page"><a href="#workspace">Simulator</a><a href="#predict">Predict, then check</a><a href="#solver">Solver comparison</a><a href="#validation">Validation</a><a href="#theory">Equations &amp; definitions</a></nav>
+            <nav class="section-links" aria-label="On this page"><a href="#workspace">Simulator</a><a href="#stateSpacePanel">State space</a><a href="#polesComparison">Poles &amp; eigenvalues</a><a href="#predict">Predict, then check</a><a href="#solver">Solver comparison</a><a href="#validation">Validation</a><a href="#theory">Equations &amp; definitions</a></nav>
         </section>
 
         <section class="m3-section model-overview" aria-labelledby="model-title">
@@ -79,17 +80,62 @@
             </div>
         </section>
 
-        <section class="m3-section poles-section" aria-labelledby="poles-title">
-            <div><p class="eyebrow">THE SAME DYNAMICS, ANOTHER VIEW</p><h2 id="poles-title">Poles in the s-plane</h2><p>The poles solve ms² + bs + k = 0. Their horizontal position controls decay; their imaginary part describes oscillation.</p><div id="poleValues" class="pole-values" aria-live="polite"></div><p id="poleExplanation" class="small-note"></p><p class="small-note">A repeated pole is marked ×2. State-space eigenvalues should match these pole values.</p></div>
-            <div id="polesPlot" class="m3-chart pole-chart" aria-label="Poles in the complex plane"></div>
+        <section id="stateSpacePanel" class="m3-section" hidden aria-labelledby="stateSpaceTitle">
+            <div class="section-heading"><div><p class="eyebrow">THE SAME SYSTEM IN MATRIX FORM</p><h2 id="stateSpaceTitle">State-space representation</h2></div><span class="subtle-label">x₁ = x · x₂ = v</span></div>
+            <p>Choose the states x₁ = x (displacement) and x₂ = v (velocity). The matrices follow the m, b and k controls above.</p>
+            <p class="equation small-equation">q̇ = Aq + BF(t) &nbsp; · &nbsp; y = Cq</p>
+            <div class="ss-state-grid">
+                <section class="m3-panel" aria-labelledby="matricesTitle">
+                    <h3 id="matricesTitle" class="panel-title">MATRICES A, B AND C</h3>
+                    <div class="panel-body">
+                        <div class="ss-matrices" aria-live="polite">
+                            <div class="ss-matrix-row"><span>A =</span><div class="ss-matrix ss-symbol ss-two-columns" aria-label="Symbolic A"><span>0</span><span>1</span><span>−k/m</span><span>−b/m</span></div><span>=</span><div id="matrixA" class="ss-matrix"></div></div>
+                            <div class="ss-matrix-row"><span>B =</span><div class="ss-matrix ss-symbol" aria-label="Symbolic B"><span>0</span><span>1/m</span></div><span>=</span><div id="matrixB" class="ss-matrix"></div></div>
+                            <div class="ss-matrix-row"><span>C =</span><div class="ss-matrix ss-symbol ss-two-columns" aria-label="Symbolic C"><span>1</span><span>0</span></div><span>=</span><div id="matrixC" class="ss-matrix"></div></div>
+                        </div>
+                        <p class="small-note">The input is the step force F(t) = F₀ for t ≥ 0; B does not depend on F₀. The output y = x₁ is displacement.</p>
+                        <p class="small-note">ẋ₁ = x₂<br>ẋ₂ = −(k/m)x₁ − (b/m)x₂ + F(t)/m</p>
+                    </div>
+                </section>
+                <section class="m3-panel" aria-labelledby="phasePlaneTitle">
+                    <h3 id="phasePlaneTitle" class="panel-title">Phase plane: velocity against displacement</h3>
+                    <div id="phasePlanePlot" class="m3-chart ss-phase" aria-label="Displacement versus velocity phase plane"></div>
+                    <div class="chart-legend"><span class="legend-line exact-key">Path (x₁, x₂)</span><span>○ Start (0, 0)</span><span>× Equilibrium (F₀/k, 0)</span></div>
+                    <p id="phasePlaneReadout" class="plot-readout" aria-live="off">Move over the path, tap it, or focus the plot and use the arrow keys to follow the motion in time.</p>
+                </section>
+            </div>
         </section>
 
-        <!-- YASMIN: Mount your Module 3 state-space panel here. Keep this section
-             hidden until it contains your working matrices, eigenvalues, phase
-             plane, and validation check 6. See integration-yasmin.md.
-             Use Module3.subscribe(renderStateSpace); do not add new m/b/k controls.
-             Suggested child IDs: matrixA, matrixB, eigenvalues, phasePlanePlot. -->
-        <section id="stateSpacePanel" class="m3-section" hidden aria-label="State-space representation"></section>
+        <section id="polesComparison" class="m3-section poles-section ss-comparison" aria-labelledby="poles-title">
+            <div class="ss-comparison-heading"><p class="eyebrow">THE SAME DYNAMICS, ANOTHER VIEW</p><h2 id="poles-title">Poles in the s-plane</h2><p class="small-note">Two independent calculations describe the same system.</p></div>
+            <section class="m3-panel ss-method-card" aria-labelledby="transferMethodTitle">
+                <h3 id="transferMethodTitle" class="panel-title">Transfer-function poles</h3>
+                <div class="ss-method-body">
+                    <p class="equation small-equation">ms² + bs + k = 0</p>
+                    <p id="poleCharacteristic" class="ss-current-equation"></p>
+                    <div id="poleValues" class="pole-values ss-result-values" aria-live="polite"></div>
+                    <p>The real part controls decay; the imaginary part describes oscillation.</p>
+                    <p id="poleExplanation" class="small-note"></p>
+                    <p class="small-note">A repeated pole is marked ×2.</p>
+                </div>
+            </section>
+            <section class="m3-panel ss-method-card ss-shared-plot" aria-labelledby="sharedPlotTitle">
+                <h3 id="sharedPlotTitle" class="panel-title">Shared s-plane plot</h3>
+                <div id="polesPlot" class="m3-chart pole-chart" aria-label="Poles and independently calculated eigenvalues in the complex plane"></div>
+                <p class="small-note ss-plot-caption">Matching poles and eigenvalues share the same coordinates.</p>
+            </section>
+            <section class="m3-panel ss-method-card ss-eigen-column" aria-labelledby="eigenMethodTitle">
+                <h3 id="eigenMethodTitle" class="panel-title">State-space eigenvalues</h3>
+                <div class="ss-method-body">
+                    <p class="equation small-equation">det(λI − A) = 0</p>
+                    <p id="stateSpaceCharacteristic" class="ss-current-equation"></p>
+                    <div id="eigenvalues" class="pole-values ss-result-values" aria-live="polite"></div>
+                    <p>Calculated independently from the trace and determinant of A.</p>
+                    <p class="small-note">λ² + (b/m)λ + k/m = 0. These eigenvalues should equal the transfer-function poles.</p>
+                </div>
+            </section>
+            <p id="stateSpaceMatch" class="small-note ss-comparison-result" role="status"></p>
+        </section>
 
         <section id="predict" class="m3-section" aria-labelledby="predict-title">
             <p class="eyebrow">PREDICT, THEN CHECK</p><h2 id="predict-title">Make a prediction. Run the experiment.</h2>
@@ -113,8 +159,8 @@
         </section>
 
         <section id="validation" class="m3-section" aria-labelledby="validation-title">
-            <div class="section-heading"><div><h2 id="validation-title">Homework validation · Checks 4 and 5</h2><p>Independent reference cases, unaffected by the current sliders. F₀ = 1 N, m = 1 kg, k = 4 N/m.</p></div><button id="rerunValidation" type="button" class="quiet-button">Run checks again</button></div>
-            <div class="table-wrap"><table class="validation-table"><caption class="sr-only">Expected and calculated second-order reference values</caption><thead><tr><th scope="col">Reference case</th><th scope="col">Expected</th><th scope="col">Calculated</th><th scope="col">Result</th></tr></thead><tbody id="validationRows"></tbody></table></div>
+            <div class="section-heading"><div><h2 id="validation-title">Homework validation · Checks 4, 5 and 6</h2><p>Independent reference cases, unaffected by the current sliders. F₀ = 1 N, m = 1 kg, k = 4 N/m.</p></div><button id="rerunValidation" type="button" class="quiet-button">Run checks again</button></div>
+            <div class="table-wrap"><table class="validation-table"><caption class="sr-only">Expected and calculated second-order reference values</caption><thead><tr><th scope="col">Reference case</th><th scope="col">Expected</th><th scope="col">Calculated</th><th scope="col">Result</th></tr></thead><tbody id="validationRows"></tbody><tbody id="stateSpaceValidationRows"><tr><td>6 · State-space eigenvalues equal poles<br><span class="small-note">m = 1, b = 2, k = 4</span></td><td>−1 ± j1.732 s⁻¹ (±0.001)<br>Match poles within 10⁻⁹ s⁻¹</td><td id="stateSpaceCheckValue"></td><td id="stateSpaceCheckResult"></td></tr></tbody></table></div>
             <p id="validationSummary" class="small-note" role="status"></p>
         </section>
 

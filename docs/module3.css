@@ -711,3 +711,79 @@
         scroll-behavior: auto !important;
     }
 }
+
+/* Yasmin: layout additions; reuse the original Module 3 colors and panels. */
+.ss-model-equations { grid-column: 1 / -1; }
+.model-overview > .ss-model-equations { border-left: 0; padding: 18px 0 0; border-top: 1px solid #dcebd9; }
+.ss-formula-row { display: flex; flex-wrap: wrap; gap: 0 28px; }
+.ss-workspace-panel { margin-top: 18px; }
+.ss-workspace-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(220px, 1fr); gap: 20px; padding: 18px; align-items: start; }
+.ss-workspace-grid > div, .ss-comparison > div { min-width: 0; }
+.ss-live-column { border-left: 1px solid #dcebd9; padding-left: 20px; }
+.ss-matrices { display: flex; flex-wrap: wrap; gap: 18px; margin: 18px 0; }
+.ss-matrix { display: inline-block; border-inline: 2px solid #173d20; border-radius: 5px; padding: 3px 5px; }
+.ss-matrix table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.ss-matrix td { padding: 5px 9px; text-align: right; }
+.ss-phase { min-height: 0; }
+.ss-phase svg { overflow: visible; }
+.ss-grid { stroke: #e3ece1; stroke-width: 1; }
+.ss-axis { stroke: #a9c6ac; stroke-width: 1; }
+.ss-trajectory { fill: none; stroke: #10a329; stroke-width: 2.4; stroke-linejoin: round; }
+.ss-direction { fill: none; stroke: #075c31; stroke-width: 2; }
+.ss-start { fill: white; stroke: #075c31; stroke-width: 2; }
+.ss-end { fill: #10a329; stroke: white; stroke-width: 1; }
+.ss-equilibrium { fill: none; stroke: #708378; stroke-width: 2.5; }
+.ss-legend { margin: 6px 0 12px !important; }
+.poles-section.ss-comparison { grid-template-columns: minmax(0, 1fr) minmax(260px, 1.2fr) minmax(0, 1fr); align-items: start; gap: 24px; }
+.ss-comparison .pole-values { font-size: 20px; overflow-wrap: anywhere; }
+.ss-comparison .small-equation { font-size: 20px; }
+.ss-comparison-result { grid-column: 1 / -1; margin: 0 !important; padding-top: 14px; border-top: 1px solid #dcebd9; }
+.ss-eigen-marker { fill: none; stroke: #075c31; stroke-width: 1.7; }
+.ss-comparison-result.pass { color: #067636; }
+.ss-comparison-result.fail { color: #a11c1c; }
+@media (max-width: 1150px) {
+    .ss-workspace-grid { grid-template-columns: 1fr; }
+    .ss-live-column { border-left: 0; border-top: 1px solid #dcebd9; padding: 18px 0 0; }
+    .poles-section.ss-comparison { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+    .ss-workspace-grid { padding: 14px; gap: 14px; }
+    .ss-matrix td { padding: 5px 7px; }
+    .ss-phase { margin-inline: -8px; width: calc(100% + 16px); }
+}
+
+/* Final arrangement: matrices and phase plane together; eigenvalues below. */
+.ss-state-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 20px; align-items: start; margin-top: 18px; }
+.ss-state-grid > * { min-width: 0; }
+.ss-matrices { display: grid; gap: 18px; margin: 4px 0 20px; }
+.ss-matrix-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-family: Georgia, serif; font-size: 20px; }
+.ss-matrix-row .ss-matrix { flex-shrink: 0; }
+.ss-matrix.ss-symbol { display: inline-grid; grid-template-columns: 1fr; gap: 6px 16px; padding: 8px 12px; text-align: center; font-size: 18px; }
+.ss-matrix.ss-two-columns { grid-template-columns: repeat(2, auto); }
+.ss-phase { margin-top: 12px; }
+.ss-comparison-heading { grid-column: 1 / -1; }
+.ss-inspect-dot { fill: white; stroke: #075c31; stroke-width: 2; }
+.ss-phase:focus-visible { outline: 3px solid #244bff; outline-offset: 3px; }
+@media (max-width: 850px) { .ss-state-grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) {
+    .ss-state-grid { gap: 16px; }
+    .ss-matrix-row { font-size: 18px; gap: 6px; }
+    .ss-matrix.ss-symbol { font-size: 16px; gap: 6px 10px; padding: 6px 8px; }
+    .ss-phase { width: 100%; margin-inline: 0; }
+}
+
+
+/* Cleaner comparison: matching card headers, aligned equations and results. */
+.poles-section.ss-comparison { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr); gap: 18px; align-items: stretch; }
+.ss-comparison-heading { margin-bottom: 2px; }
+.ss-method-card { display: flex; flex-direction: column; }
+.ss-method-card .panel-title { font-size: 17px; padding: 12px 16px; min-height: 50px; display: flex; align-items: center; }
+.ss-method-body { padding: 18px 16px; display: flex; flex-direction: column; gap: 14px; }
+.ss-method-body > p, .ss-method-body > .pole-values { margin: 0; }
+.ss-method-body > p:not(.equation):not(.ss-current-equation) { font-size: 14px; }
+.ss-current-equation { font: 18px Georgia, serif; overflow-wrap: anywhere; }
+.ss-comparison .ss-result-values { padding: 12px; border-radius: 7px; background: #f0faed; font-size: 20px; line-height: 1.8; font-variant-numeric: tabular-nums; }
+.ss-shared-plot .pole-chart { margin-top: 12px; }
+.ss-plot-caption { padding: 0 16px 16px; }
+.ss-comparison-result { padding: 12px 16px; border: 1px solid #dcebd9; border-radius: 7px; background: #f0faed; font-weight: bold; text-align: center; }
+@media (max-width: 1100px) { .poles-section.ss-comparison { grid-template-columns: 1fr; } }
