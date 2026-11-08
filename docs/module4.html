@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Learn sensor dynamics by estimating hidden parameters from noisy response curves." name="description"/>
+<title>Module 4 — Guess the Sensor | Dynamic Characteristics Toolkit</title>
+<link href="style.css" rel="stylesheet"/>
+<link href="module4.css" rel="stylesheet"/>
+<script defer="" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script defer="" src="module3-model.js"></script>
+<script defer="" src="module4.js"></script>
+</head>
+<body class="module4-page">
+<a class="m4-skip" href="#challenge">Skip to challenge</a>
+<header class="top-header site-header">
+<div><h2>ENCS4380</h2><p>Dynamic Characteristics Toolkit</p></div>
+
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="module1.html">Module 1</a>
+            <a href="module2.html">Module 2</a>
+            <a href="module3.html">Module 3</a>
+            <a href="module4.html" class="active" aria-current="page">Module 4</a>
+        </nav>
+</header>
+<main class="m4-container" id="challenge">
+<section aria-labelledby="pageTitle" class="m4-hero">
+<div class="m4-hero-copy">
+<p class="m4-eyebrow">MODULE 04 <span class="m4-dot">·</span> INTERACTIVE LAB</p>
+<h1 id="pageTitle">Guess the <em>Sensor.</em></h1>
+<p>Can you identify a hidden sensor from its response? Study the curve, make your predictions, and see how accurate your estimates are.</p>
+<div aria-label="How the challenge works" class="m4-steps"><span><b>01</b> Observe</span><span aria-hidden="true" class="m4-step-arrow">→</span><span><b>02</b> Predict</span><span aria-hidden="true" class="m4-step-arrow">→</span><span><b>03</b> Estimate</span><span aria-hidden="true" class="m4-step-arrow">→</span><span><b>04</b> Reveal</span></div>
+</div>
+<div aria-hidden="true" class="m4-hero-mark"><svg fill="none" viewbox="0 0 220 170"><path d="M20 120H203M30 150V20" opacity=".35" stroke="currentColor" stroke-width="2"></path><path d="M30 133 C50 129 55 51 79 55 S115 127 139 69 S174 53 200 38" stroke="#16a35b" stroke-linecap="round" stroke-width="5"></path><path d="M30 130 L47 112 L64 71 L82 58 L99 77 L115 108 L135 82 L150 59 L166 54 L183 44 L201 40" opacity=".55" stroke="currentColor" stroke-dasharray="4 9" stroke-width="2"></path><circle cx="139" cy="69" fill="#16a35b" r="7" stroke="white" stroke-width="3"></circle></svg><div class="m4-hero-mini">ANALYZE THE UNKNOWN</div></div>
+</section>
+<section aria-label="Your game statistics" class="m4-summary">
+<div class="m4-stat"><span aria-hidden="true" class="m4-stat-icon">◷</span><div><span>Current round</span><strong id="roundNumber">1</strong></div></div>
+<div class="m4-stat"><span aria-hidden="true" class="m4-stat-icon">★</span><div><span>Total session score</span><strong id="sessionScore">0 / 0</strong></div></div>
+<div class="m4-stat"><span aria-hidden="true" class="m4-stat-icon">↗</span><div><span>Best round</span><strong id="bestScore">—</strong></div></div>
+</section>
+<div class="m4-workspace">
+<div class="m4-primary">
+<section aria-labelledby="observeHeading" class="m4-panel m4-graph-panel">
+<div class="m4-panel-heading"><div><p class="m4-section-kicker">STEP 01 / OBSERVE</p><h2 id="observeHeading">Hidden sensor response</h2><p class="m4-subtitle">The model and input are visible. The parameters are not.</p></div><span class="m4-tag" id="sensorKind">Loading…</span></div>
+<div class="m4-details"><div><span>Model</span><strong id="modelLabel">—</strong></div><div><span>Input signal</span><strong id="inputLabel">—</strong></div><div><span>Time range</span><strong id="windowLabel">—</strong></div></div>
+<div class="m4-chart-wrap"><div class="m4-chart-title"><span aria-hidden="true" class="m4-plot-indicator"></span> Measured output <small>simulated sensor data</small></div><div aria-label="Noisy measured response of an unknown sensor" class="m4-plot" id="sensorPlot" role="img"></div></div>
+<div class="m4-tip"><span aria-hidden="true">ⓘ</span><p><strong>Reading the plot:</strong> Small fluctuations represent simulated noise. Focus on the overall curve shape instead of individual points.</p></div>
+</section>
+
+</div>
+<aside aria-label="Your challenge controls" class="m4-secondary"><section aria-labelledby="predictionHeading" class="m4-panel m4-predict-panel"><div class="m4-panel-heading"><div><p class="m4-section-kicker">STEP 02 / THINK FIRST</p><h2 id="predictionHeading">Predict, then check</h2><p class="m4-subtitle">Test your understanding before revealing the sensor.</p></div></div><div class="m4-predict-body"><p class="m4-question" id="predictQuestion">—</p><div class="m4-inline"><select aria-label="Choose your prediction" id="predictAnswer"><option value="">Choose your prediction</option><option value="a">Option A</option><option value="b">Option B</option><option value="c">Option C</option></select><button class="secondary" id="checkPrediction" type="button">Check answer</button></div><p aria-live="polite" class="m4-feedback" id="predictFeedback"></p></div></section>
+<section aria-labelledby="guessHeading" class="m4-panel m4-guess-panel">
+<div class="m4-panel-heading"><div><p class="m4-section-kicker">STEP 03 / YOUR TURN</p><h2 id="guessHeading">Make your estimate</h2><p class="m4-subtitle" id="guessHelp">Enter your estimates based on the curve.</p></div></div>
+<form id="guessForm" novalidate=""><div class="m4-inputs"><label for="guessOne"><span id="labelOne">Gain K</span><input autocomplete="off" id="guessOne" min="0.0001" placeholder="Enter your estimate" required="" step="any" type="number"/></label><label for="guessTwo"><span id="labelTwo">Time constant τ (s)</span><input autocomplete="off" id="guessTwo" min="0.0001" placeholder="Enter your estimate" required="" step="any" type="number"/></label></div><p class="m4-feedback" id="guessError" role="alert"></p><div class="m4-actions"><button class="m4-primary-btn" id="submitGuess" type="submit">Reveal &amp; score <span aria-hidden="true">→</span></button><button class="secondary" id="newSensor" type="button">↻ New sensor</button></div></form>
+<div class="m4-hint-area"><div class="m4-hint-heading"><span>Need a little help?</span><button class="secondary m4-small-btn" id="hintButton" type="button">Show hint</button></div><p class="m4-hint" hidden="" id="hintText"></p></div>
+</section>
+<section aria-live="polite" class="m4-panel m4-results" hidden="" id="results"><p class="m4-section-kicker">STEP 04 / THE REVEAL</p><h2>Your results</h2><p class="m4-score" id="roundScore"></p><div class="m4-result-grid" id="parameterResults"></div><p class="m4-result-explanation" id="resultExplanation"></p><p class="m4-note">On the graph: solid green = true response; dashed orange = your estimate; gray dots = measured data.</p></section>
+<section class="m4-panel m4-scoring-panel"><h3>How scoring works</h3><div class="m4-points"><strong>100 <small>pts / round</small></strong><span>50 points per parameter</span></div><p>Estimate a parameter within <strong>10%</strong> of the hidden value to earn its full 50 points. Further errors receive partial credit.</p><p class="m4-note">Starting another round without a guess does not add points to your score.</p></section>
+</aside>
+</div>
+<section aria-labelledby="guideHeading" class="m4-guide"><div class="m4-guide-heading"><div><p class="m4-section-kicker">QUICK REFERENCE</p><h2 id="guideHeading">How to read a response curve</h2><p>Use the methods from Modules 1 and 3 to estimate the hidden values.</p></div></div><div class="m4-methods"><article><span class="m4-guide-number">01</span><h3>First-order · step</h3><p>For a unit-step input, the final output gives <strong>K</strong>. The time to reach 63.2% of that output gives <strong>τ</strong>.</p><div class="m4-formula">y(t) = K(1 − e<sup>−t/τ</sup>)</div></article><article><span class="m4-guide-number">02</span><h3>First-order · sine</h3><p>Use the measured phase lag and known input frequency to estimate <strong>τ</strong>; then use the output amplitude to estimate <strong>K</strong>.</p><div class="m4-formula">M = 1 / √(1 + (ωτ)²)</div></article><article><span class="m4-guide-number">03</span><h3>Second-order · step</h3><p>Read the percentage overshoot to estimate <strong>ζ</strong>, then use the first peak time to estimate <strong>ω<sub>n</sub></strong>.</p><div class="m4-formula">M<sub>p</sub> = e<sup>−πζ/√(1−ζ²)</sup></div></article></div></section>
+
+    <footer class="site-footer" aria-label="Module navigation">
+        <span>ENCS4380 · Dynamic Characteristics Toolkit</span>
+        <a class="back-modules" href="index.html">← Back to all modules</a>
+    </footer>
+
+</main>
+</body>
+</html>

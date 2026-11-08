@@ -15,18 +15,20 @@
 <body onload="drawResponse()">
 
     <!-- HEADER -->
-    <header class="top-header">
+    <header class="top-header site-header">
 
         <div>
             <h2>ENCS4380</h2>
             <p>Dynamic Characteristics Toolkit</p>
         </div>
 
-        <nav>
+        
+        <nav class="site-nav" aria-label="Main navigation">
             <a href="index.html">Home</a>
-            <a href="module1.html" class="active">Module 1</a>
+            <a href="module1.html" class="active" aria-current="page">Module 1</a>
             <a href="module2.html">Module 2</a>
             <a href="module3.html">Module 3</a>
+            <a href="module4.html">Module 4</a>
         </nav>
 
     </header>
@@ -399,7 +401,13 @@
 
         </section>
 
-    </main>
+    
+    <footer class="site-footer" aria-label="Module navigation">
+        <span>ENCS4380 · Dynamic Characteristics Toolkit</span>
+        <a class="back-modules" href="index.html">← Back to all modules</a>
+    </footer>
+
+</main>
 
 
     <script src="script.js"></script>

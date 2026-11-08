@@ -696,25 +696,72 @@
         .actions button:disabled:hover { transform: none; box-shadow: none; }
         nav.section-links a:focus-visible, .actions button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 
+
+        /* Match the shared header used by Modules 1, 3 and 4. */
+        header.site-header {
+            padding: 16px 3%;
+            gap: 16px;
+            flex-wrap: wrap;
+            text-align: left;
+        }
+        header.site-header .site-brand h2 {
+            margin: 0;
+            color: #fff;
+            font: 700 21px/1.25 Arial, Helvetica, sans-serif;
+        }
+        header.site-header .site-brand p {
+            margin: 0;
+            color: #fff;
+            font: 400 14px/1.35 Arial, Helvetica, sans-serif;
+        }
+        header.site-header nav.site-nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+        header.site-header nav.site-nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 9px 13px;
+            border-radius: 9px;
+            color: #fff;
+            font: 600 14px/1.3 Arial, Helvetica, sans-serif;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        header.site-header nav.site-nav a.active,
+        header.site-header nav.site-nav a:hover,
+        header.site-header nav.site-nav a:focus-visible {
+            background: #fff;
+            color: #075c31;
+        }
+        @media (max-width: 650px) {
+            header.site-header { align-items: flex-start; }
+            header.site-header nav.site-nav { width: 100%; gap: 6px; }
+            header.site-header nav.site-nav a { padding: 9px 11px; font-size: 13px; }
+        }
     </style>
 </head>
 
-<body>
+<body class="module2-page">
 
-<header>
-    <div class="brand">
-        ENCS4380 / Dynamic Characteristics Toolkit
+<header class="site-header">
+    <div class="site-brand">
+        <h2>ENCS4380</h2>
+        <p>Dynamic Characteristics Toolkit</p>
     </div>
 
-    <nav aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="module1.html">Module 1</a>
-        <a href="module3.html">Module 3</a>
-
-        <a href="module2.html" class="active" aria-current="page">
-            Module 2
-        </a>
-    </nav>
+    
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="module1.html">Module 1</a>
+            <a href="module2.html" class="active" aria-current="page">Module 2</a>
+            <a href="module3.html">Module 3</a>
+            <a href="module4.html">Module 4</a>
+        </nav>
 </header>
 
 <main>
@@ -1112,6 +1159,12 @@
     <noscript>
         Enable JavaScript to use the calculations and plots.
     </noscript>
+
+
+    <footer class="site-footer" aria-label="Module navigation">
+        <span>ENCS4380 · Dynamic Characteristics Toolkit</span>
+        <a class="back-modules" href="index.html">← Back to all modules</a>
+    </footer>
 
 </main>
 

@@ -13,11 +13,15 @@
 </head>
 <body class="module3-page">
     <a class="skip-link" href="#main">Skip to simulator</a>
-    <header class="top-header">
+    <header class="top-header site-header">
         <div><h2>ENCS4380</h2><p>Dynamic Characteristics Toolkit</p></div>
-        <nav aria-label="Main navigation">
-            <a href="index.html">Home</a><a href="module1.html">Module 1</a>
-            <a href="module2.html">Module 2</a><a href="module3.html" class="active" aria-current="page">Module 3</a>
+        
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="module1.html">Module 1</a>
+            <a href="module2.html">Module 2</a>
+            <a href="module3.html" class="active" aria-current="page">Module 3</a>
+            <a href="module4.html">Module 4</a>
         </nav>
     </header>
     <main id="main" class="m3-container">
@@ -170,7 +174,12 @@
             <details><summary>Rise time, peak, overshoot, and settling</summary><p>Rise time is the first 90% crossing minus the first 10% crossing of the equilibrium displacement. For ζ &lt; 1, the first peak occurs at π/ω<sub>d</sub>; its overshoot is 100(x<sub>peak</sub>/f − 1)%. The equivalent formula is 100e<sup>−πζ/√(1−ζ²)</sup>.</p><p>Settling time is the final entry into [0.98f, 1.02f], after which the exact response remains in the band. It is found from exact crossings, rather than the approximate 4/(ζω<sub>n</sub>) rule. Values outside the selected time window are reported as outside the window. Zero damping has no settling time.</p></details>
             <details><summary>Euler and Runge–Kutta methods</summary><p>With state q = [x, v] and derivative g(q) = [v, (F₀ − bv − kx)/m], Euler uses q<sub>n+1</sub> = q<sub>n</sub> + hg(q<sub>n</sub>). Both state components use the old state.</p><p>RK4 uses a₁ = g(q), a₂ = g(q + ha₁/2), a₃ = g(q + ha₂/2), a₄ = g(q + ha₃), then q<sub>n+1</sub> = q + h(a₁ + 2a₂ + 2a₃ + a₄)/6. The last step is shortened when necessary to end at the exact plot duration.</p></details>
         </section>
-        <footer class="m3-footer"><p>ENCS4380 · Dynamic Characteristics Toolkit · Module 3</p><a href="index.html">← Back to all modules</a></footer>
+        
+    <footer class="site-footer" aria-label="Module navigation">
+        <span>ENCS4380 · Dynamic Characteristics Toolkit</span>
+        <a class="back-modules" href="index.html">← Back to all modules</a>
+    </footer>
+
     </main>
 </body>
 </html>

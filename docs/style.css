@@ -905,3 +905,114 @@ nav a:hover,
     box-shadow:
         0 10px 24px rgba(0, 0, 0, 0.10);
 }
+
+/* Shared navigation: Home and Modules 1–4 */
+/* Shared navigation and bottom return link across every toolkit page. */
+.site-header {
+    background: linear-gradient(110deg, #07612f, #098142) !important;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px 3%;
+}
+.site-header .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.site-header .site-nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 13px;
+    border-radius: 9px;
+    color: white;
+    font-size: 14px;
+    line-height: 1.3;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    min-height: 40px;
+}
+.site-header .site-nav a:hover,
+.site-header .site-nav a:focus-visible,
+.site-header .site-nav a.active {
+    background: white;
+    color: #075c31;
+}
+.site-header .site-nav a:focus-visible,
+.site-footer .back-modules:focus-visible {
+    outline: 3px solid #244bff;
+    outline-offset: 2px;
+}
+.site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 32px 0 20px;
+    padding: 22px 0;
+    border-top: 1px solid #cde5d0;
+    color: #4b6955;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+.site-footer .back-modules {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 18px;
+    min-height: 44px;
+    border-radius: 9px;
+    border: 1px solid #087a3e;
+    background: #087a3e;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .2s ease;
+}
+.site-footer .back-modules:hover { background: #066532; color: white; }
+@media(max-width:650px) {
+    .site-header { align-items: flex-start; }
+    .site-header .site-nav { width: 100%; gap: 6px; }
+    .site-header .site-nav a { padding: 9px 11px; font-size: 13px; }
+    .site-footer { flex-direction: column; align-items: stretch; text-align: center; }
+    .site-footer .back-modules { width: 100%; }
+}
+
+/* Uniform toolkit branding across all pages, including Module 2. */
+.site-header > .site-brand h2 {
+    margin: 0;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+.site-header > .site-brand p {
+    margin: 3px 0 0;
+    color: rgba(255,255,255,.9);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+}
+/* On Module 2, keep the large title distinctly above the smaller explanation. */
+.module2-page .module-intro .page-title {
+    color: #075c31;
+    font-size: clamp(26px, 2.5vw, 34px);
+    font-weight: 700;
+    line-height: 1.25;
+}
+.module2-page .module-intro > p:not(.module-eyebrow) {
+    color: #506451;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.55;
+}
