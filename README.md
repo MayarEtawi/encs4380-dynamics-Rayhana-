@@ -1,70 +1,98 @@
-# ENCS4380 — Dynamic Characteristics Toolkit
+# Dynamic Characteristics Toolkit
 
-An interactive educational toolkit for exploring sensor dynamics, built for ENCS4380 Interfacing Techniques at Birzeit University.
+**ENCS4380 · Interfacing Techniques · Birzeit University**
 
-**Website:** [Open the toolkit](https://mayaretawi.github.io/encs4380-dynamics-Rayhana-/)
+An interactive toolkit for exploring how sensors respond to changing inputs through live simulations, response plots, and prediction experiments.
 
-## Modules and responsibilities
+🌐 **Live website:** [Open the toolkit](YOUR_GITHUB_PAGES_URL)
 
-| Module | Focus | Responsibility |
-| --- | --- | --- |
-| 1 | First-order step and ramp responses | Mayar |
-| 2 | First-order frequency response | Yasmin |
-| 3 | Second-order response, measurements, poles, Euler/RK4 comparison | Maryam |
-| 3, state-space panel | Matrices, eigenvalues, phase plane, validation check 6 | Yasmin |
-| 4 | Guess the sensor | Group's Module 4 owner |
+---
 
-Modules 1–3 are linked from the homepage. Module 4 remains under development. Yasmin's state-space panel has an integration location and shared data interface ready; its implementation remains with Yasmin.
+## 📈 Module 01 · Time Response
 
-## Module 3
+Explore first-order step and ramp responses, time constant, and error fraction.
 
-- Shared mass, damping, stiffness, and force controls, with editable number fields and sliders.
-- Exact underdamped, critically damped, and overdamped step responses; an undamped boundary case.
-- Live damping ratio, natural frequency, and equilibrium displacement.
-- 10–90% rise time, first peak time, percentage overshoot, and exact ±2% settling time.
-- Poles plotted in the complex plane, including repeated poles.
-- Three prediction experiments with feedback and restoration of previous settings.
-- Explicit Euler and fourth-order Runge–Kutta solvers, overlaid on the exact response, with error measurements and stability feedback.
-- Visible homework validation checks 4 and 5.
-- Responsive layout, keyboard controls, touch inspection, and expandable equation explanations.
-- No new libraries, build tools, backend, or account required to use this module.
+<details>
+<summary>👤 Contributor · About this module · AI assistance</summary>
 
-### Preview
+**Developed by:** [Name]
 
-![Module 3 step-response simulator](docs/screenshots/module3-overview-20261106.jpg)
+**About this module:**  
+Interactive gain and time-constant controls show how a sensor responds to step and ramp inputs. Includes prediction experiments, adjustable time windows, and validation of the 63.2% and 95% response values.
 
-### Integration and maintenance
+**AI assistance:**  
+Assisted with interface styling, equation formatting, updating prediction interactions, and fixing the time-window controls.
 
-- [Yasmin's integration instructions](docs/integration-yasmin.md)
-- [Module 3 model and implementation guide](docs/module3-guide.md)
-- Mathematical functions: `docs/module3-model.js`.
-- Interface and shared subscription API: `docs/module3.js`.
-- Page: `docs/module3.html`; additional styling: `docs/module3.css`.
+</details>
 
-The model is force-to-displacement: `m*x'' + b*x' + k*x = F(t)`. All trajectories use physical units, zero initial conditions, and equilibrium displacement `F₀/k`.
+---
 
-## Run locally
+## 🌊 Module 02 · Frequency Response
 
-Open the repository folder in VS Code. Open `docs/index.html` with a local web preview extension, or serve the folder using Python:
+Explore sine responses, amplitude ratio, phase lag, Bode plots, and dynamic error.
 
-```sh
-python -m http.server 8000 --directory docs
-```
+<details>
+<summary>👤 Contributor · About this module · AI assistance</summary>
 
-Then open `http://localhost:8000`. Module 3 can also be opened directly as `docs/module3.html`.
+**Developed by:** [Name]
 
-## Verify the mathematical model
+**About this module:**  
+Compare input and output sine waves while changing the time constant and frequency. Inspect the cutoff frequency and calculate dynamic error using live plots and calculators.
 
-With Node.js installed, from the repository root:
+**AI assistance:**  
+Assisted with visual consistency, title and navigation styling, equation formatting, and reviewing validation calculations.
 
-```sh
-node --test tests/module3-model.test.cjs
-```
+</details>
 
-Tests cover independent reference responses, continuity around critical damping, measured crossings, pole consistency, force scaling, solver convergence, numerical stability, and invalid inputs.
+---
 
-## GitHub Pages
+## ⚙️ Module 03 · Second-Order Response
 
-Publish from the `main` branch and `/docs` folder in repository Settings → Pages. Branch changes appear on the public website after merging into `main` and a successful Pages deployment.
+Explore damping, response measurements, poles, state-space representation, and Euler/RK4 comparison.
 
-Keep each member's work in their own commits. The final group release, Module 4, remaining state-space work, final screenshots, and submission are coordinated by the relevant group owners.
+<details>
+<summary>👤 Contributors · About this module · AI assistance</summary>
+
+**Developed by:** [Name]  
+**State-space panel:** [Name]
+
+**About this module:**  
+Simulate a mass–spring–damper system and compare underdamped, critically damped, and overdamped responses. View response measurements, poles, eigenvalues, phase-plane trajectories, and numerical solver results.
+
+**AI assistance:**  
+Assisted with introduction styling, formatting mathematical expressions as fractions, and reviewing the displayed validation checks.
+
+</details>
+
+---
+
+## 🎯 Module 04 · Guess the Sensor
+
+Estimate hidden sensor parameters from noisy responses and score your guesses.
+
+<details>
+<summary>👤 Contributor · About this module · AI assistance</summary>
+
+**Developed by:** [Name]
+
+**About this module:**  
+A randomly generated sensor produces a noisy response. Estimate its parameters, request a hint, reveal the true values, and compare your guess with the true response. Scores accumulate throughout the session.
+
+**AI assistance:**  
+Assisted with equation formatting and reviewing scoring and new-round interactions.
+
+</details>
+
+---
+
+## 🚀 Run locally
+
+1. Download or clone the repository.
+2. Open `docs/index.html` in a browser.
+3. Choose a module to start exploring.
+
+An internet connection is required to load Plotly for Modules 1 and 4.
+
+## 🛠️ Built with
+
+HTML · CSS · JavaScript · Plotly.js
