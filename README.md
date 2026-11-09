@@ -18,7 +18,15 @@ Explore first-order step and ramp responses, time constant, and error fraction.
 **Developed by:** Mayar Etawi
 
 **About this module:**  
-Interactive gain and time-constant controls show how a sensor responds to step and ramp inputs. Includes prediction experiments, adjustable time windows, and validation of the 63.2% and 95% response values.
+Module 1 explores the time response of a first-order sensor using interactive simulations. Users can adjust the gain \(K\) and time constant \(\tau\) and immediately observe how these parameters affect the system response.
+
+The module supports both **step** and **ramp** inputs, with dynamically updated input and output plots. It also provides adjustable and automatic time windows so important response points remain visible during the simulation.
+
+For step inputs, the module evaluates the response at \(t=\tau\) and \(t=3\tau\), and validates the expected first-order response values of approximately **63.2%** and **95%**.
+
+A logarithmic error plot is also included to illustrate how the response error decreases with time and to show the relationship between the slope and the time constant, where the slope is \(-1/\tau\).
+
+The **Predict, Then Check** experiment allows users to predict how increasing \(K\) or \(\tau\) will affect the response before running the experiment, making the module more interactive and focused on understanding the physical meaning of first-order system parameters.
 
 **AI assistance:**  
 Assisted with interface styling, equation formatting, updating prediction interactions, and fixing the time-window controls.
