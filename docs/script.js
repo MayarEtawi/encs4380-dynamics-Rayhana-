@@ -8,7 +8,20 @@ const tauValue = document.getElementById("tauValue");
 const timeWindow = document.getElementById("timeWindow");
 timeWindow.onchange = drawResponse;
 function windowEnd() {
-    return timeWindow.value === "auto" ? 6 * Number(tauSlider.value) : Number(timeWindow.value);
+
+    const tau = Number(tauSlider.value);
+
+    if (timeWindow.value === "auto") {
+        return 6 * tau;
+    }
+
+    const selectedWindow =
+        Number(timeWindow.value);
+
+    return Math.max(
+        selectedWindow,
+        3 * tau
+    );
 }
 
 
@@ -36,9 +49,12 @@ function drawResponse() {
     let input = [];
     let output = [];
 
-
     const end = windowEnd();
+
+
+    // Generate curve data
     for (let i = 0; i <= 600; i++) {
+
         const t = end * i / 600;
 
         time.push(t);
@@ -54,7 +70,6 @@ function drawResponse() {
             output.push(y);
         }
 
-
         else {
 
             input.push(t);
@@ -67,6 +82,7 @@ function drawResponse() {
     }
 
 
+    // INPUT GRAPH
     let inputGraph = {
 
         x: time,
@@ -82,6 +98,7 @@ function drawResponse() {
     };
 
 
+    // OUTPUT GRAPH
     let outputGraph = {
 
         x: time,
@@ -91,6 +108,11 @@ function drawResponse() {
 
         name: "Output"
     };
+
+
+    // Dynamic Y axis
+    const maxY =
+        Math.max(...input, ...output);
 
 
     let layout = {
@@ -104,7 +126,7 @@ function drawResponse() {
 
         yaxis: {
             title: "Amplitude",
-            range: [0, 1.08 * Math.max(1, ...input, ...output)]
+            range: [0, maxY * 1.1]
         }
     };
 
@@ -119,107 +141,190 @@ function drawResponse() {
     );
 
 
+    // STEP RESPONSE
     if (inputType.value === "step") {
 
-    let yAtTau =
-        K * (1 - Math.exp(-1));
 
-    let yAtThreeTau =
-        K * (1 - Math.exp(-3));
+        // Read value from plotted curve
+        function valueFromCurve(targetTime) {
 
-    let percentAtTau =
-        (yAtTau / K) *100;
+            if (targetTime > end) {
+                return null;
+            }
 
-    let percentAtThreeTau =
-        (yAtThreeTau / K)*100 ;
-
-
-    document.getElementById("tauResult").textContent =
-        yAtTau.toFixed(3);
-
-    document.getElementById("threeTauResult").textContent =
-        yAtThreeTau.toFixed(3);
+            let closestIndex = 0;
+            let smallestDifference = Infinity;
 
 
-    document.getElementById("tauValidation").textContent =
-        Math.abs(percentAtTau - 63.2) < 0.2
-            ? "PASS"
-            : "FAIL";
+            for (let i = 0; i < time.length; i++) {
 
-    document.getElementById("threeTauValidation").textContent =
-        Math.abs(percentAtThreeTau - 95) < 0.3
-            ? "PASS"
-            : "FAIL";
+                const difference =
+                    Math.abs(time[i] - targetTime);
 
 
-    document.getElementById("rampLagResult").textContent =
-        "—";
+                if (difference < smallestDifference) {
 
-    document.getElementById("steadyErrorResult").textContent =
-        "—";
+                    smallestDifference =
+                        difference;
+
+                    closestIndex =
+                        i;
+                }
+            }
 
 
-    drawError();
-}
+            return output[closestIndex];
+        }
 
+
+        const yAtTau =
+            valueFromCurve(tau);
+
+        const yAtThreeTau =
+            valueFromCurve(3 * tau);
+
+
+        // t = tau
+        if (yAtTau !== null) {
+
+            const percentAtTau =
+                (yAtTau / K) * 100;
+
+
+            document.getElementById("tauResult").textContent =
+                yAtTau.toFixed(3);
+
+
+            document.getElementById("tauValidation").textContent =
+                Math.abs(percentAtTau - 63.2) < 0.5
+                    ? "PASS"
+                    : "FAIL";
+        }
+
+        else {
+
+            document.getElementById("tauResult").textContent =
+                "Out of range";
+
+            document.getElementById("tauValidation").textContent =
+                "—";
+        }
+
+
+        // t = 3 tau
+        if (yAtThreeTau !== null) {
+
+            const percentAtThreeTau =
+                (yAtThreeTau / K) * 100;
+
+
+            document.getElementById("threeTauResult").textContent =
+                yAtThreeTau.toFixed(3);
+
+
+            document.getElementById("threeTauValidation").textContent =
+                Math.abs(percentAtThreeTau - 95) < 0.5
+                    ? "PASS"
+                    : "FAIL";
+        }
+
+        else {
+
+            document.getElementById("threeTauResult").textContent =
+                "Out of range";
+
+            document.getElementById("threeTauValidation").textContent =
+                "—";
+        }
+
+
+        document.getElementById("rampLagResult").textContent =
+            "—";
+
+        document.getElementById("steadyErrorResult").textContent =
+            "—";
+
+
+        drawError();
+    }
+
+
+    // RAMP RESPONSE
     else {
 
-    document.getElementById("tauResult").textContent =
-        "—";
+        document.getElementById("tauResult").textContent =
+            "—";
 
-    document.getElementById("threeTauResult").textContent =
-        "—";
+        document.getElementById("threeTauResult").textContent =
+            "—";
 
-    document.getElementById("rampLagResult").textContent =
-        tau.toFixed(1) + " s";
 
-    document.getElementById("steadyErrorResult").textContent =
-        (K * tau).toFixed(2);
+        document.getElementById("rampLagResult").textContent =
+            tau.toFixed(1) + " s";
 
-    document.getElementById("tauValidation").textContent =
-        "—";
 
-    document.getElementById("threeTauValidation").textContent =
-        "—";
+        document.getElementById("steadyErrorResult").textContent =
+            (K * tau).toFixed(2);
 
-    Plotly.purge("errorPlot");
+
+        document.getElementById("tauValidation").textContent =
+            "—";
+
+        document.getElementById("threeTauValidation").textContent =
+            "—";
+
+
+        Plotly.purge("errorPlot");
+    }
 }
-}
+
+
+   
 function drawError() {
 
     const tau = parseFloat(tauSlider.value);
 
     let time = [];
-    let error = [];
-
+    let logError = [];
 
     const end = windowEnd();
+
     for (let i = 0; i <= 600; i++) {
+
         const t = end * i / 600;
+
+        const errorValue =
+            Math.exp(-t / tau);
 
         time.push(t);
 
-        let errorValue =
-            Math.exp(-t / tau);
-
-        error.push(errorValue);
+        logError.push(
+            Math.log(errorValue)
+        );
     }
+
+
+    const slope =
+        -1 / tau;
 
 
     let errorGraph = {
 
         x: time,
-        y: error,
+        y: logError,
 
         mode: "lines",
 
-        name: "Error Fraction"
+        name: "ln(Error Fraction)"
     };
 
 
     let layout = {
 
-        title: "Error Fraction",
+        title:
+            "Log Error — Slope = " +
+            slope.toFixed(3) +
+            " s⁻¹",
 
         xaxis: {
             title: "Time (s)",
@@ -227,17 +332,37 @@ function drawError() {
         },
 
         yaxis: {
-            title: "Error",
-            type: "log"
-        }
+            title: "ln(Error Fraction)"
+        },
+
+        annotations: [
+            {
+                x: end * 0.65,
+
+                y:
+                    slope *
+                    end *
+                    0.65,
+
+                text:
+                    "Slope = -1/τ = " +
+                    slope.toFixed(3),
+
+                showarrow: true
+            }
+        ]
     };
-    Plotly.newPlot( "errorPlot",[errorGraph], layout,
+
+
+    Plotly.newPlot(
+        "errorPlot",
+        [errorGraph],
+        layout,
         {
             responsive: true
         }
     );
 }
-
 const scenario = document.getElementById("predictionScenario");
 const answer = document.getElementById("predictionAnswer");
 const feedback = document.getElementById("predictionFeedback");
