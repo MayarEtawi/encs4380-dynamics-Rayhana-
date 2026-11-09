@@ -4,7 +4,7 @@
 
 An interactive toolkit for exploring how sensors respond to changing inputs through live simulations, response plots, and prediction experiments.
 
-🌐 **Live website:** [Open the toolkit]https://mayaretawi.github.io/encs4380-dynamics-Rayhana-/
+🌐 **Live website:** [Open the toolkit](https://mayaretawi.github.io/encs4380-dynamics-Rayhana-/)
 
 ---
 
