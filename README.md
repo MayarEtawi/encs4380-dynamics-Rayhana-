@@ -53,14 +53,14 @@ Explore damping, response measurements, poles, state-space representation, and E
 <details>
 <summary>👤 Contributors · About this module · AI assistance</summary>
 
-**Developed by:** [Name]  
-**State-space panel:** [Name]
+**Developed by:** Maryam Maslamani  
+**State-space panel:** Yasmin Badwan
 
 **About this module:**  
-Simulate a mass–spring–damper system and compare underdamped, critically damped, and overdamped responses. View response measurements, poles, eigenvalues, phase-plane trajectories, and numerical solver results.
+Simulate a mass–spring–damper system with adjustable mass, damping, stiffness, and input force. Compare underdamped, critically damped, overdamped, and undamped responses. Inspect response measurements and system poles, and compare Euler and fourth-order Runge–Kutta numerical solutions against the exact response. Yasmin’s state-space panel covers matrices, eigenvalues, phase-plane trajectories, and validation check 6.
 
 **AI assistance:**  
-Assisted with introduction styling, formatting mathematical expressions as fractions, and reviewing the displayed validation checks.
+Assisted with introduction styling, formatting mathematical expressions as fractions, reviewing the displayed validation checks, testing module functionality, and integrating Maryam’s simulator with Yasmin’s state-space panel.
 
 </details>
 
