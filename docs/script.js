@@ -5,13 +5,11 @@ const inputType = document.getElementById("inputType");
 const kValue = document.getElementById("kValue");
 const tauValue = document.getElementById("tauValue");
 
-const predictionTau = document.getElementById("predictionTau");
-const checkPredictionTau = document.getElementById("checkPredictionTau");
-const predictionResultTau = document.getElementById("predictionResultTau");
-
-const predictionK = document.getElementById("predictionK");
-const checkPredictionK = document.getElementById("checkPredictionK");
-const predictionResultK = document.getElementById("predictionResultK");
+const timeWindow = document.getElementById("timeWindow");
+timeWindow.onchange = drawResponse;
+function windowEnd() {
+    return timeWindow.value === "auto" ? 6 * Number(tauSlider.value) : Number(timeWindow.value);
+}
 
 
 kSlider.oninput = function () {
@@ -39,7 +37,9 @@ function drawResponse() {
     let output = [];
 
 
-    for (let t = 0; t <= 10; t += 0.05) {
+    const end = windowEnd();
+    for (let i = 0; i <= 600; i++) {
+        const t = end * i / 600;
 
         time.push(t);
 
@@ -99,12 +99,12 @@ function drawResponse() {
 
         xaxis: {
             title: "Time (s)",
-            range: [0, 10]
+            range: [0, end]
         },
 
         yaxis: {
             title: "Amplitude",
-            range: [0, 10]
+            range: [0, 1.08 * Math.max(1, ...input, ...output)]
         }
     };
 
@@ -193,7 +193,9 @@ function drawError() {
     let error = [];
 
 
-    for (let t = 0; t <= 10; t += 0.05) {
+    const end = windowEnd();
+    for (let i = 0; i <= 600; i++) {
+        const t = end * i / 600;
 
         time.push(t);
 
@@ -221,7 +223,7 @@ function drawError() {
 
         xaxis: {
             title: "Time (s)",
-            range: [0, 10]
+            range: [0, end]
         },
 
         yaxis: {
@@ -235,42 +237,55 @@ function drawError() {
         }
     );
 }
-checkPredictionTau.onclick = function () {
 
-    if (predictionTau.value === "") {
-
-        predictionResultTau.textContent =
-            "Choose an answer first.";
-    }
-    else if (predictionTau.value === "slower") {
-
-        predictionResultTau.textContent =
-            "Correct!";
-    }
-    else {
-
-        predictionResultTau.textContent =
-            "Wrong. The response becomes slower.";
-    }
+const scenario = document.getElementById("predictionScenario");
+const answer = document.getElementById("predictionAnswer");
+const feedback = document.getElementById("predictionFeedback");
+const restore = document.getElementById("restorePrediction");
+let predictionStart = null;
+let previousSettings = null;
+function settings() {
+    return { k: kSlider.value, tau: tauSlider.value, input: inputType.value, window: timeWindow.value };
+}
+function applySettings(value) {
+    kSlider.value = value.k; tauSlider.value = value.tau;
+    inputType.value = value.input; timeWindow.value = value.window;
+    kValue.textContent = kSlider.value; tauValue.textContent = tauSlider.value;
+    drawResponse();
+}
+function resetPrediction() {
+    predictionStart = null;
+    answer.replaceChildren();
+    const choices = scenario.value === "tau"
+        ? [["", "Choose an answer"], ["faster", "Response becomes faster"], ["slower", "Response becomes slower"], ["same", "Response speed stays the same"]]
+        : [["", "Choose an answer"], ["increase", "Final output increases"], ["decrease", "Final output decreases"], ["same", "Final output stays the same"]];
+    choices.forEach(([value, text]) => answer.add(new Option(text, value)));
+    feedback.textContent = "";
+}
+scenario.onchange = resetPrediction;
+answer.onchange = () => { predictionStart = answer.value ? settings() : null; feedback.textContent = ""; };
+document.getElementById("runPrediction").onclick = () => {
+    if (!answer.value || !predictionStart) { feedback.textContent = "Choose your prediction first."; answer.focus(); return; }
+    const isTau = scenario.value === "tau";
+    const key = isTau ? "tau" : "k";
+    const slider = isTau ? tauSlider : kSlider;
+    const old = Number(predictionStart[key]);
+    const next = Math.min(Number(slider.max), old * 2);
+    if (next <= old) { feedback.textContent = "This parameter is already at its maximum. Lower it and choose your prediction again."; return; }
+    previousSettings = { ...predictionStart };
+    restore.disabled = false;
+    const applied = { ...predictionStart, [key]: String(next), input: "step" };
+    applySettings(applied);
+    const correct = answer.value === (isTau ? "slower" : "increase");
+    feedback.textContent = (correct ? "Correct! " : "Not quite. ") +
+        (isTau ? "Increasing τ slows the response while the final value stays the same. " : "Increasing K raises the final output while the time constant stays the same. ") +
+        (isTau ? "τ" : "K") + " changed from " + old + " to " + next + ". Unit-step input applied.";
 };
-checkPredictionK.onclick = function () {
-
-    if (predictionK.value === "") {
-
-        predictionResultK.textContent =
-            "Choose an answer first.";
-    }
-    else if (predictionK.value === "increase") {
-
-        predictionResultK.textContent =
-            "Correct!";
-    }
-    else {
-
-        predictionResultK.textContent =
-            "Wrong. The final output increases.";
-    }
+restore.onclick = () => {
+    if (!previousSettings) return;
+    applySettings(previousSettings); previousSettings = null; restore.disabled = true;
+    resetPrediction(); feedback.textContent = "Your previous settings have been restored.";
 };
+resetPrediction();
 kValue.textContent = kSlider.value;
 tauValue.textContent = tauSlider.value;
-

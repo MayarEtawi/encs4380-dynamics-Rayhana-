@@ -1016,3 +1016,39 @@ nav a:hover,
     font-weight: 400;
     line-height: 1.55;
 }
+
+
+/* Shared introductions inspired by Module 4; no section reordering. */
+body .unified-hero{display:grid;grid-template-columns:minmax(0,1fr) 220px;align-items:center;gap:28px;padding:26px 30px 28px;margin-bottom:24px;background:linear-gradient(108deg,#f6fff6,#e7f6e9);border:1px solid #d2e7d3;border-radius:22px}
+body .unified-hero h1{font-size:clamp(29px,3.6vw,48px);line-height:1.12;letter-spacing:-.045em;color:#103d29;margin:0 0 12px}
+body .unified-hero h1 em{font-style:normal;color:#0f8b4c}
+body .unified-hero .eyebrow,body .unified-hero .module-eyebrow{font-size:11px;font-weight:700;letter-spacing:.13em;color:#19804a;margin:0 0 10px}
+body .unified-hero .hero-copy>p:not(.eyebrow):not(.module-eyebrow){color:#476b56;font-size:15px;line-height:1.65;margin:0 0 18px;max-width:750px}
+body .unified-hero .section-links{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+body .unified-hero .section-links a{display:inline-flex;align-items:center;background:white;border:1px solid #c9e3ce;border-radius:30px;color:#476b56;font-size:12px;font-weight:400;text-decoration:none;padding:7px 12px;line-height:1.5}
+body .unified-hero .section-links a:hover{background:#edf8ef;transform:none}
+body .hero-mark{background:#ffffffaa;border:1px solid #d3e9d6;border-radius:19px;padding:14px 18px;color:#235b41;text-align:center}
+body .hero-mark svg{display:block;width:100%;height:120px}
+body .hero-mark small{font-size:9px;letter-spacing:.15em;color:#698d76;font-weight:700}
+.math-frac{display:inline-flex;flex-direction:column;align-items:stretch;vertical-align:middle;text-align:center;line-height:1.25;margin:0 .18em;font-family:Cambria,'Times New Roman',serif;font-weight:400;white-space:nowrap}
+.math-frac>.math-num{display:block;border-bottom:1px solid currentColor;padding:0 .18em .13em}
+.math-frac>.math-den{display:block;padding:.13em .18em 0}
+.math-root{display:inline-flex;align-items:center;vertical-align:middle;white-space:nowrap}.math-root>.radicand{border-top:1px solid currentColor;padding:.1em .12em}
+
+@media(max-width:850px){body .unified-hero{grid-template-columns:1fr 170px;gap:18px;padding:23px}body .hero-mark svg{height:95px}}
+@media(max-width:650px){body .unified-hero{grid-template-columns:1fr;padding:22px 19px}body .hero-mark{display:none}body .unified-hero h1{font-size:30px}body .unified-hero .section-links a{font-size:11px;padding:7px 10px}}
+
+
+/* Module 1 prediction experiment. */
+
+.module1-container .experiment-card > p { color:#506451; font-size:14px; line-height:1.6; }
+.module1-container .experiment-grid { display:grid;grid-template-columns:1fr 1fr;gap:24px; }
+.module1-container .experiment-grid label { display:block;font-size:14px;font-weight:700;color:#204c33; }
+.module1-container .experiment-grid select { display:block;width:100%;margin-top:8px;min-height:44px;padding:10px 12px;font:inherit;font-weight:400;border:1px solid #b1c8b1;border-radius:8px;color:#193f2a;background:white; }
+.module1-container .experiment-actions { display:flex;flex-wrap:wrap;gap:12px;margin-top:20px; }
+.module1-container .experiment-actions button { margin:0;min-height:44px;font:700 14px Arial,sans-serif;padding:12px 18px;border-radius:8px; }
+.module1-container #restorePrediction { background:white;color:#137244;border-color:#79b78e; }
+.module1-container #restorePrediction:disabled { opacity:.5;cursor:not-allowed; }
+.module1-container #predictionFeedback:empty { display:none; }
+.module1-container #predictionFeedback:not(:empty) { margin:16px 0 0;padding:12px 15px;border-radius:8px;background:#f0f8ef;border:1px solid #dcebd5; }
+@media(max-width:650px){.module1-container .experiment-grid { grid-template-columns:1fr;gap:14px; }}

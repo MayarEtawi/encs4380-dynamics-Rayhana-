@@ -7,3 +7,6 @@
 .m4-secondary .m4-results { order: 2; }
 .m4-secondary .m4-scoring-panel { order: 3; }
 @media (max-width:760px) { .m4-workspace { display:flex; flex-direction:column; } .m4-primary,.m4-secondary { width:100%; } }
+
+/* Formula readability. */
+body .m4-formula{line-height:1.7}

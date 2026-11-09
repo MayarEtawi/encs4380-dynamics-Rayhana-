@@ -743,7 +743,74 @@
             header.site-header nav.site-nav { width: 100%; gap: 6px; }
             header.site-header nav.site-nav a { padding: 9px 11px; font-size: 13px; }
         }
-    </style>
+    
+/* Shared introductions inspired by Module 4; no section reordering. */
+body .unified-hero{display:grid;grid-template-columns:minmax(0,1fr) 220px;align-items:center;gap:28px;padding:26px 30px 28px;margin-bottom:24px;background:linear-gradient(108deg,#f6fff6,#e7f6e9);border:1px solid #d2e7d3;border-radius:22px}
+body .unified-hero h1{font-size:clamp(29px,3.6vw,48px);line-height:1.12;letter-spacing:-.045em;color:#103d29;margin:0 0 12px}
+body .unified-hero h1 em{font-style:normal;color:#0f8b4c}
+body .unified-hero .eyebrow,body .unified-hero .module-eyebrow{font-size:11px;font-weight:700;letter-spacing:.13em;color:#19804a;margin:0 0 10px}
+body .unified-hero .hero-copy>p:not(.eyebrow):not(.module-eyebrow){color:#476b56;font-size:15px;line-height:1.65;margin:0 0 18px;max-width:750px}
+body .unified-hero .section-links{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+body .unified-hero .section-links a{display:inline-flex;align-items:center;background:white;border:1px solid #c9e3ce;border-radius:30px;color:#476b56;font-size:12px;font-weight:400;text-decoration:none;padding:7px 12px;line-height:1.5}
+body .unified-hero .section-links a:hover{background:#edf8ef;transform:none}
+body .hero-mark{background:#ffffffaa;border:1px solid #d3e9d6;border-radius:19px;padding:14px 18px;color:#235b41;text-align:center}
+body .hero-mark svg{display:block;width:100%;height:120px}
+body .hero-mark small{font-size:9px;letter-spacing:.15em;color:#698d76;font-weight:700}
+.math-frac{display:inline-flex;flex-direction:column;align-items:stretch;vertical-align:middle;text-align:center;line-height:1.25;margin:0 .18em;font-family:Cambria,'Times New Roman',serif;font-weight:400;white-space:nowrap}
+.math-frac>.math-num{display:block;border-bottom:1px solid currentColor;padding:0 .18em .13em}
+.math-frac>.math-den{display:block;padding:.13em .18em 0}
+.math-root{display:inline-flex;align-items:center;vertical-align:middle;white-space:nowrap}.math-root>.radicand{border-top:1px solid currentColor;padding:.1em .12em}
+
+@media(max-width:850px){body .unified-hero{grid-template-columns:1fr 170px;gap:18px;padding:23px}body .hero-mark svg{height:95px}}
+@media(max-width:650px){body .unified-hero{grid-template-columns:1fr;padding:22px 19px}body .hero-mark{display:none}body .unified-hero h1{font-size:30px}body .unified-hero .section-links a{font-size:11px;padding:7px 10px}}
+
+
+body .equations{line-height:2.6}
+
+body.module2-page .module-intro.unified-hero h1.page-title {
+    font-size: clamp(29px, 3.6vw, 48px);
+    line-height: 1.12;
+    letter-spacing: -.045em;
+    margin: 0 0 12px;
+}
+body.module2-page .site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 32px 0 20px;
+    padding: 22px 0;
+    border-top: 1px solid #cde5d0;
+    color: #4b6955;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+body.module2-page .site-footer .back-modules {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 18px;
+    min-height: 44px;
+    border-radius: 9px;
+    border: 1px solid #087a3e;
+    background: #087a3e;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .2s ease;
+}
+body.module2-page .site-footer .back-modules:hover { background: #066532; }
+body.module2-page .site-footer .back-modules:focus-visible { outline: 3px solid #244bff; outline-offset: 2px; }
+@media(max-width:650px) {
+    body.module2-page .module-intro.unified-hero h1.page-title { font-size: 30px; }
+    body.module2-page .site-footer { flex-direction: column; align-items: stretch; text-align: center; }
+    body.module2-page .site-footer .back-modules { width: 100%; }
+}
+
+
+</style>
 </head>
 
 <body class="module2-page">
@@ -766,9 +833,9 @@
 
 <main>
 
-    <div class="module-intro">
+    <div class="module-intro unified-hero"><div class="hero-copy">
         <p class="module-eyebrow">MODULE 2 · FIRST-ORDER FREQUENCY RESPONSE</p>
-        <h1 class="page-title">First-order frequency response</h1>
+        <h1 class="page-title">First-order frequency <em>response</em></h1>
         <p>Explore how the time constant and input frequency shape a sensor’s amplitude and phase response.</p>
         <nav class="section-links" aria-label="On this page">
             <a href="#system-model">System model</a>
@@ -778,7 +845,7 @@
             <a href="#calculators">Dynamic error</a>
             <a href="#validation">Validation</a>
         </nav>
-    </div>
+    </div><div class="hero-mark" aria-hidden="true"><svg viewBox="0 0 220 160"><path d="M20 15V140H205" fill="none" stroke="#a9c9b7" stroke-width="2"/><polyline points="20.00,101.76 21.80,97.98 23.60,93.99 25.40,89.88 27.20,85.72 29.00,81.59 30.80,77.58 32.60,73.76 34.40,70.21 36.20,67.00 38.00,64.20 39.80,61.84 41.60,59.99 43.40,58.68 45.20,57.93 47.00,57.76 48.80,58.17 50.60,59.16 52.40,60.70 54.20,62.77 56.00,65.32 57.80,68.30 59.60,71.66 61.40,75.33 63.20,79.23 65.00,83.30 66.80,87.45 68.60,91.60 70.40,95.68 72.20,99.59 74.00,103.26 75.80,106.63 77.60,109.62 79.40,112.18 81.20,114.26 83.00,115.81 84.80,116.81 86.60,117.23 88.40,117.08 90.20,116.34 92.00,115.04 93.80,113.20 95.60,110.86 97.40,108.06 99.20,104.86 101.00,101.32 102.80,97.51 104.60,93.50 106.40,89.38 108.20,85.22 110.00,81.10 111.80,77.11 113.60,73.32 115.40,69.81 117.20,66.64 119.00,63.89 120.80,61.59 122.60,59.81 124.40,58.56 126.20,57.88 128.00,57.78 129.80,58.26 131.60,59.32 133.40,60.92 135.20,63.05 137.00,65.65 138.80,68.68 140.60,72.08 142.40,75.78 144.20,79.71 146.00,83.80 147.80,87.95 149.60,92.10 151.40,96.16 153.20,100.04 155.00,103.68 156.80,107.01 158.60,109.95 160.40,112.46 162.20,114.47 164.00,115.96 165.80,116.89 167.60,117.25 169.40,117.02 171.20,116.22 173.00,114.85 174.80,112.95 176.60,110.55 178.40,107.70 180.20,104.45 182.00,100.88 183.80,97.04 185.60,93.01 187.40,88.88 189.20,84.72 191.00,80.61 192.80,76.64 194.60,72.88 196.40,69.41 198.20,66.29 200.00,63.59" fill="none" stroke="#16a35b" stroke-width="4" stroke-linecap="round"/></svg><small>FOLLOW THE FREQUENCY</small></div></div>
 
     <!-- 1. SYSTEM MODEL -->
 
@@ -791,8 +858,8 @@
                 <h3>Frequency-response equations</h3>
 
                 <div class="equations">
-                    G(s) = 1 / (τs + 1)<br>
-                    M = 1 / √(1 + (ωτ)²)<br>
+                    G(s) = <span class="math-frac"><span class="math-num">1</span><span class="math-den">τs + 1</span></span><br>
+                    M = <span class="math-frac"><span class="math-num">1</span><span class="math-den"><span class="math-root">√<span class="radicand">1 + (ωτ)²</span></span></span></span><br>
                     φ = −atan(ωτ)
                 </div>
 
