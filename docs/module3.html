@@ -42,6 +42,15 @@
                 <p>m: mass · b: viscous damping · k: spring stiffness.<br>The equilibrium displacement is x∞ = F₀/k. Capital K = 1/k is the static gain.</p>
             </div>
         </section>
+        
+        <section id="predict" class="m3-section" aria-labelledby="predict-title">
+            <p class="eyebrow">PREDICT, THEN CHECK</p><h2 id="predict-title">Make a prediction. Run the experiment.</h2>
+            <p>The experiment button applies a controlled change and updates the simulator. Your previous settings can be restored afterward.</p>
+            <div class="prediction-grid"><label for="predictionScenario">Experiment<select id="predictionScenario"><option value="damping">Increase damping from b = 2 to b = 4</option><option value="speed">Double ωn while keeping ζ fixed</option><option value="force">Double the step force</option></select></label><label for="predictionAnswer">Your prediction<select id="predictionAnswer"><option value="">Choose a prediction…</option></select></label></div>
+            <p id="predictionSetup" class="small-note"></p>
+            <div class="action-row"><button id="checkPrediction" type="button">Check &amp; run experiment</button><button id="restorePrediction" type="button" class="quiet-button" disabled>Restore previous settings</button></div>
+            <p id="predictionFeedback" class="feedback" role="status"></p>
+        </section>
 
         <section id="workspace" aria-labelledby="workspace-title">
             <div class="section-heading"><div><h2 id="workspace-title">Step-response simulator</h2><p>Change a parameter or select a damping case. Every plot and measurement updates together.</p></div><span class="regime-label" id="regimeLabel" aria-live="polite">Underdamped</span></div>
@@ -141,14 +150,7 @@
             <p id="stateSpaceMatch" class="small-note ss-comparison-result" role="status"></p>
         </section>
 
-        <section id="predict" class="m3-section" aria-labelledby="predict-title">
-            <p class="eyebrow">PREDICT, THEN CHECK</p><h2 id="predict-title">Make a prediction. Run the experiment.</h2>
-            <p>The experiment button applies a controlled change and updates the simulator. Your previous settings can be restored afterward.</p>
-            <div class="prediction-grid"><label for="predictionScenario">Experiment<select id="predictionScenario"><option value="damping">Increase damping from b = 2 to b = 4</option><option value="speed">Double ωn while keeping ζ fixed</option><option value="force">Double the step force</option></select></label><label for="predictionAnswer">Your prediction<select id="predictionAnswer"><option value="">Choose a prediction…</option></select></label></div>
-            <p id="predictionSetup" class="small-note"></p>
-            <div class="action-row"><button id="checkPrediction" type="button">Check &amp; run experiment</button><button id="restorePrediction" type="button" class="quiet-button" disabled>Restore previous settings</button></div>
-            <p id="predictionFeedback" class="feedback" role="status"></p>
-        </section>
+       
 
         <section id="solver" class="m3-section" aria-labelledby="solver-title">
             <div class="section-heading"><div><p class="eyebrow">NUMERICAL SOLVER COMPARISON</p><h2 id="solver-title">Exact formula meets a numerical solution</h2></div><span class="subtle-label">Euler &amp; RK4</span></div>
