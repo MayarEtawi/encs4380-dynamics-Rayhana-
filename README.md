@@ -4,7 +4,7 @@
 
 An interactive toolkit for exploring how sensors respond to changing inputs through live simulations, response plots, and prediction experiments.
 
-🌐 **Live website:** [Open the toolkit](YOUR_GITHUB_PAGES_URL)
+🌐 **Live website:** [Open the toolkit]https://mayaretawi.github.io/encs4380-dynamics-Rayhana-/
 
 ---
 
@@ -15,7 +15,7 @@ Explore first-order step and ramp responses, time constant, and error fraction.
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
 
-**Developed by:** [Name]
+**Developed by:** Mayar Etawi
 
 **About this module:**  
 Interactive gain and time-constant controls show how a sensor responds to step and ramp inputs. Includes prediction experiments, adjustable time windows, and validation of the 63.2% and 95% response values.
