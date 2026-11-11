@@ -80,7 +80,6 @@ Assisted with introduction styling, formatting mathematical expressions as fract
 </details>
 
 ---
-
 ## 🎯 Module 04 · Guess the Sensor
 
 Estimate hidden sensor parameters from noisy responses and score your guesses.
@@ -88,17 +87,26 @@ Estimate hidden sensor parameters from noisy responses and score your guesses.
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
 
-**Developed by:** [Name]
+**Developed by:** Hala Shojaiah 
 
 **About this module:**  
-A randomly generated sensor produces a noisy response. Estimate its parameters, request a hint, reveal the true values, and compare your guess with the true response. Scores accumulate throughout the session.
+Module 4 provides an interactive challenge where users estimate the parameters of an unknown sensor by analyzing its response curve. Each round randomly generates either a first-order or second-order sensor with hidden parameters and adds a small amount of noise to simulate realistic measurements.
+
+For first-order sensors, users estimate the time constant \(\tau\) by analyzing the response curve, using methods such as the 63.2% response point. For second-order sensors, users estimate the damping ratio \(\zeta\) and natural frequency \(\omega_n\) by observing response characteristics such as overshoot and peak time.
+
+The module includes a **Hint** feature to guide users without immediately revealing the correct parameters. After submitting their estimates, users can reveal the actual sensor values and compare their predicted response with the true response on the same plot.
+
+A scoring system evaluates the accuracy of the estimates, awarding full marks when the relative error is within 10%. The module also keeps a running score throughout the session and provides a **New Sensor** button to generate another challenge.
+
+This module helps users apply the concepts learned in the previous modules by interpreting response curves and estimating sensor parameters instead of adjusting known values.
 
 **AI assistance:**  
-Assisted with equation formatting and reviewing scoring and new-round interactions.
+Assisted with interface styling, equation formatting, and debugging.
 
 </details>
 
 ---
+
 
 ## 🚀 Run locally
 
