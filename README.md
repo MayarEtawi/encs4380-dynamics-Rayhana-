@@ -45,9 +45,11 @@ Explore sine responses, amplitude ratio, phase lag, Bode plots, and dynamic erro
 **Developed by:** Yasmin Badwan.
 
 **About this module:**  
-Compare input and output sine waves while adjusting the time constant and input frequency. Explore how these changes affect the amplitude ratio and phase lag, inspect the cutoff frequency on the Bode plots, and calculate dynamic error.
+Module 2 explores the frequency response of a first-order sensor using interactive simulations. Users can adjust the time constant τ and input frequency and observe how these changes affect the output amplitude and phase lag.
 
-Predict the effect of a parameter change, run the experiment, and restore the previous settings to try again. The module also includes homework validation checks 2 and 3.
+The module compares input and output sine waves and displays Bode magnitude and phase plots, with markers for the selected frequency and cutoff frequency. Live measurements show the amplitude ratio, phase lag, and cutoff frequency, while the dynamic-error calculator expresses the relative amplitude error.
+
+The Predict, Then Check experiment allows users to predict how changing the frequency or time constant affects the response, run the experiment, and restore previous settings. The module also includes homework validation checks 2 and 3.
 
 
 **AI assistance:**  
