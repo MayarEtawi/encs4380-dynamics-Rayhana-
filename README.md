@@ -42,13 +42,16 @@ Explore sine responses, amplitude ratio, phase lag, Bode plots, and dynamic erro
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
 
-**Developed by:** [Name]
+**Developed by:** Yasmin Badwan.
 
 **About this module:**  
-Compare input and output sine waves while changing the time constant and frequency. Inspect the cutoff frequency and calculate dynamic error using live plots and calculators.
+Compare input and output sine waves while adjusting the time constant and input frequency. Explore how these changes affect the amplitude ratio and phase lag, inspect the cutoff frequency on the Bode plots, and calculate dynamic error.
+
+Predict the effect of a parameter change, run the experiment, and restore the previous settings to try again. The module also includes homework validation checks 2 and 3.
+
 
 **AI assistance:**  
-Assisted with visual consistency, title and navigation styling, equation formatting, and reviewing validation calculations.
+Assisted with improving visual consistency, styling titles and navigation links, formatting mathematical expressions, and reviewing the displayed validation calculations.
 
 </details>
 
@@ -65,7 +68,9 @@ Explore damping, response measurements, poles, state-space representation, and E
 **State-space panel:** Yasmin Badwan
 
 **About this module:**  
-Simulate a mass–spring–damper system with adjustable mass, damping, stiffness, and input force. Compare underdamped, critically damped, overdamped, and undamped responses. Inspect response measurements and system poles, and compare Euler and fourth-order Runge–Kutta numerical solutions against the exact response. Yasmin’s state-space panel covers matrices, eigenvalues, phase-plane trajectories, and validation check 6.
+Simulate a mass–spring–damper system with adjustable mass, damping, stiffness, and input force. Compare underdamped, critically damped, overdamped, and undamped responses. Inspect response measurements and system poles, and compare Euler and fourth-order Runge–Kutta numerical solutions against the exact response.
+
+Yasmin’s state-space panel displays live matrices A, B, and C, independently calculated eigenvalues, and phase-plane trajectories. The panel updates with the shared simulator controls and compares the eigenvalues with the system poles. It also includes homework validation check 6.
 
 **AI assistance:**  
 Assisted with introduction styling, formatting mathematical expressions as fractions, reviewing the displayed validation checks, testing module functionality, and integrating Maryam’s simulator with Yasmin’s state-space panel.
