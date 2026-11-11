@@ -106,7 +106,30 @@ Assisted with interface styling, equation formatting, and debugging.
 </details>
 
 ---
+## 📸 Project Screenshots
 
+### Homepage
+![Homepage](docs/screenshots/01_homepage.png)
+
+### Module 1 – Time Response
+![Module 1 Prediction](docs/screenshots/02_module1-prediction.png)
+![Module 1 Simulator](docs/screenshots/03_module1.png)
+
+### Module 2 – Frequency Response
+![Module 2 Prediction](docs/screenshots/04_module2-prediction.png)
+![Module 2 Simulator](docs/screenshots/05_module2.png)
+
+### Module 3 – Second-Order Response
+![Module 3 Prediction](docs/screenshots/06_module3-prediction.png)
+![Module 3 Simulator](docs/screenshots/07_module3.png)
+![Module 3 Poles](docs/screenshots/08_module3-poles.png)
+![Module 3 Validation](docs/screenshots/09_module3-validation.png)
+
+### Module 4 – Guess the Sensor
+![Module 4 Challenge](docs/screenshots/10_module4.png)
+![Module 4 Results](docs/screenshots/11_module4-results.png)
+
+---
 
 ## 🚀 Run locally
 
