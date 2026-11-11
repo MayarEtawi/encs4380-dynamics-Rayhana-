@@ -92,7 +92,7 @@ Estimate hidden sensor parameters from noisy responses and score your guesses.
 **About this module:**  
 Module 4 provides an interactive challenge where users estimate the parameters of an unknown sensor by analyzing its response curve. Each round randomly generates either a first-order or second-order sensor with hidden parameters and adds a small amount of noise to simulate realistic measurements.
 
-For first-order sensors, users estimate the time constant \(\tau\) by analyzing the response curve, using methods such as the 63.2% response point. For second-order sensors, users estimate the damping ratio \(\zeta\) and natural frequency \(\omega_n\) by observing response characteristics such as overshoot and peak time.
+For first-order sensors, users estimate the time constant (τ) by analyzing the response curve, using methods such as the 63.2% response point. For second-order sensors, users estimate the damping ratio (ζ) and natural frequency (ωₙ) by observing response characteristics such as overshoot and peak time.
 
 The module includes a **Hint** feature to guide users without immediately revealing the correct parameters. After submitting their estimates, users can reveal the actual sensor values and compare their predicted response with the true response on the same plot.
 
