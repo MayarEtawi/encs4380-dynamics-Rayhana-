@@ -1,14 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Module 2 — First-Order Frequency Response</title>
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 2 — First-Order Frequency Response</title>
+<style>
         * {
             box-sizing: border-box;
         }
@@ -812,429 +809,283 @@ body.module2-page .site-footer .back-modules:focus-visible { outline: 3px solid 
 
 </style>
 </head>
-
 <body class="module2-page">
-
 <header class="site-header">
-    <div class="site-brand">
-        <h2>ENCS4380</h2>
-        <p>Dynamic Characteristics Toolkit</p>
-    </div>
-
-    
-        <nav class="site-nav" aria-label="Main navigation">
-            <a href="index.html">Home</a>
-            <a href="module1.html">Module 1</a>
-            <a href="module2.html" class="active" aria-current="page">Module 2</a>
-            <a href="module3.html">Module 3</a>
-            <a href="module4.html">Module 4</a>
-        </nav>
+<div class="site-brand">
+<h2>ENCS4380</h2>
+<p>Dynamic Characteristics Toolkit</p>
+</div>
+<nav aria-label="Main navigation" class="site-nav"><a href="index.html">← Toolkits</a>
+<a href="homework1.html">Home</a>
+<a href="module1.html">Module 1</a>
+<a aria-current="page" class="active" href="module2.html">Module 2</a>
+<a href="module3.html">Module 3</a>
+<a href="module4.html">Module 4</a>
+</nav>
 </header>
-
 <main>
-
-    <div class="module-intro unified-hero"><div class="hero-copy">
-        <p class="module-eyebrow">MODULE 2 · FIRST-ORDER FREQUENCY RESPONSE</p>
-        <h1 class="page-title">First-order frequency <em>response</em></h1>
-        <p>Explore how the time constant and input frequency shape a sensor’s amplitude and phase response.</p>
-        <nav class="section-links" aria-label="On this page">
-            <a href="#system-model">System model</a>
-            <a href="#predict">Predict, then check</a>
-            <a href="#workspace">Simulator</a>
-            <a href="#bode">Bode plots</a>
-            <a href="#calculators">Dynamic error</a>
-            <a href="#validation">Validation</a>
-        </nav>
-    </div><div class="hero-mark" aria-hidden="true"><svg viewBox="0 0 220 160"><path d="M20 15V140H205" fill="none" stroke="#a9c9b7" stroke-width="2"/><polyline points="20.00,101.76 21.80,97.98 23.60,93.99 25.40,89.88 27.20,85.72 29.00,81.59 30.80,77.58 32.60,73.76 34.40,70.21 36.20,67.00 38.00,64.20 39.80,61.84 41.60,59.99 43.40,58.68 45.20,57.93 47.00,57.76 48.80,58.17 50.60,59.16 52.40,60.70 54.20,62.77 56.00,65.32 57.80,68.30 59.60,71.66 61.40,75.33 63.20,79.23 65.00,83.30 66.80,87.45 68.60,91.60 70.40,95.68 72.20,99.59 74.00,103.26 75.80,106.63 77.60,109.62 79.40,112.18 81.20,114.26 83.00,115.81 84.80,116.81 86.60,117.23 88.40,117.08 90.20,116.34 92.00,115.04 93.80,113.20 95.60,110.86 97.40,108.06 99.20,104.86 101.00,101.32 102.80,97.51 104.60,93.50 106.40,89.38 108.20,85.22 110.00,81.10 111.80,77.11 113.60,73.32 115.40,69.81 117.20,66.64 119.00,63.89 120.80,61.59 122.60,59.81 124.40,58.56 126.20,57.88 128.00,57.78 129.80,58.26 131.60,59.32 133.40,60.92 135.20,63.05 137.00,65.65 138.80,68.68 140.60,72.08 142.40,75.78 144.20,79.71 146.00,83.80 147.80,87.95 149.60,92.10 151.40,96.16 153.20,100.04 155.00,103.68 156.80,107.01 158.60,109.95 160.40,112.46 162.20,114.47 164.00,115.96 165.80,116.89 167.60,117.25 169.40,117.02 171.20,116.22 173.00,114.85 174.80,112.95 176.60,110.55 178.40,107.70 180.20,104.45 182.00,100.88 183.80,97.04 185.60,93.01 187.40,88.88 189.20,84.72 191.00,80.61 192.80,76.64 194.60,72.88 196.40,69.41 198.20,66.29 200.00,63.59" fill="none" stroke="#16a35b" stroke-width="4" stroke-linecap="round"/></svg><small>FOLLOW THE FREQUENCY</small></div></div>
-
-    <!-- 1. SYSTEM MODEL -->
-
-    <section class="section" id="system-model">
-        <h2>System Model</h2>
-
-        <div class="two-columns">
-
-            <div class="model-column">
-                <h3>Frequency-response equations</h3>
-
-                <div class="equations">
-                    G(s) = <span class="math-frac"><span class="math-num">1</span><span class="math-den">τs + 1</span></span><br>
-                    M = <span class="math-frac"><span class="math-num">1</span><span class="math-den"><span class="math-root">√<span class="radicand">1 + (ωτ)²</span></span></span></span><br>
+<div class="module-intro unified-hero"><div class="hero-copy">
+<p class="module-eyebrow">MODULE 2 · FIRST-ORDER FREQUENCY RESPONSE</p>
+<h1 class="page-title">First-order frequency <em>response</em></h1>
+<p>Explore how the time constant and input frequency shape a sensor’s amplitude and phase response.</p>
+<nav aria-label="On this page" class="section-links">
+<a href="#system-model">System model</a>
+<a href="#predict">Predict, then check</a>
+<a href="#workspace">Simulator</a>
+<a href="#bode">Bode plots</a>
+<a href="#calculators">Dynamic error</a>
+<a href="#validation">Validation</a>
+</nav>
+</div><div aria-hidden="true" class="hero-mark"><svg viewbox="0 0 220 160"><path d="M20 15V140H205" fill="none" stroke="#a9c9b7" stroke-width="2"></path><polyline fill="none" points="20.00,101.76 21.80,97.98 23.60,93.99 25.40,89.88 27.20,85.72 29.00,81.59 30.80,77.58 32.60,73.76 34.40,70.21 36.20,67.00 38.00,64.20 39.80,61.84 41.60,59.99 43.40,58.68 45.20,57.93 47.00,57.76 48.80,58.17 50.60,59.16 52.40,60.70 54.20,62.77 56.00,65.32 57.80,68.30 59.60,71.66 61.40,75.33 63.20,79.23 65.00,83.30 66.80,87.45 68.60,91.60 70.40,95.68 72.20,99.59 74.00,103.26 75.80,106.63 77.60,109.62 79.40,112.18 81.20,114.26 83.00,115.81 84.80,116.81 86.60,117.23 88.40,117.08 90.20,116.34 92.00,115.04 93.80,113.20 95.60,110.86 97.40,108.06 99.20,104.86 101.00,101.32 102.80,97.51 104.60,93.50 106.40,89.38 108.20,85.22 110.00,81.10 111.80,77.11 113.60,73.32 115.40,69.81 117.20,66.64 119.00,63.89 120.80,61.59 122.60,59.81 124.40,58.56 126.20,57.88 128.00,57.78 129.80,58.26 131.60,59.32 133.40,60.92 135.20,63.05 137.00,65.65 138.80,68.68 140.60,72.08 142.40,75.78 144.20,79.71 146.00,83.80 147.80,87.95 149.60,92.10 151.40,96.16 153.20,100.04 155.00,103.68 156.80,107.01 158.60,109.95 160.40,112.46 162.20,114.47 164.00,115.96 165.80,116.89 167.60,117.25 169.40,117.02 171.20,116.22 173.00,114.85 174.80,112.95 176.60,110.55 178.40,107.70 180.20,104.45 182.00,100.88 183.80,97.04 185.60,93.01 187.40,88.88 189.20,84.72 191.00,80.61 192.80,76.64 194.60,72.88 196.40,69.41 198.20,66.29 200.00,63.59" stroke="#16a35b" stroke-linecap="round" stroke-width="4"></polyline></svg><small>FOLLOW THE FREQUENCY</small></div></div>
+<!-- 1. SYSTEM MODEL -->
+<section class="section" id="system-model">
+<h2>System Model</h2>
+<div class="two-columns">
+<div class="model-column">
+<h3>Frequency-response equations</h3>
+<div class="equations">
+                    G(s) = <span class="math-frac"><span class="math-num">1</span><span class="math-den">τs + 1</span></span><br/>
+                    M = <span class="math-frac"><span class="math-num">1</span><span class="math-den"><span class="math-root">√<span class="radicand">1 + (ωτ)²</span></span></span></span><br/>
                     φ = −atan(ωτ)
                 </div>
-
-                <p>
+<p>
                     M is the amplitude ratio.
                     Negative phase means the output lags the input.
                 </p>
-            </div>
-
-            <div class="model-column">
-                <h3>Input and output</h3>
-
-                <div class="equations">
-                    x(t) = sin(ωt)<br>
-                    y(t) = M sin(ωt + φ)<br>
+</div>
+<div class="model-column">
+<h3>Input and output</h3>
+<div class="equations">
+                    x(t) = sin(ωt)<br/>
+                    y(t) = M sin(ωt + φ)<br/>
                     ω = 2πf
                 </div>
-
-                <p>
+<p>
                     Unit gain K = 1, steady state.
                     f in Hz, ω in rad/s, τ in seconds.
                 </p>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- 2. PREDICT, THEN CHECK -->
-
-    <section class="section" id="predict">
-        <h2>Predict, then check</h2>
-
-        <p>
+</div>
+</div>
+</section>
+<!-- 2. PREDICT, THEN CHECK -->
+<section class="section" id="predict">
+<h2>Predict, then check</h2>
+<p>
             Choose an experiment and predict its outcome.
             Check &amp; run experiment applies the requested change to the live plots.
             You can also change the controls yourself before checking.
         </p>
-
-        <div class="two-columns">
-
-            <div>
-                <label for="scenario">Experiment</label>
-
-                <select id="scenario">
-                    <option value="fUp">
+<div class="two-columns">
+<div>
+<label for="scenario">Experiment</label>
+<select id="scenario">
+<option value="fUp">
                         Increase frequency · keep τ fixed
                     </option>
-
-                    <option value="fDown">
+<option value="fDown">
                         Decrease frequency · keep τ fixed
                     </option>
-
-                    <option value="tauUp">
+<option value="tauUp">
                         Increase τ · keep frequency fixed
                     </option>
-
-                    <option value="tauDown">
+<option value="tauDown">
                         Decrease τ · keep frequency fixed
                     </option>
-                </select>
-            </div>
-
-            <div>
-                <label for="prediction">Your prediction</label>
-
-                <select id="prediction">
-                    <option value="">Choose an answer</option>
-
-                    <option value="smaller">
+</select>
+</div>
+<div>
+<label for="prediction">Your prediction</label>
+<select id="prediction">
+<option value="">Choose an answer</option>
+<option value="smaller">
                         Smaller amplitude and greater phase lag
                     </option>
-
-                    <option value="larger">
+<option value="larger">
                         Larger amplitude and smaller phase lag
                     </option>
-
-                    <option value="same">
+<option value="same">
                         No change
                     </option>
-                </select>
-            </div>
-
-        </div>
-
-        <div class="actions">
-            <button id="checkPrediction" type="button">
+</select>
+</div>
+</div>
+<div class="actions">
+<button id="checkPrediction" type="button">
                 Check &amp; run experiment
             </button>
-            <button id="restorePrediction" type="button" class="quiet-button" disabled>
+<button class="quiet-button" disabled="" id="restorePrediction" type="button">
                 Restore previous settings
             </button>
-        </div>
-
-        <p
-            id="predictionResult"
-            class="feedback"
-            aria-live="polite"
-        ></p>
-    </section>
-
-    <!-- 3. LIVE WORKSPACE -->
-
-    <div class="workspace-title" id="workspace">
-        <h2>Frequency response · Live workspace</h2>
-    </div>
-
-    <div class="workspace">
-
-        <!-- LEFT: CONTROLS AND RESULTS -->
-
-        <aside class="panel" aria-label="Sensor controls and live results">
-            <h2 class="panel-title">CONTROLS</h2>
-
-            <div class="controls-body">
-
-                <div class="control">
-                    <label for="tauNumber">Time constant τ</label>
-
-                    <p>First-order system time constant.</p>
-
-                    <div class="number-row">
-                        <span>τ =</span>
-
-                        <input
-                            id="tauNumber"
-                            type="number"
-                            min="0.0001"
-                            max="10"
-                            step="any"
-                            value="0.2"
-                        >
-
-                        <span>s</span>
-                    </div>
-
-                    <input
-                        id="tauSlider"
-                        aria-label="Time constant, logarithmic slider"
-                        type="range"
-                        min="-4"
-                        max="1"
-                        step="0.001"
-                        value="-0.69897"
-                    >
-
-                    <div class="range-labels">
-                        <span>0.0001 s</span>
-                        <span>10 s</span>
-                    </div>
-                </div>
-
-                <div class="control">
-                    <label for="frequencyNumber">
+</div>
+<p aria-live="polite" class="feedback" id="predictionResult"></p>
+</section>
+<!-- 3. LIVE WORKSPACE -->
+<div class="workspace-title" id="workspace">
+<h2>Frequency response · Live workspace</h2>
+</div>
+<div class="workspace">
+<!-- LEFT: CONTROLS AND RESULTS -->
+<aside aria-label="Sensor controls and live results" class="panel">
+<h2 class="panel-title">CONTROLS</h2>
+<div class="controls-body">
+<div class="control">
+<label for="tauNumber">Time constant τ</label>
+<p>First-order system time constant.</p>
+<div class="number-row">
+<span>τ =</span>
+<input id="tauNumber" max="10" min="0.0001" step="any" type="number" value="0.2"/>
+<span>s</span>
+</div>
+<input aria-label="Time constant, logarithmic slider" id="tauSlider" max="1" min="-4" step="0.001" type="range" value="-0.69897"/>
+<div class="range-labels">
+<span>0.0001 s</span>
+<span>10 s</span>
+</div>
+</div>
+<div class="control">
+<label for="frequencyNumber">
                         Excitation frequency f
                     </label>
-
-                    <p>Sine input frequency.</p>
-
-                    <div class="number-row">
-                        <span>f =</span>
-
-                        <input
-                            id="frequencyNumber"
-                            type="number"
-                            min="0.01"
-                            max="1000"
-                            step="any"
-                            value="0.3183098861837907"
-                        >
-
-                        <span>Hz</span>
-                    </div>
-
-                    <input
-                        id="frequencySlider"
-                        aria-label="Frequency, logarithmic slider"
-                        type="range"
-                        min="-2"
-                        max="3"
-                        step="0.001"
-                        value="-0.49715"
-                    >
-
-                    <div class="range-labels">
-                        <span>0.01 Hz</span>
-                        <span>1000 Hz</span>
-                    </div>
-
-                    <p id="omegaText" class="compact-text"></p>
-                </div>
-
-                <div class="metric-group">
-                    <h3 class="metric-title">
+<p>Sine input frequency.</p>
+<div class="number-row">
+<span>f =</span>
+<input id="frequencyNumber" max="1000" min="0.01" step="any" type="number" value="0.3183098861837907"/>
+<span>Hz</span>
+</div>
+<input aria-label="Frequency, logarithmic slider" id="frequencySlider" max="3" min="-2" step="0.001" type="range" value="-0.49715"/>
+<div class="range-labels">
+<span>0.01 Hz</span>
+<span>1000 Hz</span>
+</div>
+<p class="compact-text" id="omegaText"></p>
+</div>
+<div class="metric-group">
+<h3 class="metric-title">
                         Current / calculated metrics
                     </h3>
-
-                    <div class="metrics">
-
-                        <div class="metric">
-                            <span>M</span>
-                            <strong id="magnitudeResult"></strong>
-                        </div>
-
-                        <div class="metric">
-                            <span>Phase</span>
-                            <strong id="phaseResult"></strong>
-                        </div>
-
-                        <div class="metric">
-                            <span>Cutoff fc</span>
-                            <strong id="cutoffResult"></strong>
-                        </div>
-
-                        <div class="metric">
-                            <span>Error</span>
-                            <strong id="errorResult"></strong>
-                        </div>
-
-                    </div>
-
-                    <p
-                        id="controlMessage"
-                        class="control-message"
-                        role="status"
-                    ></p>
-                </div>
-
-            </div>
-        </aside>
-
-        <!-- RIGHT: THREE CHARTS -->
-
-        <div class="plot-area">
-
-            <section class="panel">
-                <div class="panel-title wave-header">
-                    <h2 class="panel-heading">
+<div class="metrics">
+<div class="metric">
+<span>M</span>
+<strong id="magnitudeResult"></strong>
+</div>
+<div class="metric">
+<span>Phase</span>
+<strong id="phaseResult"></strong>
+</div>
+<div class="metric">
+<span>Cutoff fc</span>
+<strong id="cutoffResult"></strong>
+</div>
+<div class="metric">
+<span>Error</span>
+<strong id="errorResult"></strong>
+</div>
+</div>
+<p class="control-message" id="controlMessage" role="status"></p>
+</div>
+</div>
+</aside>
+<!-- RIGHT: THREE CHARTS -->
+<div class="plot-area">
+<section class="panel">
+<div class="panel-title wave-header">
+<h2 class="panel-heading">
                         Input &amp; output
                     </h2>
-
-                    <label class="window-control" for="timeWindow">
+<label class="window-control" for="timeWindow">
                         Time window:
 
                         <select id="timeWindow">
-                            <option value="10">10 s · Fixed</option>
-                            <option value="5">5 s · Fixed</option>
-                            <option value="1">1 s · Fixed</option>
-                            <option value="0.1">0.1 s · Fixed</option>
-                            <option value="0.01">0.01 s · Fixed</option>
-                            <option value="100">100 s · Fixed</option>
-                            <option value="auto">4 periods · Auto</option>
-                        </select>
-                    </label>
-                </div>
-
-                <svg
-                    id="sinePlot"
-                    class="wave-chart"
-                    role="img"
-                    aria-label="Input and output versus time"
-                ></svg>
-
-                <div class="chart-legend">
-                    <span class="key">Input</span>
-                    <span class="key output">Output</span>
-                </div>
-
-                <p class="plot-note" id="samplingNote"></p>
-            </section>
-
-            <div class="bode-grid" id="bode">
-
-                <section class="panel">
-                    <h2 class="panel-title">Bode magnitude</h2>
-
-                    <svg
-                        id="magnitudePlot"
-                        class="bode-chart"
-                        role="img"
-                        aria-label="Magnitude in decibels versus logarithmic angular frequency"
-                    ></svg>
-
-                    <div class="chart-legend">
-                        <span class="key">Magnitude</span>
-                        <span class="key cutoff">Cutoff</span>
-                        <span class="key selected">
+<option value="10">10 s · Fixed</option>
+<option value="5">5 s · Fixed</option>
+<option value="1">1 s · Fixed</option>
+<option value="0.1">0.1 s · Fixed</option>
+<option value="0.01">0.01 s · Fixed</option>
+<option value="100">100 s · Fixed</option>
+<option value="auto">4 periods · Auto</option>
+</select>
+</label>
+</div>
+<svg aria-label="Input and output versus time" class="wave-chart" id="sinePlot" role="img"></svg>
+<div class="chart-legend">
+<span class="key">Input</span>
+<span class="key output">Output</span>
+</div>
+<p class="plot-note" id="samplingNote"></p>
+</section>
+<div class="bode-grid" id="bode">
+<section class="panel">
+<h2 class="panel-title">Bode magnitude</h2>
+<svg aria-label="Magnitude in decibels versus logarithmic angular frequency" class="bode-chart" id="magnitudePlot" role="img"></svg>
+<div class="chart-legend">
+<span class="key">Magnitude</span>
+<span class="key cutoff">Cutoff</span>
+<span class="key selected">
                             Selected frequency
                         </span>
-                    </div>
-                </section>
-
-                <section class="panel">
-                    <h2 class="panel-title">Bode phase</h2>
-
-                    <svg
-                        id="phasePlot"
-                        class="bode-chart"
-                        role="img"
-                        aria-label="Phase in degrees versus logarithmic angular frequency"
-                    ></svg>
-
-                    <div class="chart-legend">
-                        <span class="key">Phase</span>
-                        <span class="key cutoff">Cutoff</span>
-                        <span class="key selected">
+</div>
+</section>
+<section class="panel">
+<h2 class="panel-title">Bode phase</h2>
+<svg aria-label="Phase in degrees versus logarithmic angular frequency" class="bode-chart" id="phasePlot" role="img"></svg>
+<div class="chart-legend">
+<span class="key">Phase</span>
+<span class="key cutoff">Cutoff</span>
+<span class="key selected">
                             Selected frequency
                         </span>
-                    </div>
-                </section>
-
-            </div>
-
-        </div>
-    </div>
-
-    <!-- 4. CALCULATORS -->
-
-    <div id="calculators">
-
-        <section class="section error-calculator">
-            <h2>Dynamic-error calculator</h2>
-            <p class="error-intro">A negative value means the output amplitude is smaller than the input amplitude.</p>
-            <div class="error-layout">
-                <div class="error-formulas">
-                    <div class="equations">
-                        δ = M − 1<br>
+</div>
+</section>
+</div>
+</div>
+</div>
+<!-- 4. CALCULATORS -->
+<div id="calculators">
+<section class="section error-calculator">
+<h2>Dynamic-error calculator</h2>
+<p class="error-intro">A negative value means the output amplitude is smaller than the input amplitude.</p>
+<div class="error-layout">
+<div class="error-formulas">
+<div class="equations">
+                        δ = M − 1<br/>
                         Error (%) = (M − 1) × 100
                     </div>
-                    <p id="errorMagnitude"></p>
-                </div>
-                <div class="result-box" aria-live="polite">
-                    <span>Dynamic error</span>
-                    <strong id="calculatorError"></strong>
-                    <span id="decimalError"></span>
-                    <p id="errorExplanation"></p>
-                </div>
-            </div>
-        </section>
-
+<p id="errorMagnitude"></p>
 </div>
-
-    <!-- 5. VALIDATION -->
-
-    <section class="section" id="validation">
-        <h2>Homework Validation — Checks 2 and 3</h2>
-
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Check</th>
-                        <th>Expected</th>
-                        <th>Calculated</th>
-                        <th>Result</th>
-                    </tr>
-                </thead>
-
-                <tbody id="validationRows"></tbody>
-            </table>
-        </div>
-    </section>
-
-    <noscript>
+<div aria-live="polite" class="result-box">
+<span>Dynamic error</span>
+<strong id="calculatorError"></strong>
+<span id="decimalError"></span>
+<p id="errorExplanation"></p>
+</div>
+</div>
+</section>
+</div>
+<!-- 5. VALIDATION -->
+<section class="section" id="validation">
+<h2>Homework Validation — Checks 2 and 3</h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected</th>
+<th>Calculated</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody id="validationRows"></tbody>
+</table>
+</div>
+</section>
+<noscript>
         Enable JavaScript to use the calculations and plots.
     </noscript>
-
-
-    <footer class="site-footer" aria-label="Module navigation">
-        <span>ENCS4380 · Dynamic Characteristics Toolkit</span>
-        <a class="back-modules" href="index.html">← Back to all modules</a>
-    </footer>
-
+<footer aria-label="Module navigation" class="site-footer">
+<span>ENCS4380 · Dynamic Characteristics Toolkit</span>
+<a class="back-modules" href="index.html">← Back to all modules</a>
+</footer>
 </main>
-
 <script>
 "use strict";
 
@@ -2031,6 +1882,5 @@ validation();
 update();
 
 </script>
-
 </body>
 </html>

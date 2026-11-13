@@ -1,386 +1,227 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Module 1 - First-Order Time Response</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 1 - First-Order Time Response</title>
+<link href="style.css" rel="stylesheet"/>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
-
 <body onload="drawResponse()">
-
-    <!-- HEADER -->
-    <header class="top-header site-header">
-
-        <div>
-            <h2>ENCS4380</h2>
-            <p>Dynamic Characteristics Toolkit</p>
-        </div>
-
-        
-        <nav class="site-nav" aria-label="Main navigation">
-            <a href="index.html">Home</a>
-            <a href="module1.html" class="active" aria-current="page">Module 1</a>
-            <a href="module2.html">Module 2</a>
-            <a href="module3.html">Module 3</a>
-            <a href="module4.html">Module 4</a>
-        </nav>
-
-    </header>
-
-
-    <main class="module1-container">
-
-        <!-- PAGE TITLE -->
-        <section class="module1-title unified-hero"><div class="hero-copy"><p class="eyebrow">MODULE 01 · INTERACTIVE LAB</p>
-
-            <h1>Module 1 — First-Order Time <em>Response</em></h1>
-
-            <p>
+<!-- HEADER -->
+<header class="top-header site-header">
+<div>
+<h2>ENCS4380</h2>
+<p>Dynamic Characteristics Toolkit</p>
+</div>
+<nav aria-label="Main navigation" class="site-nav"><a href="index.html">← Toolkits</a>
+<a href="homework1.html">Home</a>
+<a aria-current="page" class="active" href="module1.html">Module 1</a>
+<a href="module2.html">Module 2</a>
+<a href="module3.html">Module 3</a>
+<a href="module4.html">Module 4</a>
+</nav>
+</header>
+<main class="module1-container">
+<!-- PAGE TITLE -->
+<section class="module1-title unified-hero"><div class="hero-copy"><p class="eyebrow">MODULE 01 · INTERACTIVE LAB</p>
+<h1>Module 1 — First-Order Time <em>Response</em></h1>
+<p>
                 Explore how gain K and time constant τ
                 affect the response of a first-order sensor.
             </p>
-
-        <nav class="section-links" aria-label="On this page"><a href="#system-model">System model</a><a href="#predict">Predict, then check</a><a href="#workspace">Simulator</a><a href="#validation">Validation</a></nav></div><div class="hero-mark" aria-hidden="true"><svg viewBox="0 0 220 160"><path d="M20 15V140H205" fill="none" stroke="#a9c9b7" stroke-width="2"/><polyline points="20.00,130.00 21.80,124.25 23.60,118.90 25.40,113.90 27.20,109.24 29.00,104.90 30.80,100.85 32.60,97.07 34.40,93.55 36.20,90.27 38.00,87.21 39.80,84.36 41.60,81.70 43.40,79.21 45.20,76.90 47.00,74.74 48.80,72.73 50.60,70.86 52.40,69.11 54.20,67.48 56.00,65.96 57.80,64.54 59.60,63.22 61.40,61.99 63.20,60.84 65.00,59.77 66.80,58.77 68.60,57.84 70.40,56.97 72.20,56.16 74.00,55.41 75.80,54.71 77.60,54.05 79.40,53.44 81.20,52.87 83.00,52.33 84.80,51.84 86.60,51.38 88.40,50.95 90.20,50.54 92.00,50.17 93.80,49.82 95.60,49.49 97.40,49.19 99.20,48.91 101.00,48.64 102.80,48.40 104.60,48.17 106.40,47.95 108.20,47.75 110.00,47.57 111.80,47.39 113.60,47.23 115.40,47.08 117.20,46.94 119.00,46.81 120.80,46.69 122.60,46.57 124.40,46.47 126.20,46.37 128.00,46.27 129.80,46.19 131.60,46.11 133.40,46.03 135.20,45.96 137.00,45.90 138.80,45.84 140.60,45.78 142.40,45.73 144.20,45.68 146.00,45.63 147.80,45.59 149.60,45.55 151.40,45.51 153.20,45.48 155.00,45.45 156.80,45.42 158.60,45.39 160.40,45.36 162.20,45.34 164.00,45.31 165.80,45.29 167.60,45.27 169.40,45.25 171.20,45.24 173.00,45.22 174.80,45.21 176.60,45.19 178.40,45.18 180.20,45.17 182.00,45.16 183.80,45.15 185.60,45.14 187.40,45.13 189.20,45.12 191.00,45.11 192.80,45.10 194.60,45.10 196.40,45.09 198.20,45.08 200.00,45.08" fill="none" stroke="#16a35b" stroke-width="4" stroke-linecap="round"/></svg><small>EXPLORE THE RESPONSE</small></div></section>
-
-
-        <!-- SYSTEM MODEL -->
-        <section class="module1-equation-section" id="system-model">
-
-            <div class="equation-box">
-
-                <h3>System Equation</h3>
-
-                <div class="equation">
+<nav aria-label="On this page" class="section-links"><a href="#system-model">System model</a><a href="#predict">Predict, then check</a><a href="#workspace">Simulator</a><a href="#validation">Validation</a></nav></div><div aria-hidden="true" class="hero-mark"><svg viewbox="0 0 220 160"><path d="M20 15V140H205" fill="none" stroke="#a9c9b7" stroke-width="2"></path><polyline fill="none" points="20.00,130.00 21.80,124.25 23.60,118.90 25.40,113.90 27.20,109.24 29.00,104.90 30.80,100.85 32.60,97.07 34.40,93.55 36.20,90.27 38.00,87.21 39.80,84.36 41.60,81.70 43.40,79.21 45.20,76.90 47.00,74.74 48.80,72.73 50.60,70.86 52.40,69.11 54.20,67.48 56.00,65.96 57.80,64.54 59.60,63.22 61.40,61.99 63.20,60.84 65.00,59.77 66.80,58.77 68.60,57.84 70.40,56.97 72.20,56.16 74.00,55.41 75.80,54.71 77.60,54.05 79.40,53.44 81.20,52.87 83.00,52.33 84.80,51.84 86.60,51.38 88.40,50.95 90.20,50.54 92.00,50.17 93.80,49.82 95.60,49.49 97.40,49.19 99.20,48.91 101.00,48.64 102.80,48.40 104.60,48.17 106.40,47.95 108.20,47.75 110.00,47.57 111.80,47.39 113.60,47.23 115.40,47.08 117.20,46.94 119.00,46.81 120.80,46.69 122.60,46.57 124.40,46.47 126.20,46.37 128.00,46.27 129.80,46.19 131.60,46.11 133.40,46.03 135.20,45.96 137.00,45.90 138.80,45.84 140.60,45.78 142.40,45.73 144.20,45.68 146.00,45.63 147.80,45.59 149.60,45.55 151.40,45.51 153.20,45.48 155.00,45.45 156.80,45.42 158.60,45.39 160.40,45.36 162.20,45.34 164.00,45.31 165.80,45.29 167.60,45.27 169.40,45.25 171.20,45.24 173.00,45.22 174.80,45.21 176.60,45.19 178.40,45.18 180.20,45.17 182.00,45.16 183.80,45.15 185.60,45.14 187.40,45.13 189.20,45.12 191.00,45.11 192.80,45.10 194.60,45.10 196.40,45.09 198.20,45.08 200.00,45.08" stroke="#16a35b" stroke-linecap="round" stroke-width="4"></polyline></svg><small>EXPLORE THE RESPONSE</small></div></section>
+<!-- SYSTEM MODEL -->
+<section class="module1-equation-section" id="system-model">
+<div class="equation-box">
+<h3>System Equation</h3>
+<div class="equation">
                     τ <span class="math-frac"><span class="math-num">dy</span><span class="math-den">dt</span></span> + y = Kx
                 </div>
-
-                <p>
+<p>
                     This equation describes a first-order system.
                     The output does not change instantly;
                     it approaches its final value gradually.
                 </p>
-
-            </div>
-
-
-            <div class="parameter-box">
-
-                <h3>What do K and τ mean?</h3>
-
-                <p>
-                    <strong>K Gain:</strong>
+</div>
+<div class="parameter-box">
+<h3>What do K and τ mean?</h3>
+<p>
+<strong>K Gain:</strong>
                     controls the final output level.
                 </p>
-
-                <p>
-                    <strong>τ Time Constant:</strong>
+<p>
+<strong>τ Time Constant:</strong>
                     controls how fast the response changes.
                 </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- PREDICT -->
-        <section class="predict-card experiment-card" id="predict">
+</div>
+</section>
+<!-- PREDICT -->
+<section class="predict-card experiment-card" id="predict">
 <h2>Predict, then check</h2>
 <p>Choose an experiment and predict its outcome. Check &amp; run experiment applies the change to the step-response plots. Restore your previous settings when you finish.</p>
 <div class="experiment-grid">
 <label for="predictionScenario">Experiment<select id="predictionScenario"><option value="tau">Increase τ · keep K fixed</option><option value="gain">Increase K · keep τ fixed</option></select></label>
 <label for="predictionAnswer">Your prediction<select id="predictionAnswer"><option value="">Choose an answer</option></select></label>
 </div>
-<div class="experiment-actions"><button type="button" id="runPrediction">Check &amp; run experiment</button><button type="button" id="restorePrediction" disabled>Restore previous settings</button></div>
-<p id="predictionFeedback" role="status" aria-live="polite"></p>
+<div class="experiment-actions"><button id="runPrediction" type="button">Check &amp; run experiment</button><button disabled="" id="restorePrediction" type="button">Restore previous settings</button></div>
+<p aria-live="polite" id="predictionFeedback" role="status"></p>
 </section>
-
-
-        <!-- LIVE WORKSPACE -->
-        <section class="module1-workspace" id="workspace">
-
-            <!-- LEFT: CONTROLS -->
-            <aside class="module1-controls">
-
-                <h2 class="controls-title">
+<!-- LIVE WORKSPACE -->
+<section class="module1-workspace" id="workspace">
+<!-- LEFT: CONTROLS -->
+<aside class="module1-controls">
+<h2 class="controls-title">
                     CONTROLS
                 </h2>
-
-                <div class="controls-body">
-
-
-                    <!-- K -->
-                    <div class="control-card">
-
-                        <label for="kSlider">
+<div class="controls-body">
+<!-- K -->
+<div class="control-card">
+<label for="kSlider">
                             Gain K
                         </label>
-
-                        <div class="number-row">
-
-                            <span>K =</span>
-
-                            <span
-                                id="kValue"
-                                class="value-box"
-                            >
+<div class="number-row">
+<span>K =</span>
+<span class="value-box" id="kValue">
                                 1
                             </span>
-
-                        </div>
-
-                        <input
-                            type="range"
-                            id="kSlider"
-                            min="0.5"
-                            max="6"
-                            step="0.1"
-                            value="1"
-                        >
-
-                    </div>
-
-
-                    <!-- TAU -->
-                    <div class="control-card">
-
-                        <label for="tauSlider">
+</div>
+<input id="kSlider" max="6" min="0.5" step="0.1" type="range" value="1"/>
+</div>
+<!-- TAU -->
+<div class="control-card">
+<label for="tauSlider">
                             Time Constant τ
                         </label>
-
-                        <div class="number-row">
-
-                            <span>τ =</span>
-
-                            <span
-                                id="tauValue"
-                                class="value-box"
-                            >
+<div class="number-row">
+<span>τ =</span>
+<span class="value-box" id="tauValue">
                                 1
                             </span>
-
-                            <span>s</span>
-
-                        </div>
-
-                        <input
-                            type="range"
-                            id="tauSlider"
-                            min="0.1"
-                            max="6"
-                            step="0.1"
-                            value="1"
-                        >
-
-                    </div>
-
-
-                    <!-- INPUT TYPE -->
-                    <div class="control-card input-type-card">
-
-                        <label for="inputType">
+<span>s</span>
+</div>
+<input id="tauSlider" max="6" min="0.1" step="0.1" type="range" value="1"/>
+</div>
+<!-- INPUT TYPE -->
+<div class="control-card input-type-card">
+<label for="inputType">
                             Input Type
                         </label>
-
-                        <select id="inputType">
-
-                            <option value="step">
+<select id="inputType">
+<option value="step">
                                 Step
                             </option>
-
-                            <option value="ramp">
+<option value="ramp">
                                 Ramp
                             </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <!-- LIVE RESULTS 2x2 -->
-                    <div class="control-results">
-
-                        <div class="result-card">
-
-                            <p>At t = τ</p>
-
-                            <h2 id="tauResult">
+</select>
+</div>
+<!-- LIVE RESULTS 2x2 -->
+<div class="control-results">
+<div class="result-card">
+<p>At t = τ</p>
+<h2 id="tauResult">
                                 0.0
                             </h2>
-
-                        </div>
-
-
-                        <div class="result-card">
-
-                            <p>At t = 3τ</p>
-
-                            <h2 id="threeTauResult">
+</div>
+<div class="result-card">
+<p>At t = 3τ</p>
+<h2 id="threeTauResult">
                                 0.0
                             </h2>
-
-                        </div>
-
-
-                        <div class="result-card">
-
-                            <p>Ramp Lag</p>
-
-                            <h2 id="rampLagResult">
+</div>
+<div class="result-card">
+<p>Ramp Lag</p>
+<h2 id="rampLagResult">
                                 —
                             </h2>
-
-                        </div>
-
-
-                        <div class="result-card">
-
-                            <p>Steady-State Error</p>
-
-                            <h2 id="steadyErrorResult">
+</div>
+<div class="result-card">
+<p>Steady-State Error</p>
+<h2 id="steadyErrorResult">
                                 —
                             </h2>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </aside>
-
-
-            <!-- RIGHT: GRAPHS -->
-            <div class="plot-area">
-
-
-                <!-- RESPONSE -->
-                <div class="response-card">
-
-                    <div class="plot-header">
-
-                        <h2>
+</div>
+</div>
+</div>
+</aside>
+<!-- RIGHT: GRAPHS -->
+<div class="plot-area">
+<!-- RESPONSE -->
+<div class="response-card">
+<div class="plot-header">
+<h2>
                             Input &amp; output
                         </h2>
-
-                        <label
-                            class="window-control"
-                            for="timeWindow"
-                        >
+<label class="window-control" for="timeWindow">
                             Time window:
 
                             <select id="timeWindow">
-
-                                <option value="10">
+<option value="10">
                                     10 s · Fixed
                                 </option>
-
-                                <option value="5">
+<option value="5">
                                     5 s · Fixed
                                 </option>
-
-                                <option value="1">
+<option value="1">
                                     1 s · Fixed
                                 </option>
-
-                                <option value="0.1">
+<option value="0.1">
                                     0.1 s · Fixed
                                 </option>
-
-                                <option value="auto">
+<option value="auto">
                                     Auto
                                 </option>
-
-                            </select>
-
-                        </label>
-
-                    </div>
-
-
-                    <div id="responsePlot"></div>
-
-                </div>
-
-
-                <!-- ERROR -->
-                <div class="error-card">
-
-                    <div class="plot-header">
-
-                        <h2>
+</select>
+</label>
+</div>
+<div id="responsePlot"></div>
+</div>
+<!-- ERROR -->
+<div class="error-card">
+<div class="plot-header">
+<h2>
                             Log Error — Slope Analysis
                         </h2>
-
-                    </div>
-
-                    <div id="errorPlot"></div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- VALIDATION -->
-        <section class="validation-card" id="validation">
-
-            <h2>
+</div>
+<div id="errorPlot"></div>
+</div>
+</div>
+</section>
+<!-- VALIDATION -->
+<section class="validation-card" id="validation">
+<h2>
                 Validation Check
             </h2>
-
-            <div class="validation-row">
-
-                <span>
+<div class="validation-row">
+<span>
                     Expected at t = τ
                 </span>
-
-                <span>
+<span>
                     63.2%
                 </span>
-
-                <span id="tauValidation">
+<span id="tauValidation">
                     —
                 </span>
-
-            </div>
-
-
-            <div class="validation-row">
-
-                <span>
+</div>
+<div class="validation-row">
+<span>
                     Expected at t = 3τ
                 </span>
-
-                <span>
+<span>
                     95%
                 </span>
-
-                <span id="threeTauValidation">
+<span id="threeTauValidation">
                     —
                 </span>
-
-            </div>
-
-        </section>
-
-    
-    <footer class="site-footer" aria-label="Module navigation">
-        <span>ENCS4380 · Dynamic Characteristics Toolkit</span>
-        <a class="back-modules" href="index.html">← Back to all modules</a>
-    </footer>
-
+</div>
+</section>
+<footer aria-label="Module navigation" class="site-footer">
+<span>ENCS4380 · Dynamic Characteristics Toolkit</span>
+<a class="back-modules" href="index.html">← Back to all modules</a>
+</footer>
 </main>
-
-
-    <script src="script.js"></script>
-
+<script src="script.js"></script>
 </body>
-
 </html>

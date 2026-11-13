@@ -1,187 +1,175 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore second-order sensor dynamics: step responses, damping, response measurements, poles, and numerical solvers.">
-    <title>Module 3 — Second-Order Response</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="module3.css">
-    <script src="module3-model.js" defer></script>
-    <script src="module3.js" defer></script>
-    <script src="module3-state-space.js" defer></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Explore second-order sensor dynamics: step responses, damping, response measurements, poles, and numerical solvers." name="description"/>
+<title>Module 3 — Second-Order Response</title>
+<link href="style.css" rel="stylesheet"/>
+<link href="module3.css" rel="stylesheet"/>
+<script defer="" src="module3-model.js"></script>
+<script defer="" src="module3.js"></script>
+<script defer="" src="module3-state-space.js"></script>
 </head>
 <body class="module3-page">
-    <a class="skip-link" href="#main">Skip to simulator</a>
-    <header class="top-header site-header">
-        <div><h2>ENCS4380</h2><p>Dynamic Characteristics Toolkit</p></div>
-        
-        <nav class="site-nav" aria-label="Main navigation">
-            <a href="index.html">Home</a>
-            <a href="module1.html">Module 1</a>
-            <a href="module2.html">Module 2</a>
-            <a href="module3.html" class="active" aria-current="page">Module 3</a>
-            <a href="module4.html">Module 4</a>
-        </nav>
-    </header>
-    <main id="main" class="m3-container">
-        <section class="m3-intro unified-hero"><div class="hero-copy">
-            <p class="eyebrow">MODULE 3 · SECOND-ORDER DYNAMICS</p>
-            <h1>Second-order <em>response</em></h1>
-            <p>Explore how mass, damping, and spring stiffness shape a sensor’s response to a sudden force.</p>
-            <nav class="section-links" aria-label="On this page"><a href="#workspace">Simulator</a><a href="#stateSpacePanel">State space</a><a href="#polesComparison">Poles &amp; eigenvalues</a><a href="#predict">Predict, then check</a><a href="#solver">Solver comparison</a><a href="#validation">Validation</a><a href="#theory">Equations &amp; definitions</a></nav>
-        </div><div class="hero-mark" aria-hidden="true"><svg viewBox="0 0 220 160"><path d="M20 15V140H205" fill="none" stroke="#a9c9b7" stroke-width="2"/><polyline points="20.00,130.00 21.80,129.49 23.60,128.02 25.40,125.67 27.20,122.52 29.00,118.67 30.80,114.20 32.60,109.23 34.40,103.82 36.20,98.09 38.00,92.12 39.80,86.00 41.60,79.80 43.40,73.62 45.20,67.51 47.00,61.55 48.80,55.80 50.60,50.30 52.40,45.12 54.20,40.29 56.00,35.84 57.80,31.79 59.60,28.18 61.40,25.01 63.20,22.29 65.00,20.02 66.80,18.21 68.60,16.83 70.40,15.87 72.20,15.33 74.00,15.17 75.80,15.38 77.60,15.92 79.40,16.77 81.20,17.90 83.00,19.27 84.80,20.85 86.60,22.61 88.40,24.51 90.20,26.53 92.00,28.63 93.80,30.79 95.60,32.96 97.40,35.13 99.20,37.27 101.00,39.36 102.80,41.37 104.60,43.29 106.40,45.10 108.20,46.78 110.00,48.33 111.80,49.74 113.60,51.00 115.40,52.10 117.20,53.04 119.00,53.82 120.80,54.45 122.60,54.92 124.40,55.24 126.20,55.42 128.00,55.47 129.80,55.38 131.60,55.18 133.40,54.88 135.20,54.48 137.00,53.99 138.80,53.43 140.60,52.81 142.40,52.13 144.20,51.42 146.00,50.68 147.80,49.93 149.60,49.16 151.40,48.40 153.20,47.65 155.00,46.92 156.80,46.22 158.60,45.55 160.40,44.92 162.20,44.33 164.00,43.79 165.80,43.30 167.60,42.86 169.40,42.48 171.20,42.16 173.00,41.88 174.80,41.67 176.60,41.51 178.40,41.40 180.20,41.34 182.00,41.33 183.80,41.36 185.60,41.43 187.40,41.54 189.20,41.69 191.00,41.86 192.80,42.06 194.60,42.28 196.40,42.52 198.20,42.77 200.00,43.03" fill="none" stroke="#16a35b" stroke-width="4" stroke-linecap="round"/></svg><small>DISCOVER THE DYNAMICS</small></div></section>
-
-        <section class="m3-section model-overview" aria-labelledby="model-title">
-            <div><h2 id="model-title">System model</h2>
-                <p class="equation">mẍ + bẋ + kx = F(t)</p>
-                <p>A mass connected to a spring and a damper starts at rest. At t = 0, a constant force F₀ is applied.</p>
-            </div>
-            <div><h3>From physical parameters to response</h3>
-                <p class="equation small-equation">ω<sub>n</sub> = <span class="math-root">√<span class="radicand"><span class="math-frac"><span class="math-num">k</span><span class="math-den">m</span></span></span></span> &nbsp; · &nbsp; ζ = <span class="math-frac"><span class="math-num">b</span><span class="math-den">2<span class="math-root">√<span class="radicand">mk</span></span></span></span></p>
-                <p>m: mass · b: viscous damping · k: spring stiffness.<br>The equilibrium displacement is x∞ = F₀/k. Capital K = 1/k is the static gain.</p>
-            </div>
-        </section>
-        
-        <section id="predict" class="m3-section" aria-labelledby="predict-title">
-            <p class="eyebrow">PREDICT, THEN CHECK</p><h2 id="predict-title">Make a prediction. Run the experiment.</h2>
-            <p>The experiment button applies a controlled change and updates the simulator. Your previous settings can be restored afterward.</p>
-            <div class="prediction-grid"><label for="predictionScenario">Experiment<select id="predictionScenario"><option value="damping">Increase damping from b = 2 to b = 4</option><option value="speed">Double ωn while keeping ζ fixed</option><option value="force">Double the step force</option></select></label><label for="predictionAnswer">Your prediction<select id="predictionAnswer"><option value="">Choose a prediction…</option></select></label></div>
-            <p id="predictionSetup" class="small-note"></p>
-            <div class="action-row"><button id="checkPrediction" type="button">Check &amp; run experiment</button><button id="restorePrediction" type="button" class="quiet-button" disabled>Restore previous settings</button></div>
-            <p id="predictionFeedback" class="feedback" role="status"></p>
-        </section>
-
-        <section id="workspace" aria-labelledby="workspace-title">
-            <div class="section-heading"><div><h2 id="workspace-title">Step-response simulator</h2><p>Change a parameter or select a damping case. Every plot and measurement updates together.</p></div><span class="regime-label" id="regimeLabel" aria-live="polite">Underdamped</span></div>
-            <div class="preset-row" role="group" aria-label="Damping presets">
-                <button type="button" data-preset="under">Underdamped</button>
-                <button type="button" data-preset="critical">Critically damped</button>
-                <button type="button" data-preset="over">Overdamped</button>
-                <button type="button" data-preset="undamped">No damping</button>
-                <button type="button" id="resetModel" class="quiet-button">Reset model</button>
-            </div>
-            <p class="small-note">Presets use m = 1 kg, k = 4 N/m, and F₀ = 1 N; only damping differs.</p>
-            <div class="m3-workspace">
-                <aside class="m3-panel controls-panel" aria-labelledby="controls-title">
-                    <h3 class="panel-title" id="controls-title">CONTROLS</h3>
-                    <div class="panel-body">
-                        <div class="parameter-control"><label for="mNumber">Mass m <span>kg</span></label><input id="mNumber" type="number" min="0.1" max="10" step="any" value="1"><label class="sr-only" for="mSlider">Mass slider, kg</label><input id="mSlider" type="range" min="0.1" max="10" step="any" value="1"></div>
-                        <div class="parameter-control"><label for="bNumber">Damping b <span>N·s/m</span></label><input id="bNumber" type="number" min="0" max="30" step="any" value="2"><label class="sr-only" for="bSlider">Damping slider, N seconds per metre</label><input id="bSlider" type="range" min="0" max="30" step="any" value="2"></div>
-                        <div class="parameter-control"><label for="kNumber">Spring stiffness k <span>N/m</span></label><input id="kNumber" type="number" min="0.5" max="100" step="any" value="4"><label class="sr-only" for="kSlider">Spring stiffness slider, N per metre</label><input id="kSlider" type="range" min="0.5" max="100" step="any" value="4"></div>
-                        <div class="parameter-control"><label for="forceNumber">Step force F₀ <span>N</span></label><input id="forceNumber" type="number" min="0.1" max="10" step="any" value="1"><label class="sr-only" for="forceSlider">Step force slider, N</label><input id="forceSlider" type="range" min="0.1" max="10" step="any" value="1"></div>
-                        <p id="controlMessage" class="feedback" role="alert"></p>
-                        <dl class="derived-values"><div><dt>Damping ratio ζ</dt><dd id="zetaValue">0.5</dd></div><div><dt>Natural frequency ω<sub>n</sub></dt><dd id="omegaValue">2 rad/s</dd></div><div><dt>Equilibrium x∞</dt><dd id="finalValue">0.25 m</dd></div></dl>
-                        <p class="small-note">Initial conditions: x(0) = 0 m and v(0) = 0 m/s. Displacement is shown in metres, without normalization.</p>
-                    </div>
-                </aside>
-                <div class="response-column">
-                    <section class="m3-panel" aria-labelledby="response-title">
-                        <div class="panel-title plot-heading"><h3 id="response-title">Displacement over time</h3><label for="timeWindow">Time window <select id="timeWindow"><option value="auto">Auto</option><option value="1">1 s</option><option value="5">5 s</option><option value="10">10 s</option><option value="30">30 s</option><option value="60">60 s</option></select></label></div>
-                        <div id="stepResponsePlot" class="m3-chart" aria-label="Exact step-response graph"></div>
-                        <div class="chart-legend"><span class="legend-line exact-key">Exact response</span><span class="legend-line equilibrium-key">Equilibrium</span><span class="band-key">±2% settling band</span></div>
-                        <p id="responseReadout" class="plot-readout" aria-live="off">Move over the curve, tap it, or focus the plot and use the arrow keys to inspect values.</p>
-                        <p id="windowMessage" class="small-note plot-note"></p>
-                    </section>
-                    <dl class="metric-grid" aria-label="Live response measurements">
-                        <div><dt>Rise time · 10–90%</dt><dd id="riseValue">—</dd><small id="riseDetail"></small></div>
-                        <div><dt>First peak time</dt><dd id="peakValue">—</dd><small id="peakDetail"></small></div>
-                        <div><dt>Peak overshoot</dt><dd id="overshootValue">—</dd><small id="overshootDetail"></small></div>
-                        <div><dt>Settling time · ±2%</dt><dd id="settlingValue">—</dd><small id="settlingDetail"></small></div>
-                    </dl>
-                </div>
-            </div>
-        </section>
-
-        <section id="stateSpacePanel" class="m3-section" hidden aria-labelledby="stateSpaceTitle">
-            <div class="section-heading"><div><p class="eyebrow">THE SAME SYSTEM IN MATRIX FORM</p><h2 id="stateSpaceTitle">State-space representation</h2></div><span class="subtle-label">x₁ = x · x₂ = v</span></div>
-            <p>Choose the states x₁ = x (displacement) and x₂ = v (velocity). The matrices follow the m, b and k controls above.</p>
-            <p class="equation small-equation">q̇ = Aq + BF(t) &nbsp; · &nbsp; y = Cq</p>
-            <div class="ss-state-grid">
-                <section class="m3-panel" aria-labelledby="matricesTitle">
-                    <h3 id="matricesTitle" class="panel-title">MATRICES A, B AND C</h3>
-                    <div class="panel-body">
-                        <div class="ss-matrices" aria-live="polite">
-                            <div class="ss-matrix-row"><span>A =</span><div class="ss-matrix ss-symbol ss-two-columns" aria-label="Symbolic A"><span>0</span><span>1</span><span>−k/m</span><span>−b/m</span></div><span>=</span><div id="matrixA" class="ss-matrix"></div></div>
-                            <div class="ss-matrix-row"><span>B =</span><div class="ss-matrix ss-symbol" aria-label="Symbolic B"><span>0</span><span>1/m</span></div><span>=</span><div id="matrixB" class="ss-matrix"></div></div>
-                            <div class="ss-matrix-row"><span>C =</span><div class="ss-matrix ss-symbol ss-two-columns" aria-label="Symbolic C"><span>1</span><span>0</span></div><span>=</span><div id="matrixC" class="ss-matrix"></div></div>
-                        </div>
-                        <p class="small-note">The input is the step force F(t) = F₀ for t ≥ 0; B does not depend on F₀. The output y = x₁ is displacement.</p>
-                        <p class="small-note">ẋ₁ = x₂<br>ẋ₂ = −(k/m)x₁ − (b/m)x₂ + F(t)/m</p>
-                    </div>
-                </section>
-                <section class="m3-panel" aria-labelledby="phasePlaneTitle">
-                    <h3 id="phasePlaneTitle" class="panel-title">Phase plane: velocity against displacement</h3>
-                    <div id="phasePlanePlot" class="m3-chart ss-phase" aria-label="Displacement versus velocity phase plane"></div>
-                    <div class="chart-legend"><span class="legend-line exact-key">Path (x₁, x₂)</span><span>○ Start (0, 0)</span><span>× Equilibrium (F₀/k, 0)</span></div>
-                    <p id="phasePlaneReadout" class="plot-readout" aria-live="off">Move over the path, tap it, or focus the plot and use the arrow keys to follow the motion in time.</p>
-                </section>
-            </div>
-        </section>
-
-        <section id="polesComparison" class="m3-section poles-section ss-comparison" aria-labelledby="poles-title">
-            <div class="ss-comparison-heading"><p class="eyebrow">THE SAME DYNAMICS, ANOTHER VIEW</p><h2 id="poles-title">Poles in the s-plane</h2><p class="small-note">Two independent calculations describe the same system.</p></div>
-            <section class="m3-panel ss-method-card" aria-labelledby="transferMethodTitle">
-                <h3 id="transferMethodTitle" class="panel-title">Transfer-function poles</h3>
-                <div class="ss-method-body">
-                    <p class="equation small-equation">ms² + bs + k = 0</p>
-                    <p id="poleCharacteristic" class="ss-current-equation"></p>
-                    <div id="poleValues" class="pole-values ss-result-values" aria-live="polite"></div>
-                    <p>The real part controls decay; the imaginary part describes oscillation.</p>
-                    <p id="poleExplanation" class="small-note"></p>
-                    <p class="small-note">A repeated pole is marked ×2.</p>
-                </div>
-            </section>
-            <section class="m3-panel ss-method-card ss-shared-plot" aria-labelledby="sharedPlotTitle">
-                <h3 id="sharedPlotTitle" class="panel-title">Shared s-plane plot</h3>
-                <div id="polesPlot" class="m3-chart pole-chart" aria-label="Poles and independently calculated eigenvalues in the complex plane"></div>
-                <p class="small-note ss-plot-caption">Matching poles and eigenvalues share the same coordinates.</p>
-            </section>
-            <section class="m3-panel ss-method-card ss-eigen-column" aria-labelledby="eigenMethodTitle">
-                <h3 id="eigenMethodTitle" class="panel-title">State-space eigenvalues</h3>
-                <div class="ss-method-body">
-                    <p class="equation small-equation">det(λI − A) = 0</p>
-                    <p id="stateSpaceCharacteristic" class="ss-current-equation"></p>
-                    <div id="eigenvalues" class="pole-values ss-result-values" aria-live="polite"></div>
-                    <p>Calculated independently from the trace and determinant of A.</p>
-                    <p class="small-note">λ² + (b/m)λ + k/m = 0. These eigenvalues should equal the transfer-function poles.</p>
-                </div>
-            </section>
-            <p id="stateSpaceMatch" class="small-note ss-comparison-result" role="status"></p>
-        </section>
-
-       
-
-        <section id="solver" class="m3-section" aria-labelledby="solver-title">
-            <div class="section-heading"><div><p class="eyebrow">NUMERICAL SOLVER COMPARISON</p><h2 id="solver-title">Exact formula meets a numerical solution</h2></div><span class="subtle-label">Euler &amp; RK4</span></div>
-            <p>Both solvers integrate ẋ = v and v̇ = (F₀ − bv − kx)/m from rest, using the same model and time window as the simulator. Reduce the step size h to explore convergence.</p>
-            <div class="solver-controls"><label for="solverMethod">Numerical method<select id="solverMethod"><option value="rk4">Runge–Kutta 4 (RK4)</option><option value="euler">Explicit Euler</option></select></label><label for="solverStep">Step size h (s)<input id="solverStep" type="number" min="0.0001" max="1" step="any" value="0.02"></label><button id="halveStep" type="button" class="quiet-button">Halve step size</button></div>
-            <p id="solverStatus" class="feedback" role="status"></p>
-            <div id="solverPlot" class="m3-chart" aria-label="Numerical and exact response comparison"></div>
-            <div class="chart-legend"><span class="legend-line exact-key">Exact response</span><span id="solverLegend" class="legend-line numerical-key">RK4 approximation</span></div>
-            <p id="solverReadout" class="plot-readout" aria-live="off">Inspect the plot to compare both curves at the same time.</p>
-            <dl class="solver-metrics"><div><dt>Maximum absolute error</dt><dd id="maxError">—</dd></div><div><dt>Root mean square error</dt><dd id="rmseValue">—</dd></div><div><dt>Integration steps</dt><dd id="stepsValue">—</dd></div></dl>
-            <p class="small-note">Errors compare displacement with the exact formula at every integration step, including the endpoint. Plot lines may be downsampled; error calculations are not. An unstable numerical method does not mean the physical system is unstable.</p>
-        </section>
-
-        <section id="validation" class="m3-section" aria-labelledby="validation-title">
-            <div class="section-heading"><div><h2 id="validation-title">Homework validation · Checks 4, 5 and 6</h2><p>Independent reference cases, unaffected by the current sliders. F₀ = 1 N, m = 1 kg, k = 4 N/m.</p></div><button id="rerunValidation" type="button" class="quiet-button">Run checks again</button></div>
-            <div class="table-wrap"><table class="validation-table"><caption class="sr-only">Expected and calculated second-order reference values</caption><thead><tr><th scope="col">Reference case</th><th scope="col">Expected</th><th scope="col">Calculated</th><th scope="col">Result</th></tr></thead><tbody id="validationRows"></tbody><tbody id="stateSpaceValidationRows"><tr><td>6 · State-space eigenvalues equal poles<br><span class="small-note">m = 1, b = 2, k = 4</span></td><td>−1 ± j1.732 s⁻¹ (±0.001)<br>Match poles within 10⁻⁹ s⁻¹</td><td id="stateSpaceCheckValue"></td><td id="stateSpaceCheckResult"></td></tr></tbody></table></div>
-            <p id="validationSummary" class="small-note" role="status"></p>
-        </section>
-
-        <section id="theory" class="m3-section" aria-labelledby="theory-title"><h2 id="theory-title">Equations &amp; measurement definitions</h2>
-            <details open><summary>Model, gain, and assumptions</summary><p>G(s) = <span class="math-frac"><span class="math-num">X(s)</span><span class="math-den">F(s)</span></span> = <span class="math-frac"><span class="math-num">1</span><span class="math-den">ms² + bs + k</span></span> = <span class="math-frac"><span class="math-num">Kω<sub>n</sub>²</span><span class="math-den">s² + 2ζω<sub>n</sub>s + ω<sub>n</sub>²</span></span>, where K = <span class="math-frac"><span class="math-num">1</span><span class="math-den">k</span></span>. A positive force step is applied to a linear mass–spring–damper at rest. The equilibrium reference is <span class="math-frac"><span class="math-num">F₀</span><span class="math-den">k</span></span>. If b = 0, this is an equilibrium position, but the response never converges to it.</p></details>
-            <details><summary>Closed-form displacement in each damping case</summary><p>Let f = <span class="math-frac"><span class="math-num">F₀</span><span class="math-den">k</span></span> and ω<sub>d</sub> = ω<sub>n</sub>√(1 − ζ²).</p><div class="formula-list"><p><strong>Underdamped (0 ≤ ζ &lt; 1):</strong><br>x(t) = f[1 − e<sup>−ζωₙt</sup>(cos(ω<sub>d</sub>t) + <span class="math-frac"><span class="math-num">ζ sin(ω<sub>d</sub>t)</span><span class="math-den"><span class="math-root">√<span class="radicand">1 − ζ²</span></span></span></span>)]</p><p><strong>Critically damped (ζ = 1):</strong><br>x(t) = f[1 − (1 + ω<sub>n</sub>t)e<sup>−ωₙt</sup>]</p><p><strong>Overdamped (ζ &gt; 1):</strong><br>x(t) = f[1 + <span class="math-frac"><span class="math-num">p₂e<sup>p₁t</sup> − p₁e<sup>p₂t</sup></span><span class="math-den">p₁ − p₂</span></span>]<br>p₁, p₂ = −ζω<sub>n</sub> ± ω<sub>n</sub>√(ζ² − 1)</p></div></details>
-            <details><summary>Rise time, peak, overshoot, and settling</summary><p>Rise time is the first 90% crossing minus the first 10% crossing of the equilibrium displacement. For ζ &lt; 1, the first peak occurs at <span class="math-frac"><span class="math-num">π</span><span class="math-den">ω<sub>d</sub></span></span>; its overshoot is 100(<span class="math-frac"><span class="math-num">x<sub>peak</sub></span><span class="math-den">f</span></span> − 1)%. The equivalent formula is 100e<sup><span class="math-frac"><span class="math-num">−πζ</span><span class="math-den"><span class="math-root">√<span class="radicand">1−ζ²</span></span></span></span></sup>.</p><p>Settling time is the final entry into [0.98f, 1.02f], after which the exact response remains in the band. It is found from exact crossings, rather than the approximate <span class="math-frac"><span class="math-num">4</span><span class="math-den">ζω<sub>n</sub></span></span> rule. Values outside the selected time window are reported as outside the window. Zero damping has no settling time.</p></details>
-            <details><summary>Euler and Runge–Kutta methods</summary><p>With state q = [x, v] and derivative g(q) = [v, <span class="math-frac"><span class="math-num">F₀ − bv − kx</span><span class="math-den">m</span></span>], Euler uses q<sub>n+1</sub> = q<sub>n</sub> + hg(q<sub>n</sub>). Both state components use the old state.</p><p>RK4 uses a₁ = g(q), a₂ = g(q + <span class="math-frac"><span class="math-num">ha₁</span><span class="math-den">2</span></span>), a₃ = g(q + <span class="math-frac"><span class="math-num">ha₂</span><span class="math-den">2</span></span>), a₄ = g(q + ha₃), then q<sub>n+1</sub> = q + <span class="math-frac"><span class="math-num">h(a₁ + 2a₂ + 2a₃ + a₄)</span><span class="math-den">6</span></span>. The last step is shortened when necessary to end at the exact plot duration.</p></details>
-        </section>
-        
-    <footer class="site-footer" aria-label="Module navigation">
-        <span>ENCS4380 · Dynamic Characteristics Toolkit</span>
-        <a class="back-modules" href="index.html">← Back to all modules</a>
-    </footer>
-
-    </main>
+<a class="skip-link" href="#main">Skip to simulator</a>
+<header class="top-header site-header">
+<div><h2>ENCS4380</h2><p>Dynamic Characteristics Toolkit</p></div>
+<nav aria-label="Main navigation" class="site-nav"><a href="index.html">← Toolkits</a>
+<a href="homework1.html">Home</a>
+<a href="module1.html">Module 1</a>
+<a href="module2.html">Module 2</a>
+<a aria-current="page" class="active" href="module3.html">Module 3</a>
+<a href="module4.html">Module 4</a>
+</nav>
+</header>
+<main class="m3-container" id="main">
+<section class="m3-intro unified-hero"><div class="hero-copy">
+<p class="eyebrow">MODULE 3 · SECOND-ORDER DYNAMICS</p>
+<h1>Second-order <em>response</em></h1>
+<p>Explore how mass, damping, and spring stiffness shape a sensor’s response to a sudden force.</p>
+<nav aria-label="On this page" class="section-links"><a href="#workspace">Simulator</a><a href="#stateSpacePanel">State space</a><a href="#polesComparison">Poles &amp; eigenvalues</a><a href="#predict">Predict, then check</a><a href="#solver">Solver comparison</a><a href="#validation">Validation</a><a href="#theory">Equations &amp; definitions</a></nav>
+</div><div aria-hidden="true" class="hero-mark"><svg viewbox="0 0 220 160"><path d="M20 15V140H205" fill="none" stroke="#a9c9b7" stroke-width="2"></path><polyline fill="none" points="20.00,130.00 21.80,129.49 23.60,128.02 25.40,125.67 27.20,122.52 29.00,118.67 30.80,114.20 32.60,109.23 34.40,103.82 36.20,98.09 38.00,92.12 39.80,86.00 41.60,79.80 43.40,73.62 45.20,67.51 47.00,61.55 48.80,55.80 50.60,50.30 52.40,45.12 54.20,40.29 56.00,35.84 57.80,31.79 59.60,28.18 61.40,25.01 63.20,22.29 65.00,20.02 66.80,18.21 68.60,16.83 70.40,15.87 72.20,15.33 74.00,15.17 75.80,15.38 77.60,15.92 79.40,16.77 81.20,17.90 83.00,19.27 84.80,20.85 86.60,22.61 88.40,24.51 90.20,26.53 92.00,28.63 93.80,30.79 95.60,32.96 97.40,35.13 99.20,37.27 101.00,39.36 102.80,41.37 104.60,43.29 106.40,45.10 108.20,46.78 110.00,48.33 111.80,49.74 113.60,51.00 115.40,52.10 117.20,53.04 119.00,53.82 120.80,54.45 122.60,54.92 124.40,55.24 126.20,55.42 128.00,55.47 129.80,55.38 131.60,55.18 133.40,54.88 135.20,54.48 137.00,53.99 138.80,53.43 140.60,52.81 142.40,52.13 144.20,51.42 146.00,50.68 147.80,49.93 149.60,49.16 151.40,48.40 153.20,47.65 155.00,46.92 156.80,46.22 158.60,45.55 160.40,44.92 162.20,44.33 164.00,43.79 165.80,43.30 167.60,42.86 169.40,42.48 171.20,42.16 173.00,41.88 174.80,41.67 176.60,41.51 178.40,41.40 180.20,41.34 182.00,41.33 183.80,41.36 185.60,41.43 187.40,41.54 189.20,41.69 191.00,41.86 192.80,42.06 194.60,42.28 196.40,42.52 198.20,42.77 200.00,43.03" stroke="#16a35b" stroke-linecap="round" stroke-width="4"></polyline></svg><small>DISCOVER THE DYNAMICS</small></div></section>
+<section aria-labelledby="model-title" class="m3-section model-overview">
+<div><h2 id="model-title">System model</h2>
+<p class="equation">mẍ + bẋ + kx = F(t)</p>
+<p>A mass connected to a spring and a damper starts at rest. At t = 0, a constant force F₀ is applied.</p>
+</div>
+<div><h3>From physical parameters to response</h3>
+<p class="equation small-equation">ω<sub>n</sub> = <span class="math-root">√<span class="radicand"><span class="math-frac"><span class="math-num">k</span><span class="math-den">m</span></span></span></span>   ·   ζ = <span class="math-frac"><span class="math-num">b</span><span class="math-den">2<span class="math-root">√<span class="radicand">mk</span></span></span></span></p>
+<p>m: mass · b: viscous damping · k: spring stiffness.<br/>The equilibrium displacement is x∞ = F₀/k. Capital K = 1/k is the static gain.</p>
+</div>
+</section>
+<section aria-labelledby="predict-title" class="m3-section" id="predict">
+<p class="eyebrow">PREDICT, THEN CHECK</p><h2 id="predict-title">Make a prediction. Run the experiment.</h2>
+<p>The experiment button applies a controlled change and updates the simulator. Your previous settings can be restored afterward.</p>
+<div class="prediction-grid"><label for="predictionScenario">Experiment<select id="predictionScenario"><option value="damping">Increase damping from b = 2 to b = 4</option><option value="speed">Double ωn while keeping ζ fixed</option><option value="force">Double the step force</option></select></label><label for="predictionAnswer">Your prediction<select id="predictionAnswer"><option value="">Choose a prediction…</option></select></label></div>
+<p class="small-note" id="predictionSetup"></p>
+<div class="action-row"><button id="checkPrediction" type="button">Check &amp; run experiment</button><button class="quiet-button" disabled="" id="restorePrediction" type="button">Restore previous settings</button></div>
+<p class="feedback" id="predictionFeedback" role="status"></p>
+</section>
+<section aria-labelledby="workspace-title" id="workspace">
+<div class="section-heading"><div><h2 id="workspace-title">Step-response simulator</h2><p>Change a parameter or select a damping case. Every plot and measurement updates together.</p></div><span aria-live="polite" class="regime-label" id="regimeLabel">Underdamped</span></div>
+<div aria-label="Damping presets" class="preset-row" role="group">
+<button data-preset="under" type="button">Underdamped</button>
+<button data-preset="critical" type="button">Critically damped</button>
+<button data-preset="over" type="button">Overdamped</button>
+<button data-preset="undamped" type="button">No damping</button>
+<button class="quiet-button" id="resetModel" type="button">Reset model</button>
+</div>
+<p class="small-note">Presets use m = 1 kg, k = 4 N/m, and F₀ = 1 N; only damping differs.</p>
+<div class="m3-workspace">
+<aside aria-labelledby="controls-title" class="m3-panel controls-panel">
+<h3 class="panel-title" id="controls-title">CONTROLS</h3>
+<div class="panel-body">
+<div class="parameter-control"><label for="mNumber">Mass m <span>kg</span></label><input id="mNumber" max="10" min="0.1" step="any" type="number" value="1"/><label class="sr-only" for="mSlider">Mass slider, kg</label><input id="mSlider" max="10" min="0.1" step="any" type="range" value="1"/></div>
+<div class="parameter-control"><label for="bNumber">Damping b <span>N·s/m</span></label><input id="bNumber" max="30" min="0" step="any" type="number" value="2"/><label class="sr-only" for="bSlider">Damping slider, N seconds per metre</label><input id="bSlider" max="30" min="0" step="any" type="range" value="2"/></div>
+<div class="parameter-control"><label for="kNumber">Spring stiffness k <span>N/m</span></label><input id="kNumber" max="100" min="0.5" step="any" type="number" value="4"/><label class="sr-only" for="kSlider">Spring stiffness slider, N per metre</label><input id="kSlider" max="100" min="0.5" step="any" type="range" value="4"/></div>
+<div class="parameter-control"><label for="forceNumber">Step force F₀ <span>N</span></label><input id="forceNumber" max="10" min="0.1" step="any" type="number" value="1"/><label class="sr-only" for="forceSlider">Step force slider, N</label><input id="forceSlider" max="10" min="0.1" step="any" type="range" value="1"/></div>
+<p class="feedback" id="controlMessage" role="alert"></p>
+<dl class="derived-values"><div><dt>Damping ratio ζ</dt><dd id="zetaValue">0.5</dd></div><div><dt>Natural frequency ω<sub>n</sub></dt><dd id="omegaValue">2 rad/s</dd></div><div><dt>Equilibrium x∞</dt><dd id="finalValue">0.25 m</dd></div></dl>
+<p class="small-note">Initial conditions: x(0) = 0 m and v(0) = 0 m/s. Displacement is shown in metres, without normalization.</p>
+</div>
+</aside>
+<div class="response-column">
+<section aria-labelledby="response-title" class="m3-panel">
+<div class="panel-title plot-heading"><h3 id="response-title">Displacement over time</h3><label for="timeWindow">Time window <select id="timeWindow"><option value="auto">Auto</option><option value="1">1 s</option><option value="5">5 s</option><option value="10">10 s</option><option value="30">30 s</option><option value="60">60 s</option></select></label></div>
+<div aria-label="Exact step-response graph" class="m3-chart" id="stepResponsePlot"></div>
+<div class="chart-legend"><span class="legend-line exact-key">Exact response</span><span class="legend-line equilibrium-key">Equilibrium</span><span class="band-key">±2% settling band</span></div>
+<p aria-live="off" class="plot-readout" id="responseReadout">Move over the curve, tap it, or focus the plot and use the arrow keys to inspect values.</p>
+<p class="small-note plot-note" id="windowMessage"></p>
+</section>
+<dl aria-label="Live response measurements" class="metric-grid">
+<div><dt>Rise time · 10–90%</dt><dd id="riseValue">—</dd><small id="riseDetail"></small></div>
+<div><dt>First peak time</dt><dd id="peakValue">—</dd><small id="peakDetail"></small></div>
+<div><dt>Peak overshoot</dt><dd id="overshootValue">—</dd><small id="overshootDetail"></small></div>
+<div><dt>Settling time · ±2%</dt><dd id="settlingValue">—</dd><small id="settlingDetail"></small></div>
+</dl>
+</div>
+</div>
+</section>
+<section aria-labelledby="stateSpaceTitle" class="m3-section" hidden="" id="stateSpacePanel">
+<div class="section-heading"><div><p class="eyebrow">THE SAME SYSTEM IN MATRIX FORM</p><h2 id="stateSpaceTitle">State-space representation</h2></div><span class="subtle-label">x₁ = x · x₂ = v</span></div>
+<p>Choose the states x₁ = x (displacement) and x₂ = v (velocity). The matrices follow the m, b and k controls above.</p>
+<p class="equation small-equation">q̇ = Aq + BF(t)   ·   y = Cq</p>
+<div class="ss-state-grid">
+<section aria-labelledby="matricesTitle" class="m3-panel">
+<h3 class="panel-title" id="matricesTitle">MATRICES A, B AND C</h3>
+<div class="panel-body">
+<div aria-live="polite" class="ss-matrices">
+<div class="ss-matrix-row"><span>A =</span><div aria-label="Symbolic A" class="ss-matrix ss-symbol ss-two-columns"><span>0</span><span>1</span><span>−k/m</span><span>−b/m</span></div><span>=</span><div class="ss-matrix" id="matrixA"></div></div>
+<div class="ss-matrix-row"><span>B =</span><div aria-label="Symbolic B" class="ss-matrix ss-symbol"><span>0</span><span>1/m</span></div><span>=</span><div class="ss-matrix" id="matrixB"></div></div>
+<div class="ss-matrix-row"><span>C =</span><div aria-label="Symbolic C" class="ss-matrix ss-symbol ss-two-columns"><span>1</span><span>0</span></div><span>=</span><div class="ss-matrix" id="matrixC"></div></div>
+</div>
+<p class="small-note">The input is the step force F(t) = F₀ for t ≥ 0; B does not depend on F₀. The output y = x₁ is displacement.</p>
+<p class="small-note">ẋ₁ = x₂<br/>ẋ₂ = −(k/m)x₁ − (b/m)x₂ + F(t)/m</p>
+</div>
+</section>
+<section aria-labelledby="phasePlaneTitle" class="m3-panel">
+<h3 class="panel-title" id="phasePlaneTitle">Phase plane: velocity against displacement</h3>
+<div aria-label="Displacement versus velocity phase plane" class="m3-chart ss-phase" id="phasePlanePlot"></div>
+<div class="chart-legend"><span class="legend-line exact-key">Path (x₁, x₂)</span><span>○ Start (0, 0)</span><span>× Equilibrium (F₀/k, 0)</span></div>
+<p aria-live="off" class="plot-readout" id="phasePlaneReadout">Move over the path, tap it, or focus the plot and use the arrow keys to follow the motion in time.</p>
+</section>
+</div>
+</section>
+<section aria-labelledby="poles-title" class="m3-section poles-section ss-comparison" id="polesComparison">
+<div class="ss-comparison-heading"><p class="eyebrow">THE SAME DYNAMICS, ANOTHER VIEW</p><h2 id="poles-title">Poles in the s-plane</h2><p class="small-note">Two independent calculations describe the same system.</p></div>
+<section aria-labelledby="transferMethodTitle" class="m3-panel ss-method-card">
+<h3 class="panel-title" id="transferMethodTitle">Transfer-function poles</h3>
+<div class="ss-method-body">
+<p class="equation small-equation">ms² + bs + k = 0</p>
+<p class="ss-current-equation" id="poleCharacteristic"></p>
+<div aria-live="polite" class="pole-values ss-result-values" id="poleValues"></div>
+<p>The real part controls decay; the imaginary part describes oscillation.</p>
+<p class="small-note" id="poleExplanation"></p>
+<p class="small-note">A repeated pole is marked ×2.</p>
+</div>
+</section>
+<section aria-labelledby="sharedPlotTitle" class="m3-panel ss-method-card ss-shared-plot">
+<h3 class="panel-title" id="sharedPlotTitle">Shared s-plane plot</h3>
+<div aria-label="Poles and independently calculated eigenvalues in the complex plane" class="m3-chart pole-chart" id="polesPlot"></div>
+<p class="small-note ss-plot-caption">Matching poles and eigenvalues share the same coordinates.</p>
+</section>
+<section aria-labelledby="eigenMethodTitle" class="m3-panel ss-method-card ss-eigen-column">
+<h3 class="panel-title" id="eigenMethodTitle">State-space eigenvalues</h3>
+<div class="ss-method-body">
+<p class="equation small-equation">det(λI − A) = 0</p>
+<p class="ss-current-equation" id="stateSpaceCharacteristic"></p>
+<div aria-live="polite" class="pole-values ss-result-values" id="eigenvalues"></div>
+<p>Calculated independently from the trace and determinant of A.</p>
+<p class="small-note">λ² + (b/m)λ + k/m = 0. These eigenvalues should equal the transfer-function poles.</p>
+</div>
+</section>
+<p class="small-note ss-comparison-result" id="stateSpaceMatch" role="status"></p>
+</section>
+<section aria-labelledby="solver-title" class="m3-section" id="solver">
+<div class="section-heading"><div><p class="eyebrow">NUMERICAL SOLVER COMPARISON</p><h2 id="solver-title">Exact formula meets a numerical solution</h2></div><span class="subtle-label">Euler &amp; RK4</span></div>
+<p>Both solvers integrate ẋ = v and v̇ = (F₀ − bv − kx)/m from rest, using the same model and time window as the simulator. Reduce the step size h to explore convergence.</p>
+<div class="solver-controls"><label for="solverMethod">Numerical method<select id="solverMethod"><option value="rk4">Runge–Kutta 4 (RK4)</option><option value="euler">Explicit Euler</option></select></label><label for="solverStep">Step size h (s)<input id="solverStep" max="1" min="0.0001" step="any" type="number" value="0.02"/></label><button class="quiet-button" id="halveStep" type="button">Halve step size</button></div>
+<p class="feedback" id="solverStatus" role="status"></p>
+<div aria-label="Numerical and exact response comparison" class="m3-chart" id="solverPlot"></div>
+<div class="chart-legend"><span class="legend-line exact-key">Exact response</span><span class="legend-line numerical-key" id="solverLegend">RK4 approximation</span></div>
+<p aria-live="off" class="plot-readout" id="solverReadout">Inspect the plot to compare both curves at the same time.</p>
+<dl class="solver-metrics"><div><dt>Maximum absolute error</dt><dd id="maxError">—</dd></div><div><dt>Root mean square error</dt><dd id="rmseValue">—</dd></div><div><dt>Integration steps</dt><dd id="stepsValue">—</dd></div></dl>
+<p class="small-note">Errors compare displacement with the exact formula at every integration step, including the endpoint. Plot lines may be downsampled; error calculations are not. An unstable numerical method does not mean the physical system is unstable.</p>
+</section>
+<section aria-labelledby="validation-title" class="m3-section" id="validation">
+<div class="section-heading"><div><h2 id="validation-title">Homework validation · Checks 4, 5 and 6</h2><p>Independent reference cases, unaffected by the current sliders. F₀ = 1 N, m = 1 kg, k = 4 N/m.</p></div><button class="quiet-button" id="rerunValidation" type="button">Run checks again</button></div>
+<div class="table-wrap"><table class="validation-table"><caption class="sr-only">Expected and calculated second-order reference values</caption><thead><tr><th scope="col">Reference case</th><th scope="col">Expected</th><th scope="col">Calculated</th><th scope="col">Result</th></tr></thead><tbody id="validationRows"></tbody><tbody id="stateSpaceValidationRows"><tr><td>6 · State-space eigenvalues equal poles<br/><span class="small-note">m = 1, b = 2, k = 4</span></td><td>−1 ± j1.732 s⁻¹ (±0.001)<br/>Match poles within 10⁻⁹ s⁻¹</td><td id="stateSpaceCheckValue"></td><td id="stateSpaceCheckResult"></td></tr></tbody></table></div>
+<p class="small-note" id="validationSummary" role="status"></p>
+</section>
+<section aria-labelledby="theory-title" class="m3-section" id="theory"><h2 id="theory-title">Equations &amp; measurement definitions</h2>
+<details open=""><summary>Model, gain, and assumptions</summary><p>G(s) = <span class="math-frac"><span class="math-num">X(s)</span><span class="math-den">F(s)</span></span> = <span class="math-frac"><span class="math-num">1</span><span class="math-den">ms² + bs + k</span></span> = <span class="math-frac"><span class="math-num">Kω<sub>n</sub>²</span><span class="math-den">s² + 2ζω<sub>n</sub>s + ω<sub>n</sub>²</span></span>, where K = <span class="math-frac"><span class="math-num">1</span><span class="math-den">k</span></span>. A positive force step is applied to a linear mass–spring–damper at rest. The equilibrium reference is <span class="math-frac"><span class="math-num">F₀</span><span class="math-den">k</span></span>. If b = 0, this is an equilibrium position, but the response never converges to it.</p></details>
+<details><summary>Closed-form displacement in each damping case</summary><p>Let f = <span class="math-frac"><span class="math-num">F₀</span><span class="math-den">k</span></span> and ω<sub>d</sub> = ω<sub>n</sub>√(1 − ζ²).</p><div class="formula-list"><p><strong>Underdamped (0 ≤ ζ &lt; 1):</strong><br/>x(t) = f[1 − e<sup>−ζωₙt</sup>(cos(ω<sub>d</sub>t) + <span class="math-frac"><span class="math-num">ζ sin(ω<sub>d</sub>t)</span><span class="math-den"><span class="math-root">√<span class="radicand">1 − ζ²</span></span></span></span>)]</p><p><strong>Critically damped (ζ = 1):</strong><br/>x(t) = f[1 − (1 + ω<sub>n</sub>t)e<sup>−ωₙt</sup>]</p><p><strong>Overdamped (ζ &gt; 1):</strong><br/>x(t) = f[1 + <span class="math-frac"><span class="math-num">p₂e<sup>p₁t</sup> − p₁e<sup>p₂t</sup></span><span class="math-den">p₁ − p₂</span></span>]<br/>p₁, p₂ = −ζω<sub>n</sub> ± ω<sub>n</sub>√(ζ² − 1)</p></div></details>
+<details><summary>Rise time, peak, overshoot, and settling</summary><p>Rise time is the first 90% crossing minus the first 10% crossing of the equilibrium displacement. For ζ &lt; 1, the first peak occurs at <span class="math-frac"><span class="math-num">π</span><span class="math-den">ω<sub>d</sub></span></span>; its overshoot is 100(<span class="math-frac"><span class="math-num">x<sub>peak</sub></span><span class="math-den">f</span></span> − 1)%. The equivalent formula is 100e<sup><span class="math-frac"><span class="math-num">−πζ</span><span class="math-den"><span class="math-root">√<span class="radicand">1−ζ²</span></span></span></span></sup>.</p><p>Settling time is the final entry into [0.98f, 1.02f], after which the exact response remains in the band. It is found from exact crossings, rather than the approximate <span class="math-frac"><span class="math-num">4</span><span class="math-den">ζω<sub>n</sub></span></span> rule. Values outside the selected time window are reported as outside the window. Zero damping has no settling time.</p></details>
+<details><summary>Euler and Runge–Kutta methods</summary><p>With state q = [x, v] and derivative g(q) = [v, <span class="math-frac"><span class="math-num">F₀ − bv − kx</span><span class="math-den">m</span></span>], Euler uses q<sub>n+1</sub> = q<sub>n</sub> + hg(q<sub>n</sub>). Both state components use the old state.</p><p>RK4 uses a₁ = g(q), a₂ = g(q + <span class="math-frac"><span class="math-num">ha₁</span><span class="math-den">2</span></span>), a₃ = g(q + <span class="math-frac"><span class="math-num">ha₂</span><span class="math-den">2</span></span>), a₄ = g(q + ha₃), then q<sub>n+1</sub> = q + <span class="math-frac"><span class="math-num">h(a₁ + 2a₂ + 2a₃ + a₄)</span><span class="math-den">6</span></span>. The last step is shortened when necessary to end at the exact plot duration.</p></details>
+</section>
+<footer aria-label="Module navigation" class="site-footer">
+<span>ENCS4380 · Dynamic Characteristics Toolkit</span>
+<a class="back-modules" href="index.html">← Back to all modules</a>
+</footer>
+</main>
 </body>
 </html>

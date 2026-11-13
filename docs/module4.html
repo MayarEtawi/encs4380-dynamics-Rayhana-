@@ -16,14 +16,13 @@
 <a class="m4-skip" href="#challenge">Skip to challenge</a>
 <header class="top-header site-header">
 <div><h2>ENCS4380</h2><p>Dynamic Characteristics Toolkit</p></div>
-
-        <nav class="site-nav" aria-label="Main navigation">
-            <a href="index.html">Home</a>
-            <a href="module1.html">Module 1</a>
-            <a href="module2.html">Module 2</a>
-            <a href="module3.html">Module 3</a>
-            <a href="module4.html" class="active" aria-current="page">Module 4</a>
-        </nav>
+<nav aria-label="Main navigation" class="site-nav"><a href="index.html">← Toolkits</a>
+<a href="homework1.html">Home</a>
+<a href="module1.html">Module 1</a>
+<a href="module2.html">Module 2</a>
+<a href="module3.html">Module 3</a>
+<a aria-current="page" class="active" href="module4.html">Module 4</a>
+</nav>
 </header>
 <main class="m4-container" id="challenge">
 <section aria-labelledby="pageTitle" class="m4-hero">
@@ -48,7 +47,6 @@
 <div class="m4-chart-wrap"><div class="m4-chart-title"><span aria-hidden="true" class="m4-plot-indicator"></span> Measured output <small>simulated sensor data</small></div><div aria-label="Noisy measured response of an unknown sensor" class="m4-plot" id="sensorPlot" role="img"></div></div>
 <div class="m4-tip"><span aria-hidden="true">ⓘ</span><p><strong>Reading the plot:</strong> Small fluctuations represent simulated noise. Focus on the overall curve shape instead of individual points.</p></div>
 </section>
-
 </div>
 <aside aria-label="Your challenge controls" class="m4-secondary"><section aria-labelledby="predictionHeading" class="m4-panel m4-predict-panel"><div class="m4-panel-heading"><div><p class="m4-section-kicker">STEP 02 / THINK FIRST</p><h2 id="predictionHeading">Predict, then check</h2><p class="m4-subtitle">Test your understanding before revealing the sensor.</p></div></div><div class="m4-predict-body"><p class="m4-question" id="predictQuestion">—</p><div class="m4-inline"><select aria-label="Choose your prediction" id="predictAnswer"><option value="">Choose your prediction</option><option value="a">Option A</option><option value="b">Option B</option><option value="c">Option C</option></select><button class="secondary" id="checkPrediction" type="button">Check answer</button></div><p aria-live="polite" class="m4-feedback" id="predictFeedback"></p></div></section>
 <section aria-labelledby="guessHeading" class="m4-panel m4-guess-panel">
@@ -61,12 +59,10 @@
 </aside>
 </div>
 <section aria-labelledby="guideHeading" class="m4-guide"><div class="m4-guide-heading"><div><p class="m4-section-kicker">QUICK REFERENCE</p><h2 id="guideHeading">How to read a response curve</h2><p>Use the methods from Modules 1 and 3 to estimate the hidden values.</p></div></div><div class="m4-methods"><article><span class="m4-guide-number">01</span><h3>First-order · step</h3><p>For a unit-step input, the final output gives <strong>K</strong>. The time to reach 63.2% of that output gives <strong>τ</strong>.</p><div class="m4-formula">y(t) = K(1 − e<sup><span class="math-frac"><span class="math-num">−t</span><span class="math-den">τ</span></span></sup>)</div></article><article><span class="m4-guide-number">02</span><h3>First-order · sine</h3><p>Use the measured phase lag and known input frequency to estimate <strong>τ</strong>; then use the output amplitude to estimate <strong>K</strong>.</p><div class="m4-formula">M = <span class="math-frac"><span class="math-num">1</span><span class="math-den"><span class="math-root">√<span class="radicand">1 + (ωτ)²</span></span></span></span></div></article><article><span class="m4-guide-number">03</span><h3>Second-order · step</h3><p>Read the percentage overshoot to estimate <strong>ζ</strong>, then use the first peak time to estimate <strong>ω<sub>n</sub></strong>.</p><div class="m4-formula">M<sub>p</sub> = e<sup><span class="math-frac"><span class="math-num">−πζ</span><span class="math-den"><span class="math-root">√<span class="radicand">1−ζ²</span></span></span></span></sup></div></article></div></section>
-
-    <footer class="site-footer" aria-label="Module navigation">
-        <span>ENCS4380 · Dynamic Characteristics Toolkit</span>
-        <a class="back-modules" href="index.html">← Back to all modules</a>
-    </footer>
-
+<footer aria-label="Module navigation" class="site-footer">
+<span>ENCS4380 · Dynamic Characteristics Toolkit</span>
+<a class="back-modules" href="index.html">← Back to all modules</a>
+</footer>
 </main>
 </body>
 </html>
