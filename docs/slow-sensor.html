@@ -1,0 +1,640 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width,initial-scale=1">
+
+  <title>P2 | Slow Sensor — PID Control Toolkit</title>
+
+  <!-- Shared team styles: read only -->
+  <link rel="stylesheet" href="pid-playground.css">
+  <link rel="stylesheet" href="control-theme.css">
+
+  <!-- P2 styles -->
+  <link rel="stylesheet" href="slow-sensor.css">
+
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="slow-sensor.js" defer></script>
+</head>
+
+<body class="hw2">
+
+  <!-- HEADER -->
+  <header class="top-header site-header">
+
+    <div class="brand">
+      <span class="brand-mark">R</span>
+
+      <div>
+        <h2>RAYHANA</h2>
+        <p>PID Control Toolkit · ENCS4380</p>
+      </div>
+    </div>
+
+    <nav class="site-nav"
+         aria-label="Homework 2 navigation">
+
+      <a href="index.html">← Toolkits</a>
+      <a href="control.html">Control Home</a>
+
+      <a href="pid-playground.html">
+        P1 · PID Playground
+      </a>
+
+      <a href="slow-sensor.html" aria-current="page">
+        P2 · Slow Sensor
+      </a>
+
+      <a href="project-model.html">
+        My System
+      </a>
+
+    </nav>
+  </header>
+
+  <main class="pid-wrap">
+
+    <p>
+      <a href="control.html">← Control section</a>
+    </p>
+
+    <!-- PAGE HEADING -->
+    <div class="pid-heading">
+
+      <h1>P2 — Slow Sensor</h1>
+
+      <p>
+        Explore how sensor delay affects closed-loop PID
+        control. Compare the true plant output with the
+        delayed sensor measurement using a numerical
+        RK4 simulation.
+      </p>
+
+    </div>
+
+
+    <!-- ====================================== -->
+    <!-- CARD 1: FEEDBACK LOOP                  -->
+    <!-- ====================================== -->
+
+    <section class="pid-card">
+
+      <h2>Feedback loop with a Slow Sensor</h2>
+
+      <div class="loop-container">
+
+        <svg class="loop-svg"
+             viewBox="0 0 860 200"
+             role="img"
+             aria-label="Setpoint enters PID, actuator and plant. The output passes through a slow sensor before feedback.">
+
+          <defs>
+            <marker id="p2Arrow"
+                    markerWidth="9"
+                    markerHeight="9"
+                    refX="7"
+                    refY="4"
+                    orient="auto">
+
+              <path d="M0 0 L8 4 L0 8Z"
+                    fill="#233247"/>
+            </marker>
+          </defs>
+
+          <g stroke="#233247"
+             stroke-width="2.5"
+             fill="none"
+             marker-end="url(#p2Arrow)">
+
+            <path d="M35 58 H124"/>
+            <path d="M161 58 H218"/>
+            <path d="M340 58 H392"/>
+            <path d="M505 58 H543"/>
+            <path d="M677 58 H809"/>
+
+            <!-- Feedback path -->
+            <path d="M766 58 V151 H544"/>
+            <path d="M415 151 H143 V79"/>
+
+          </g>
+
+          <!-- Summing junction -->
+          <circle cx="143" cy="58" r="19"
+                  fill="#fff"
+                  stroke="#B38E6D"
+                  stroke-width="2"/>
+
+          <g fill="#233247"
+             font-size="15"
+             font-family="Arial"
+             text-anchor="middle">
+
+            <text x="143" y="54">+</text>
+            <text x="133" y="74">−</text>
+          </g>
+
+          <!-- Blocks -->
+          <g fill="#fff"
+             stroke="#B38E6D"
+             stroke-width="2">
+
+            <rect x="218" y="30"
+                  width="122" height="55" rx="7"/>
+
+            <rect x="392" y="30"
+                  width="113" height="55" rx="7"/>
+
+            <rect x="543" y="30"
+                  width="134" height="55" rx="7"/>
+
+            <rect x="415" y="125"
+                  width="129" height="51" rx="7"/>
+          </g>
+
+          <g font-size="16"
+             fill="#233247"
+             font-family="Arial"
+             font-weight="bold"
+             text-anchor="middle">
+
+            <text x="279" y="64">PID</text>
+            <text x="449" y="64">± Umax</text>
+            <text x="610" y="64">Plant</text>
+
+            <text x="479" y="145">Slow sensor</text>
+            <text x="479" y="163">τs</text>
+          </g>
+
+          <g font-size="14"
+             fill="#233247"
+             font-family="Arial">
+
+            <text x="20" y="37">r(t)</text>
+            <text x="183" y="42">e(t)</text>
+            <text x="713" y="41">True y(t)</text>
+
+            <text x="270" y="141">
+              Measured ys(t)
+            </text>
+          </g>
+
+        </svg>
+
+      </div>
+
+      <p class="muted">
+        <strong>Negative feedback with a slow sensor:</strong>
+        e(t) = r(t) − ys(t), instead of r(t) − y(t).
+        The sensor follows τs · dys/dt = y − ys.
+        Increasing the sensor time constant introduces
+        more delay into the feedback loop.
+      </p>
+
+    </section>
+
+
+    <!-- ====================================== -->
+    <!-- CARD 2: INTERACTIVE SETTINGS           -->
+    <!-- ====================================== -->
+
+    <section class="pid-card">
+
+      <h2>Interactive settings</h2>
+
+      <div class="pid-grid">
+
+        <label>
+          Plant model
+
+          <select id="p2Plant">
+            <option value="first">
+              First order — K/(τs+1)
+            </option>
+
+            <option value="second">
+              Second order — 1/(ms²+bs+k)
+            </option>
+          </select>
+        </label>
+
+        <label>
+          Sensor time constant τs
+
+          <output id="p2SensorVal">0.10 s</output>
+
+          <input id="p2Sensor"
+                 type="range"
+                 min="0.05"
+                 max="3"
+                 step="0.05"
+                 value="0.1">
+        </label>
+
+        <label>
+          Setpoint step
+
+          <output id="p2SetpointVal">1</output>
+
+          <input id="p2Setpoint"
+                 type="range"
+                 min="0.2"
+                 max="3"
+                 step="0.1"
+                 value="1">
+        </label>
+
+        <label>
+          Proportional gain Kp
+
+          <output id="p2KpVal">9</output>
+
+          <input id="p2Kp"
+                 type="range"
+                 min="0"
+                 max="30"
+                 step="0.1"
+                 value="9">
+        </label>
+
+        <label>
+          Integral gain Ki
+
+          <output id="p2KiVal">0</output>
+
+          <input id="p2Ki"
+                 type="range"
+                 min="0"
+                 max="15"
+                 step="0.1"
+                 value="0">
+        </label>
+
+        <label>
+          Derivative gain Kd
+
+          <output id="p2KdVal">0</output>
+
+          <input id="p2Kd"
+                 type="range"
+                 min="0"
+                 max="10"
+                 step="0.05"
+                 value="0">
+        </label>
+
+        <label>
+          Actuator limit ±Umax
+
+          <output id="p2LimitVal">100</output>
+
+          <input id="p2Limit"
+                 type="range"
+                 min="1"
+                 max="100"
+                 step="1"
+                 value="100">
+        </label>
+
+        <label>
+          Simulation duration (s)
+
+          <output id="p2DurationVal">12 s</output>
+
+          <input id="p2Duration"
+                 type="range"
+                 min="4"
+                 max="40"
+                 step="1"
+                 value="12">
+        </label>
+
+      </div>
+
+      <!-- FIRST ORDER PARAMETERS -->
+      <div class="pid-grid" id="p2FirstFields">
+
+        <label>
+          Plant gain K
+
+          <input id="p2Gain"
+                 type="number"
+                 min="0.1"
+                 max="10"
+                 step="0.1"
+                 value="1">
+        </label>
+
+        <label>
+          Plant time constant τ (s)
+
+          <input id="p2Tau"
+                 type="number"
+                 min="0.1"
+                 max="20"
+                 step="0.1"
+                 value="1">
+        </label>
+
+      </div>
+
+      <!-- SECOND ORDER PARAMETERS -->
+      <div class="pid-grid"
+           id="p2SecondFields"
+           hidden>
+
+        <label>
+          Mass m
+
+          <input id="p2Mass"
+                 type="number"
+                 min="0.1"
+                 step="0.1"
+                 value="1">
+        </label>
+
+        <label>
+          Damping b
+
+          <input id="p2Damping"
+                 type="number"
+                 min="0"
+                 step="0.1"
+                 value="2">
+        </label>
+
+        <label>
+          Stiffness k
+
+          <input id="p2Stiffness"
+                 type="number"
+                 min="0.1"
+                 step="0.1"
+                 value="1">
+        </label>
+
+      </div>
+
+      <!-- PRESET BUTTONS -->
+      <div class="pid-actions">
+
+        <button id="p2PresetFast" type="button">
+          Fast sensor
+        </button>
+
+        <button id="p2PresetSlow" type="button">
+          Slow sensor / oscillation
+        </button>
+
+        <button id="p2Reset" type="button">
+          Reset
+        </button>
+
+      </div>
+
+      <p id="p2Notice"
+         class="muted"
+         role="status"></p>
+
+    </section>
+
+
+    <!-- ====================================== -->
+    <!-- CARD 3: PREDICT, THEN CHECK            -->
+    <!-- ====================================== -->
+
+    <section class="pid-card" id="p2PredictionSection">
+
+      <h2>Predict, then check</h2>
+
+      <p>
+        Predict what will happen when the sensor becomes
+        slower, then compare your answer with two actual
+        RK4 simulations. Only the sensor time constant
+        changes; the plant, setpoint and PID gains remain
+        unchanged.
+      </p>
+
+      <p>
+        <strong>Experiment:</strong>
+        Increase the sensor time constant τs.
+      </p>
+
+      <p>
+        <strong>Question:</strong>
+        What happens to the actual output overshoot?
+      </p>
+
+      <fieldset class="prediction-options">
+
+        <legend>
+          What do you predict will happen?
+        </legend>
+
+        <label>
+          <input type="radio"
+                 name="p2Prediction"
+                 value="increase">
+          Increase
+        </label>
+
+        <label>
+          <input type="radio"
+                 name="p2Prediction"
+                 value="decrease">
+          Decrease
+        </label>
+
+        <label>
+          <input type="radio"
+                 name="p2Prediction"
+                 value="same">
+          Stay approximately the same
+        </label>
+
+      </fieldset>
+
+      <div class="pid-actions">
+
+        <button id="p2Check" type="button">
+          Run experiment &amp; check
+        </button>
+
+        <button id="p2Retry" type="button">
+          Try again
+        </button>
+
+      </div>
+
+      <div id="p2PredictionResult"
+           class="prediction-result prediction-neutral"
+           role="status"
+           aria-live="polite"
+           hidden>
+      </div>
+
+      <p class="muted">
+        The correct answer is determined by comparing
+        the simulated responses, not by assuming that
+        overshoot always increases. The result depends
+        on the selected plant and controller settings.
+      </p>
+
+    </section>
+
+
+    <!-- ====================================== -->
+    <!-- CARD 4: LIVE PERFORMANCE METRICS       -->
+    <!-- ====================================== -->
+
+    <section class="pid-card">
+
+      <h2>Live performance metrics</h2>
+
+      <div class="metrics">
+
+        <div>
+          <strong id="p2Overshoot">—</strong>
+          <span>Overshoot vs setpoint</span>
+        </div>
+
+        <div>
+          <strong id="p2Settling">—</strong>
+          <span>Settling time (2%)</span>
+        </div>
+
+        <div>
+          <strong id="p2Error">—</strong>
+          <span>Final tracking error (estimated)</span>
+        </div>
+
+        <div>
+          <strong id="p2Lag">—</strong>
+          <span>Peak sensor lag |y − ys|</span>
+        </div>
+
+      </div>
+
+      <p class="muted">
+        All metrics are calculated from the true plant
+        output. The final tracking error is estimated
+        from the last simulation sample.
+
+        "Not settled" indicates that the output did not
+        remain within the 2% settling band during
+        the simulation window.
+      </p>
+
+    </section>
+
+
+    <!-- ====================================== -->
+    <!-- CARD 5: OUTPUT RESPONSE GRAPH          -->
+    <!-- ====================================== -->
+
+    <section class="pid-card">
+
+      <h2>True output vs. sensor measurement</h2>
+
+      <div id="p2ResponsePlot"
+           class="pid-plot"
+           aria-label="True plant output, sensor measurement and setpoint graph">
+      </div>
+
+      <p class="muted">
+        The graph compares the true plant output y(t)
+        with the delayed sensor measurement ys(t).
+
+        The dashed line represents the desired setpoint.
+
+        Increasing τs makes the sensor response slower
+        and may cause overshoot or oscillations.
+      </p>
+
+    </section>
+
+
+    <!-- ====================================== -->
+    <!-- CARD 6: CONTROL SIGNAL GRAPH           -->
+    <!-- ====================================== -->
+
+    <section class="pid-card">
+
+      <h2>Control signal and saturation</h2>
+
+      <div id="p2ControlPlot"
+           class="pid-plot"
+           aria-label="Control signal with actuator saturation limits">
+      </div>
+
+      <p class="muted">
+        The control signal u(t) is generated by the PID
+        controller using the measured sensor output.
+
+        Dashed lines indicate the actuator limits
+        ±Umax.
+
+        Conditional integration anti-windup prevents
+        further integral accumulation when saturation
+        would be increased.
+      </p>
+
+    </section>
+
+
+    <!-- ====================================== -->
+    <!-- CARD 7: EXPLANATION AND OBSERVATIONS   -->
+    <!-- ====================================== -->
+
+    <section class="pid-card">
+
+      <h2>What should I notice?</h2>
+
+      <p>
+        <strong>Fast sensor:</strong>
+        When τs is small, the sensor measurement follows
+        the actual plant output closely. The PID
+        controller receives feedback quickly.
+      </p>
+
+      <p>
+        <strong>Slow sensor:</strong>
+        When τs increases, the sensor measurement lags
+        behind the true output. The controller reacts
+        to delayed information.
+      </p>
+
+      <p>
+        <strong>Overshoot:</strong>
+        Because of delayed feedback, the controller may
+        continue applying a strong command even after
+        the true output has approached the setpoint.
+      </p>
+
+      <p>
+        <strong>Oscillation:</strong>
+        With suitable PID gains and enough sensor
+        delay, the system may oscillate or become
+        unstable.
+      </p>
+
+      <p class="muted">
+        A slow sensor does not guarantee oscillation
+        for every configuration. Stability depends on
+        the plant, sensor dynamics and controller gains.
+      </p>
+
+      <p>
+        <a href="project-model.html">
+          Continue to My System — Micromouse Motor →
+        </a>
+      </p>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+
+/*
+  P2 — Slow Sensor
+  Uses the existing P1 / RAYHANA design.
+
+  No edits to teammate stylesheets.
+  Only P2-specific adjustments.
+*/
+
+.p2-highlight {
+  color: #b38e6d;
+  font-weight: 700;
+}
+
+.p2-description {
+  color: #655749;
+  line-height: 1.7;
+}
+
+.p2-equation {
+  background: #f4eee6;
+  border-left: 4px solid #b38e6d;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 14px 0;
+  color: #233247;
+  font-family: Consolas, monospace;
+  line-height: 1.8;
+}
+
+.p2-note {
+  background: #f4eee6;
+  border: 1px solid #d5c4b4;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 16px;
+  color: #233247;
+}
+
+.p2-note strong {
+  color: #233247;
+}
+
+/* Match the existing graph containers */
+#p2ResponsePlot,
+#p2ControlPlot {
+  width: 100%;
+  min-height: 370px;
+}
+
+/* Use original P1 slider appearance */
+#p2Sensor,
+#p2Setpoint,
+#p2Kp,
+#p2Ki,
+#p2Kd,
+#p2Limit,
+#p2Duration {
+  accent-color: #b38e6d;
+}
+
+/* Responsive adjustments only */
+@media (max-width: 700px) {
+  #p2ResponsePlot,
+  #p2ControlPlot {
+    min-height: 300px;
+  }
+}
