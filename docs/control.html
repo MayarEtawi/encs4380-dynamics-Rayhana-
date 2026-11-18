@@ -9,26 +9,21 @@
     <title>Homework 2 · Rayhana Control Toolkit</title>
 
     <link rel="stylesheet" href="control-theme.css">
+  <link rel="stylesheet" href="hw2-lab.css">
 </head>
 
-<body class="hw2">
+<body class="hw2 home-page">
 
     <!-- ===================================== -->
     <!-- HEADER & NAVIGATION                   -->
     <!-- ===================================== -->
 
-    <header class="top-header site-header">
-
-        <div class="brand">
-            <span class="brand-mark">R</span>
-
-            <div>
-                <h2>RAYHANA</h2>
-                <p>PID Control Toolkit · ENCS4380</p>
-            </div>
-        </div>
-
-        <nav class="site-nav" aria-label="Homework 2 navigation">
+    <header class="site-header rayhana-site-header">
+  <a class="brand" href="control.html" aria-label="Rayhana Control Home">
+    <span class="brand-mark">R</span>
+    <span class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span>
+  </a>
+  <nav class="site-nav" aria-label="Homework 2 navigation">
   <a href="index.html">← Toolkits</a>
   <a href="control.html" aria-current="page" class="current">Control Home</a>
   <a href="pid-playground.html">P1 · PID Playground</a>
@@ -44,169 +39,76 @@
     <!-- MAIN CONTENT                          -->
     <!-- ===================================== -->
 
-    <main class="hw2-main">
+    <main class="hw2-main lab-main home-classic">
 
         <!-- HERO SECTION -->
 
-        <section class="hw2-hero">
-
-            <span class="eyebrow">
-                HOMEWORK 02 · FEEDBACK CONTROL
-            </span>
-
-            <h1>
-                Make every response<br>
-                <em>more precise.</em>
-            </h1>
-
-            <p>
-                Explore how proportional, integral and
-                derivative control shape a system's response.
-                Experiment with real numerical simulations,
-                then compare your predictions to the results.
-            </p>
-
-            <!-- MODULE BUTTONS -->
-
-            <a class="hw2-cta" href="pid-playground.html">
-                Explore P1 — PID Playground →
-            </a>
-
-            <a class="hw2-cta" href="slow-sensor.html">
-                Explore P2 — Slow Sensor →
-            </a>
-
-            <a class="hw2-cta" href="tuning-challenge.html">
-                Explore P4 — Tuning Challenge →
-            </a>
-
-        </section>
+        <section class="hm-intro" aria-labelledby="title"><span class="lab-eyebrow">HOMEWORK 02 · FEEDBACK CONTROL</span><h1 id="title">Make every response<br><em>more precise.</em></h1><p>Explore how proportional, integral and derivative control shape a system's response. Experiment with real numerical simulations, then compare your predictions to the results.</p></section>
 
 
         <!-- ================================= -->
         <!-- CONTROL LABORATORY                -->
         <!-- ================================= -->
 
-        <section class="hw2-modules">
-
-            <div class="section-title">
-
-                <span class="eyebrow">
-                    CONTROL LABORATORY
-                </span>
-
-                <h2>Choose a module</h2>
-
-            </div>
-
+        <section class="hw2-modules" id="modules">
 
             <!-- MODULE CARDS -->
+            <div class="hw2-card-grid hm-grid">
 
-            <div class="hw2-card-grid">
-
-                <!-- P1: PID PLAYGROUND -->
-
-                <article class="hw2-module">
-
-                    <span class="module-num">
-                        01 / PID
-                    </span>
-
+                <article class="hw2-module hm-card">
+                    <div class="hm-icon" aria-hidden="true"><svg viewBox="0 0 120 90"><path class="ax" d="M14 76H108M14 76V10"/><path class="cv" d="M14 74C26 74 28 20 46 22S62 52 74 44S94 40 106 40"/><path class="sp" d="M14 40H108"/></svg></div>
+                    <span class="module-num">01 / PID</span>
                     <h3>P1 · PID Playground</h3>
-
-                    <p>
-                        Tune Kp, Ki and Kd; inspect the response,
-                        actuator limits and performance metrics.
-                    </p>
-
-                    <a class="hw2-cta small"
-                       href="pid-playground.html">
-                        Open playground →
-                    </a>
-
+                    <p>Tune Kp, Ki and Kd; inspect the response, actuator limits and performance metrics.</p>
+                    <span class="hm-status">✓ Available</span>
+                    <a class="hw2-cta small hm-button" href="pid-playground.html">Open playground →</a>
                 </article>
 
-
-                <!-- P2: SLOW SENSOR -->
-
-                <article class="hw2-module">
-
-                    <span class="module-num">
-                        02 / SENSOR
-                    </span>
-
+                <article class="hw2-module hm-card">
+                    <div class="hm-icon" aria-hidden="true"><svg viewBox="0 0 120 90"><path class="ax" d="M14 76H108M14 76V10"/><path class="cv" d="M14 74C24 74 26 18 42 20S58 60 70 50S90 34 106 40"/><path class="cv2" d="M14 74C30 74 36 26 52 28S70 56 82 50S98 38 106 40"/></svg></div>
+                    <span class="module-num">02 / SENSOR</span>
                     <h3>P2 · Slow Sensor</h3>
-
-                    <p>
-                        Discover how feedback delay changes
-                        stability and overshoot.
-                    </p>
-
-                    <a class="hw2-cta small"
-                       href="slow-sensor.html">
-                        Open Slow Sensor →
-                    </a>
-
+                    <p>Discover how feedback delay changes stability and overshoot.</p>
+                    <span class="hm-status">✓ Available</span>
+                    <a class="hw2-cta small hm-button" href="slow-sensor.html">Open Slow Sensor →</a>
                 </article>
 
-
-                <!-- P3: DIGITAL PID -->
-
-                <article class="hw2-module pending">
-
-                    <span class="module-num">
-                        03 / DIGITAL
-                    </span>
-
+                <article class="hw2-module hm-card pending">
+                    <div class="hm-icon" aria-hidden="true"><svg viewBox="0 0 120 90"><path class="ax" d="M14 76H108M14 76V10"/><path class="cv" d="M14 74H26V52H38V36H50V30H62V34H74V38H86V40H106"/></svg></div>
+                    <span class="module-num">03 / DIGITAL</span>
                     <h3>P3 · Digital PID</h3>
-
-                    <p>
-                        Explore sampling time, anti-windup
-                        and Arduino-style PID.
-                    </p>
-
+                    <p>Explore sampling time, anti-windup and Arduino-style PID.</p>
+                    <span class="hm-status soon">◷ Coming soon</span>
                     <span class="coming">Awaiting Partner 3 module files</span>
-
                 </article>
 
-
-                <!-- P4: TUNING CHALLENGE -->
-
-                <article class="hw2-module">
-
-                    <span class="module-num">
-                        04 / TUNING
-                    </span>
-
+                <article class="hw2-module hm-card">
+                    <div class="hm-icon" aria-hidden="true"><svg viewBox="0 0 120 90"><circle class="cv" cx="60" cy="45" r="30"/><circle class="cv2" cx="60" cy="45" r="16"/><path class="ax" d="M60 8V82M22 45H98"/><circle class="dot" cx="60" cy="45" r="5"/></svg></div>
+                    <span class="module-num">04 / TUNING</span>
                     <h3>P4 · Tuning Challenge</h3>
-
-                    <p>
-                        Meet performance specifications
-                        on a hidden plant.
-                    </p>
-
-                    <a class="hw2-cta small" href="tuning-challenge.html">Open Tuning Challenge →</a>
-
+                    <p>Meet performance specifications on a hidden plant.</p>
+                    <span class="hm-status">✓ Available</span>
+                    <a class="hw2-cta small hm-button" href="tuning-challenge.html">Open Tuning Challenge →</a>
                 </article>
-
             </div>
 
         </section>
 
-        <section class="hw2-module hw2-project-card" aria-label="Micromouse project model">
-            <span class="module-num">PROJECT APPLICATION</span>
-            <h3>My System · Micromouse Drive Motor</h3>
-            <p>Document the motor model, measured parameters, chosen specifications, tuned PID gains and Arduino evidence.</p>
-            <a class="hw2-cta small" href="project-model.html">Open My System →</a>
+        <section class="hw2-module hw2-project-card hm-project" aria-label="Micromouse project model">
+            <div class="hm-icon" aria-hidden="true"><svg viewBox="0 0 120 90"><circle class="cv" cx="60" cy="45" r="30"/><circle class="ax" cx="60" cy="45" r="8"/><path class="cv2" d="M60 15V37M60 53V75M30 45H52M68 45H90M39 24L54 39M66 51L81 66M81 24L66 39M54 51L39 66"/></svg></div>
+            <div class="hm-project-text">
+                <span class="module-num">PROJECT APPLICATION</span>
+                <h3>My System · Micromouse Drive Motor</h3>
+                <p>Document the motor model, measured parameters, chosen specifications, tuned PID gains and Arduino evidence.</p>
+            </div>
+            <a class="hw2-cta small hm-button" href="project-model.html">Open My System →</a>
         </section>
 
         <!-- ================================= -->
         <!-- FOOTER                            -->
         <!-- ================================= -->
 
-        <footer class="hw2-footer">
-            Rayhana · Homework 2 · Birzeit University
-        </footer>
+        <footer class="lab-footer"><span>Rayhana · Homework 2 · Birzeit University</span><a href="index.html">← Toolkits</a><a href="pid-playground.html">P1 · PID Playground →</a></footer>
 
     </main>
 

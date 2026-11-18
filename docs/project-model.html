@@ -12,22 +12,17 @@
   <link rel="stylesheet" href="pid-playground.css">
   <link rel="stylesheet" href="control-theme.css">
   <link rel="stylesheet" href="slow-sensor.css">
+  <link rel="stylesheet" href="hw2-lab.css">
 </head>
 
 <body class="hw2">
 
-<header class="top-header site-header">
-
-  <div class="brand">
+<header class="site-header rayhana-site-header">
+  <a class="brand" href="control.html" aria-label="Rayhana Control Home">
     <span class="brand-mark">R</span>
-    <div>
-      <h2>RAYHANA</h2>
-      <p>PID Control Toolkit · ENCS4380</p>
-    </div>
-  </div>
-
- 
-<nav class="site-nav" aria-label="Homework 2 navigation">
+    <span class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span>
+  </a>
+  <nav class="site-nav" aria-label="Homework 2 navigation">
   <a href="index.html">← Toolkits</a>
   <a href="control.html">Control Home</a>
   <a href="pid-playground.html">P1 · PID Playground</a>
@@ -39,17 +34,9 @@
 
 </header>
 
-<main class="pid-wrap">
+<main class="pid-wrap lab-main">
 
-  <div class="pid-heading">
-    <h1>My System — Micromouse Drive Motor</h1>
-
-    <p>
-      Project-model documentation.
-      Replace all TODO fields with measured or cited
-      data before final submission.
-    </p>
-  </div>
+  <section class="lab-hero" aria-labelledby="title"><div><span class="lab-eyebrow">PROJECT APPLICATION · MY SYSTEM</span><h1 id="title">My System — Micromouse <em>Drive Motor</em></h1><p class="intro">Project-model documentation. Replace all TODO fields with measured or cited data before final submission.</p></div><div class="lab-art" aria-hidden="true"><svg viewBox="0 0 290 150"><path class="a-axis" d="M20 10V132H277"/><path class="a-set" d="M20 45H277"/><path class="a-curve" d="M20 132C60 60 110 48 275 46"/><circle cx="88" cy="70" r="6"/></svg><span>PWM STEP → MOTOR SPEED</span></div></section>
 
   
 <section class="pid-card">
@@ -221,6 +208,8 @@
     <h2>Continue to PID Tuning</h2>
     <p>Use the <a href="tuning-challenge.html">P4 Tuning Challenge</a> to practise tuning a hidden plant. The P4 challenge is a separate teaching simulation and does not replace measured motor parameters on this page.</p>
   </section>
+
+  <footer class="lab-footer"><span>RAYHANA · ENCS4380 · My System</span><a href="tuning-challenge.html">← P4 · Tuning Challenge</a><a href="control.html">Control Home →</a></footer>
 
 </main>
 

@@ -237,13 +237,14 @@
     return {
       title: {
         text: title,
-        font: { size: 15 }
+        font: { size: 15, family: "Georgia, serif", color: "#233247" }
       },
+      font: { family: "DM Sans, Arial, sans-serif", color: "#233247" },
       paper_bgcolor: "#fff",
       plot_bgcolor: "#fff",
       margin: { l: 60, r: 20, t: 50, b: 50 },
-      xaxis: { title: "Time (s)" },
-      yaxis: { title: label },
+      xaxis: { title: "Time (s)", gridcolor: "#ece8df" },
+      yaxis: { title: label, gridcolor: "#ece8df" },
       legend: { orientation: "h", y: -0.3 }
     };
   }
@@ -308,14 +309,14 @@
             y: res.y,
             name: "True output y(t)",
             mode: "lines",
-            line: { color: "#1879cb", width: 3 }
+            line: { color: "#233247", width: 3 }
           },
           {
             x: res.t,
             y: res.ys,
             name: "Sensor measurement ys(t)",
             mode: "lines",
-            line: { color: "#e09627", width: 2.5 }
+            line: { color: "#6f88a3", width: 2.5 }
           },
           {
             x: [0, p.duration],
@@ -323,7 +324,7 @@
             name: "Setpoint r(t)",
             mode: "lines",
             line: {
-              color: "#777",
+              color: "#be935e",
               dash: "dash",
               width: 2
             }

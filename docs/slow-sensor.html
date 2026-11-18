@@ -16,6 +16,9 @@
   <!-- P2 styles -->
   <link rel="stylesheet" href="slow-sensor.css">
 
+  <!-- Shared Homework 2 lab look (matches P4) -->
+  <link rel="stylesheet" href="hw2-lab.css">
+
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script src="slow-sensor.js" defer></script>
 </head>
@@ -23,18 +26,12 @@
 <body class="hw2">
 
   <!-- HEADER -->
-  <header class="top-header site-header">
-
-    <div class="brand">
-      <span class="brand-mark">R</span>
-
-      <div>
-        <h2>RAYHANA</h2>
-        <p>PID Control Toolkit · ENCS4380</p>
-      </div>
-    </div>
-
-    <nav class="site-nav" aria-label="Homework 2 navigation">
+  <header class="site-header rayhana-site-header">
+  <a class="brand" href="control.html" aria-label="Rayhana Control Home">
+    <span class="brand-mark">R</span>
+    <span class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span>
+  </a>
+  <nav class="site-nav" aria-label="Homework 2 navigation">
   <a href="index.html">← Toolkits</a>
   <a href="control.html">Control Home</a>
   <a href="pid-playground.html">P1 · PID Playground</a>
@@ -44,30 +41,12 @@
 </nav>
   </header>
 
-  <main class="pid-wrap">
+  <main class="pid-wrap lab-main numbered">
 
-    <p>
-      <a href="control.html">← Control section</a>
-    </p>
-
-    <!-- PAGE HEADING -->
-    <div class="pid-heading">
-
-      <h1>P2 — Slow Sensor</h1>
-
-      <p>
-        Explore how sensor delay affects closed-loop PID
+    <section class="lab-hero" aria-labelledby="title"><div><a class="back-link" href="control.html">← Control section</a><br><span class="lab-eyebrow">MODULE P2 · INTERACTIVE LAB</span><h1 id="title">P2 — Slow <em>Sensor</em></h1><p class="intro">Explore how sensor delay affects closed-loop PID
         control. Compare the true plant output with the
         delayed sensor measurement using a numerical
-        RK4 simulation.
-      </p>
-
-    </div>
-
-
-    <!-- ====================================== -->
-    <!-- CARD 1: FEEDBACK LOOP                  -->
-    <!-- ====================================== -->
+        RK4 simulation.</p><nav class="lab-steps" aria-label="Page sections"><a class="lab-step" href="#p2PredictionSection"><b>01</b> Predict</a><i>→</i><a class="lab-step" href="#p2Settings"><b>02</b> Tune</a><i>→</i><a class="lab-step" href="#p2Response"><b>03</b> Simulate</a><i>→</i><a class="lab-step" href="#p2Notice2"><b>04</b> Check</a></nav></div><div class="lab-art" aria-hidden="true"><svg viewBox="0 0 290 150"><path class="a-axis" d="M20 10V132H277"/><path class="a-set" d="M20 65H277"/><path class="a-curve" d="M20 132C40 132 45 20 80 25S120 110 150 95S190 35 215 50S250 70 275 65"/><path class="a-curve2" d="M20 132C55 132 70 40 105 35S150 100 180 92S225 45 250 55S268 66 275 65"/></svg><span>TRUE OUTPUT VS SENSOR</span></div></section>
 
     <section class="pid-card">
 
@@ -184,12 +163,87 @@
 
     </section>
 
+    <section class="pid-card" id="p2PredictionSection">
 
-    <!-- ====================================== -->
-    <!-- CARD 2: INTERACTIVE SETTINGS           -->
-    <!-- ====================================== -->
+      <h2>Predict, then check</h2>
 
-    <section class="pid-card">
+      <p>
+        Predict what will happen when the sensor becomes
+        slower, then compare your answer with two actual
+        RK4 simulations. Only the sensor time constant
+        changes; the plant, setpoint and PID gains remain
+        unchanged.
+      </p>
+
+      <p>
+        <strong>Experiment:</strong>
+        Increase the sensor time constant τs.
+      </p>
+
+      <p>
+        <strong>Question:</strong>
+        What happens to the actual output overshoot?
+      </p>
+
+      <fieldset class="prediction-options">
+
+        <legend>
+          What do you predict will happen?
+        </legend>
+
+        <label>
+          <input type="radio"
+                 name="p2Prediction"
+                 value="increase">
+          Increase
+        </label>
+
+        <label>
+          <input type="radio"
+                 name="p2Prediction"
+                 value="decrease">
+          Decrease
+        </label>
+
+        <label>
+          <input type="radio"
+                 name="p2Prediction"
+                 value="same">
+          Stay approximately the same
+        </label>
+
+      </fieldset>
+
+      <div class="pid-actions">
+
+        <button id="p2Check" type="button">
+          Run experiment &amp; check
+        </button>
+
+        <button id="p2Retry" type="button">
+          Try again
+        </button>
+
+      </div>
+
+      <div id="p2PredictionResult"
+           class="prediction-result prediction-neutral"
+           role="status"
+           aria-live="polite"
+           hidden>
+      </div>
+
+      <p class="muted">
+        The correct answer is determined by comparing
+        the simulated responses, not by assuming that
+        overshoot always increases. The result depends
+        on the selected plant and controller settings.
+      </p>
+
+    </section>
+
+    <!-- Settings stay beside the results they change -->
+<div class="lab-workspace"><aside class="lab-sticky" aria-label="Simulation settings"><section class="pid-card" id="p2Settings">
 
       <h2>Interactive settings</h2>
 
@@ -387,98 +441,7 @@
          class="muted"
          role="status"></p>
 
-    </section>
-
-
-    <!-- ====================================== -->
-    <!-- CARD 3: PREDICT, THEN CHECK            -->
-    <!-- ====================================== -->
-
-    <section class="pid-card" id="p2PredictionSection">
-
-      <h2>Predict, then check</h2>
-
-      <p>
-        Predict what will happen when the sensor becomes
-        slower, then compare your answer with two actual
-        RK4 simulations. Only the sensor time constant
-        changes; the plant, setpoint and PID gains remain
-        unchanged.
-      </p>
-
-      <p>
-        <strong>Experiment:</strong>
-        Increase the sensor time constant τs.
-      </p>
-
-      <p>
-        <strong>Question:</strong>
-        What happens to the actual output overshoot?
-      </p>
-
-      <fieldset class="prediction-options">
-
-        <legend>
-          What do you predict will happen?
-        </legend>
-
-        <label>
-          <input type="radio"
-                 name="p2Prediction"
-                 value="increase">
-          Increase
-        </label>
-
-        <label>
-          <input type="radio"
-                 name="p2Prediction"
-                 value="decrease">
-          Decrease
-        </label>
-
-        <label>
-          <input type="radio"
-                 name="p2Prediction"
-                 value="same">
-          Stay approximately the same
-        </label>
-
-      </fieldset>
-
-      <div class="pid-actions">
-
-        <button id="p2Check" type="button">
-          Run experiment &amp; check
-        </button>
-
-        <button id="p2Retry" type="button">
-          Try again
-        </button>
-
-      </div>
-
-      <div id="p2PredictionResult"
-           class="prediction-result prediction-neutral"
-           role="status"
-           aria-live="polite"
-           hidden>
-      </div>
-
-      <p class="muted">
-        The correct answer is determined by comparing
-        the simulated responses, not by assuming that
-        overshoot always increases. The result depends
-        on the selected plant and controller settings.
-      </p>
-
-    </section>
-
-
-    <!-- ====================================== -->
-    <!-- CARD 4: LIVE PERFORMANCE METRICS       -->
-    <!-- ====================================== -->
-
-    <section class="pid-card">
+    </section></aside><div class="lab-flow"><section class="pid-card">
 
       <h2>Live performance metrics</h2>
 
@@ -517,13 +480,7 @@
       </p>
 
     </section>
-
-
-    <!-- ====================================== -->
-    <!-- CARD 5: OUTPUT RESPONSE GRAPH          -->
-    <!-- ====================================== -->
-
-    <section class="pid-card">
+    <section class="pid-card" id="p2Response">
 
       <h2>True output vs. sensor measurement</h2>
 
@@ -543,12 +500,6 @@
       </p>
 
     </section>
-
-
-    <!-- ====================================== -->
-    <!-- CARD 6: CONTROL SIGNAL GRAPH           -->
-    <!-- ====================================== -->
-
     <section class="pid-card">
 
       <h2>Control signal and saturation</h2>
@@ -570,14 +521,9 @@
         would be increased.
       </p>
 
-    </section>
+    </section></div></div>
 
-
-    <!-- ====================================== -->
-    <!-- CARD 7: EXPLANATION AND OBSERVATIONS   -->
-    <!-- ====================================== -->
-
-    <section class="pid-card">
+    <section class="pid-card" id="p2Notice2">
 
       <h2>What should I notice?</h2>
 
@@ -623,7 +569,10 @@
 
     </section>
 
+    <footer class="lab-footer"><span>RAYHANA · ENCS4380 · P2 Slow Sensor</span><a href="pid-playground.html">← P1 · PID Playground</a><a href="tuning-challenge.html">P4 · Tuning Challenge →</a></footer>
+
   </main>
 
+<script src="hw2-lab.js"></script>
 </body>
 </html>

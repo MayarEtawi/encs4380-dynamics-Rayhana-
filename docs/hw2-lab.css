@@ -1,0 +1,277 @@
+/*
+ * RAYHANA — Homework 2 shared "Interactive Lab" look.
+ * Gives Control Home, P1, P2 and My System the same visual language as
+ * P4 · Tuning Challenge (cream page, navy panels, camel accents, Georgia headings).
+ * Visual only: no text, IDs or behaviour depend on this file.
+ * Load it LAST, after pid-playground.css / control-theme.css / slow-sensor.css.
+ */
+:root{
+  --navy:#233247; --navy-2:#1e3555; --camel:#b38e6d; --camel-ink:#a77d56;
+  --bg:#f5f0e8; --card:#fffdf9; --line:#ded8cc; --soft:#f4eee6;
+  --muted:#637185; --pass:#14532d; --fail:#8f1d1d;
+}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body.hw2{background:linear-gradient(180deg,#f8f5ef 0%,#f1ede3 100%);color:var(--navy);font-family:'DM Sans',Arial,Helvetica,sans-serif;font-size:15px;line-height:1.55}
+body.hw2 h1,body.hw2 h2,body.hw2 h3{font-family:Georgia,'Times New Roman',serif}
+body.hw2 :focus-visible{outline:3px solid #b58a57;outline-offset:3px}
+
+/* ---------- Header (same as P4) ---------- */
+body.hw2 .rayhana-site-header{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:16px clamp(18px,5vw,75px);margin:0;background:var(--navy);color:#fff;box-shadow:0 4px 16px #23324720}
+body.hw2 .rayhana-site-header .brand{display:flex;flex-direction:row;align-items:center;gap:13px;text-decoration:none;color:#fff}
+body.hw2 .rayhana-site-header .brand-mark{display:grid;place-items:center;flex:none;width:42px;height:42px;border:1px solid var(--camel);color:var(--camel);font:26px Georgia,serif}
+body.hw2 .rayhana-site-header .brand-words{display:flex;flex-direction:column;gap:2px}
+body.hw2 .rayhana-site-header .brand-words strong{font-family:'DM Sans',Arial,sans-serif;font-size:17px;font-weight:700;letter-spacing:.18em;color:#fff}
+body.hw2 .rayhana-site-header .brand-words small{font-size:11px;color:#d9c7b5}
+body.hw2 .rayhana-site-header .site-nav{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+body.hw2 .rayhana-site-header .site-nav a{padding:9px 11px;font-size:12px;font-weight:500;color:#f5f0e8;border-radius:5px;text-decoration:none;white-space:nowrap}
+body.hw2 .rayhana-site-header .site-nav a:hover{background:#3d4b5e;color:#fff}
+body.hw2 .rayhana-site-header .site-nav a.current{background:#f5f0e8;color:var(--navy);font-weight:700}
+
+/* ---------- Page frame ---------- */
+body.hw2 main.lab-main{max-width:1460px;margin:28px auto 0;padding:0 24px 0;counter-reset:labcard}
+body.hw2 main.lab-main > .pid-card,
+body.hw2 main.lab-main > section:not(.lab-hero){margin:22px 0}
+
+/* ---------- Hero (same as P4) ---------- */
+.lab-hero{display:grid;grid-template-columns:1fr 330px;align-items:center;gap:35px;border:1px solid var(--line);border-radius:20px;padding:30px 38px;background:linear-gradient(115deg,#fffefa,#f5f0e8);box-shadow:0 7px 24px rgba(28,48,75,.045)}
+.lab-hero .back-link{display:inline-block;font-size:12px;font-weight:700;color:var(--camel-ink);text-decoration:none;margin-bottom:14px}
+.lab-hero .back-link:hover{text-decoration:underline}
+.lab-eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--camel-ink);margin:0 0 10px;display:block}
+.lab-hero h1{font-size:clamp(31px,3.7vw,54px);line-height:1.1;letter-spacing:-.035em;margin:0 0 13px;color:var(--navy)}
+.lab-hero h1 em{font-style:italic;color:var(--camel-ink)}
+.lab-hero .intro{color:var(--muted);max-width:680px;font-size:16px;margin:0}
+.lab-steps{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:24px}
+.lab-steps i{font-style:normal;color:var(--navy)}
+.lab-step{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:12px 20px;border:1.5px solid #d5c4b4;border-radius:999px;background:var(--card);color:var(--navy);font-weight:700;text-decoration:none;transition:transform .15s}
+.lab-step b{color:var(--navy)}
+.lab-step:hover{transform:translateY(-1px);border-color:var(--navy)}
+.lab-art{border:1px solid var(--camel);border-radius:18px;padding:16px 22px;background:var(--card);text-align:center}
+.lab-art svg{width:100%;display:block}
+.lab-art span{font-size:10px;letter-spacing:.18em;font-weight:800;color:var(--navy)}
+.lab-art .a-axis{stroke:var(--navy);fill:none;stroke-width:2}
+.lab-art .a-set{stroke:var(--navy);fill:none;stroke-width:3;stroke-dasharray:8 7}
+.lab-art .a-curve{stroke:var(--navy);fill:none;stroke-width:5;stroke-linecap:round}
+.lab-art .a-curve2{stroke:var(--camel);fill:none;stroke-width:4;stroke-dasharray:2 8;stroke-linecap:round}
+.lab-art circle{fill:var(--navy);stroke:var(--card);stroke-width:2}
+
+/* ---------- Panels (P4 .panel look) ---------- */
+body.hw2 .lab-main .pid-card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:23px;box-shadow:0 7px 24px rgba(28,48,75,.045)}
+body.hw2 .lab-main .pid-card > h2{display:flex;align-items:center;gap:13px;font-size:21px;line-height:1.25;color:var(--navy);margin:0 0 16px}
+body.hw2 .lab-main.numbered .pid-card > h2::before{counter-increment:labcard;content:counter(labcard,decimal-leading-zero);display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:8px;background:var(--navy);color:#fff;font:700 15px Georgia,serif}
+body.hw2 .lab-main .pid-card p{color:var(--navy)}
+body.hw2 .lab-main .pid-card p.muted,body.hw2 .lab-main .muted{color:var(--muted);font-size:13px}
+body.hw2 .lab-main a{color:var(--camel-ink)}
+
+/* Controls */
+body.hw2 .lab-main .pid-grid label{font-size:13px;font-weight:700;color:var(--navy)}
+body.hw2 .lab-main .pid-grid output{font:700 13px 'DM Sans',Arial,sans-serif;color:var(--camel-ink)}
+body.hw2 .lab-main input:not([type=range]):not([type=radio]):not([type=checkbox]),
+body.hw2 .lab-main select,body.hw2 .lab-main textarea{background:#fff;border:1.5px solid var(--navy);border-radius:9px;color:var(--navy);min-height:44px;padding:9px 11px;font:inherit;font-size:14px}
+body.hw2 .lab-main input[type=range]{accent-color:var(--navy);cursor:pointer;min-height:26px}
+body.hw2 .lab-main .pid-card button{background:var(--navy);color:#fff;border:0;border-radius:9px;min-height:42px;padding:10px 17px;font-weight:750;transition:filter .15s,transform .15s}
+body.hw2 .lab-main .pid-card button:hover{filter:brightness(1.15);transform:translateY(-1px);background:var(--navy)}
+body.hw2 .lab-main .pid-card button + button{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
+body.hw2 .lab-main .pid-card button + button:hover{background:#fff}
+
+/* Diagrams, metrics, info boxes */
+body.hw2 .lab-main .loop-container{background:#fff;border:1px solid #ece8df;border-radius:13px;padding:12px}
+body.hw2 .lab-main .metrics>div,body.hw2 .lab-main .bonus-metrics>div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+body.hw2 .lab-main .metrics strong{font-family:Georgia,serif;font-size:1.6rem;color:var(--navy)}
+body.hw2 .lab-main .metrics span,body.hw2 .lab-main .bonus-metrics small{color:var(--muted);font-size:12px}
+body.hw2 .lab-main .equation-block,body.hw2 .lab-main .p2-equation{background:#fff;border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:9px}
+body.hw2 .lab-main .p2-note{background:var(--bg);border-color:var(--line)}
+body.hw2 .lab-main .pid-plot{background:#fff;border:1px solid #ece8df;border-radius:13px;overflow:hidden}
+
+/* Predict, then check (P4 look) */
+body.hw2 .lab-main .prediction-options{border:0;padding:0;margin:14px 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+body.hw2 .lab-main .prediction-options legend{grid-column:1/-1;font-size:13px;font-weight:800;color:var(--navy);padding:0;margin-bottom:7px}
+body.hw2 .lab-main .prediction-options label{border:1.5px solid #d5c4b4;border-radius:999px;background:#fff;padding:11px 16px;font-weight:700;font-size:13px;transition:border-color .15s}
+body.hw2 .lab-main .prediction-options label:hover{border-color:var(--navy)}
+body.hw2 .lab-main .prediction-options label:has(input:checked){border-color:var(--navy);background:#eef2f8}
+body.hw2 .lab-main .prediction-options input{accent-color:var(--navy)}
+body.hw2 .lab-main .prediction-result{border-radius:10px;border-left:3px solid var(--navy)}
+body.hw2 .lab-main .prediction-neutral{background:#eef2f8;border-color:#d5dce5;color:var(--navy)}
+body.hw2 .lab-main .prediction-correct{background:#f3faf5;border-color:#a6d8b8;color:#176239}
+body.hw2 .lab-main .prediction-incorrect{background:#fff6f5;border-color:#e9c9c7;color:var(--fail)}
+body.hw2 .lab-main .pass{color:var(--pass)}
+body.hw2 .lab-main .fail{color:var(--fail)}
+
+/* ---------- Control Home ---------- */
+body.hw2 .lab-main .section-title{border-top:2px solid var(--navy);margin-top:30px;padding-top:21px}
+body.hw2 .lab-main .section-title .eyebrow{color:var(--navy);font-size:12px;letter-spacing:.18em;font-weight:800}
+body.hw2 .lab-main .section-title h2{font-size:29px;margin:10px 0 22px;color:var(--navy)}
+body.hw2 .lab-main .hw2-card-grid{gap:18px}
+body.hw2 .lab-main .hw2-module{display:flex;flex-direction:column;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:17px;padding:23px;box-shadow:0 7px 24px rgba(28,48,75,.045)}
+body.hw2 .lab-main .hw2-module h3{font-size:21px;margin:12px 0 8px;color:var(--navy)}
+body.hw2 .lab-main .hw2-module p{color:var(--muted);flex:1}
+body.hw2 .lab-main .module-num{display:inline-block;background:var(--navy);color:#fff;border-radius:8px;padding:6px 10px;font-size:11px;letter-spacing:.14em}
+body.hw2 .lab-main .hw2-module.pending{background:#faf7f2;border-style:dashed}
+body.hw2 .lab-main .hw2-module.pending .module-num{background:#8a94a3}
+body.hw2 .lab-main .hw2-cta{display:inline-flex;align-items:center;margin-top:8px;background:var(--navy);color:#fff;border-radius:9px;padding:11px 18px;font-weight:750;text-decoration:none;transition:filter .15s,transform .15s}
+body.hw2 .lab-main .hw2-cta:hover{filter:brightness(1.15);transform:translateY(-1px);background:var(--navy)}
+body.hw2 .lab-main .hw2-cta.small{font-size:13px;padding:9px 14px;min-height:40px}
+body.hw2 .lab-main .lab-hero .hw2-cta{background:var(--card);color:var(--navy);border:1.5px solid #d5c4b4;border-radius:999px;margin:0;min-height:46px}
+body.hw2 .lab-main .lab-hero .hw2-cta:hover{border-color:var(--navy)}
+body.hw2 .lab-main .hw2-project-card{margin-top:18px}
+
+/* ---------- Footer (same as P4) ---------- */
+.lab-footer{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--navy);color:#fff;border-radius:12px;padding:16px 24px;margin:27px 0 28px;font-size:11px}
+.lab-footer a{color:#fff !important;text-decoration:none}
+.lab-footer a:hover{text-decoration:underline}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1510px){body.hw2 main.lab-main{padding:0 3%}}
+@media(max-width:1080px){.lab-hero{grid-template-columns:1fr 250px;padding:28px}body.hw2 .lab-main .pid-card{padding:18px}}
+@media(max-width:980px){body.hw2 .rayhana-site-header{flex-wrap:wrap}body.hw2 .rayhana-site-header .site-nav{width:100%;justify-content:flex-start}}
+@media(max-width:800px){.lab-hero{grid-template-columns:1fr 190px;gap:20px}.lab-hero h1{font-size:34px}.lab-hero .intro{font-size:14px}.lab-steps i{display:none}.lab-step{padding:8px 13px;font-size:12px;min-height:40px}}
+@media(max-width:570px){
+  body.hw2{font-size:14px}
+  body.hw2 main.lab-main{margin-top:18px;padding:0 12px}
+  body.hw2 .rayhana-site-header{padding-left:14px;padding-right:14px}
+  body.hw2 .rayhana-site-header .site-nav a{font-size:11px;padding:8px 9px}
+  .lab-hero{grid-template-columns:1fr;padding:24px 20px}
+  .lab-art{display:none}
+  .lab-steps{gap:6px}
+  body.hw2 .lab-main .pid-card{padding:15px}
+  body.hw2 .lab-main .pid-card > h2{font-size:18px}
+  body.hw2 .lab-main .prediction-options{grid-template-columns:1fr}
+  .lab-footer{font-size:10px;gap:12px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.lab-step,body.hw2 .lab-main .pid-card button{transition:none}}
+
+/* Fine-tuning: navy step pills and identical sliders on every page */
+body.hw2 .lab-main .lab-step,body.hw2 .lab-main .lab-step b{color:var(--navy)}
+body.hw2 .lab-main #p2Sensor,body.hw2 .lab-main #p2Setpoint,body.hw2 .lab-main #p2Kp,body.hw2 .lab-main #p2Ki,
+body.hw2 .lab-main #p2Kd,body.hw2 .lab-main #p2Limit,body.hw2 .lab-main #p2Duration{accent-color:var(--navy)}
+
+/* ---------- Control Home: original colours, new layout ---------- */
+body.hw2.home-page{background:#f5f0e8}
+.home-classic .lab-hero{background:linear-gradient(115deg,#233247 0%,#233247 65%,#38465a 100%);border-color:#233247;color:#fff;box-shadow:none}
+.home-classic .lab-eyebrow{color:#b38e6d}
+.home-classic .lab-hero h1{color:#fff}
+.home-classic .lab-hero h1 em{color:#d8b99a}
+.home-classic .lab-hero .intro{color:#e5e6e9}
+.home-classic .lab-art{background:#ffffff08;border-color:#b38e6d}
+.home-classic .lab-art .a-axis,.home-classic .lab-art .a-set{stroke:#d9c7b5}
+.home-classic .lab-art .a-curve{stroke:#d8b99a}
+.home-classic .lab-art circle{fill:#b38e6d;stroke:#233247}
+.home-classic .lab-art span{color:#d9c7b5}
+body.hw2 .home-classic .hw2-cta,
+body.hw2 .home-classic .lab-hero .hw2-cta{background:#b38e6d;color:#172538;border:0;border-radius:6px}
+body.hw2 .home-classic .hw2-cta:hover,
+body.hw2 .home-classic .lab-hero .hw2-cta:hover{background:#d1b092;filter:none}
+body.hw2 .home-classic .section-title{border-top-color:#e5dbd0}
+body.hw2 .home-classic .section-title .eyebrow{color:#b38e6d}
+body.hw2 .home-classic .hw2-module{background:#fff;border-color:#e5dbd0;border-radius:12px;box-shadow:none}
+body.hw2 .home-classic .hw2-module h3{font-family:'DM Sans',Arial,sans-serif}
+body.hw2 .home-classic .hw2-module p{color:#596473}
+body.hw2 .home-classic .module-num{background:none;color:#a47c58;padding:0;font-size:12px;letter-spacing:.16em}
+body.hw2 .home-classic .hw2-module.pending{background:#faf7f2}
+body.hw2 .home-classic .hw2-module.pending .module-num{background:none;color:#a47c58}
+.home-classic .lab-footer{background:none;color:#68717c;border-top:1px solid #e5dbd0;border-radius:0;font-size:12px}
+.home-classic .lab-footer a{color:#68717c !important}
+
+/* ---------- Control Home: module cards (HW1 card principle, HW2 look) ---------- */
+body.hw2 .home-classic .hm-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+body.hw2 .home-classic .hm-card{position:relative;align-items:center;text-align:center;padding:34px 22px 24px;border-radius:14px;border:1px solid #e5dbd0;border-top:4px solid #b38e6d;transition:transform .2s,box-shadow .2s}
+body.hw2 .home-classic .hm-card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #23324718}
+body.hw2 .home-classic .hm-card.pending{border-top-color:#c9c2b8}
+.home-classic .hm-icon{display:grid;place-items:center;flex:none;width:112px;height:112px;border-radius:50%;background:linear-gradient(140deg,#233247,#38465a);box-shadow:0 0 0 6px #f4eee6,0 0 0 7px #e5dbd0;margin-bottom:22px}
+.home-classic .hm-icon svg{width:84px;height:63px;overflow:visible}
+.home-classic .hm-icon .ax{stroke:#d9c7b5;stroke-width:3;fill:none;stroke-linecap:round}
+.home-classic .hm-icon .cv{stroke:#d8b99a;stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.home-classic .hm-icon .cv2{stroke:#f5f0e8;stroke-width:3.5;fill:none;stroke-linecap:round;stroke-dasharray:3 7}
+.home-classic .hm-icon .sp{stroke:#f5f0e8;stroke-width:2.5;fill:none;stroke-dasharray:6 6}
+.home-classic .hm-icon .dot{fill:#b38e6d}
+.home-classic .pending .hm-icon{background:linear-gradient(140deg,#8a94a3,#a4acb7)}
+body.hw2 .home-classic .hm-card .module-num{margin-bottom:2px}
+body.hw2 .home-classic .hm-card h3{font-size:22px;margin:6px 0 10px}
+body.hw2 .home-classic .hm-card p{flex:1;margin:0 0 18px;font-size:14px}
+.home-classic .hm-status{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;border:1.5px solid #b38e6d;color:#8a6443;background:#fbf6ef;font-size:12px;font-weight:700;margin-bottom:18px}
+.home-classic .hm-status.soon{border-color:#c9c2b8;color:#7c7b78;background:#f4f1ec}
+body.hw2 .home-classic .hm-card .hm-button,body.hw2 .home-classic .hm-card .coming{width:100%;justify-content:center;margin-top:auto;min-height:44px;font-size:14px;border-radius:8px;display:flex;align-items:center}
+body.hw2 .home-classic .hm-project{display:flex;flex-direction:row;align-items:center;gap:28px;border-left:4px solid #b38e6d;border-radius:14px}
+.home-classic .hm-project .hm-icon{margin:0}
+.home-classic .hm-project-text{flex:1}
+.home-classic .hm-project-text p{margin:0}
+body.hw2 .home-classic .hm-project .hm-button{flex:none;margin:0;min-height:44px}
+@media(max-width:1100px){body.hw2 .home-classic .hm-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){body.hw2 .home-classic .hm-grid{grid-template-columns:1fr}body.hw2 .home-classic .hm-project{flex-direction:column;text-align:center}}
+/* Control Home hero: one jump button instead of repeating the module links */
+.home-classic .hm-hero-note{color:#d9c7b5;font-size:13px;letter-spacing:.04em}
+body.hw2 .home-classic .lab-hero .hm-jump{padding:12px 22px}
+
+/* ---------- Control Home v3: one navy page, title + cards ---------- */
+body.hw2.home-page{background:linear-gradient(160deg,#233247 0%,#1d2b3e 60%,#2b3a50 100%);min-height:100vh}
+body.hw2.home-page .rayhana-site-header{background:transparent;box-shadow:none;border-bottom:1px solid #ffffff1a}
+.home-classic .hm-intro{text-align:center;max-width:760px;margin:46px auto 40px;color:#fff}
+.home-classic .hm-intro h1{font-size:clamp(32px,4.4vw,56px);line-height:1.1;letter-spacing:-.02em;margin:10px 0 14px;color:#fff}
+.home-classic .hm-intro h1 em{color:#d8b99a;font-style:italic}
+.home-classic .hm-intro p{color:#cfd5de;font-size:16px;margin:0}
+body.hw2 .home-classic .hm-card{border:0;border-top:4px solid #b38e6d;box-shadow:0 14px 34px #0000002e}
+body.hw2 .home-classic .hm-card.pending{background:#f4f1ec;border-top:4px dashed #c9c2b8}
+body.hw2 .home-classic .hm-card:hover{box-shadow:0 20px 40px #00000040}
+body.hw2 .home-classic .hm-project{border:0;border-left:4px solid #b38e6d;box-shadow:0 14px 34px #0000002e;margin-top:20px}
+.home-classic .lab-footer{border-top-color:#ffffff1f;color:#aab3c0;margin-top:40px}
+.home-classic .lab-footer a{color:#d9c7b5 !important}
+@media(max-width:570px){.home-classic .hm-intro{margin:28px auto 26px}.home-classic .hm-intro p{font-size:14px}}
+body.hw2 main.lab-main.home-classic > section.hm-intro{margin:50px auto 42px}
+@media(max-width:570px){body.hw2 main.lab-main.home-classic > section.hm-intro{margin:28px auto 26px}}
+
+/* ---------- P1 / P2: settings column that stays beside the results ---------- */
+.lab-workspace{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:22px;align-items:start;margin:22px 0}
+.lab-workspace > .lab-sticky{grid-column:2;grid-row:1}
+.lab-workspace > .lab-flow{grid-column:1;grid-row:1;min-width:0}
+.lab-sticky{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+body.hw2 .lab-main .lab-workspace .pid-card{margin:0 0 22px}
+body.hw2 .lab-main .lab-workspace .lab-flow > .pid-card:last-child{margin-bottom:0}
+body.hw2 .lab-main .lab-workspace > .lab-sticky > .pid-card{margin:0}
+/* controls stacked vertically inside the column */
+body.hw2 .lab-main .lab-sticky .pid-grid{grid-template-columns:1fr;gap:12px;margin:10px 0}
+body.hw2 .lab-main .lab-sticky .pid-grid label{gap:5px}
+body.hw2 .lab-main .lab-sticky .pid-grid label:has(input[type=range]){display:grid;grid-template-columns:1fr auto;align-items:center}
+body.hw2 .lab-main .lab-sticky .pid-grid label:has(input[type=range]) input[type=range]{grid-column:1/-1}
+body.hw2 .lab-main .lab-sticky .pid-grid label:has(input[type=range]) output{background:var(--soft);border-radius:6px;padding:2px 8px;justify-self:end}
+body.hw2 .lab-main .lab-sticky .pid-actions{flex-direction:column;gap:8px;margin:14px 0 6px}
+body.hw2 .lab-main .lab-sticky .pid-actions button{width:100%;margin:0}
+/* split layout inside the bonus cards */
+.lab-split{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start;margin-top:12px}
+.lab-split > .lab-sticky{grid-column:2;grid-row:1}
+.lab-split > .lab-flow{grid-column:1;grid-row:1;min-width:0}
+.lab-side-box{background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:16px}
+.lab-split .lab-flow > :first-child{margin-top:0}
+@media(max-width:1000px){
+  .lab-workspace,.lab-split{grid-template-columns:1fr}
+  .lab-workspace > .lab-sticky,.lab-workspace > .lab-flow,.lab-split > .lab-sticky,.lab-split > .lab-flow{grid-column:1;grid-row:auto}
+  .lab-sticky{position:static;max-height:none;overflow:visible}
+  body.hw2 .lab-main .lab-sticky .pid-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+  body.hw2 .lab-main .lab-sticky .pid-actions{flex-direction:row;flex-wrap:wrap}
+  body.hw2 .lab-main .lab-sticky .pid-actions button{width:auto}
+}
+/* compact column so it fits one screen */
+@media(min-width:1001px){
+  body.hw2 .lab-main .lab-workspace > .lab-sticky > .pid-card{padding:18px 20px}
+  body.hw2 .lab-main .lab-sticky .pid-card > h2{font-size:18px;margin-bottom:10px}
+  body.hw2 .lab-main .lab-sticky .pid-card > h2::before{width:32px;height:32px;font-size:13px}
+  body.hw2 .lab-main .lab-sticky .pid-grid{gap:6px;margin:6px 0}
+  body.hw2 .lab-main .lab-sticky .pid-grid label{font-size:12px;gap:2px}
+  body.hw2 .lab-main .lab-sticky input:not([type=range]):not([type=radio]):not([type=checkbox]),
+  body.hw2 .lab-main .lab-sticky select{min-height:36px;padding:6px 10px;font-size:13px}
+  body.hw2 .lab-main .lab-sticky input[type=range]{min-height:20px;margin:2px 0}
+  body.hw2 .lab-main .lab-sticky .pid-grid + .pid-grid{display:grid;grid-template-columns:1fr 1fr}
+  body.hw2 .lab-main .lab-sticky .pid-grid + .pid-grid:has(label:nth-child(3)){grid-template-columns:1fr 1fr 1fr}
+  body.hw2 .lab-main .lab-sticky .pid-actions{gap:6px;margin:10px 0 4px}
+  body.hw2 .lab-main .lab-sticky .pid-actions button{min-height:36px;padding:7px 12px;font-size:13px}
+  body.hw2 .lab-main .lab-sticky .muted{margin:6px 0 0;font-size:12px}
+}
+
+/* ---------- v3: bonus boxes stretch to the end of their section, contents stay fixed ---------- */
+.lab-split{align-items:stretch}
+.lab-split > .lab-side-box{grid-column:2;grid-row:1;position:static;max-height:none;overflow:visible}
+.lab-side-box > .lab-sticky{position:sticky;top:16px}
+body.hw2 .lab-main .lab-side-box .pid-grid{grid-template-columns:1fr}
+
+
+/* Tall settings column: no inner scrollbar. hw2-lab.js sets "top" so a column
+   taller than the screen scrolls with the page until its end shows, then stays fixed. */
+.lab-workspace > .lab-sticky{max-height:none;overflow:visible}

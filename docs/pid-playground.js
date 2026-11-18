@@ -63,11 +63,11 @@ function metrics(res,r){
  const settle=lastOutside<0?0:lastOutside>=y.length-1?NaN:t[lastOutside+1];
  return {rise,overshoot,settle,error:r-y[y.length-1]};
 }
-const graphLayout=(title,ytitle)=>({title:{text:title,font:{size:15}},paper_bgcolor:'#ffffff',plot_bgcolor:'#ffffff',font:{family:'Arial'},margin:{l:58,r:18,t:48,b:45},xaxis:{title:'Time (s)',gridcolor:'#e4eee6'},yaxis:{title:ytitle,gridcolor:'#e4eee6'},legend:{orientation:'h',y:-.3},uirevision:'pid'});
+const graphLayout=(title,ytitle)=>({title:{text:title,font:{size:15,family:'Georgia, serif',color:'#233247'}},paper_bgcolor:'#ffffff',plot_bgcolor:'#ffffff',font:{family:'DM Sans, Arial, sans-serif',color:'#233247'},margin:{l:58,r:18,t:48,b:45},xaxis:{title:'Time (s)',gridcolor:'#ece8df'},yaxis:{title:ytitle,gridcolor:'#ece8df'},legend:{orientation:'h',y:-.3},uirevision:'pid'});
 function draw(p,res){
  const m=metrics(res,p.r);$('rise').textContent=fmt(m.rise,' s');$('overshoot').textContent=fmt(m.overshoot,'%');$('settle').textContent=fmt(m.settle,' s');$('error').textContent=fmt(m.error);
  const config={responsive:true,displaylogo:false};
- Plotly.react('responsePlot',[{x:res.t,y:res.y,name:'Output y(t)',mode:'lines',line:{color:'#233247',width:3}},{x:[0,p.duration],y:[p.r,p.r],name:'Setpoint',mode:'lines',line:{color:'#e4a12b',dash:'dash',width:2}}],graphLayout('Closed-loop step response','Output'),config);
+ Plotly.react('responsePlot',[{x:res.t,y:res.y,name:'Output y(t)',mode:'lines',line:{color:'#233247',width:3}},{x:[0,p.duration],y:[p.r,p.r],name:'Setpoint',mode:'lines',line:{color:'#be935e',dash:'dash',width:2}}],graphLayout('Closed-loop step response','Output'),config);
  Plotly.react('controlPlot',[{x:res.t,y:res.u,name:'Actuator u(t)',mode:'lines',line:{color:'#233247',width:2}},{x:[0,p.duration],y:[p.umax,p.umax],name:'+Umax',mode:'lines',line:{color:'#bb3434',dash:'dash'}},{x:[0,p.duration],y:[-p.umax,-p.umax],name:'−Umax',mode:'lines',line:{color:'#bb3434',dash:'dash'}}],graphLayout('Control effort with limits','u(t)'),config);
  $('diagramPlant').textContent=p.type==='first'?'1st-order':'2nd-order';
 }
@@ -198,7 +198,7 @@ function refreshZN(){
  const res=znSimulate(kp,duration),period=znPeakPeriod(res);
  $('znMeasured').textContent=Number.isFinite(period)?period.toFixed(3)+' s':'Not enough peaks';
  $('znStatus').textContent=Math.abs(kp-8)<.051?'At Kp = Ku = 8: sustained oscillations (marginal stability).':kp<8?'Below Ku: damped oscillations / stable response.':'Above Ku: growing oscillations / unstable response.';
- Plotly.react('znPlot',[{x:res.t,y:res.y,name:'Output y(t)',mode:'lines',line:{color:'#233247',width:2.5}},{x:[0,duration],y:[1,1],name:'Setpoint',mode:'lines',line:{color:'#B38E6D',dash:'dash'}}],graphLayout('P-only response — third-order teaching plant','Output'),{responsive:true,displaylogo:false});
+ Plotly.react('znPlot',[{x:res.t,y:res.y,name:'Output y(t)',mode:'lines',line:{color:'#233247',width:2.5}},{x:[0,duration],y:[1,1],name:'Setpoint',mode:'lines',line:{color:'#be935e',dash:'dash'}}],graphLayout('P-only response — third-order teaching plant','Output'),{responsive:true,displaylogo:false});
 }
 $('znGain').addEventListener('input',refreshZN);$('znDuration').addEventListener('input',refreshZN);
 for(const [id,kp] of [['znCritical',8],['znBelow',5],['znAbove',11]])$(id).addEventListener('click',()=>{$('znGain').value=kp;refreshZN();});
@@ -237,7 +237,7 @@ function refreshStateSpace(){
   const state=stateSimulate(m,b,k,wn,zeta,base.r,x0,base.duration,base.umax);
   $('ssGains').textContent=`[${state.k1.toFixed(3)}, ${state.k2.toFixed(3)}]`;$('ssPrefilter').textContent=state.N.toFixed(3);
   const pid=pidSecondWithInitial({...base,type:'second',m,b,k},x0);
-  Plotly.react('ssPlot',[{x:state.t,y:state.y,name:'State feedback',mode:'lines',line:{color:'#233247',width:3}},{x:pid.t,y:pid.y,name:'PID (same plant)',mode:'lines',line:{color:'#B38E6D',width:2.5}},{x:[0,base.duration],y:[base.r,base.r],name:'Setpoint',mode:'lines',line:{color:'#c78b29',dash:'dash'}}],graphLayout('State feedback vs PID — same initial conditions','Position y'),{responsive:true,displaylogo:false});
+  Plotly.react('ssPlot',[{x:state.t,y:state.y,name:'State feedback',mode:'lines',line:{color:'#233247',width:3}},{x:pid.t,y:pid.y,name:'PID (same plant)',mode:'lines',line:{color:'#6f88a3',width:2.5}},{x:[0,base.duration],y:[base.r,base.r],name:'Setpoint',mode:'lines',line:{color:'#be935e',dash:'dash'}}],graphLayout('State feedback vs PID — same initial conditions','Position y'),{responsive:true,displaylogo:false});
   $('ssStatus').textContent=`Selected poles are stable. Initial state: [${x0}, 0]. Both controllers use Umax = ${base.umax} and r = ${base.r}.`;
  }catch(e){$('ssStatus').textContent=e.message;}
 }
