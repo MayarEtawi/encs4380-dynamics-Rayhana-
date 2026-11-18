@@ -224,7 +224,9 @@
   }
   function makeChallengeSpec(plant, previous) {
     const overshoot = chooseDifferent([5, 8, 10, 12, 15, 18], previous?.overshoot);
-    const error = chooseDifferent([0.5, 0.75, 1, 1.5, 2], previous?.error);
+    // Homework spec: zero steady-state error. 0.1% is "zero" within numerical tolerance;
+    // P-only can never reach it (e_ss = 1/(1+K*Kp) >= 1.03% for these plants), so Ki is required.
+    const error = 0.1;   // e_ss ≈ 0  (P-only can never reach this)
     const baseline = plant.kind === 'first' ? Math.max(3, 2 * plant.tau) : Math.max(3, 5 / plant.wn);
     const candidates = [-0.5, 0, 0.5, 1, 1.5].map(offset => Math.round(Math.max(2.5, baseline + offset) * 10) / 10);
     const settling = chooseDifferent([...new Set(candidates)].filter(value => value !== previous?.settling), previous?.settling);
@@ -241,10 +243,10 @@
     state.baseline = E.simulate(state.plant, DEFAULT);
     $('target-os').textContent = fmt(state.spec.overshoot, 0) + '%';
     $('target-ts').textContent = fmt(state.spec.settling) + ' s';
-    $('target-error').textContent = fmt(state.spec.error, state.spec.error % 1 ? 2 : 0) + '%';
+    $('target-error').textContent = '≈ 0 (≤' + fmt(state.spec.error, 1) + '%)';
     $('os-label').textContent = 'Target ≤' + fmt(state.spec.overshoot, 0) + '%';
     $('ts-label').textContent = '±2% band · target ≤' + fmt(state.spec.settling) + ' s';
-    $('error-label').textContent = 'Target ≤' + fmt(state.spec.error, 2) + '%';
+    $('error-label').textContent = 'Target ≈ 0 (≤' + fmt(state.spec.error, 1) + '%) · settled tail';
     $('restore').disabled = true; $('download').disabled = true; $('prediction-feedback').hidden = true; $('prediction-feedback').replaceChildren();
     ['prediction-os', 'prediction-ts', 'prediction-error'].forEach(id => { $(id).value = ''; }); 
     setGains(DEFAULT); clearError(); clearMetrics(); updateStats();
