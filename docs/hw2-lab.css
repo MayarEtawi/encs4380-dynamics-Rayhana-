@@ -275,3 +275,12 @@ body.hw2 .lab-main .lab-side-box .pid-grid{grid-template-columns:1fr}
 /* Tall settings column: no inner scrollbar. hw2-lab.js sets "top" so a column
    taller than the screen scrolls with the page until its end shows, then stays fixed. */
 .lab-workspace > .lab-sticky{max-height:none;overflow:visible}
+
+/* Fix: on phones/tablets the bonus control box sits above the results, full width */
+@media(max-width:1000px){
+  .lab-split > .lab-side-box{grid-column:1;grid-row:auto}
+  .lab-side-box > .lab-sticky{position:static}
+  body.hw2 .lab-main .lab-side-box .pid-grid{grid-template-columns:1fr}
+  body.hw2 .lab-main .lab-side-box .pid-actions{flex-direction:column}
+  body.hw2 .lab-main .lab-side-box .pid-actions button{width:100%}
+}
