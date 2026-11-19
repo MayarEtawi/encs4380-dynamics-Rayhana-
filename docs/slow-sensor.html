@@ -1,11 +1,9 @@
-
 <!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport"
-        content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <title>P2 | Slow Sensor — PID Control Toolkit</title>
 
@@ -27,26 +25,43 @@
 
   <!-- HEADER -->
   <header class="site-header rayhana-site-header">
-  <a class="brand" href="control.html" aria-label="Rayhana Control Home">
-    <span class="brand-mark">R</span>
-    <span class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span>
-  </a>
-  <nav class="site-nav" aria-label="Homework 2 navigation">
-  <a href="index.html">← Toolkits</a>
-  <a href="control.html">Control Home</a>
-  <a href="pid-playground.html">P1 · PID Playground</a>
-  <a href="slow-sensor.html" aria-current="page" class="current">P2 · Slow Sensor</a>
-  <a href="tuning-challenge.html">P4 · Tuning Challenge</a>
-  <a href="project-model.html">My System</a>
-</nav>
+    <a class="brand" href="control.html" aria-label="Rayhana Control Home">
+      <span class="brand-mark">R</span>
+      <span class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Homework 2 navigation">
+      <a href="index.html">← Toolkits</a>
+      <a href="control.html">Control Home</a>
+      <a href="pid-playground.html">P1 · PID Playground</a>
+      <a href="slow-sensor.html" aria-current="page" class="current">P2 · Slow Sensor</a>
+      <a href="digital-pid.html">P3 · Digital PID</a>
+      <a href="tuning-challenge.html">P4 · Tuning Challenge</a>
+      <a href="project-model.html">My System</a>
+    </nav>
   </header>
 
   <main class="pid-wrap lab-main numbered">
 
-    <section class="lab-hero" aria-labelledby="title"><div><a class="back-link" href="control.html">← Control section</a><br><span class="lab-eyebrow">MODULE P2 · INTERACTIVE LAB</span><h1 id="title">P2 — Slow <em>Sensor</em></h1><p class="intro">Explore how sensor delay affects closed-loop PID
-        control. Compare the true plant output with the
-        delayed sensor measurement using a numerical
-        RK4 simulation.</p><nav class="lab-steps" aria-label="Page sections"><a class="lab-step" href="#p2PredictionSection"><b>01</b> Predict</a><i>→</i><a class="lab-step" href="#p2Settings"><b>02</b> Tune</a><i>→</i><a class="lab-step" href="#p2Response"><b>03</b> Simulate</a><i>→</i><a class="lab-step" href="#p2Notice2"><b>04</b> Check</a></nav></div><div class="lab-art" aria-hidden="true"><svg viewBox="0 0 290 150"><path class="a-axis" d="M20 10V132H277"/><path class="a-set" d="M20 65H277"/><path class="a-curve" d="M20 132C40 132 45 20 80 25S120 110 150 95S190 35 215 50S250 70 275 65"/><path class="a-curve2" d="M20 132C55 132 70 40 105 35S150 100 180 92S225 45 250 55S268 66 275 65"/></svg><span>TRUE OUTPUT VS SENSOR</span></div></section>
+    <section class="lab-hero" aria-labelledby="title">
+      <div><a class="back-link" href="control.html">← Control section</a><br><span class="lab-eyebrow">MODULE P2 ·
+          INTERACTIVE LAB</span>
+        <h1 id="title">P2 — Slow <em>Sensor</em></h1>
+        <p class="intro">Explore how sensor delay affects closed-loop PID
+          control. Compare the true plant output with the
+          delayed sensor measurement using a numerical
+          RK4 simulation.</p>
+        <nav class="lab-steps" aria-label="Page sections"><a class="lab-step" href="#p2PredictionSection"><b>01</b>
+            Predict</a><i>→</i><a class="lab-step" href="#p2Settings"><b>02</b> Tune</a><i>→</i><a class="lab-step"
+            href="#p2Response"><b>03</b> Simulate</a><i>→</i><a class="lab-step" href="#p2Notice2"><b>04</b> Check</a>
+        </nav>
+      </div>
+      <div class="lab-art" aria-hidden="true"><svg viewBox="0 0 290 150">
+          <path class="a-axis" d="M20 10V132H277" />
+          <path class="a-set" d="M20 65H277" />
+          <path class="a-curve" d="M20 132C40 132 45 20 80 25S120 110 150 95S190 35 215 50S250 70 275 65" />
+          <path class="a-curve2" d="M20 132C55 132 70 40 105 35S150 100 180 92S225 45 250 55S268 66 275 65" />
+        </svg><span>TRUE OUTPUT VS SENSOR</span></div>
+    </section>
 
     <section class="pid-card">
 
@@ -54,79 +69,52 @@
 
       <div class="loop-container">
 
-        <svg class="loop-svg"
-             viewBox="0 0 860 200"
-             role="img"
-             aria-label="Setpoint enters PID, actuator and plant. The output passes through a slow sensor before feedback.">
+        <svg class="loop-svg" viewBox="0 0 860 200" role="img"
+          aria-label="Setpoint enters PID, actuator and plant. The output passes through a slow sensor before feedback.">
 
           <defs>
-            <marker id="p2Arrow"
-                    markerWidth="9"
-                    markerHeight="9"
-                    refX="7"
-                    refY="4"
-                    orient="auto">
+            <marker id="p2Arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto">
 
-              <path d="M0 0 L8 4 L0 8Z"
-                    fill="#233247"/>
+              <path d="M0 0 L8 4 L0 8Z" fill="#233247" />
             </marker>
           </defs>
 
-          <g stroke="#233247"
-             stroke-width="2.5"
-             fill="none"
-             marker-end="url(#p2Arrow)">
+          <g stroke="#233247" stroke-width="2.5" fill="none" marker-end="url(#p2Arrow)">
 
-            <path d="M35 58 H124"/>
-            <path d="M161 58 H218"/>
-            <path d="M340 58 H392"/>
-            <path d="M505 58 H543"/>
-            <path d="M677 58 H809"/>
+            <path d="M35 58 H124" />
+            <path d="M161 58 H218" />
+            <path d="M340 58 H392" />
+            <path d="M505 58 H543" />
+            <path d="M677 58 H809" />
 
             <!-- Feedback path -->
-            <path d="M766 58 V151 H544"/>
-            <path d="M415 151 H143 V79"/>
+            <path d="M766 58 V151 H544" />
+            <path d="M415 151 H143 V79" />
 
           </g>
 
           <!-- Summing junction -->
-          <circle cx="143" cy="58" r="19"
-                  fill="#fff"
-                  stroke="#B38E6D"
-                  stroke-width="2"/>
+          <circle cx="143" cy="58" r="19" fill="#fff" stroke="#B38E6D" stroke-width="2" />
 
-          <g fill="#233247"
-             font-size="15"
-             font-family="Arial"
-             text-anchor="middle">
+          <g fill="#233247" font-size="15" font-family="Arial" text-anchor="middle">
 
             <text x="143" y="54">+</text>
             <text x="133" y="74">−</text>
           </g>
 
           <!-- Blocks -->
-          <g fill="#fff"
-             stroke="#B38E6D"
-             stroke-width="2">
+          <g fill="#fff" stroke="#B38E6D" stroke-width="2">
 
-            <rect x="218" y="30"
-                  width="122" height="55" rx="7"/>
+            <rect x="218" y="30" width="122" height="55" rx="7" />
 
-            <rect x="392" y="30"
-                  width="113" height="55" rx="7"/>
+            <rect x="392" y="30" width="113" height="55" rx="7" />
 
-            <rect x="543" y="30"
-                  width="134" height="55" rx="7"/>
+            <rect x="543" y="30" width="134" height="55" rx="7" />
 
-            <rect x="415" y="125"
-                  width="129" height="51" rx="7"/>
+            <rect x="415" y="125" width="129" height="51" rx="7" />
           </g>
 
-          <g font-size="16"
-             fill="#233247"
-             font-family="Arial"
-             font-weight="bold"
-             text-anchor="middle">
+          <g font-size="16" fill="#233247" font-family="Arial" font-weight="bold" text-anchor="middle">
 
             <text x="279" y="64">PID</text>
             <text x="449" y="64">± Umax</text>
@@ -136,9 +124,7 @@
             <text x="479" y="163">τs</text>
           </g>
 
-          <g font-size="14"
-             fill="#233247"
-             font-family="Arial">
+          <g font-size="14" fill="#233247" font-family="Arial">
 
             <text x="20" y="37">r(t)</text>
             <text x="183" y="42">e(t)</text>
@@ -192,23 +178,17 @@
         </legend>
 
         <label>
-          <input type="radio"
-                 name="p2Prediction"
-                 value="increase">
+          <input type="radio" name="p2Prediction" value="increase">
           Increase
         </label>
 
         <label>
-          <input type="radio"
-                 name="p2Prediction"
-                 value="decrease">
+          <input type="radio" name="p2Prediction" value="decrease">
           Decrease
         </label>
 
         <label>
-          <input type="radio"
-                 name="p2Prediction"
-                 value="same">
+          <input type="radio" name="p2Prediction" value="same">
           Stay approximately the same
         </label>
 
@@ -226,11 +206,7 @@
 
       </div>
 
-      <div id="p2PredictionResult"
-           class="prediction-result prediction-neutral"
-           role="status"
-           aria-live="polite"
-           hidden>
+      <div id="p2PredictionResult" class="prediction-result prediction-neutral" role="status" aria-live="polite" hidden>
       </div>
 
       <p class="muted">
@@ -243,285 +219,228 @@
     </section>
 
     <!-- Settings stay beside the results they change -->
-<div class="lab-workspace"><aside class="lab-sticky" aria-label="Simulation settings"><section class="pid-card" id="p2Settings">
+    <div class="lab-workspace">
+      <aside class="lab-sticky" aria-label="Simulation settings">
+        <section class="pid-card" id="p2Settings">
 
-      <h2>Interactive settings</h2>
+          <h2>Interactive settings</h2>
 
-      <div class="pid-grid">
+          <div class="pid-grid">
 
-        <label>
-          Plant model
+            <label>
+              Plant model
 
-          <select id="p2Plant">
-            <option value="first">
-              First order — K/(τs+1)
-            </option>
+              <select id="p2Plant">
+                <option value="first">
+                  First order — K/(τs+1)
+                </option>
 
-            <option value="second">
-              Second order — 1/(ms²+bs+k)
-            </option>
-          </select>
-        </label>
+                <option value="second">
+                  Second order — 1/(ms²+bs+k)
+                </option>
+              </select>
+            </label>
 
-        <label>
-          Sensor time constant τs
+            <label>
+              Sensor time constant τs
 
-          <output id="p2SensorVal">0.10 s</output>
+              <output id="p2SensorVal">0.10 s</output>
 
-          <input id="p2Sensor"
-                 type="range"
-                 min="0.05"
-                 max="3"
-                 step="0.05"
-                 value="0.1">
-        </label>
+              <input id="p2Sensor" type="range" min="0.05" max="3" step="0.05" value="0.1">
+            </label>
 
-        <label>
-          Setpoint step
+            <label>
+              Setpoint step
 
-          <output id="p2SetpointVal">1</output>
+              <output id="p2SetpointVal">1</output>
 
-          <input id="p2Setpoint"
-                 type="range"
-                 min="0.2"
-                 max="3"
-                 step="0.1"
-                 value="1">
-        </label>
+              <input id="p2Setpoint" type="range" min="0.2" max="3" step="0.1" value="1">
+            </label>
 
-        <label>
-          Proportional gain Kp
+            <label>
+              Proportional gain Kp
 
-          <output id="p2KpVal">9</output>
+              <output id="p2KpVal">9</output>
 
-          <input id="p2Kp"
-                 type="range"
-                 min="0"
-                 max="30"
-                 step="0.1"
-                 value="9">
-        </label>
+              <input id="p2Kp" type="range" min="0" max="30" step="0.1" value="9">
+            </label>
 
-        <label>
-          Integral gain Ki
+            <label>
+              Integral gain Ki
 
-          <output id="p2KiVal">0</output>
+              <output id="p2KiVal">0</output>
 
-          <input id="p2Ki"
-                 type="range"
-                 min="0"
-                 max="15"
-                 step="0.1"
-                 value="0">
-        </label>
+              <input id="p2Ki" type="range" min="0" max="15" step="0.1" value="0">
+            </label>
 
-        <label>
-          Derivative gain Kd
+            <label>
+              Derivative gain Kd
 
-          <output id="p2KdVal">0</output>
+              <output id="p2KdVal">0</output>
 
-          <input id="p2Kd"
-                 type="range"
-                 min="0"
-                 max="10"
-                 step="0.05"
-                 value="0">
-        </label>
+              <input id="p2Kd" type="range" min="0" max="10" step="0.05" value="0">
+            </label>
 
-        <label>
-          Actuator limit ±Umax
+            <label>
+              Actuator limit ±Umax
 
-          <output id="p2LimitVal">100</output>
+              <output id="p2LimitVal">100</output>
 
-          <input id="p2Limit"
-                 type="range"
-                 min="1"
-                 max="100"
-                 step="1"
-                 value="100">
-        </label>
+              <input id="p2Limit" type="range" min="1" max="100" step="1" value="100">
+            </label>
 
-        <label>
-          Simulation duration (s)
+            <label>
+              Simulation duration (s)
 
-          <output id="p2DurationVal">12 s</output>
+              <output id="p2DurationVal">12 s</output>
 
-          <input id="p2Duration"
-                 type="range"
-                 min="4"
-                 max="40"
-                 step="1"
-                 value="12">
-        </label>
+              <input id="p2Duration" type="range" min="4" max="40" step="1" value="12">
+            </label>
 
+          </div>
+
+          <!-- FIRST ORDER PARAMETERS -->
+          <div class="pid-grid" id="p2FirstFields">
+
+            <label>
+              Plant gain K
+
+              <input id="p2Gain" type="number" min="0.1" max="10" step="0.1" value="1">
+            </label>
+
+            <label>
+              Plant time constant τ (s)
+
+              <input id="p2Tau" type="number" min="0.1" max="20" step="0.1" value="1">
+            </label>
+
+          </div>
+
+          <!-- SECOND ORDER PARAMETERS -->
+          <div class="pid-grid" id="p2SecondFields" hidden>
+
+            <label>
+              Mass m
+
+              <input id="p2Mass" type="number" min="0.1" step="0.1" value="1">
+            </label>
+
+            <label>
+              Damping b
+
+              <input id="p2Damping" type="number" min="0" step="0.1" value="2">
+            </label>
+
+            <label>
+              Stiffness k
+
+              <input id="p2Stiffness" type="number" min="0.1" step="0.1" value="1">
+            </label>
+
+          </div>
+
+          <!-- PRESET BUTTONS -->
+          <div class="pid-actions">
+
+            <button id="p2PresetFast" type="button">
+              Fast sensor
+            </button>
+
+            <button id="p2PresetSlow" type="button">
+              Slow sensor / oscillation
+            </button>
+
+            <button id="p2Reset" type="button">
+              Reset
+            </button>
+
+          </div>
+
+          <p id="p2Notice" class="muted" role="status"></p>
+
+        </section>
+      </aside>
+      <div class="lab-flow">
+        <section class="pid-card">
+
+          <h2>Live performance metrics</h2>
+
+          <div class="metrics">
+
+            <div>
+              <strong id="p2Overshoot">—</strong>
+              <span>Overshoot vs setpoint</span>
+            </div>
+
+            <div>
+              <strong id="p2Settling">—</strong>
+              <span>Settling time (2%)</span>
+            </div>
+
+            <div>
+              <strong id="p2Error">—</strong>
+              <span>Final tracking error (estimated)</span>
+            </div>
+
+            <div>
+              <strong id="p2Lag">—</strong>
+              <span>Peak sensor lag |y − ys|</span>
+            </div>
+
+          </div>
+
+          <p class="muted">
+            All metrics are calculated from the true plant
+            output. The final tracking error is estimated
+            from the last simulation sample.
+
+            "Not settled" indicates that the output did not
+            remain within the 2% settling band during
+            the simulation window.
+          </p>
+
+        </section>
+        <section class="pid-card" id="p2Response">
+
+          <h2>True output vs. sensor measurement</h2>
+
+          <div id="p2ResponsePlot" class="pid-plot"
+            aria-label="True plant output, sensor measurement and setpoint graph">
+          </div>
+
+          <p class="muted">
+            The graph compares the true plant output y(t)
+            with the delayed sensor measurement ys(t).
+
+            The dashed line represents the desired setpoint.
+
+            Increasing τs makes the sensor response slower
+            and may cause overshoot or oscillations.
+          </p>
+
+        </section>
+        <section class="pid-card">
+
+          <h2>Control signal and saturation</h2>
+
+          <div id="p2ControlPlot" class="pid-plot" aria-label="Control signal with actuator saturation limits">
+          </div>
+
+          <p class="muted">
+            The control signal u(t) is generated by the PID
+            controller using the measured sensor output.
+
+            Dashed lines indicate the actuator limits
+            ±Umax.
+
+            Conditional integration anti-windup prevents
+            further integral accumulation when saturation
+            would be increased.
+          </p>
+
+        </section>
       </div>
-
-      <!-- FIRST ORDER PARAMETERS -->
-      <div class="pid-grid" id="p2FirstFields">
-
-        <label>
-          Plant gain K
-
-          <input id="p2Gain"
-                 type="number"
-                 min="0.1"
-                 max="10"
-                 step="0.1"
-                 value="1">
-        </label>
-
-        <label>
-          Plant time constant τ (s)
-
-          <input id="p2Tau"
-                 type="number"
-                 min="0.1"
-                 max="20"
-                 step="0.1"
-                 value="1">
-        </label>
-
-      </div>
-
-      <!-- SECOND ORDER PARAMETERS -->
-      <div class="pid-grid"
-           id="p2SecondFields"
-           hidden>
-
-        <label>
-          Mass m
-
-          <input id="p2Mass"
-                 type="number"
-                 min="0.1"
-                 step="0.1"
-                 value="1">
-        </label>
-
-        <label>
-          Damping b
-
-          <input id="p2Damping"
-                 type="number"
-                 min="0"
-                 step="0.1"
-                 value="2">
-        </label>
-
-        <label>
-          Stiffness k
-
-          <input id="p2Stiffness"
-                 type="number"
-                 min="0.1"
-                 step="0.1"
-                 value="1">
-        </label>
-
-      </div>
-
-      <!-- PRESET BUTTONS -->
-      <div class="pid-actions">
-
-        <button id="p2PresetFast" type="button">
-          Fast sensor
-        </button>
-
-        <button id="p2PresetSlow" type="button">
-          Slow sensor / oscillation
-        </button>
-
-        <button id="p2Reset" type="button">
-          Reset
-        </button>
-
-      </div>
-
-      <p id="p2Notice"
-         class="muted"
-         role="status"></p>
-
-    </section></aside><div class="lab-flow"><section class="pid-card">
-
-      <h2>Live performance metrics</h2>
-
-      <div class="metrics">
-
-        <div>
-          <strong id="p2Overshoot">—</strong>
-          <span>Overshoot vs setpoint</span>
-        </div>
-
-        <div>
-          <strong id="p2Settling">—</strong>
-          <span>Settling time (2%)</span>
-        </div>
-
-        <div>
-          <strong id="p2Error">—</strong>
-          <span>Final tracking error (estimated)</span>
-        </div>
-
-        <div>
-          <strong id="p2Lag">—</strong>
-          <span>Peak sensor lag |y − ys|</span>
-        </div>
-
-      </div>
-
-      <p class="muted">
-        All metrics are calculated from the true plant
-        output. The final tracking error is estimated
-        from the last simulation sample.
-
-        "Not settled" indicates that the output did not
-        remain within the 2% settling band during
-        the simulation window.
-      </p>
-
-    </section>
-    <section class="pid-card" id="p2Response">
-
-      <h2>True output vs. sensor measurement</h2>
-
-      <div id="p2ResponsePlot"
-           class="pid-plot"
-           aria-label="True plant output, sensor measurement and setpoint graph">
-      </div>
-
-      <p class="muted">
-        The graph compares the true plant output y(t)
-        with the delayed sensor measurement ys(t).
-
-        The dashed line represents the desired setpoint.
-
-        Increasing τs makes the sensor response slower
-        and may cause overshoot or oscillations.
-      </p>
-
-    </section>
-    <section class="pid-card">
-
-      <h2>Control signal and saturation</h2>
-
-      <div id="p2ControlPlot"
-           class="pid-plot"
-           aria-label="Control signal with actuator saturation limits">
-      </div>
-
-      <p class="muted">
-        The control signal u(t) is generated by the PID
-        controller using the measured sensor output.
-
-        Dashed lines indicate the actuator limits
-        ±Umax.
-
-        Conditional integration anti-windup prevents
-        further integral accumulation when saturation
-        would be increased.
-      </p>
-
-    </section></div></div>
+    </div>
 
     <section class="pid-card" id="p2Notice2">
 
@@ -569,10 +488,12 @@
 
     </section>
 
-    <footer class="lab-footer"><span>RAYHANA · ENCS4380 · P2 Slow Sensor</span><a href="pid-playground.html">← P1 · PID Playground</a><a href="tuning-challenge.html">P4 · Tuning Challenge →</a></footer>
+    <footer class="lab-footer"><span>RAYHANA · ENCS4380 · P2 Slow Sensor</span><a href="pid-playground.html">← P1 · PID
+        Playground</a><a href="digital-pid.html">P3 · Digital PID →</a></footer>
 
   </main>
 
-<script src="hw2-lab.js?v=4"></script>
+  <script src="hw2-lab.js?v=4"></script>
 </body>
+
 </html>

@@ -165,7 +165,7 @@
   function updateExperiments() {
     try {
       readGains();
-      const names = { 'kp-up':'Increase Kp', 'kp-down':'Decrease Kp', 'ki-up':'Increase Ki', 'ki-down':'Decrease Ki', 'kd-up':'Increase Kd', 'kd-down':'Decrease Kd' };
+      const names = { 'kp-up': 'Increase Kp', 'kp-down': 'Decrease Kp', 'ki-up': 'Increase Ki', 'ki-down': 'Decrease Ki', 'kd-up': 'Increase Kd', 'kd-down': 'Decrease Kd' };
       for (const option of $('experiment').options) option.textContent = names[option.value] || option.textContent;
       $('experiment-note').textContent = 'Only one gain changes in this mini experiment. The plant and the other gains stay fixed.';
     } catch (_) { /* Invalid numeric text is explained on submit. */ }
@@ -248,7 +248,7 @@
     $('ts-label').textContent = '±2% band · target ≤' + fmt(state.spec.settling) + ' s';
     $('error-label').textContent = 'Target ≈ 0 (≤' + fmt(state.spec.error, 1) + '%) · settled tail';
     $('restore').disabled = true; $('download').disabled = true; $('prediction-feedback').hidden = true; $('prediction-feedback').replaceChildren();
-    ['prediction-os', 'prediction-ts', 'prediction-error'].forEach(id => { $(id).value = ''; }); 
+    ['prediction-os', 'prediction-ts', 'prediction-error'].forEach(id => { $(id).value = ''; });
     setGains(DEFAULT); clearError(); clearMetrics(); updateStats();
     describePlot();
     announce('INITIAL PREVIEW · Adjust gains, then press Run simulation to score.'); drawChart();

@@ -135,7 +135,7 @@
 
     return s.map(
       (v, i) =>
-        v + h * (a[i] + 2*b[i] + 2*c[i] + d[i]) / 6
+        v + h * (a[i] + 2 * b[i] + 2 * c[i] + d[i]) / 6
     );
   }
 

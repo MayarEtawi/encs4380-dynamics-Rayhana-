@@ -1,64 +1,250 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Tune a hidden plant with a live PID simulator. Predict, experiment and check your control performance.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description"
+    content="Tune a hidden plant with a live PID simulator. Predict, experiment and check your control performance.">
   <title>P4 · PID Tuning Challenge | ENCS4380</title>
   <link rel="stylesheet" href="tuning-challenge.css">
   <script defer src="tuning-challenge.js"></script>
 </head>
-<body>
-<a class="skip" href="#lab">Skip to simulator</a>
-<header class="site-header rayhana-site-header">
-  <a class="brand" href="control.html" aria-label="Rayhana Control Home">
-    <span class="brand-mark">R</span>
-    <span class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span>
-  </a>
-  <nav class="site-nav" aria-label="Homework 2 navigation">
-  <a href="index.html">← Toolkits</a>
-  <a href="control.html">Control Home</a>
-  <a href="pid-playground.html">P1 · PID Playground</a>
-  <a href="slow-sensor.html">P2 · Slow Sensor</a>
-  <a href="tuning-challenge.html" aria-current="page" class="current">P4 · Tuning Challenge</a>
-  <a href="project-model.html">My System</a>
-</nav>
-</header>
-<main>
-  <section class="hero" aria-labelledby="title"><div><p class="eyebrow">MODULE P4 · INTERACTIVE LAB</p><h1 id="title">Tune the <em>Controller.</em></h1><p class="intro">A hidden plant. Three targets. Your PID gains.<br>Make a prediction, test the response, and tune your way to a better score.</p><div class="steps" aria-label="Workflow steps"><button type="button" class="step-link" data-scroll="#predict-title"><b>01</b> Predict</button><i>→</i><button type="button" class="step-link" data-scroll="#gains-title"><b>02</b> Tune</button><i>→</i><button type="button" class="step-link" data-scroll="#response-title"><b>03</b> Simulate</button><i>→</i><button type="button" class="step-link" data-scroll="#performance-title"><b>04</b> Check</button></div></div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 290 150"><path class="art-axis" d="M20 10V132H277"/><path class="art-setpoint" d="M20 65H277"/><path class="art-curve" d="M20 132C42 132 48 25 90 34S139 103 175 63S224 65 275 65"/><circle cx="175" cy="63" r="6"/></svg><span>CONTROL THE RESPONSE</span></div></section>
-  <section class="stats" aria-label="Challenge statistics"><div class="stat"><span class="stat-icon">◷</span><div><span>Current challenge</span><strong id="challenge-number">01</strong></div></div><div class="stat"><span class="stat-icon">✦</span><div><span>Simulation attempts</span><strong id="attempts">00</strong></div></div><div class="stat"><span class="stat-icon">↗</span><div><span>Best score <small>this challenge</small></span><strong id="best-score">—</strong></div></div></section>
-  <section class="panel prediction" aria-labelledby="predict-title"><p class="eyebrow">PREDICT, THEN CHECK</p><h2 id="predict-title">Make a prediction. <span class="underline">Test the change.</span></h2><form id="prediction-form">
-    <div class="prediction-options">
-      <label class="experiment-label" for="experiment">Experiment
-        <select id="experiment"><option value="kp-up">Increase Kp</option><option value="kp-down">Decrease Kp</option><option value="ki-up">Increase Ki</option><option value="ki-down">Decrease Ki</option><option value="kd-up">Increase Kd</option><option value="kd-down">Decrease Kd</option></select>
-      </label>
-      <fieldset class="prediction-metrics">
-        <legend>Your prediction <small>How will each metric change?</small></legend>
-        <div class="prediction-dropdowns">
-          <label for="prediction-os">Overshoot
-            <select id="prediction-os" required><option value="">Choose…</option><option value="increase">Increases</option><option value="decrease">Decreases</option><option value="same">Stays about the same</option></select>
-          </label>
-          <label for="prediction-ts">Settling time
-            <select id="prediction-ts" required><option value="">Choose…</option><option value="increase">Increases (slower)</option><option value="decrease">Decreases (faster)</option><option value="same">Stays about the same</option></select>
-          </label>
-          <label for="prediction-error">Final error
-            <select id="prediction-error" required><option value="">Choose…</option><option value="increase">Increases (worse)</option><option value="decrease">Decreases (better)</option><option value="same">Stays about the same</option></select>
-          </label>
-        </div>
-      </fieldset>
-    </div>
-    <div class="prediction-buttons"><button class="purple" type="submit">Check &amp; run</button><button id="restore" class="outline" type="button" disabled>Restore settings</button></div>
-  </form><p class="hint" id="experiment-note">Only one gain changes in this mini experiment. The plant and the other gains stay fixed.</p><div id="prediction-feedback" class="feedback" role="status" aria-live="polite" hidden></div></section>
-  <div class="targets" aria-label="Target requirements"><div class="target-pills"><span>⌖ &nbsp; Overshoot ≤ <b id="target-os">10%</b></span><span>◷ &nbsp; Settling time ≤ <b id="target-ts">3.0 s</b></span><span>◎ &nbsp; Final error <b id="target-error">≈ 0 (≤0.1%)</b></span></div><button id="new-challenge" class="new-button">↻ &nbsp; New challenge</button></div>
-  <div class="workspace" id="lab">
-    <section class="panel response" aria-labelledby="response-title"><div class="panel-heading"><h2 id="response-title"><span class="lime">⌁</span> OSCILLOSCOPE · LIVE RESPONSE</h2><span class="tag">♙ Hidden plant</span></div><div class="chart-toolbar"><div class="legend"><span class="output-key">Output</span><span class="setpoint-key">Setpoint</span></div><div class="scope-actions"><label class="window-label">Signal <select id="chart-mode"><option value="output">Output y(t)</option><option value="control">Control u(t)</option></select></label><label class="window-label">Time window <select id="chart-window"><option value="auto">Auto fit</option><option value="3">3 s</option><option value="6">6 s</option><option value="12">12 s</option><option value="24">24 s</option></select></label></div></div><div class="chart-wrap"><svg id="chart" viewBox="0 0 760 470" role="img" aria-labelledby="chart-title chart-description"><title id="chart-title">Closed-loop unit-step response</title><desc id="chart-description">Run a simulation to draw the output against a setpoint of one.</desc></svg><div id="chart-tooltip" class="tooltip" hidden></div></div><p class="chart-note" id="chart-note">Setpoint = 1 · Time simulation: 24 s · RK4 solver</p><p class="chart-status" id="simulation-status" role="status">Choose your gains and run your first simulation.</p><div class="chart-footer"><span>ⓘ Same plant until <strong>New challenge.</strong></span><button id="download" class="text-button" disabled>↓ Export CSV</button></div></section>
-    <aside class="side">
-      <section class="panel gains" aria-labelledby="gains-title"><h2 id="gains-title"><span class="lime">☷</span> PID GAIN SETTINGS</h2><form id="gains-form"><div id="gain-controls"></div><button type="submit" class="run-button">▶ &nbsp; Run simulation</button><button type="button" id="reset" class="outline reset">Reset gains</button><p id="gain-error" class="error" role="alert" hidden></p></form><label class="live-switch"><input type="checkbox" id="live-update" checked><span class="switch-track" aria-hidden="true"></span><span><strong>Live scope</strong><small>Preview the graph; Run scores your settings</small></span></label></section>
-      <section class="panel performance" aria-labelledby="performance-title"><h2 id="performance-title"><span class="lime">▤</span> PERFORMANCE CHECK</h2><p class="performance-caption" id="performance-caption">Move the gains to preview. Press Run simulation to update PASS / FAIL.</p><div class="metric"><div><strong>Overshoot</strong><small id="os-label">Target ≤10%</small></div><strong id="os-value">—</strong><span id="os-badge" class="badge neutral">—</span></div><div class="metric"><div><strong>Settling time</strong><small id="ts-label">±2% band · target ≤3.0 s</small></div><strong id="ts-value">—</strong><span id="ts-badge" class="badge neutral">—</span></div><div class="metric"><div><strong>Final error</strong><small id="error-label">Target ≈ 0 (≤0.1%) · settled tail</small></div><strong id="error-value">—</strong><span id="error-badge" class="badge neutral">—</span></div><div class="rise"><span>Rise time <small>(10–90%)</small></span><strong id="rise-value">—</strong></div><div class="score-row"><div class="score-ring" id="score-ring"><div><strong id="score">—</strong><small>/100</small></div></div><div><strong id="criteria">Run your first test</strong><p>Score = passed targets ÷ 3 × 100</p></div></div><p id="result-advice" class="hint">Results are calculated from the simulated response.</p></section>
-    </aside>
-  </div>
-  <section class="reference" aria-labelledby="reference-title"><p class="eyebrow">QUICK REFERENCE</p><h2 id="reference-title">How to read <span class="underline">your results</span></h2><div class="reference-grid"><article class="panel"><h3><span>01</span> Overshoot</h3><p>The largest amount the output rises above the setpoint.</p><div class="formula formula-overshoot" aria-label="Overshoot percent equals max of zero and peak output minus setpoint, divided by setpoint, times 100 percent"><span class="eq-part">OS =</span><span class="fraction"><span class="top">max(0, y<sub>peak</sub> − r)</span><span class="bottom">r</span></span><span class="eq-part">× 100%</span></div><small>For this unit step from zero to one.</small></article><article class="panel"><h3><span>02</span> Settling time</h3><p>The earliest time after which the output stays within ±2% of the setpoint.</p><svg class="mini-chart" viewBox="0 0 250 80" aria-hidden="true"><path d="M8 4V70H242" stroke="#1f3556" fill="none"/><path d="M8 35H242M8 45H242" stroke="#6f88a3" stroke-dasharray="4 4"/><path d="M8 70C20 20 35 4 59 27S90 51 113 40S165 40 242 40" fill="none" stroke="#1f3556" stroke-width="3"/></svg><small>At least one final second must remain in the band.</small></article><article class="panel"><h3><span>03</span> Steady-state error</h3><p>The remaining difference between the target and the settled output.</p><div class="formula">e<sub>ss</sub> = <span class="fraction"><span class="top">|r − y<sub>ss</sub>|</span><span class="bottom">r</span></span> × 100%</div><small>Estimated from the final second. Oscillating or drifting tails do not pass.</small></article></div></section>
-  <details class="technical panel"><summary>Model, numerical method &amp; metric definitions</summary><div><p>Random plant families and parameter ranges follow Homework 1 Module 4: first order <span class="fraction inline-frac"><span class="top">K</span><span class="bottom">τs + 1</span></span>, K ∈ [0.8, 3.2], τ ∈ [0.45, 2.2]; or second order <span class="fraction inline-frac"><span class="top">ωₙ²</span><span class="bottom">s² + 2ζωₙs + ωₙ²</span></span>, ζ ∈ [0.2, 0.78], ωₙ ∈ [1.1, 3.2]. Parameters stay hidden during tuning. The input is always a unit step.</p><p>State integration uses RK4 with a 0.002 s step over 24 s. Control: u = Kp(1 − y) + Ki∫(1 − y)dt − Kd <span class="fraction inline-frac"><span class="top">y − q</span><span class="bottom">T<sub>f</sub></span></span>, with q′ = <span class="fraction inline-frac"><span class="top">y − q</span><span class="bottom">T<sub>f</sub></span></span> and T<sub>f</sub> = 0.06 s. Actuation is limited to ±20. Conditional integration prevents further windup at saturation.</p><p>Each challenge generates new targets for overshoot (5–18%), settling time (around max(3, 2τ) seconds for first-order plants or max(3, 5/ωₙ) for second-order plants), and a fixed final-error target of ≈ 0 (≤0.1%), matching the homework’s zero steady-state error requirement; P-only control cannot meet it, so integral action is needed. A final tail is considered settled only if its range over the last second is ≤0.2% of the step. Unsettled or divergent responses cannot pass the final-error test. The score awards equal weight to the three targets; prediction exercises award no extra points.</p><p>“Hidden” is an educational feature, not a security boundary: client-side model values can be inspected in developer tools. This is a simulated controller, not Arduino hardware code.</p></div></details>
-  <footer><span>RAYHANA · ENCS4380 · P4 Tuning Challenge</span><a href="control.html">← Control Home</a><a href="project-model.html">My System →</a></footer>
-</main><noscript>This simulator needs JavaScript enabled.</noscript>
-</body></html>
 
+<body>
+  <a class="skip" href="#lab">Skip to simulator</a>
+  <header class="site-header rayhana-site-header">
+    <a class="brand" href="control.html" aria-label="Rayhana Control Home">
+      <span class="brand-mark">R</span>
+      <span class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span>
+    </a>
+    <nav class="site-nav" aria-label="Homework 2 navigation">
+      <a href="index.html">← Toolkits</a>
+      <a href="control.html">Control Home</a>
+      <a href="pid-playground.html">P1 · PID Playground</a>
+      <a href="slow-sensor.html">P2 · Slow Sensor</a>
+      <a href="digital-pid.html">P3 · Digital PID</a>
+      <a href="tuning-challenge.html" aria-current="page" class="current">P4 · Tuning Challenge</a>
+      <a href="project-model.html">My System</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="title">
+      <div>
+        <p class="eyebrow">MODULE P4 · INTERACTIVE LAB</p>
+        <h1 id="title">Tune the <em>Controller.</em></h1>
+        <p class="intro">A hidden plant. Three targets. Your PID gains.<br>Make a prediction, test the response, and
+          tune your way to a better score.</p>
+        <div class="steps" aria-label="Workflow steps"><button type="button" class="step-link"
+            data-scroll="#predict-title"><b>01</b> Predict</button><i>→</i><button type="button" class="step-link"
+            data-scroll="#gains-title"><b>02</b> Tune</button><i>→</i><button type="button" class="step-link"
+            data-scroll="#response-title"><b>03</b> Simulate</button><i>→</i><button type="button" class="step-link"
+            data-scroll="#performance-title"><b>04</b> Check</button></div>
+      </div>
+      <div class="hero-art" aria-hidden="true"><svg viewBox="0 0 290 150">
+          <path class="art-axis" d="M20 10V132H277" />
+          <path class="art-setpoint" d="M20 65H277" />
+          <path class="art-curve" d="M20 132C42 132 48 25 90 34S139 103 175 63S224 65 275 65" />
+          <circle cx="175" cy="63" r="6" />
+        </svg><span>CONTROL THE RESPONSE</span></div>
+    </section>
+    <section class="stats" aria-label="Challenge statistics">
+      <div class="stat"><span class="stat-icon">◷</span>
+        <div><span>Current challenge</span><strong id="challenge-number">01</strong></div>
+      </div>
+      <div class="stat"><span class="stat-icon">✦</span>
+        <div><span>Simulation attempts</span><strong id="attempts">00</strong></div>
+      </div>
+      <div class="stat"><span class="stat-icon">↗</span>
+        <div><span>Best score <small>this challenge</small></span><strong id="best-score">—</strong></div>
+      </div>
+    </section>
+    <section class="panel prediction" aria-labelledby="predict-title">
+      <p class="eyebrow">PREDICT, THEN CHECK</p>
+      <h2 id="predict-title">Make a prediction. <span class="underline">Test the change.</span></h2>
+      <form id="prediction-form">
+        <div class="prediction-options">
+          <label class="experiment-label" for="experiment">Experiment
+            <select id="experiment">
+              <option value="kp-up">Increase Kp</option>
+              <option value="kp-down">Decrease Kp</option>
+              <option value="ki-up">Increase Ki</option>
+              <option value="ki-down">Decrease Ki</option>
+              <option value="kd-up">Increase Kd</option>
+              <option value="kd-down">Decrease Kd</option>
+            </select>
+          </label>
+          <fieldset class="prediction-metrics">
+            <legend>Your prediction <small>How will each metric change?</small></legend>
+            <div class="prediction-dropdowns">
+              <label for="prediction-os">Overshoot
+                <select id="prediction-os" required>
+                  <option value="">Choose…</option>
+                  <option value="increase">Increases</option>
+                  <option value="decrease">Decreases</option>
+                  <option value="same">Stays about the same</option>
+                </select>
+              </label>
+              <label for="prediction-ts">Settling time
+                <select id="prediction-ts" required>
+                  <option value="">Choose…</option>
+                  <option value="increase">Increases (slower)</option>
+                  <option value="decrease">Decreases (faster)</option>
+                  <option value="same">Stays about the same</option>
+                </select>
+              </label>
+              <label for="prediction-error">Final error
+                <select id="prediction-error" required>
+                  <option value="">Choose…</option>
+                  <option value="increase">Increases (worse)</option>
+                  <option value="decrease">Decreases (better)</option>
+                  <option value="same">Stays about the same</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="prediction-buttons"><button class="purple" type="submit">Check &amp; run</button><button
+            id="restore" class="outline" type="button" disabled>Restore settings</button></div>
+      </form>
+      <p class="hint" id="experiment-note">Only one gain changes in this mini experiment. The plant and the other gains
+        stay fixed.</p>
+      <div id="prediction-feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+    </section>
+    <div class="targets" aria-label="Target requirements">
+      <div class="target-pills"><span>⌖ &nbsp; Overshoot ≤ <b id="target-os">10%</b></span><span>◷ &nbsp; Settling time
+          ≤ <b id="target-ts">3.0 s</b></span><span>◎ &nbsp; Final error <b id="target-error">≈ 0 (≤0.1%)</b></span>
+      </div><button id="new-challenge" class="new-button">↻ &nbsp; New challenge</button>
+    </div>
+    <div class="workspace" id="lab">
+      <section class="panel response" aria-labelledby="response-title">
+        <div class="panel-heading">
+          <h2 id="response-title"><span class="lime">⌁</span> OSCILLOSCOPE · LIVE RESPONSE</h2><span class="tag">♙
+            Hidden plant</span>
+        </div>
+        <div class="chart-toolbar">
+          <div class="legend"><span class="output-key">Output</span><span class="setpoint-key">Setpoint</span></div>
+          <div class="scope-actions"><label class="window-label">Signal <select id="chart-mode">
+                <option value="output">Output y(t)</option>
+                <option value="control">Control u(t)</option>
+              </select></label><label class="window-label">Time window <select id="chart-window">
+                <option value="auto">Auto fit</option>
+                <option value="3">3 s</option>
+                <option value="6">6 s</option>
+                <option value="12">12 s</option>
+                <option value="24">24 s</option>
+              </select></label></div>
+        </div>
+        <div class="chart-wrap"><svg id="chart" viewBox="0 0 760 470" role="img"
+            aria-labelledby="chart-title chart-description">
+            <title id="chart-title">Closed-loop unit-step response</title>
+            <desc id="chart-description">Run a simulation to draw the output against a setpoint of one.</desc>
+          </svg>
+          <div id="chart-tooltip" class="tooltip" hidden></div>
+        </div>
+        <p class="chart-note" id="chart-note">Setpoint = 1 · Time simulation: 24 s · RK4 solver</p>
+        <p class="chart-status" id="simulation-status" role="status">Choose your gains and run your first simulation.
+        </p>
+        <div class="chart-footer"><span>ⓘ Same plant until <strong>New challenge.</strong></span><button id="download"
+            class="text-button" disabled>↓ Export CSV</button></div>
+      </section>
+      <aside class="side">
+        <section class="panel gains" aria-labelledby="gains-title">
+          <h2 id="gains-title"><span class="lime">☷</span> PID GAIN SETTINGS</h2>
+          <form id="gains-form">
+            <div id="gain-controls"></div><button type="submit" class="run-button">▶ &nbsp; Run
+              simulation</button><button type="button" id="reset" class="outline reset">Reset gains</button>
+            <p id="gain-error" class="error" role="alert" hidden></p>
+          </form><label class="live-switch"><input type="checkbox" id="live-update" checked><span class="switch-track"
+              aria-hidden="true"></span><span><strong>Live scope</strong><small>Preview the graph; Run scores your
+                settings</small></span></label>
+        </section>
+        <section class="panel performance" aria-labelledby="performance-title">
+          <h2 id="performance-title"><span class="lime">▤</span> PERFORMANCE CHECK</h2>
+          <p class="performance-caption" id="performance-caption">Move the gains to preview. Press Run simulation to
+            update PASS / FAIL.</p>
+          <div class="metric">
+            <div><strong>Overshoot</strong><small id="os-label">Target ≤10%</small></div><strong
+              id="os-value">—</strong><span id="os-badge" class="badge neutral">—</span>
+          </div>
+          <div class="metric">
+            <div><strong>Settling time</strong><small id="ts-label">±2% band · target ≤3.0 s</small></div><strong
+              id="ts-value">—</strong><span id="ts-badge" class="badge neutral">—</span>
+          </div>
+          <div class="metric">
+            <div><strong>Final error</strong><small id="error-label">Target ≈ 0 (≤0.1%) · settled tail</small></div>
+            <strong id="error-value">—</strong><span id="error-badge" class="badge neutral">—</span>
+          </div>
+          <div class="rise"><span>Rise time <small>(10–90%)</small></span><strong id="rise-value">—</strong></div>
+          <div class="score-row">
+            <div class="score-ring" id="score-ring">
+              <div><strong id="score">—</strong><small>/100</small></div>
+            </div>
+            <div><strong id="criteria">Run your first test</strong>
+              <p>Score = passed targets ÷ 3 × 100</p>
+            </div>
+          </div>
+          <p id="result-advice" class="hint">Results are calculated from the simulated response.</p>
+        </section>
+      </aside>
+    </div>
+    <section class="reference" aria-labelledby="reference-title">
+      <p class="eyebrow">QUICK REFERENCE</p>
+      <h2 id="reference-title">How to read <span class="underline">your results</span></h2>
+      <div class="reference-grid">
+        <article class="panel">
+          <h3><span>01</span> Overshoot</h3>
+          <p>The largest amount the output rises above the setpoint.</p>
+          <div class="formula formula-overshoot"
+            aria-label="Overshoot percent equals max of zero and peak output minus setpoint, divided by setpoint, times 100 percent">
+            <span class="eq-part">OS =</span><span class="fraction"><span class="top">max(0, y<sub>peak</sub> −
+                r)</span><span class="bottom">r</span></span><span class="eq-part">× 100%</span></div><small>For this
+            unit step from zero to one.</small>
+        </article>
+        <article class="panel">
+          <h3><span>02</span> Settling time</h3>
+          <p>The earliest time after which the output stays within ±2% of the setpoint.</p><svg class="mini-chart"
+            viewBox="0 0 250 80" aria-hidden="true">
+            <path d="M8 4V70H242" stroke="#1f3556" fill="none" />
+            <path d="M8 35H242M8 45H242" stroke="#6f88a3" stroke-dasharray="4 4" />
+            <path d="M8 70C20 20 35 4 59 27S90 51 113 40S165 40 242 40" fill="none" stroke="#1f3556" stroke-width="3" />
+          </svg><small>At least one final second must remain in the band.</small>
+        </article>
+        <article class="panel">
+          <h3><span>03</span> Steady-state error</h3>
+          <p>The remaining difference between the target and the settled output.</p>
+          <div class="formula">e<sub>ss</sub> = <span class="fraction"><span class="top">|r −
+                y<sub>ss</sub>|</span><span class="bottom">r</span></span> × 100%</div><small>Estimated from the final
+            second. Oscillating or drifting tails do not pass.</small>
+        </article>
+      </div>
+    </section>
+    <details class="technical panel">
+      <summary>Model, numerical method &amp; metric definitions</summary>
+      <div>
+        <p>Random plant families and parameter ranges follow Homework 1 Module 4: first order <span
+            class="fraction inline-frac"><span class="top">K</span><span class="bottom">τs + 1</span></span>, K ∈ [0.8,
+          3.2], τ ∈ [0.45, 2.2]; or second order <span class="fraction inline-frac"><span class="top">ωₙ²</span><span
+              class="bottom">s² + 2ζωₙs + ωₙ²</span></span>, ζ ∈ [0.2, 0.78], ωₙ ∈ [1.1, 3.2]. Parameters stay hidden
+          during tuning. The input is always a unit step.</p>
+        <p>State integration uses RK4 with a 0.002 s step over 24 s. Control: u = Kp(1 − y) + Ki∫(1 − y)dt − Kd <span
+            class="fraction inline-frac"><span class="top">y − q</span><span class="bottom">T<sub>f</sub></span></span>,
+          with q′ = <span class="fraction inline-frac"><span class="top">y − q</span><span
+              class="bottom">T<sub>f</sub></span></span> and T<sub>f</sub> = 0.06 s. Actuation is limited to ±20.
+          Conditional integration prevents further windup at saturation.</p>
+        <p>Each challenge generates new targets for overshoot (5–18%), settling time (around max(3, 2τ) seconds for
+          first-order plants or max(3, 5/ωₙ) for second-order plants), and a fixed final-error target of ≈ 0 (≤0.1%),
+          matching the homework’s zero steady-state error requirement; P-only control cannot meet it, so integral action
+          is needed. A final tail is considered settled only if its range over the last second is ≤0.2% of the step.
+          Unsettled or divergent responses cannot pass the final-error test. The score awards equal weight to the three
+          targets; prediction exercises award no extra points.</p>
+        <p>“Hidden” is an educational feature, not a security boundary: client-side model values can be inspected in
+          developer tools. This is a simulated controller, not Arduino hardware code.</p>
+      </div>
+    </details>
+    <footer><span>RAYHANA · ENCS4380 · P4 Tuning Challenge</span><a href="digital-pid.html">← P3 · Digital PID</a><a
+        href="project-model.html">My System →</a></footer>
+  </main><noscript>This simulator needs JavaScript enabled.</noscript>
+</body>
+
+</html>

@@ -1,11 +1,9 @@
-
 <!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport"
-        content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <title>My System | Micromouse Motor</title>
 
@@ -17,201 +15,219 @@
 
 <body class="hw2">
 
-<header class="site-header rayhana-site-header">
-  <a class="brand" href="control.html" aria-label="Rayhana Control Home">
-    <span class="brand-mark">R</span>
-    <span class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span>
-  </a>
-  <nav class="site-nav" aria-label="Homework 2 navigation">
-  <a href="index.html">← Toolkits</a>
-  <a href="control.html">Control Home</a>
-  <a href="pid-playground.html">P1 · PID Playground</a>
-  <a href="slow-sensor.html">P2 · Slow Sensor</a>
-  <a href="tuning-challenge.html">P4 · Tuning Challenge</a>
-  <a href="project-model.html" aria-current="page" class="current">My System</a>
-</nav>
-
-
-</header>
-
-<main class="pid-wrap lab-main">
-
-  <section class="lab-hero" aria-labelledby="title"><div><span class="lab-eyebrow">PROJECT APPLICATION · MY SYSTEM</span><h1 id="title">My System — Micromouse <em>Drive Motor</em></h1><p class="intro">Project-model documentation. Replace all TODO fields with measured or cited data before final submission.</p></div><div class="lab-art" aria-hidden="true"><svg viewBox="0 0 290 150"><path class="a-axis" d="M20 10V132H277"/><path class="a-set" d="M20 45H277"/><path class="a-curve" d="M20 132C60 60 110 48 275 46"/><circle cx="88" cy="70" r="6"/></svg><span>PWM STEP → MOTOR SPEED</span></div></section>
-
-  
-<section class="pid-card">
-  <h2>1. Motor and Measurement Source</h2>
-
-  <p>
-    <strong>Selected motor:</strong>
-    N20 Micro DC Gear Motor Kit with Wheel
-    (30 RPM, 6 V).
-  </p>
-
-  <p>
-    <strong>Rated voltage:</strong> 6 V
-  </p>
-
-  <p>
-    <strong>Motor speed:</strong> 30 RPM at 6 V
-  </p>
-
-  <p>
-    <strong>Wheel diameter:</strong> 43 mm
-  </p>
-
-  <p>
-    <strong>Wheel width:</strong> 19 mm
-  </p>
-
-  <p>
-    <strong>Encoder availability:</strong>
-    Not specified by the supplier.
-    Must be confirmed before the PWM step test.
-  </p>
-
-  <p>
-    <strong>Measurement method:</strong>
-    A PWM step will be applied to the motor.
-    Its speed response will be recorded using
-    an encoder to identify the motor gain K
-    and time constant tau.
-  </p>
-
-  <p>
-    <strong>Source:</strong>
-    <a href="https://roboticx.ps/product/n20-micro-dc-gear-motor-kit-with-wheel-30rpm-6v/"
-       target="_blank" rel="noopener noreferrer">
-      RoboticX — Motor Specifications
+  <header class="site-header rayhana-site-header">
+    <a class="brand" href="control.html" aria-label="Rayhana Control Home">
+      <span class="brand-mark">R</span>
+      <span class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span>
     </a>
-  </p>
+    <nav class="site-nav" aria-label="Homework 2 navigation">
+      <a href="index.html">← Toolkits</a>
+      <a href="control.html">Control Home</a>
+      <a href="pid-playground.html">P1 · PID Playground</a>
+      <a href="slow-sensor.html">P2 · Slow Sensor</a>
+      <a href="digital-pid.html">P3 · Digital PID</a>
+      <a href="tuning-challenge.html">P4 · Tuning Challenge</a>
+      <a href="project-model.html" aria-current="page" class="current">My System</a>
+    </nav>
 
-  <p class="muted">
-    The motor is currently selected for the project.
-    Experimental parameters have not yet been measured.
-  </p>
-</section>
+
+  </header>
+
+  <main class="pid-wrap lab-main">
+
+    <section class="lab-hero" aria-labelledby="title">
+      <div><span class="lab-eyebrow">PROJECT APPLICATION · MY SYSTEM</span>
+        <h1 id="title">My System — Micromouse <em>Drive Motor</em></h1>
+        <p class="intro">Project-model documentation. Replace all TODO fields with measured or cited data before final
+          submission.</p>
+      </div>
+      <div class="lab-art" aria-hidden="true"><svg viewBox="0 0 290 150">
+          <path class="a-axis" d="M20 10V132H277" />
+          <path class="a-set" d="M20 45H277" />
+          <path class="a-curve" d="M20 132C60 60 110 48 275 46" />
+          <circle cx="88" cy="70" r="6" />
+        </svg><span>PWM STEP → MOTOR SPEED</span></div>
+    </section>
 
 
-  <section class="pid-card">
-    <h2>2. First-Order Motor Model</h2>
+    <section class="pid-card">
+      <h2>1. Motor and Measurement Source</h2>
 
-    <p>
-      G(s) = K / (τs + 1)
-    </p>
+      <p>
+        <strong>Selected motor:</strong>
+        N20 Micro DC Gear Motor Kit with Wheel
+        (30 RPM, 6 V).
+      </p>
 
-    <p>
-      Input: PWM command.
-      Output: measured motor speed.
-    </p>
+      <p>
+        <strong>Rated voltage:</strong> 6 V
+      </p>
 
-    <p>
-      <strong>Initial PWM:</strong> TODO
-    </p>
+      <p>
+        <strong>Motor speed:</strong> 30 RPM at 6 V
+      </p>
 
-    <p>
-      <strong>Final PWM:</strong> TODO
-    </p>
+      <p>
+        <strong>Wheel diameter:</strong> 43 mm
+      </p>
 
-    <p>
-      <strong>Initial speed:</strong> TODO
-    </p>
+      <p>
+        <strong>Wheel width:</strong> 19 mm
+      </p>
 
-    <p>
-      <strong>Final speed:</strong> TODO
-    </p>
+      <p>
+        <strong>Encoder availability:</strong>
+        Not specified by the supplier.
+        Must be confirmed before the PWM step test.
+      </p>
 
-    <p>
-      <strong>Plant gain K:</strong>
-      (Final speed − Initial speed) /
-      (Final PWM − Initial PWM)
-      = TODO
-    </p>
+      <p>
+        <strong>Measurement method:</strong>
+        A PWM step will be applied to the motor.
+        Its speed response will be recorded using
+        an encoder to identify the motor gain K
+        and time constant tau.
+      </p>
 
-    <p>
-      <strong>Time constant τ:</strong>
-      Time to reach 63.2% of the total speed change
-      after the PWM step = TODO seconds.
-    </p>
+      <p>
+        <strong>Source:</strong>
+        <a href="https://roboticx.ps/product/n20-micro-dc-gear-motor-kit-with-wheel-30rpm-6v/" target="_blank"
+          rel="noopener noreferrer">
+          RoboticX — Motor Specifications
+        </a>
+      </p>
 
-    <p>
-      <strong>Identified motor model:</strong>
-      TODO
-    </p>
-  </section>
+      <p class="muted">
+        The motor is currently selected for the project.
+        Experimental parameters have not yet been measured.
+      </p>
+    </section>
 
-  <section class="pid-card">
-    <h2>3. Control Objective and Specifications</h2>
 
-    <p>
-      <strong>Goal:</strong>
-      Maintain accurate and consistent wheel speed
-      for Micromouse navigation.
-    </p>
+    <section class="pid-card">
+      <h2>2. First-Order Motor Model</h2>
 
-    <p>
-      <strong>Damping ratio target:</strong>
-      0.6 ≤ ζ ≤ 0.8
-    </p>
+      <p>
+        G(s) = K / (τs + 1)
+      </p>
 
-    <p>
-      <strong>Physical PWM limits:</strong>
-      0% to 100%.
-    </p>
+      <p>
+        Input: PWM command.
+        Output: measured motor speed.
+      </p>
 
-    <p>
-      <strong>Overshoot requirement:</strong>
-      TODO — define a suitable limit.
-    </p>
+      <p>
+        <strong>Initial PWM:</strong> TODO
+      </p>
 
-    <p>
-      <strong>Settling time requirement:</strong>
-      TODO — justify based on robot motion.
-    </p>
-  </section>
+      <p>
+        <strong>Final PWM:</strong> TODO
+      </p>
 
-  <section class="pid-card">
-    <h2>4. Final Controller and Evidence</h2>
+      <p>
+        <strong>Initial speed:</strong> TODO
+      </p>
 
-    <p>
-      <strong>PID gains:</strong>
-      Kp = TODO,
-      Ki = TODO,
-      Kd = TODO.
-    </p>
+      <p>
+        <strong>Final speed:</strong> TODO
+      </p>
 
-    <p>
-      <strong>Simulation result:</strong>
-      TODO — insert the final response plot
-      using the identified motor model.
-    </p>
+      <p>
+        <strong>Plant gain K:</strong>
+        (Final speed − Initial speed) /
+        (Final PWM − Initial PWM)
+        = TODO
+      </p>
 
-    <p>
-      <strong>Arduino code:</strong>
-      TODO — link the generated P3 code
-      using the final tuned PID gains.
-    </p>
+      <p>
+        <strong>Time constant τ:</strong>
+        Time to reach 63.2% of the total speed change
+        after the PWM step = TODO seconds.
+      </p>
 
-    <p>
-      <strong>Results:</strong>
-      TODO — compare the response with
-      the chosen specifications.
-    </p>
+      <p>
+        <strong>Identified motor model:</strong>
+        TODO
+      </p>
+    </section>
 
-    <p>
-      <strong>Limitations:</strong>
-      TODO — explain assumptions and
-      differences between model and hardware.
-    </p>
-  </section>
-  <section class="pid-card">
-    <h2>Continue to PID Tuning</h2>
-    <p>Use the <a href="tuning-challenge.html">P4 Tuning Challenge</a> to practise tuning a hidden plant. The P4 challenge is a separate teaching simulation and does not replace measured motor parameters on this page.</p>
-  </section>
+    <section class="pid-card">
+      <h2>3. Control Objective and Specifications</h2>
 
-  <footer class="lab-footer"><span>RAYHANA · ENCS4380 · My System</span><a href="tuning-challenge.html">← P4 · Tuning Challenge</a><a href="control.html">Control Home →</a></footer>
+      <p>
+        <strong>Goal:</strong>
+        Maintain accurate and consistent wheel speed
+        for Micromouse navigation.
+      </p>
 
-</main>
+      <p>
+        <strong>Damping ratio target:</strong>
+        0.6 ≤ ζ ≤ 0.8
+      </p>
+
+      <p>
+        <strong>Physical PWM limits:</strong>
+        0% to 100%.
+      </p>
+
+      <p>
+        <strong>Overshoot requirement:</strong>
+        TODO — define a suitable limit.
+      </p>
+
+      <p>
+        <strong>Settling time requirement:</strong>
+        TODO — justify based on robot motion.
+      </p>
+    </section>
+
+    <section class="pid-card">
+      <h2>4. Final Controller and Evidence</h2>
+
+      <p>
+        <strong>PID gains:</strong>
+        Kp = TODO,
+        Ki = TODO,
+        Kd = TODO.
+      </p>
+
+      <p>
+        <strong>Simulation result:</strong>
+        TODO — insert the final response plot
+        using the identified motor model.
+      </p>
+
+      <p>
+        <strong>Arduino code:</strong>
+        Use <a href="digital-pid.html#arduino-code">P3 · Digital PID</a>
+        to enter the measured K and τ, final gains, sampling time and 0–100% PWM limits.
+        Download the generated Arduino code and add the P3 settings link here.
+        Final measured configuration: TODO.
+      </p>
+
+      <p>
+        <strong>Results:</strong>
+        TODO — compare the response with
+        the chosen specifications.
+      </p>
+
+      <p>
+        <strong>Limitations:</strong>
+        TODO — explain assumptions and
+        differences between model and hardware.
+      </p>
+    </section>
+    <section class="pid-card">
+      <h2>Continue to PID Tuning</h2>
+      <p>Use the <a href="tuning-challenge.html">P4 Tuning Challenge</a> to practise tuning a hidden plant. The P4
+        challenge is a separate teaching simulation and does not replace measured motor parameters on this page.</p>
+    </section>
+
+    <footer class="lab-footer"><span>RAYHANA · ENCS4380 · My System</span><a href="tuning-challenge.html">← P4 · Tuning
+        Challenge</a><a href="control.html">Control Home →</a></footer>
+
+  </main>
 
 </body>
+
 </html>

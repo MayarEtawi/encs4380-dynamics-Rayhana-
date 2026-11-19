@@ -1,4 +1,3 @@
-
 /*
   P2 — Slow Sensor
   Uses the existing P1 / RAYHANA design.
@@ -61,6 +60,7 @@
 
 /* Responsive adjustments only */
 @media (max-width: 700px) {
+
   #p2ResponsePlot,
   #p2ControlPlot {
     min-height: 300px;

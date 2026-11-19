@@ -279,7 +279,7 @@ function drawResponse() {
 }
 
 
-   
+
 function drawError() {
 
     const tau = parseFloat(tauSlider.value);

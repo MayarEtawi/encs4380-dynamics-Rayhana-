@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description"
+    content="Explore sampled PID control, sampling time and anti-windup. Simulate a plant and generate matching Arduino code.">
+  <title>P3 · Digital PID | ENCS4380</title>
+  <link rel="stylesheet" href="tuning-challenge.css">
+  <link rel="stylesheet" href="digital-pid.css">
+  <script defer src="digital-pid-model.js"></script>
+  <script defer src="digital-pid.js"></script>
+</head>
+
+<body class="digital-page">
+  <a class="skip" href="#lab">Skip to simulator</a>
+  <header class="site-header rayhana-site-header">
+    <a class="brand" href="control.html" aria-label="Rayhana Control Home"><span class="brand-mark">R</span><span
+        class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span></a>
+    <nav class="site-nav" aria-label="Homework 2 navigation">
+      <a href="index.html">← Toolkits</a><a href="control.html">Control Home</a>
+      <a href="pid-playground.html">P1 · PID Playground</a><a href="slow-sensor.html">P2 · Slow Sensor</a>
+      <a href="digital-pid.html" aria-current="page" class="current">P3 · Digital PID</a>
+      <a href="tuning-challenge.html">P4 · Tuning Challenge</a><a href="project-model.html">My System</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="title">
+      <div>
+        <p class="eyebrow">MODULE P3 · INTERACTIVE LAB</p>
+        <h1 id="title">Control, one <em>sample at a time.</em></h1>
+        <p class="intro">A digital controller measures, calculates and waits.<br>Explore what happens between samples,
+          prevent integral windup, and take the same calculation to Arduino.</p>
+        <div class="steps" aria-label="Workflow">
+          <a class="step-link" href="#predict-title"><b>01</b> Predict</a><a class="step-link"
+            href="#settings-title"><b>02</b> Configure</a><a class="step-link" href="#response-title"><b>03</b>
+            Compare</a><a class="step-link" href="#code-title"><b>04</b> Generate code</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true"><svg viewBox="0 0 290 150">
+          <path class="art-axis" d="M20 10V132H277" />
+          <path class="art-setpoint" d="M20 55H277" />
+          <path class="art-curve" d="M20 132H48V89H76V62H104V45H132V48H160V52H188V54H216V55H275" />
+        </svg><span>MEASURE · CALCULATE · HOLD</span></div>
+    </section>
+    <section class="stats" aria-label="Current simulation summary">
+      <div class="stat"><span class="stat-icon" aria-hidden="true">◷</span>
+        <div><span>Sampling time</span><strong id="sample-stat">0.020 s</strong></div>
+      </div>
+      <div class="stat"><span class="stat-icon" aria-hidden="true">⌁</span>
+        <div><span>Controller updates</span><strong id="updates-stat">—</strong></div>
+      </div>
+      <div class="stat"><span class="stat-icon" aria-hidden="true">↑</span>
+        <div><span>Time in saturation</span><strong id="saturation-stat">—</strong></div>
+      </div>
+    </section>
+    <section class="panel prediction" aria-labelledby="predict-title">
+      <p class="eyebrow">PREDICT, THEN CHECK</p>
+      <h2 id="predict-title">Make a prediction. <span class="underline">Check the simulation.</span></h2>
+      <form id="prediction-form">
+        <div class="prediction-options">
+          <label for="experiment">Experiment<select id="experiment">
+              <optgroup label="Sampling time">
+                <option value="sampling">Increase Ts ×5 (up to 2 s)</option>
+                <option value="sampling-down">Decrease Ts ÷5 (down to 0.005 s)</option>
+              </optgroup>
+              <optgroup label="Proportional gain">
+                <option value="kp-up">Increase Kp ×2</option>
+                <option value="kp-down">Decrease Kp ÷2</option>
+              </optgroup>
+              <optgroup label="Integral gain">
+                <option value="ki-up">Increase Ki ×2</option>
+                <option value="ki-down">Decrease Ki ÷2</option>
+              </optgroup>
+              <optgroup label="Derivative gain">
+                <option value="kd-up">Increase Kd ×2</option>
+                <option value="kd-down">Decrease Kd ÷2</option>
+              </optgroup>
+              <optgroup label="Saturation">
+                <option value="windup">Toggle anti-windup</option>
+              </optgroup>
+            </select></label>
+          <fieldset class="prediction-metrics">
+            <legend>Your prediction <small>All other settings stay fixed.</small></legend>
+            <div class="prediction-dropdowns">
+              <label for="prediction-os">Overshoot<select id="prediction-os" required>
+                  <option value="">Choose…</option>
+                  <option value="increase">Increases</option>
+                  <option value="decrease">Decreases</option>
+                  <option value="same">About the same</option>
+                </select></label>
+              <label for="prediction-settle">Settling time<select id="prediction-settle" required>
+                  <option value="">Choose…</option>
+                  <option value="increase">Increases / loses settling</option>
+                  <option value="decrease">Decreases / gains settling</option>
+                  <option value="same">About the same / neither settles</option>
+                </select></label>
+              <label for="prediction-error">Final tracking error<select id="prediction-error" required>
+                  <option value="">Choose…</option>
+                  <option value="increase">Increases</option>
+                  <option value="decrease">Decreases</option>
+                  <option value="same">About the same</option>
+                </select></label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="prediction-buttons"><button type="submit" class="purple">Check &amp; compare</button><button
+            type="button" class="outline" id="clear-prediction">Clear comparison</button></div>
+      </form>
+      <p class="hint">Choose one of nine experiments. Two independent simulations test your prediction; the dashed curve
+        shows the changed setting. At zero gain, an increase starts Kp at 0.5, Ki at 0.25 or Kd at 0.05.</p>
+      <div class="feedback" id="prediction-feedback" role="status" aria-live="polite" hidden></div>
+    </section>
+    <div class="lesson-bar" aria-label="Guided experiments"><span class="eyebrow">START WITH AN EXPERIMENT</span>
+      <div class="button-row">
+        <button class="outline" id="sampling-preset">Sampling lesson</button><button class="outline"
+          id="windup-preset">Windup &amp; recovery</button><button class="outline" id="project-preset">Project: PWM
+          0–100%</button><button class="outline" id="reset">Reset</button>
+      </div>
+    </div>
+    <div class="workspace" id="lab">
+      <div class="plot-stack">
+        <section class="panel response" aria-labelledby="response-title">
+          <div class="panel-heading">
+            <h2 id="response-title">OUTPUT RESPONSE</h2><span class="tag" id="plant-tag">First-order plant</span>
+          </div>
+          <div class="chart-toolbar">
+            <div class="legend"><span class="output-key">Current output</span><span
+                class="setpoint-key">Setpoint</span><span class="previous-key" id="compare-key" hidden>Comparison</span>
+            </div>
+          </div>
+          <div class="chart-wrap"><svg id="output-chart" viewBox="0 0 760 360" role="img"
+              aria-labelledby="output-title output-description">
+              <title id="output-title">Sampled PID output response</title>
+              <desc id="output-description">Output versus the target over time.</desc>
+            </svg></div>
+          <p class="chart-status" id="simulation-status" role="status" aria-live="polite"></p>
+          <div class="chart-footer"><span>Plant integrated with RK4; controller updates only every Ts.</span><button
+              class="text-button" id="export-csv">↓ Export samples CSV</button></div>
+        </section>
+        <section class="panel response" aria-labelledby="control-title">
+          <div class="panel-heading">
+            <h2 id="control-title">STAIR-STEP CONTROL SIGNAL</h2><span class="tag">Zero-order hold</span>
+          </div>
+          <div class="chart-toolbar">
+            <div class="legend"><span class="output-key">Applied u[k]</span><span class="limit-key">Actuator
+                limits</span></div><label class="window-label" for="control-window">Control window<select
+                id="control-window">
+                <option value="2">First 2 s</option>
+                <option value="4" selected>First 4 s</option>
+                <option value="8">First 8 s</option>
+                <option value="all">Full run</option>
+              </select></label>
+          </div>
+          <div class="chart-wrap"><svg id="control-chart" viewBox="0 0 760 320" role="img"
+              aria-labelledby="control-svg-title control-description">
+              <title id="control-svg-title">Stair-step actuator command</title>
+              <desc id="control-description">Each command is held constant until the next controller sample. Red lines
+                mark the actuator limits.</desc>
+            </svg></div>
+          <p class="chart-note" id="control-note"></p>
+        </section>
+        <section class="panel" aria-labelledby="metrics-title">
+          <h2 id="metrics-title">PERFORMANCE CHECK</h2>
+          <div class="p3-metrics" id="metrics"></div>
+          <p class="hint" id="metrics-note"></p>
+        </section>
+        <section class="panel" aria-labelledby="reading-title">
+          <p class="eyebrow">WHAT TO LOOK FOR</p>
+          <h2 id="reading-title">Watch the hold.</h2>
+          <p>Increasing Ts makes each command last longer. A controller that works with fast sampling may oscillate with
+            slow sampling.</p>
+          <p>During saturation, the actuator cannot apply the requested command. Without anti-windup, the integral can
+            keep growing and delay recovery.</p><button type="button" class="outline wide" id="compare-windup">Compare
+            anti-windup on / off</button>
+          <p class="hint">Use “Windup &amp; recovery” for a clear example.</p>
+        </section>
+      </div>
+      <aside class="side" tabindex="0" aria-label="Interactive settings, scrollable beside the plots">
+        <section class="panel" aria-labelledby="settings-title">
+          <h2 id="settings-title">INTERACTIVE SETTINGS</h2>
+          <p class="live-caption"><span aria-hidden="true">●</span> Live updates while you adjust the controls</p>
+          <form id="settings-form">
+            <label class="field" for="plant">Plant model<select id="plant">
+                <option value="first">First order · K / (τs + 1)</option>
+                <option value="second">Second order · 1 / (ms² + bs + k)</option>
+                <option value="third">Bonus teaching plant · 1 / (s + 1)³</option>
+              </select></label>
+            <div class="field-grid" id="first-fields"><label class="field" for="gain">Plant gain K<input id="gain"
+                  type="number" min="0.001" max="100" step="any" value="1" required></label><label class="field"
+                for="tau">Time constant τ (s)<input id="tau" type="number" min="0.02" max="20" step="any" value="1"
+                  required></label></div>
+            <div class="field-grid" id="second-fields" hidden><label class="field" for="mass">Mass m<input id="mass"
+                  type="number" min="0.1" max="20" step="any" value="1" required></label><label class="field"
+                for="damping">Damping b<input id="damping" type="number" min="0" max="50" step="any" value="2"
+                  required></label><label class="field" for="stiffness">Stiffness k<input id="stiffness" type="number"
+                  min="0.1" max="50" step="any" value="1" required></label></div>
+            <p class="model-equation" id="model-equation"></p>
+            <div id="gain-controls"></div>
+            <label class="field" for="ts">Sampling time Ts (s)<div class="range-pair"><input id="ts-range" type="range"
+                  min="0.005" max="2" step="0.005" value="0.02" aria-label="Sampling time slider"><input id="ts"
+                  type="number" min="0.005" max="2" step="any" value="0.02" required></div></label>
+            <div class="field-grid"><label class="field" for="setpoint">Setpoint<input id="setpoint" type="number"
+                  min="0.001" max="1000" step="any" value="1" required></label><label class="field"
+                for="duration">Duration (s)<input id="duration" type="number" min="2" max="120" step="any" value="16"
+                  required></label><label class="field" for="min">Lower limit<input id="min" type="number" min="-1000"
+                  max="1000" step="any" value="0" required></label><label class="field" for="max">Upper limit<input
+                  id="max" type="number" min="-1000" max="1000" step="any" value="3" required></label></div>
+            <label class="live-switch"><input id="antiWindup" type="checkbox" checked><span class="switch-track"
+                aria-hidden="true"></span><span><strong>Anti-windup</strong><small>Stop integrating when error pushes
+                  further into saturation.</small></span></label>
+            <label class="checkbox-field"><input id="recovery" type="checkbox"> Add a second setpoint step</label>
+            <div class="field-grid" id="recovery-fields" hidden><label class="field" for="recoveryAt">Change at
+                (s)<input id="recoveryAt" type="number" min="0.005" max="120" step="any" value="6"
+                  required></label><label class="field" for="recoveryTarget">New setpoint<input id="recoveryTarget"
+                  type="number" min="0.001" max="1000" step="any" value="0.5" required></label></div>
+            <p class="hint">Plots, measurements and Arduino code update automatically. Scroll inside this panel to reach
+              every setting.</p>
+            <p id="settings-error" class="error" role="alert" hidden></p>
+          </form>
+        </section>
+
+      </aside>
+    </div>
+    <section class="panel p3-section" aria-labelledby="sampling-title">
+      <p class="eyebrow">SAME CONTROLLER · DIFFERENT CLOCKS</p>
+      <h2 id="sampling-title">How much does sampling time matter?</h2>
+      <p>Compare Ts = 0.01, 0.10, 0.50 and 1.00 s with the same plant, gains, actuator limits and test duration.</p>
+      <button class="purple" id="compare-sampling">Run sampling comparison</button>
+      <div class="table-scroll">
+        <table id="sampling-table">
+          <caption>Run the comparison to see the measurements. Recovery-mode metrics refer to the second step.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Ts (s)</th>
+              <th scope="col">Overshoot</th>
+              <th scope="col">Settling time</th>
+              <th scope="col">Final error</th>
+              <th scope="col">Observation</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="hint" id="sampling-note">Use the Sampling lesson preset, then increase Ts to 0.5 or 1 s to inspect the
+        staircase.</p>
+    </section>
+    <section class="panel p3-section" aria-labelledby="code-title" id="arduino-code">
+      <p class="eyebrow">FROM SIMULATION TO IMPLEMENTATION</p>
+      <div class="code-heading">
+        <h2 id="code-title">Your Arduino PID loop.</h2>
+        <div class="button-row"><button class="purple" id="copy-code">Copy code</button><button class="outline"
+            id="download-code">Download .ino</button></div>
+      </div>
+      <p>Arduino loop code for the current gains, with a Copy button. This code also includes the current Ts, setpoints,
+        limits and anti-windup setting.</p>
+      <p class="interface-note">The PID calculation is complete. Connect the clearly marked sensor and actuator
+        functions to your hardware. Motor measurements use speed units; PWM limits use percent. The default teaching
+        model is not measured motor data.</p>
+      <p id="code-settings" class="hint"></p>
+      <pre tabindex="0" aria-label="Generated Arduino code"><code id="arduino-source"></code></pre>
+      <p id="copy-status" role="status" aria-live="polite"></p><button class="outline" id="copy-link">Copy settings link
+        for My System</button>
+    </section>
+    <section class="panel p3-section" aria-labelledby="bonus-title">
+      <p class="eyebrow">BONUS · ZIEGLER–NICHOLS TUNING</p>
+      <h2 id="bonus-title">From sustained oscillation to PID gains.</h2>
+      <p>P1 demonstrates the critical-gain experiment on <strong>G(s) = 1/(s + 1)³</strong>. For that plant,
+        K<sub>u</sub> = 8 and P<sub>u</sub> = 2π/√3 ≈ 3.628 s. Enter the measured values from P1 to calculate the
+        classical PID starting point.</p>
+      <div class="bonus-grid"><label class="field" for="ku">Critical gain Ku<input id="ku" type="number" min="0.001"
+            max="100" step="any" value="8"></label><label class="field" for="pu">Oscillation period Pu (s)<input id="pu"
+            type="number" min="0.001" max="120" step="any" value="3.6275987284684357"></label>
+        <div class="bonus-gains" id="zn-gains" aria-live="polite"></div><button class="purple" id="apply-zn">Apply &amp;
+          simulate teaching plant</button>
+      </div>
+      <p class="hint">Kp = 0.6Ku · Ki = 1.2Ku/Pu · Kd = 0.075KuPu. Applying uses Ts = 0.01 s, limits ±20, a unit step
+        and a 40 s window. These settings are a starting point; saturation and digital sampling can change the response.
+        They are not motor tuning results.</p>
+      <p id="bonus-status" role="status"></p><a href="pid-playground.html#znSection">Open P1’s critical-gain experiment
+        →</a>
+    </section>
+    <section class="reference" aria-labelledby="reference-title">
+      <p class="eyebrow">QUICK REFERENCE</p>
+      <h2 id="reference-title">Understand <span class="underline">each update.</span></h2>
+      <div class="reference-grid">
+        <article class="panel">
+          <h3><span>01</span> Error</h3>
+          <p>Measure the output and subtract it from the target at the current sample.</p>
+          <div class="formula">e[k] = r[k] − y[k]</div><small>First sample: previous error and integral are
+            zero.</small>
+        </article>
+        <article class="panel">
+          <h3><span>02</span> Digital PID</h3>
+          <p>Combine current error, accumulated error and error change.</p>
+          <div class="pid-equation">P[k] = Kp · e[k]<br>I[k] = I[k−1] + Ki · Ts · e[k]<br>D[k] = Kd · <span
+              class="fraction inline-frac"><span class="top">e[k] − e[k−1]</span><span class="bottom">Ts</span></span>
+          </div><small>Ki includes no hidden time scaling; Ts is in seconds.</small>
+        </article>
+        <article class="panel">
+          <h3><span>03</span> Limit &amp; hold</h3>
+          <p>Clamp P + I + D to the actuator limits. Keep this command until the next sample.</p>
+          <div class="formula">u[k] = clip(P + I + D)</div><small>Anti-windup can reject the integral increment. It
+            cannot make an unreachable target reachable.</small>
+        </article>
+      </div>
+    </section>
+    <details class="technical panel">
+      <summary>Numerical method, metrics &amp; implementation assumptions</summary>
+      <div>
+        <p>The first-order and mass–spring–damper models follow Homework 1 Modules 1 and 3. Only the physical plant is
+          integrated by RK4. Integration steps are no larger than 0.005 s and one fortieth of the plant characteristic
+          time, and end exactly at controller samples. The command is held between samples. Changing Ts changes the
+          controller, rather than reducing solver accuracy.</p>
+        <p>The sum includes the current sample error. The derivative is a backward difference of error, as specified in
+          the homework; it can produce a kick on a setpoint change. Conditional anti-windup rejects an integral
+          increment when the candidate command is outside a limit and that increment pushes further into the limit. An
+          increment that helps recovery is allowed.</p>
+        <p>Overshoot is relative to the target. Rise time is the first 10–90% upward crossing of the target. Settling
+          uses a ±2% target band and requires at least one final second in that band. Final tracking error uses the mean
+          of the final second; it is called steady-state error only if the tail range is ≤0.2% of the target. Unsettled
+          and divergent runs are labelled explicitly. A recovery step is applied at the first controller sample at or
+          after its requested time; metrics then refer to this second step, and rise time is not reported.</p>
+        <p>Arduino uses micros(), non-blocking scheduling, seconds for Ts, the same integral update and initial
+          conditions, and a held actuator output. A missed deadline is resynchronised rather than replayed using stale
+          measurements. Sensor calibration, driver wiring and PWM quantisation depend on the real project and are not
+          simulated. The sensor/driver functions must be connected before hardware use.</p>
+        <p>Project application: select the first-order plant, enter measured K and τ from <a
+            href="project-model.html">My System</a>, use speed units for the setpoint and 0–100% for PWM limits, tune
+          the controller, then copy the settings link and Arduino code. Neither the rated motor speed nor a teaching
+          preset establishes the motor’s time constant.</p>
+      </div>
+    </details>
+    <footer><span>RAYHANA · ENCS4380 · P3 Digital PID</span><a href="slow-sensor.html">← P2 · Slow Sensor</a><a
+        href="tuning-challenge.html">P4 · Tuning Challenge →</a></footer>
+  </main><noscript>This simulator needs JavaScript enabled.</noscript>
+</body>
+
+</html>

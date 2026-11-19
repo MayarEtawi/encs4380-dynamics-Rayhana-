@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Module 2 — First-Order Frequency Response</title>
-<style>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Module 2 — First-Order Frequency Response</title>
+    <style>
         * {
             box-sizing: border-box;
         }
 
-    
+
 
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
             color: #143c20;
-            background: linear-gradient(
-                120deg,
-                #f7fff5,
-                #e7fbe6 55%,
-                #f4fff3
-            );
+            background: linear-gradient(120deg,
+                    #f7fff5,
+                    #e7fbe6 55%,
+                    #f4fff3);
             line-height: 1.55;
         }
 
-         :root {
+        :root {
             --dark: #075c31;
             --green: #087a3e;
             --border: #8bc89a;
@@ -49,7 +48,7 @@
             font-weight: bold;
         }
 
-       
+
 
         nav a {
             padding: 8px 14px;
@@ -58,7 +57,8 @@
             text-decoration: none;
             font-weight: bold;
         }
-         nav {
+
+        nav {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
@@ -131,7 +131,7 @@
             padding: 10px 0;
         }
 
-        .model-column + .model-column {
+        .model-column+.model-column {
             border-left: 1px solid #dcebd9;
             padding-left: 24px;
         }
@@ -444,7 +444,8 @@
             margin: 0;
             font: inherit;
         }
-/* Calculators */
+
+        /* Calculators */
 
         #calculators {
             margin-top: 28px;
@@ -479,12 +480,14 @@
         .error-calculator .error-intro {
             margin-bottom: 18px;
         }
+
         .error-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
             align-items: stretch;
             gap: 24px;
         }
+
         .error-formulas {
             align-self: center;
         }
@@ -494,6 +497,7 @@
             font-size: 21px;
             line-height: 1.7;
         }
+
         .error-calculator #errorMagnitude {
             margin: 10px 0 0;
         }
@@ -507,7 +511,8 @@
             margin: 8px 0 0;
             font-size: 13px;
         }
-/* Validation */
+
+        /* Validation */
 
         .table-wrapper {
             overflow-x: auto;
@@ -545,6 +550,7 @@
         }
 
         @media (hover: hover) and (pointer: fine) {
+
             button,
             .metric,
             .section {
@@ -616,7 +622,7 @@
                 grid-template-columns: repeat(4, 1fr);
             }
 
-            .model-column + .model-column {
+            .model-column+.model-column {
                 border-left: 0;
                 border-top: 1px solid #dcebd9;
                 padding: 18px 0 0;
@@ -679,19 +685,80 @@
         }
 
         /* Match Module 3's introduction, section links, and experiment actions. */
-        .module-intro { margin-bottom: 24px; }
-        .module-intro .module-eyebrow { color: #4d6956; font-size: 12px; font-weight: bold; letter-spacing: .07em; margin: 0 0 7px; }
-        .module-intro .page-title { font-size: clamp(25px, 2.5vw, 34px); margin: 0 0 8px; }
-        .module-intro > p:not(.module-eyebrow) { margin: 0 0 12px; }
-        nav.section-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; }
-        nav.section-links a { padding: 0; border-radius: 0; color: var(--dark); font-size: 14px; font-weight: normal; text-decoration: underline; text-underline-offset: 3px; }
-        #workspace, #bode, #calculators { scroll-margin-top: 20px; }
-        .actions button { min-height: 44px; padding: 10px 16px; font-size: 14px; }
-        .actions .quiet-button { background: white; color: var(--dark); }
-        .actions .quiet-button:hover { background: #edf8f1; }
-        .actions button:disabled { opacity: .55; cursor: not-allowed; }
-        .actions button:disabled:hover { transform: none; box-shadow: none; }
-        nav.section-links a:focus-visible, .actions button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+        .module-intro {
+            margin-bottom: 24px;
+        }
+
+        .module-intro .module-eyebrow {
+            color: #4d6956;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: .07em;
+            margin: 0 0 7px;
+        }
+
+        .module-intro .page-title {
+            font-size: clamp(25px, 2.5vw, 34px);
+            margin: 0 0 8px;
+        }
+
+        .module-intro>p:not(.module-eyebrow) {
+            margin: 0 0 12px;
+        }
+
+        nav.section-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 22px;
+            margin-top: 16px;
+        }
+
+        nav.section-links a {
+            padding: 0;
+            border-radius: 0;
+            color: var(--dark);
+            font-size: 14px;
+            font-weight: normal;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        #workspace,
+        #bode,
+        #calculators {
+            scroll-margin-top: 20px;
+        }
+
+        .actions button {
+            min-height: 44px;
+            padding: 10px 16px;
+            font-size: 14px;
+        }
+
+        .actions .quiet-button {
+            background: white;
+            color: var(--dark);
+        }
+
+        .actions .quiet-button:hover {
+            background: #edf8f1;
+        }
+
+        .actions button:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .actions button:disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        nav.section-links a:focus-visible,
+        .actions button:focus-visible {
+            outline: 3px solid var(--blue);
+            outline-offset: 3px;
+        }
 
 
         /* Match the shared header used by Modules 1, 3 and 4. */
@@ -701,22 +768,26 @@
             flex-wrap: wrap;
             text-align: left;
         }
+
         header.site-header .site-brand h2 {
             margin: 0;
             color: #fff;
             font: 700 21px/1.25 Arial, Helvetica, sans-serif;
         }
+
         header.site-header .site-brand p {
             margin: 0;
             color: #fff;
             font: 400 14px/1.35 Arial, Helvetica, sans-serif;
         }
+
         header.site-header nav.site-nav {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 8px;
         }
+
         header.site-header nav.site-nav a {
             display: inline-flex;
             align-items: center;
@@ -729,1158 +800,1348 @@
             text-decoration: none;
             white-space: nowrap;
         }
+
         header.site-header nav.site-nav a.active,
         header.site-header nav.site-nav a:hover,
         header.site-header nav.site-nav a:focus-visible {
             background: #fff;
             color: #075c31;
         }
+
         @media (max-width: 650px) {
-            header.site-header { align-items: flex-start; }
-            header.site-header nav.site-nav { width: 100%; gap: 6px; }
-            header.site-header nav.site-nav a { padding: 9px 11px; font-size: 13px; }
+            header.site-header {
+                align-items: flex-start;
+            }
+
+            header.site-header nav.site-nav {
+                width: 100%;
+                gap: 6px;
+            }
+
+            header.site-header nav.site-nav a {
+                padding: 9px 11px;
+                font-size: 13px;
+            }
         }
-    
-/* Shared introductions inspired by Module 4; no section reordering. */
-body .unified-hero{display:grid;grid-template-columns:minmax(0,1fr) 220px;align-items:center;gap:28px;padding:26px 30px 28px;margin-bottom:24px;background:linear-gradient(108deg,#f6fff6,#e7f6e9);border:1px solid #d2e7d3;border-radius:22px}
-body .unified-hero h1{font-size:clamp(29px,3.6vw,48px);line-height:1.12;letter-spacing:-.045em;color:#103d29;margin:0 0 12px}
-body .unified-hero h1 em{font-style:normal;color:#0f8b4c}
-body .unified-hero .eyebrow,body .unified-hero .module-eyebrow{font-size:11px;font-weight:700;letter-spacing:.13em;color:#19804a;margin:0 0 10px}
-body .unified-hero .hero-copy>p:not(.eyebrow):not(.module-eyebrow){color:#476b56;font-size:15px;line-height:1.65;margin:0 0 18px;max-width:750px}
-body .unified-hero .section-links{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
-body .unified-hero .section-links a{display:inline-flex;align-items:center;background:white;border:1px solid #c9e3ce;border-radius:30px;color:#476b56;font-size:12px;font-weight:400;text-decoration:none;padding:7px 12px;line-height:1.5}
-body .unified-hero .section-links a:hover{background:#edf8ef;transform:none}
-body .hero-mark{background:#ffffffaa;border:1px solid #d3e9d6;border-radius:19px;padding:14px 18px;color:#235b41;text-align:center}
-body .hero-mark svg{display:block;width:100%;height:120px}
-body .hero-mark small{font-size:9px;letter-spacing:.15em;color:#698d76;font-weight:700}
-.math-frac{display:inline-flex;flex-direction:column;align-items:stretch;vertical-align:middle;text-align:center;line-height:1.25;margin:0 .18em;font-family:Cambria,'Times New Roman',serif;font-weight:400;white-space:nowrap}
-.math-frac>.math-num{display:block;border-bottom:1px solid currentColor;padding:0 .18em .13em}
-.math-frac>.math-den{display:block;padding:.13em .18em 0}
-.math-root{display:inline-flex;align-items:center;vertical-align:middle;white-space:nowrap}.math-root>.radicand{border-top:1px solid currentColor;padding:.1em .12em}
 
-@media(max-width:850px){body .unified-hero{grid-template-columns:1fr 170px;gap:18px;padding:23px}body .hero-mark svg{height:95px}}
-@media(max-width:650px){body .unified-hero{grid-template-columns:1fr;padding:22px 19px}body .hero-mark{display:none}body .unified-hero h1{font-size:30px}body .unified-hero .section-links a{font-size:11px;padding:7px 10px}}
+        /* Shared introductions inspired by Module 4; no section reordering. */
+        body .unified-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 220px;
+            align-items: center;
+            gap: 28px;
+            padding: 26px 30px 28px;
+            margin-bottom: 24px;
+            background: linear-gradient(108deg, #f6fff6, #e7f6e9);
+            border: 1px solid #d2e7d3;
+            border-radius: 22px
+        }
+
+        body .unified-hero h1 {
+            font-size: clamp(29px, 3.6vw, 48px);
+            line-height: 1.12;
+            letter-spacing: -.045em;
+            color: #103d29;
+            margin: 0 0 12px
+        }
+
+        body .unified-hero h1 em {
+            font-style: normal;
+            color: #0f8b4c
+        }
+
+        body .unified-hero .eyebrow,
+        body .unified-hero .module-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .13em;
+            color: #19804a;
+            margin: 0 0 10px
+        }
+
+        body .unified-hero .hero-copy>p:not(.eyebrow):not(.module-eyebrow) {
+            color: #476b56;
+            font-size: 15px;
+            line-height: 1.65;
+            margin: 0 0 18px;
+            max-width: 750px
+        }
+
+        body .unified-hero .section-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 18px 0 0
+        }
+
+        body .unified-hero .section-links a {
+            display: inline-flex;
+            align-items: center;
+            background: white;
+            border: 1px solid #c9e3ce;
+            border-radius: 30px;
+            color: #476b56;
+            font-size: 12px;
+            font-weight: 400;
+            text-decoration: none;
+            padding: 7px 12px;
+            line-height: 1.5
+        }
+
+        body .unified-hero .section-links a:hover {
+            background: #edf8ef;
+            transform: none
+        }
+
+        body .hero-mark {
+            background: #ffffffaa;
+            border: 1px solid #d3e9d6;
+            border-radius: 19px;
+            padding: 14px 18px;
+            color: #235b41;
+            text-align: center
+        }
+
+        body .hero-mark svg {
+            display: block;
+            width: 100%;
+            height: 120px
+        }
+
+        body .hero-mark small {
+            font-size: 9px;
+            letter-spacing: .15em;
+            color: #698d76;
+            font-weight: 700
+        }
+
+        .math-frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: stretch;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 1.25;
+            margin: 0 .18em;
+            font-family: Cambria, 'Times New Roman', serif;
+            font-weight: 400;
+            white-space: nowrap
+        }
+
+        .math-frac>.math-num {
+            display: block;
+            border-bottom: 1px solid currentColor;
+            padding: 0 .18em .13em
+        }
+
+        .math-frac>.math-den {
+            display: block;
+            padding: .13em .18em 0
+        }
+
+        .math-root {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            white-space: nowrap
+        }
+
+        .math-root>.radicand {
+            border-top: 1px solid currentColor;
+            padding: .1em .12em
+        }
+
+        @media(max-width:850px) {
+            body .unified-hero {
+                grid-template-columns: 1fr 170px;
+                gap: 18px;
+                padding: 23px
+            }
+
+            body .hero-mark svg {
+                height: 95px
+            }
+        }
+
+        @media(max-width:650px) {
+            body .unified-hero {
+                grid-template-columns: 1fr;
+                padding: 22px 19px
+            }
+
+            body .hero-mark {
+                display: none
+            }
+
+            body .unified-hero h1 {
+                font-size: 30px
+            }
+
+            body .unified-hero .section-links a {
+                font-size: 11px;
+                padding: 7px 10px
+            }
+        }
 
 
-body .equations{line-height:2.6}
+        body .equations {
+            line-height: 2.6
+        }
 
-body.module2-page .module-intro.unified-hero h1.page-title {
-    font-size: clamp(29px, 3.6vw, 48px);
-    line-height: 1.12;
-    letter-spacing: -.045em;
-    margin: 0 0 12px;
-}
-body.module2-page .site-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin: 32px 0 20px;
-    padding: 22px 0;
-    border-top: 1px solid #cde5d0;
-    color: #4b6955;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-}
-body.module2-page .site-footer .back-modules {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 11px 18px;
-    min-height: 44px;
-    border-radius: 9px;
-    border: 1px solid #087a3e;
-    background: #087a3e;
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: background .2s ease;
-}
-body.module2-page .site-footer .back-modules:hover { background: #066532; }
-body.module2-page .site-footer .back-modules:focus-visible { outline: 3px solid #244bff; outline-offset: 2px; }
-@media(max-width:650px) {
-    body.module2-page .module-intro.unified-hero h1.page-title { font-size: 30px; }
-    body.module2-page .site-footer { flex-direction: column; align-items: stretch; text-align: center; }
-    body.module2-page .site-footer .back-modules { width: 100%; }
-}
+        body.module2-page .module-intro.unified-hero h1.page-title {
+            font-size: clamp(29px, 3.6vw, 48px);
+            line-height: 1.12;
+            letter-spacing: -.045em;
+            margin: 0 0 12px;
+        }
 
+        body.module2-page .site-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 32px 0 20px;
+            padding: 22px 0;
+            border-top: 1px solid #cde5d0;
+            color: #4b6955;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
 
-</style>
+        body.module2-page .site-footer .back-modules {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 18px;
+            min-height: 44px;
+            border-radius: 9px;
+            border: 1px solid #087a3e;
+            background: #087a3e;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background .2s ease;
+        }
+
+        body.module2-page .site-footer .back-modules:hover {
+            background: #066532;
+        }
+
+        body.module2-page .site-footer .back-modules:focus-visible {
+            outline: 3px solid #244bff;
+            outline-offset: 2px;
+        }
+
+        @media(max-width:650px) {
+            body.module2-page .module-intro.unified-hero h1.page-title {
+                font-size: 30px;
+            }
+
+            body.module2-page .site-footer {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            body.module2-page .site-footer .back-modules {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
+
 <body class="module2-page">
-<header class="site-header">
-<div class="site-brand">
-<h2>ENCS4380</h2>
-<p>Dynamic Characteristics Toolkit</p>
-</div>
-<nav aria-label="Main navigation" class="site-nav"><a href="index.html">← Toolkits</a>
-<a href="homework1.html">Home</a>
-<a href="module1.html">Module 1</a>
-<a aria-current="page" class="active" href="module2.html">Module 2</a>
-<a href="module3.html">Module 3</a>
-<a href="module4.html">Module 4</a>
-</nav>
-</header>
-<main>
-<div class="module-intro unified-hero"><div class="hero-copy">
-<p class="module-eyebrow">MODULE 2 · FIRST-ORDER FREQUENCY RESPONSE</p>
-<h1 class="page-title">First-order frequency <em>response</em></h1>
-<p>Explore how the time constant and input frequency shape a sensor’s amplitude and phase response.</p>
-<nav aria-label="On this page" class="section-links">
-<a href="#system-model">System model</a>
-<a href="#predict">Predict, then check</a>
-<a href="#workspace">Simulator</a>
-<a href="#bode">Bode plots</a>
-<a href="#calculators">Dynamic error</a>
-<a href="#validation">Validation</a>
-</nav>
-</div><div aria-hidden="true" class="hero-mark"><svg viewbox="0 0 220 160"><path d="M20 15V140H205" fill="none" stroke="#a9c9b7" stroke-width="2"></path><polyline fill="none" points="20.00,101.76 21.80,97.98 23.60,93.99 25.40,89.88 27.20,85.72 29.00,81.59 30.80,77.58 32.60,73.76 34.40,70.21 36.20,67.00 38.00,64.20 39.80,61.84 41.60,59.99 43.40,58.68 45.20,57.93 47.00,57.76 48.80,58.17 50.60,59.16 52.40,60.70 54.20,62.77 56.00,65.32 57.80,68.30 59.60,71.66 61.40,75.33 63.20,79.23 65.00,83.30 66.80,87.45 68.60,91.60 70.40,95.68 72.20,99.59 74.00,103.26 75.80,106.63 77.60,109.62 79.40,112.18 81.20,114.26 83.00,115.81 84.80,116.81 86.60,117.23 88.40,117.08 90.20,116.34 92.00,115.04 93.80,113.20 95.60,110.86 97.40,108.06 99.20,104.86 101.00,101.32 102.80,97.51 104.60,93.50 106.40,89.38 108.20,85.22 110.00,81.10 111.80,77.11 113.60,73.32 115.40,69.81 117.20,66.64 119.00,63.89 120.80,61.59 122.60,59.81 124.40,58.56 126.20,57.88 128.00,57.78 129.80,58.26 131.60,59.32 133.40,60.92 135.20,63.05 137.00,65.65 138.80,68.68 140.60,72.08 142.40,75.78 144.20,79.71 146.00,83.80 147.80,87.95 149.60,92.10 151.40,96.16 153.20,100.04 155.00,103.68 156.80,107.01 158.60,109.95 160.40,112.46 162.20,114.47 164.00,115.96 165.80,116.89 167.60,117.25 169.40,117.02 171.20,116.22 173.00,114.85 174.80,112.95 176.60,110.55 178.40,107.70 180.20,104.45 182.00,100.88 183.80,97.04 185.60,93.01 187.40,88.88 189.20,84.72 191.00,80.61 192.80,76.64 194.60,72.88 196.40,69.41 198.20,66.29 200.00,63.59" stroke="#16a35b" stroke-linecap="round" stroke-width="4"></polyline></svg><small>FOLLOW THE FREQUENCY</small></div></div>
-<!-- 1. SYSTEM MODEL -->
-<section class="section" id="system-model">
-<h2>System Model</h2>
-<div class="two-columns">
-<div class="model-column">
-<h3>Frequency-response equations</h3>
-<div class="equations">
-                    G(s) = <span class="math-frac"><span class="math-num">1</span><span class="math-den">τs + 1</span></span><br/>
-                    M = <span class="math-frac"><span class="math-num">1</span><span class="math-den"><span class="math-root">√<span class="radicand">1 + (ωτ)²</span></span></span></span><br/>
-                    φ = −atan(ωτ)
-                </div>
-<p>
-                    M is the amplitude ratio.
-                    Negative phase means the output lags the input.
-                </p>
-</div>
-<div class="model-column">
-<h3>Input and output</h3>
-<div class="equations">
-                    x(t) = sin(ωt)<br/>
-                    y(t) = M sin(ωt + φ)<br/>
-                    ω = 2πf
-                </div>
-<p>
-                    Unit gain K = 1, steady state.
-                    f in Hz, ω in rad/s, τ in seconds.
-                </p>
-</div>
-</div>
-</section>
-<!-- 2. PREDICT, THEN CHECK -->
-<section class="section" id="predict">
-<h2>Predict, then check</h2>
-<p>
-            Choose an experiment and predict its outcome.
-            Check &amp; run experiment applies the requested change to the live plots.
-            You can also change the controls yourself before checking.
-        </p>
-<div class="two-columns">
-<div>
-<label for="scenario">Experiment</label>
-<select id="scenario">
-<option value="fUp">
-                        Increase frequency · keep τ fixed
-                    </option>
-<option value="fDown">
-                        Decrease frequency · keep τ fixed
-                    </option>
-<option value="tauUp">
-                        Increase τ · keep frequency fixed
-                    </option>
-<option value="tauDown">
-                        Decrease τ · keep frequency fixed
-                    </option>
-</select>
-</div>
-<div>
-<label for="prediction">Your prediction</label>
-<select id="prediction">
-<option value="">Choose an answer</option>
-<option value="smaller">
-                        Smaller amplitude and greater phase lag
-                    </option>
-<option value="larger">
-                        Larger amplitude and smaller phase lag
-                    </option>
-<option value="same">
-                        No change
-                    </option>
-</select>
-</div>
-</div>
-<div class="actions">
-<button id="checkPrediction" type="button">
-                Check &amp; run experiment
-            </button>
-<button class="quiet-button" disabled="" id="restorePrediction" type="button">
-                Restore previous settings
-            </button>
-</div>
-<p aria-live="polite" class="feedback" id="predictionResult"></p>
-</section>
-<!-- 3. LIVE WORKSPACE -->
-<div class="workspace-title" id="workspace">
-<h2>Frequency response · Live workspace</h2>
-</div>
-<div class="workspace">
-<!-- LEFT: CONTROLS AND RESULTS -->
-<aside aria-label="Sensor controls and live results" class="panel">
-<h2 class="panel-title">CONTROLS</h2>
-<div class="controls-body">
-<div class="control">
-<label for="tauNumber">Time constant τ</label>
-<p>First-order system time constant.</p>
-<div class="number-row">
-<span>τ =</span>
-<input id="tauNumber" max="10" min="0.0001" step="any" type="number" value="0.2"/>
-<span>s</span>
-</div>
-<input aria-label="Time constant, logarithmic slider" id="tauSlider" max="1" min="-4" step="0.001" type="range" value="-0.69897"/>
-<div class="range-labels">
-<span>0.0001 s</span>
-<span>10 s</span>
-</div>
-</div>
-<div class="control">
-<label for="frequencyNumber">
-                        Excitation frequency f
-                    </label>
-<p>Sine input frequency.</p>
-<div class="number-row">
-<span>f =</span>
-<input id="frequencyNumber" max="1000" min="0.01" step="any" type="number" value="0.3183098861837907"/>
-<span>Hz</span>
-</div>
-<input aria-label="Frequency, logarithmic slider" id="frequencySlider" max="3" min="-2" step="0.001" type="range" value="-0.49715"/>
-<div class="range-labels">
-<span>0.01 Hz</span>
-<span>1000 Hz</span>
-</div>
-<p class="compact-text" id="omegaText"></p>
-</div>
-<div class="metric-group">
-<h3 class="metric-title">
-                        Current / calculated metrics
-                    </h3>
-<div class="metrics">
-<div class="metric">
-<span>M</span>
-<strong id="magnitudeResult"></strong>
-</div>
-<div class="metric">
-<span>Phase</span>
-<strong id="phaseResult"></strong>
-</div>
-<div class="metric">
-<span>Cutoff fc</span>
-<strong id="cutoffResult"></strong>
-</div>
-<div class="metric">
-<span>Error</span>
-<strong id="errorResult"></strong>
-</div>
-</div>
-<p class="control-message" id="controlMessage" role="status"></p>
-</div>
-</div>
-</aside>
-<!-- RIGHT: THREE CHARTS -->
-<div class="plot-area">
-<section class="panel">
-<div class="panel-title wave-header">
-<h2 class="panel-heading">
-                        Input &amp; output
-                    </h2>
-<label class="window-control" for="timeWindow">
-                        Time window:
-
-                        <select id="timeWindow">
-<option value="10">10 s · Fixed</option>
-<option value="5">5 s · Fixed</option>
-<option value="1">1 s · Fixed</option>
-<option value="0.1">0.1 s · Fixed</option>
-<option value="0.01">0.01 s · Fixed</option>
-<option value="100">100 s · Fixed</option>
-<option value="auto">4 periods · Auto</option>
-</select>
-</label>
-</div>
-<svg aria-label="Input and output versus time" class="wave-chart" id="sinePlot" role="img"></svg>
-<div class="chart-legend">
-<span class="key">Input</span>
-<span class="key output">Output</span>
-</div>
-<p class="plot-note" id="samplingNote"></p>
-</section>
-<div class="bode-grid" id="bode">
-<section class="panel">
-<h2 class="panel-title">Bode magnitude</h2>
-<svg aria-label="Magnitude in decibels versus logarithmic angular frequency" class="bode-chart" id="magnitudePlot" role="img"></svg>
-<div class="chart-legend">
-<span class="key">Magnitude</span>
-<span class="key cutoff">Cutoff</span>
-<span class="key selected">
-                            Selected frequency
-                        </span>
-</div>
-</section>
-<section class="panel">
-<h2 class="panel-title">Bode phase</h2>
-<svg aria-label="Phase in degrees versus logarithmic angular frequency" class="bode-chart" id="phasePlot" role="img"></svg>
-<div class="chart-legend">
-<span class="key">Phase</span>
-<span class="key cutoff">Cutoff</span>
-<span class="key selected">
-                            Selected frequency
-                        </span>
-</div>
-</section>
-</div>
-</div>
-</div>
-<!-- 4. CALCULATORS -->
-<div id="calculators">
-<section class="section error-calculator">
-<h2>Dynamic-error calculator</h2>
-<p class="error-intro">A negative value means the output amplitude is smaller than the input amplitude.</p>
-<div class="error-layout">
-<div class="error-formulas">
-<div class="equations">
-                        δ = M − 1<br/>
-                        Error (%) = (M − 1) × 100
+    <header class="site-header">
+        <div class="site-brand">
+            <h2>ENCS4380</h2>
+            <p>Dynamic Characteristics Toolkit</p>
+        </div>
+        <nav aria-label="Main navigation" class="site-nav"><a href="index.html">← Toolkits</a>
+            <a href="homework1.html">Home</a>
+            <a href="module1.html">Module 1</a>
+            <a aria-current="page" class="active" href="module2.html">Module 2</a>
+            <a href="module3.html">Module 3</a>
+            <a href="module4.html">Module 4</a>
+        </nav>
+    </header>
+    <main>
+        <div class="module-intro unified-hero">
+            <div class="hero-copy">
+                <p class="module-eyebrow">MODULE 2 · FIRST-ORDER FREQUENCY RESPONSE</p>
+                <h1 class="page-title">First-order frequency <em>response</em></h1>
+                <p>Explore how the time constant and input frequency shape a sensor’s amplitude and phase response.</p>
+                <nav aria-label="On this page" class="section-links">
+                    <a href="#system-model">System model</a>
+                    <a href="#predict">Predict, then check</a>
+                    <a href="#workspace">Simulator</a>
+                    <a href="#bode">Bode plots</a>
+                    <a href="#calculators">Dynamic error</a>
+                    <a href="#validation">Validation</a>
+                </nav>
+            </div>
+            <div aria-hidden="true" class="hero-mark"><svg viewbox="0 0 220 160">
+                    <path d="M20 15V140H205" fill="none" stroke="#a9c9b7" stroke-width="2"></path>
+                    <polyline fill="none"
+                        points="20.00,101.76 21.80,97.98 23.60,93.99 25.40,89.88 27.20,85.72 29.00,81.59 30.80,77.58 32.60,73.76 34.40,70.21 36.20,67.00 38.00,64.20 39.80,61.84 41.60,59.99 43.40,58.68 45.20,57.93 47.00,57.76 48.80,58.17 50.60,59.16 52.40,60.70 54.20,62.77 56.00,65.32 57.80,68.30 59.60,71.66 61.40,75.33 63.20,79.23 65.00,83.30 66.80,87.45 68.60,91.60 70.40,95.68 72.20,99.59 74.00,103.26 75.80,106.63 77.60,109.62 79.40,112.18 81.20,114.26 83.00,115.81 84.80,116.81 86.60,117.23 88.40,117.08 90.20,116.34 92.00,115.04 93.80,113.20 95.60,110.86 97.40,108.06 99.20,104.86 101.00,101.32 102.80,97.51 104.60,93.50 106.40,89.38 108.20,85.22 110.00,81.10 111.80,77.11 113.60,73.32 115.40,69.81 117.20,66.64 119.00,63.89 120.80,61.59 122.60,59.81 124.40,58.56 126.20,57.88 128.00,57.78 129.80,58.26 131.60,59.32 133.40,60.92 135.20,63.05 137.00,65.65 138.80,68.68 140.60,72.08 142.40,75.78 144.20,79.71 146.00,83.80 147.80,87.95 149.60,92.10 151.40,96.16 153.20,100.04 155.00,103.68 156.80,107.01 158.60,109.95 160.40,112.46 162.20,114.47 164.00,115.96 165.80,116.89 167.60,117.25 169.40,117.02 171.20,116.22 173.00,114.85 174.80,112.95 176.60,110.55 178.40,107.70 180.20,104.45 182.00,100.88 183.80,97.04 185.60,93.01 187.40,88.88 189.20,84.72 191.00,80.61 192.80,76.64 194.60,72.88 196.40,69.41 198.20,66.29 200.00,63.59"
+                        stroke="#16a35b" stroke-linecap="round" stroke-width="4"></polyline>
+                </svg><small>FOLLOW THE FREQUENCY</small></div>
+        </div>
+        <!-- 1. SYSTEM MODEL -->
+        <section class="section" id="system-model">
+            <h2>System Model</h2>
+            <div class="two-columns">
+                <div class="model-column">
+                    <h3>Frequency-response equations</h3>
+                    <div class="equations">
+                        G(s) = <span class="math-frac"><span class="math-num">1</span><span class="math-den">τs +
+                                1</span></span><br />
+                        M = <span class="math-frac"><span class="math-num">1</span><span class="math-den"><span
+                                    class="math-root">√<span class="radicand">1 +
+                                        (ωτ)²</span></span></span></span><br />
+                        φ = −atan(ωτ)
                     </div>
-<p id="errorMagnitude"></p>
-</div>
-<div aria-live="polite" class="result-box">
-<span>Dynamic error</span>
-<strong id="calculatorError"></strong>
-<span id="decimalError"></span>
-<p id="errorExplanation"></p>
-</div>
-</div>
-</section>
-</div>
-<!-- 5. VALIDATION -->
-<section class="section" id="validation">
-<h2>Homework Validation — Checks 2 and 3</h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr>
-<th>Check</th>
-<th>Expected</th>
-<th>Calculated</th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody id="validationRows"></tbody>
-</table>
-</div>
-</section>
-<noscript>
-        Enable JavaScript to use the calculations and plots.
-    </noscript>
-<footer aria-label="Module navigation" class="site-footer">
-<span>ENCS4380 · Dynamic Characteristics Toolkit</span>
-<a class="back-modules" href="index.html">← Back to all modules</a>
-</footer>
-</main>
-<script>
-"use strict";
-
-/* =====================================
-   MODEL AND SETTINGS
-===================================== */
-
-const $ = id => document.getElementById(id);
-
-const state = {
-    tau: 0.2,
-    frequency: 1 / Math.PI
-};
-
-const bounds = {
-    tau: [0.0001, 10],
-    frequency: [0.01, 1000]
-};
-
-const colors = {
-    input: "#244bff",
-    output: "#10a329",
-    point: "#ff9700"
-};
-
-let predictionStart = null;
-let previousExperiment = null;
-let plotFrame = null;
-
-/*
- * Bode axes stay stable during ordinary changes.
- * They expand if the selected frequency or cutoff moves outside.
- */
-let bodeMin = -1;
-let bodeMax = 2;
-
-const fmt = value => Number(value.toPrecision(5)).toString();
-
-const controlUnit = key =>
-    key === "tau" ? " seconds" : " hertz";
-
-function clearControlMessage() {
-    $("controlMessage").textContent = "";
-}
-
-function response(tau, omega) {
-    const magnitude = 1 / Math.hypot(1, omega * tau);
-    const phase = -Math.atan(omega * tau);
-
-    return {
-        magnitude,
-        phase,
-        degrees: phase * 180 / Math.PI,
-        db: 20 * Math.log10(magnitude),
-        error: magnitude - 1
-    };
-}
-
-function maximumTau(frequency, loss) {
-    return Math.sqrt(
-        1 / (1 - loss / 100) ** 2 - 1
-    ) / (2 * Math.PI * frequency);
-}
-
-/* =====================================
-   SVG DRAWING
-===================================== */
-
-function svgNode(tag, attributes, text) {
-    const node = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        tag
-    );
-
-    Object.entries(attributes).forEach(([key, value]) => {
-        node.setAttribute(key, value);
-    });
-
-    if (text !== undefined) {
-        node.textContent = text;
-    }
-
-    return node;
-}
-
-function chart(id, config) {
-    const svg = $(id);
-
-    const width = Math.max(240, svg.clientWidth);
-    const height = svg.clientHeight;
-
-    svg.replaceChildren();
-    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-
-    const left = 52;
-    const right = width - 20;
-    const top = 17;
-    const bottom = height - 42;
-
-    const x = value => left +
-        (value - config.xMin) /
-        (config.xMax - config.xMin) *
-        (right - left);
-
-    const y = value => bottom -
-        (value - config.yMin) /
-        (config.yMax - config.yMin) *
-        (bottom - top);
-
-    function add(tag, attributes, text) {
-        const node = svgNode(tag, attributes, text);
-        svg.append(node);
-        return node;
-    }
-
-    const grid = {
-        stroke: "#dbe1dd",
-        "stroke-width": 1
-    };
-
-    // Horizontal grid and labels.
-    config.yTicks.forEach(value => {
-        add("line", {
-            x1: left,
-            x2: right,
-            y1: y(value),
-            y2: y(value),
-            ...grid
-        });
-
-        add("text", {
-            x: left - 7,
-            y: y(value) + 4,
-            "text-anchor": "end",
-            "font-size": 11,
-            fill: "#344738"
-        }, fmt(value));
-    });
-
-    const ticks = config.log
-        ? Array.from(
-            { length: config.xMax - config.xMin + 1 },
-            (_, index) => config.xMin + index
-        )
-        : Array.from(
-            { length: 6 },
-            (_, index) => config.xMax * index / 5
-        );
-
-    // Vertical grid and labels.
-    ticks.forEach((value, index) => {
-        add("line", {
-            x1: x(value),
-            x2: x(value),
-            y1: top,
-            y2: bottom,
-            ...grid
-        });
-
-        if (
-            ticks.length <= 7 ||
-            index % 2 === 0 ||
-            index === ticks.length - 1
-        ) {
-            add("text", {
-                x: x(value),
-                y: bottom + 17,
-                "text-anchor": "middle",
-                "font-size": 11,
-                fill: "#344738"
-            }, config.log ? "10^" + value : fmt(value));
-        }
-    });
-
-    // Minor logarithmic grid.
-    if (config.log) {
-        for (
-            let decade = config.xMin;
-            decade < config.xMax;
-            decade++
-        ) {
-            for (let n = 2; n <= 9; n++) {
-                const position = x(decade + Math.log10(n));
-
-                add("line", {
-                    x1: position,
-                    x2: position,
-                    y1: top,
-                    y2: bottom,
-                    stroke: "#eff2ef",
-                    "stroke-width": 0.7
-                });
-            }
-        }
-    }
-
-    add("rect", {
-        x: left,
-        y: top,
-        width: right - left,
-        height: bottom - top,
-        fill: "none",
-        stroke: "#a5b3a8"
-    });
-
-    // Clip curves to the chart area.
-    const defs = add("defs", {});
-    const clip = svgNode("clipPath", {
-        id: id + "-clip"
-    });
-
-    clip.append(svgNode("rect", {
-        x: left,
-        y: top,
-        width: right - left,
-        height: bottom - top
-    }));
-
-    defs.append(clip);
-
-    const group = add("g", {
-        "clip-path": `url(#${id}-clip)`
-    });
-
-    config.curves.forEach(curve => {
-        group.append(svgNode("polyline", {
-            points: curve.points.map(([a, b]) =>
-                x(a) + "," + y(b)
-            ).join(" "),
-            fill: "none",
-            stroke: curve.color,
-            "stroke-width": 2,
-            "stroke-linejoin": "round"
-        }));
-    });
-
-    // Cutoff and selected-frequency markers.
-    (config.markers || []).forEach(marker => {
-        if (marker.line) {
-            group.append(svgNode("line", {
-                x1: x(marker.x),
-                x2: x(marker.x),
-                y1: top,
-                y2: bottom,
-                stroke: marker.color,
-                "stroke-width": 1.5,
-                "stroke-dasharray": "5 4"
-            }));
-        }
-
-        const dot = svgNode("circle", {
-            cx: x(marker.x),
-            cy: y(marker.y),
-            r: 4.5,
-            fill: marker.color,
-            stroke: "#fff",
-            "stroke-width": 0.7
-        });
-
-        dot.append(svgNode("title", {}, marker.label));
-        group.append(dot);
-    });
-
-    add("text", {
-        x: (left + right) / 2,
-        y: height - 6,
-        "text-anchor": "middle",
-        "font-size": 12,
-        fill: "#233d29"
-    }, config.xLabel);
-
-    add("text", {
-        transform: `translate(14 ${(top + bottom) / 2}) rotate(-90)`,
-        "text-anchor": "middle",
-        "font-size": 12,
-        fill: "#233d29"
-    }, config.yLabel);
-}
-
-/* =====================================
-   RESPONSE PLOTS
-===================================== */
-
-function drawPlots() {
-    const omega = 2 * Math.PI * state.frequency;
-    const result = response(state.tau, omega);
-
-    const endTime = $("timeWindow").value === "auto"
-        ? 4 / state.frequency
-        : Number($("timeWindow").value);
-
-    const cycles = endTime * state.frequency;
-
-    const samples = Math.max(
-        800,
-        Math.min(16000, Math.ceil(cycles * 60))
-    );
-
-    const input = [];
-    const output = [];
-
-    /*
-     * Avoid drawing misleading undersampled waveforms
-     * when too many cycles fit into the selected window.
-     */
-    if (cycles <= 200) {
-        for (let i = 0; i <= samples; i++) {
-            const time = endTime * i / samples;
-
-            input.push([
-                time,
-                Math.sin(omega * time)
-            ]);
-
-            output.push([
-                time,
-                result.magnitude *
-                    Math.sin(omega * time + result.phase)
-            ]);
-        }
-    }
-
-    $("samplingNote").textContent = cycles > 200
-        ? "Too many cycles for this time window. Select “4 periods · Auto” or a shorter fixed window to inspect the waveform."
-        : cycles > 40
-            ? "Dense waveform: choose a shorter time window or “4 periods · Auto” to inspect individual cycles."
-            : "";
-
-    chart("sinePlot", {
-        xMin: 0,
-        xMax: endTime,
-        yMin: -1.5,
-        yMax: 1.5,
-        yTicks: [-1.5, -1, -0.5, 0, 0.5, 1, 1.5],
-        xLabel: "Time t (s)",
-        yLabel: "Amplitude",
-        curves: [
-            {
-                points: input,
-                color: colors.input
-            },
-            {
-                points: output,
-                color: colors.output
-            }
-        ]
-    });
-
-    const cutoff = 1 / state.tau;
-
-    bodeMin = Math.min(
-        bodeMin,
-        Math.floor(Math.log10(Math.min(cutoff, omega)))
-    );
-
-    bodeMax = Math.max(
-        bodeMax,
-        Math.ceil(Math.log10(Math.max(cutoff, omega)))
-    );
-
-    const magnitude = [];
-    const phase = [];
-
-    for (let i = 0; i <= 500; i++) {
-        const logOmega =
-            bodeMin + (bodeMax - bodeMin) * i / 500;
-
-        const current = response(state.tau, 10 ** logOmega);
-
-        magnitude.push([logOmega, current.db]);
-        phase.push([logOmega, current.degrees]);
-    }
-
-    const floor = Math.min(
-        -45,
-        Math.floor(result.db / 10) * 10 - 5
-    );
-
-    const common = {
-        xMin: bodeMin,
-        xMax: bodeMax,
-        log: true,
-        xLabel: "ω (rad/s)"
-    };
-
-    chart("magnitudePlot", {
-        ...common,
-        yMin: floor,
-        yMax: 5,
-
-        yTicks: floor === -45
-            ? [-40, -30, -20, -10, 0, 5]
-            : [
-                floor,
-                Math.round(floor * 0.75),
-                Math.round(floor * 0.5),
-                Math.round(floor * 0.25),
-                0
-            ],
-
-        yLabel: "Magnitude (dB)",
-
-        curves: [
-            {
-                points: magnitude,
-                color: colors.input
-            }
-        ],
-
-        markers: [
-            {
-                x: Math.log10(cutoff),
-                y: 20 * Math.log10(1 / Math.sqrt(2)),
-                color: colors.output,
-                line: true,
-                label: `Cutoff: ${fmt(cutoff)} rad/s, −3.01 dB`
-            },
-            {
-                x: Math.log10(omega),
-                y: result.db,
-                color: colors.point,
-                label:
-                    `Selected: ${fmt(omega)} rad/s, ` +
-                    `${result.db.toFixed(2)} dB`
-            }
-        ]
-    });
-
-    chart("phasePlot", {
-        ...common,
-        yMin: -90,
-        yMax: 0,
-        yTicks: [-90, -60, -45, -30, 0],
-        yLabel: "Phase (°)",
-
-        curves: [
-            {
-                points: phase,
-                color: colors.input
-            }
-        ],
-
-        markers: [
-            {
-                x: Math.log10(cutoff),
-                y: -45,
-                color: colors.output,
-                line: true,
-                label: `Cutoff: ${fmt(cutoff)} rad/s, −45°`
-            },
-            {
-                x: Math.log10(omega),
-                y: result.degrees,
-                color: colors.point,
-                label:
-                    `Selected: ${fmt(omega)} rad/s, ` +
-                    `${result.degrees.toFixed(2)}°`
-            }
-        ]
-    });
-}
-
-function schedulePlots() {
-    if (plotFrame !== null) {
-        cancelAnimationFrame(plotFrame);
-    }
-
-    plotFrame = requestAnimationFrame(() => {
-        plotFrame = null;
-        drawPlots();
-    });
-}
-
-/* =====================================
-   PREDICTION EXPERIMENTS
-===================================== */
-
-const experiments = {
-    fUp: {
-        key: "frequency",
-        fixed: "tau",
-        direction: 1,
-        answer: "smaller"
-    },
-
-    fDown: {
-        key: "frequency",
-        fixed: "tau",
-        direction: -1,
-        answer: "larger"
-    },
-
-    tauUp: {
-        key: "tau",
-        fixed: "frequency",
-        direction: 1,
-        answer: "smaller"
-    },
-
-    tauDown: {
-        key: "tau",
-        fixed: "frequency",
-        direction: -1,
-        answer: "larger"
-    }
-};
-
-function predictionStatus() {
-    $("predictionResult").className = "feedback";
-    $("predictionResult").textContent = "";
-}
-
-function resetPrediction() {
-    predictionStart = null;
-    $("prediction").value = "";
-    predictionStatus();
-}
-
-/* =====================================
-   CONTROLS AND LIVE RESULTS
-===================================== */
-
-function sync() {
-    for (const key of ["tau", "frequency"]) {
-        $(key + "Number").value = state[key];
-        $(key + "Slider").value = Math.log10(state[key]);
-
-        $(key + "Slider").setAttribute(
-            "aria-valuetext",
-            fmt(state[key]) + controlUnit(key)
-        );
-    }
-}
-
-function update() {
-    const omega = 2 * Math.PI * state.frequency;
-    const result = response(state.tau, omega);
-    const error = result.error * 100;
-
-    $("omegaText").textContent =
-        `ω = ${fmt(omega)} rad/s`;
-
-    $("magnitudeResult").textContent =
-        result.magnitude.toFixed(4);
-
-    $("phaseResult").textContent =
-        result.degrees.toFixed(2) + "°";
-
-    $("cutoffResult").textContent =
-        Number(
-            (1 / (2 * Math.PI * state.tau)).toPrecision(4)
-        ) + " Hz";
-
-    $("errorResult").textContent =
-        error.toFixed(2) + "%";
-$("errorMagnitude").textContent =
-        "Current amplitude ratio M = " +
-        result.magnitude.toFixed(4);
-
-    $("calculatorError").textContent =
-        error.toFixed(2) + "%";
-
-    $("decimalError").textContent =
-        "δ = " + result.error.toFixed(4);
-
-    $("errorExplanation").textContent =
-        `The output amplitude is ${(-error).toFixed(2)}% ` +
-        "smaller than the input amplitude.";
-
-    predictionStatus();
-    schedulePlots();
-}
-
-for (const key of ["tau", "frequency"]) {
-    $(key + "Slider").addEventListener("input", () => {
-        state[key] = 10 ** Number($(key + "Slider").value);
-
-        sync();
-
-        clearControlMessage();
-        update();
-    });
-
-    $(key + "Number").addEventListener("input", () => {
-        const value = Number($(key + "Number").value);
-        const [min, max] = bounds[key];
-
-        if (
-            !Number.isFinite(value) ||
-            value < min ||
-            value > max
-        ) {
-            $("controlMessage").textContent =
-                `Enter a value from ${min} to ${max}. ` +
-                "The plots retain the last valid settings.";
-
-            return;
+                    <p>
+                        M is the amplitude ratio.
+                        Negative phase means the output lags the input.
+                    </p>
+                </div>
+                <div class="model-column">
+                    <h3>Input and output</h3>
+                    <div class="equations">
+                        x(t) = sin(ωt)<br />
+                        y(t) = M sin(ωt + φ)<br />
+                        ω = 2πf
+                    </div>
+                    <p>
+                        Unit gain K = 1, steady state.
+                        f in Hz, ω in rad/s, τ in seconds.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- 2. PREDICT, THEN CHECK -->
+        <section class="section" id="predict">
+            <h2>Predict, then check</h2>
+            <p>
+                Choose an experiment and predict its outcome.
+                Check &amp; run experiment applies the requested change to the live plots.
+                You can also change the controls yourself before checking.
+            </p>
+            <div class="two-columns">
+                <div>
+                    <label for="scenario">Experiment</label>
+                    <select id="scenario">
+                        <option value="fUp">
+                            Increase frequency · keep τ fixed
+                        </option>
+                        <option value="fDown">
+                            Decrease frequency · keep τ fixed
+                        </option>
+                        <option value="tauUp">
+                            Increase τ · keep frequency fixed
+                        </option>
+                        <option value="tauDown">
+                            Decrease τ · keep frequency fixed
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label for="prediction">Your prediction</label>
+                    <select id="prediction">
+                        <option value="">Choose an answer</option>
+                        <option value="smaller">
+                            Smaller amplitude and greater phase lag
+                        </option>
+                        <option value="larger">
+                            Larger amplitude and smaller phase lag
+                        </option>
+                        <option value="same">
+                            No change
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="actions">
+                <button id="checkPrediction" type="button">
+                    Check &amp; run experiment
+                </button>
+                <button class="quiet-button" disabled="" id="restorePrediction" type="button">
+                    Restore previous settings
+                </button>
+            </div>
+            <p aria-live="polite" class="feedback" id="predictionResult"></p>
+        </section>
+        <!-- 3. LIVE WORKSPACE -->
+        <div class="workspace-title" id="workspace">
+            <h2>Frequency response · Live workspace</h2>
+        </div>
+        <div class="workspace">
+            <!-- LEFT: CONTROLS AND RESULTS -->
+            <aside aria-label="Sensor controls and live results" class="panel">
+                <h2 class="panel-title">CONTROLS</h2>
+                <div class="controls-body">
+                    <div class="control">
+                        <label for="tauNumber">Time constant τ</label>
+                        <p>First-order system time constant.</p>
+                        <div class="number-row">
+                            <span>τ =</span>
+                            <input id="tauNumber" max="10" min="0.0001" step="any" type="number" value="0.2" />
+                            <span>s</span>
+                        </div>
+                        <input aria-label="Time constant, logarithmic slider" id="tauSlider" max="1" min="-4"
+                            step="0.001" type="range" value="-0.69897" />
+                        <div class="range-labels">
+                            <span>0.0001 s</span>
+                            <span>10 s</span>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <label for="frequencyNumber">
+                            Excitation frequency f
+                        </label>
+                        <p>Sine input frequency.</p>
+                        <div class="number-row">
+                            <span>f =</span>
+                            <input id="frequencyNumber" max="1000" min="0.01" step="any" type="number"
+                                value="0.3183098861837907" />
+                            <span>Hz</span>
+                        </div>
+                        <input aria-label="Frequency, logarithmic slider" id="frequencySlider" max="3" min="-2"
+                            step="0.001" type="range" value="-0.49715" />
+                        <div class="range-labels">
+                            <span>0.01 Hz</span>
+                            <span>1000 Hz</span>
+                        </div>
+                        <p class="compact-text" id="omegaText"></p>
+                    </div>
+                    <div class="metric-group">
+                        <h3 class="metric-title">
+                            Current / calculated metrics
+                        </h3>
+                        <div class="metrics">
+                            <div class="metric">
+                                <span>M</span>
+                                <strong id="magnitudeResult"></strong>
+                            </div>
+                            <div class="metric">
+                                <span>Phase</span>
+                                <strong id="phaseResult"></strong>
+                            </div>
+                            <div class="metric">
+                                <span>Cutoff fc</span>
+                                <strong id="cutoffResult"></strong>
+                            </div>
+                            <div class="metric">
+                                <span>Error</span>
+                                <strong id="errorResult"></strong>
+                            </div>
+                        </div>
+                        <p class="control-message" id="controlMessage" role="status"></p>
+                    </div>
+                </div>
+            </aside>
+            <!-- RIGHT: THREE CHARTS -->
+            <div class="plot-area">
+                <section class="panel">
+                    <div class="panel-title wave-header">
+                        <h2 class="panel-heading">
+                            Input &amp; output
+                        </h2>
+                        <label class="window-control" for="timeWindow">
+                            Time window:
+
+                            <select id="timeWindow">
+                                <option value="10">10 s · Fixed</option>
+                                <option value="5">5 s · Fixed</option>
+                                <option value="1">1 s · Fixed</option>
+                                <option value="0.1">0.1 s · Fixed</option>
+                                <option value="0.01">0.01 s · Fixed</option>
+                                <option value="100">100 s · Fixed</option>
+                                <option value="auto">4 periods · Auto</option>
+                            </select>
+                        </label>
+                    </div>
+                    <svg aria-label="Input and output versus time" class="wave-chart" id="sinePlot" role="img"></svg>
+                    <div class="chart-legend">
+                        <span class="key">Input</span>
+                        <span class="key output">Output</span>
+                    </div>
+                    <p class="plot-note" id="samplingNote"></p>
+                </section>
+                <div class="bode-grid" id="bode">
+                    <section class="panel">
+                        <h2 class="panel-title">Bode magnitude</h2>
+                        <svg aria-label="Magnitude in decibels versus logarithmic angular frequency" class="bode-chart"
+                            id="magnitudePlot" role="img"></svg>
+                        <div class="chart-legend">
+                            <span class="key">Magnitude</span>
+                            <span class="key cutoff">Cutoff</span>
+                            <span class="key selected">
+                                Selected frequency
+                            </span>
+                        </div>
+                    </section>
+                    <section class="panel">
+                        <h2 class="panel-title">Bode phase</h2>
+                        <svg aria-label="Phase in degrees versus logarithmic angular frequency" class="bode-chart"
+                            id="phasePlot" role="img"></svg>
+                        <div class="chart-legend">
+                            <span class="key">Phase</span>
+                            <span class="key cutoff">Cutoff</span>
+                            <span class="key selected">
+                                Selected frequency
+                            </span>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <!-- 4. CALCULATORS -->
+        <div id="calculators">
+            <section class="section error-calculator">
+                <h2>Dynamic-error calculator</h2>
+                <p class="error-intro">A negative value means the output amplitude is smaller than the input amplitude.
+                </p>
+                <div class="error-layout">
+                    <div class="error-formulas">
+                        <div class="equations">
+                            δ = M − 1<br />
+                            Error (%) = (M − 1) × 100
+                        </div>
+                        <p id="errorMagnitude"></p>
+                    </div>
+                    <div aria-live="polite" class="result-box">
+                        <span>Dynamic error</span>
+                        <strong id="calculatorError"></strong>
+                        <span id="decimalError"></span>
+                        <p id="errorExplanation"></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- 5. VALIDATION -->
+        <section class="section" id="validation">
+            <h2>Homework Validation — Checks 2 and 3</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Check</th>
+                            <th>Expected</th>
+                            <th>Calculated</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody id="validationRows"></tbody>
+                </table>
+            </div>
+        </section>
+        <noscript>
+            Enable JavaScript to use the calculations and plots.
+        </noscript>
+        <footer aria-label="Module navigation" class="site-footer">
+            <span>ENCS4380 · Dynamic Characteristics Toolkit</span>
+            <a class="back-modules" href="index.html">← Back to all modules</a>
+        </footer>
+    </main>
+    <script>
+        "use strict";
+
+        /* =====================================
+           MODEL AND SETTINGS
+        ===================================== */
+
+        const $ = id => document.getElementById(id);
+
+        const state = {
+            tau: 0.2,
+            frequency: 1 / Math.PI
+        };
+
+        const bounds = {
+            tau: [0.0001, 10],
+            frequency: [0.01, 1000]
+        };
+
+        const colors = {
+            input: "#244bff",
+            output: "#10a329",
+            point: "#ff9700"
+        };
+
+        let predictionStart = null;
+        let previousExperiment = null;
+        let plotFrame = null;
+
+        /*
+         * Bode axes stay stable during ordinary changes.
+         * They expand if the selected frequency or cutoff moves outside.
+         */
+        let bodeMin = -1;
+        let bodeMax = 2;
+
+        const fmt = value => Number(value.toPrecision(5)).toString();
+
+        const controlUnit = key =>
+            key === "tau" ? " seconds" : " hertz";
+
+        function clearControlMessage() {
+            $("controlMessage").textContent = "";
         }
 
-        state[key] = value;
-        $(key + "Slider").value = Math.log10(value);
+        function response(tau, omega) {
+            const magnitude = 1 / Math.hypot(1, omega * tau);
+            const phase = -Math.atan(omega * tau);
 
-        $(key + "Slider").setAttribute(
-            "aria-valuetext",
-            fmt(value) + controlUnit(key)
-        );
-
-        clearControlMessage();
-        update();
-    });
-}
-
-$("timeWindow").addEventListener("change", schedulePlots);
-
-window.addEventListener("resize", schedulePlots);
-
-$("scenario").addEventListener("change", resetPrediction);
-
-$("prediction").addEventListener("change", () => {
-    predictionStart = $("prediction").value
-        ? { ...state }
-        : null;
-
-    predictionStatus();
-});
-
-function rememberPredictionSettings() {
-    if (previousExperiment) return;
-    previousExperiment = {
-        state: { ...predictionStart },
-        timeWindow: $("timeWindow").value
-    };
-    $("restorePrediction").disabled = false;
-}
-
-$("restorePrediction").addEventListener("click", () => {
-    if (!previousExperiment) return;
-    Object.assign(state, previousExperiment.state);
-    $("timeWindow").value = previousExperiment.timeWindow;
-    previousExperiment = null;
-    $("restorePrediction").disabled = true;
-    resetPrediction();
-    sync();
-    clearControlMessage();
-    update();
-    $("predictionResult").textContent = "Your previous settings have been restored.";
-});
-
-$("checkPrediction").addEventListener("click", () => {
-    if (!predictionStart || !$("prediction").value) {
-        $("predictionResult").textContent =
-            "Choose your prediction first so we can compare it with the result.";
-
-        $("prediction").focus();
-        return;
-    }
-
-    const experiment = experiments[$("scenario").value];
-
-    const fixed =
-        Math.abs(
-            state[experiment.fixed] -
-            predictionStart[experiment.fixed]
-        ) <= 1e-9 * predictionStart[experiment.fixed];
-
-    const moved =
-        (
-            state[experiment.key] -
-            predictionStart[experiment.key]
-        ) * experiment.direction >
-        1e-9 * predictionStart[experiment.key];
-
-    if (!(fixed && moved)) {
-        const [min, max] = bounds[experiment.key];
-
-        const next = Math.min(
-            max,
-            Math.max(
-                min,
-                predictionStart[experiment.key] *
-                (experiment.direction === 1 ? 2 : 0.5)
-            )
-        );
-
-        if (next === predictionStart[experiment.key]) {
-            $("predictionResult").textContent =
-                "This experiment starts at the control limit. " +
-                "Move away from the limit and choose your prediction again, " +
-                "or select the opposite experiment.";
-
-            return;
+            return {
+                magnitude,
+                phase,
+                degrees: phase * 180 / Math.PI,
+                db: 20 * Math.log10(magnitude),
+                error: magnitude - 1
+            };
         }
 
-        rememberPredictionSettings();
-        state[experiment.fixed] =
-            predictionStart[experiment.fixed];
+        function maximumTau(frequency, loss) {
+            return Math.sqrt(
+                1 / (1 - loss / 100) ** 2 - 1
+            ) / (2 * Math.PI * frequency);
+        }
 
-        state[experiment.key] = next;
-        sync();
+        /* =====================================
+           SVG DRAWING
+        ===================================== */
 
-        clearControlMessage();
-        update();
-    }
-    rememberPredictionSettings();
-    const correct =
-        $("prediction").value === experiment.answer;
+        function svgNode(tag, attributes, text) {
+            const node = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                tag
+            );
 
-    $("predictionResult").className =
-        "feedback " + (correct ? "correct" : "incorrect");
-
-    $("predictionResult").textContent =
-        correct ? "Correct" : "False";
-});
-
-/* =====================================
-   HOMEWORK VALIDATION
-===================================== */
-
-function validation() {
-    const result = response(0.2, 2);
-    const tau = maximumTau(100, 5);
-
-    const rows = [
-        [
-            "2: Amplitude, τ = 0.2 s, ω = 2 rad/s",
-            "0.93 ± 0.005",
-            result.magnitude,
-            0.93,
-            0.005,
-            ""
-        ],
-
-        [
-            "2: Phase lag, τ = 0.2 s, ω = 2 rad/s",
-            "21.8° ± 0.1°",
-            -result.degrees,
-            21.8,
-            0.1,
-            "°"
-        ],
-
-        [
-            "3: Maximum τ, 100 Hz, 5% loss",
-            "0.52 ms ± 0.01 ms",
-            tau * 1000,
-            0.52,
-            0.01,
-            " ms"
-        ],
-
-        [
-            "3: Phase lag at 50 Hz using τmax",
-            "9.3° ± 0.1°",
-            -response(tau, 100 * Math.PI).degrees,
-            9.3,
-            0.1,
-            "°"
-        ]
-    ];
-
-    rows.forEach(
-        ([name, expected, value, target, tolerance, unit]) => {
-            const row = document.createElement("tr");
-
-            const pass =
-                Math.abs(value - target) <= tolerance;
-
-            [
-                name,
-                expected,
-                value.toFixed(4) + unit,
-                pass ? "PASS" : "FAIL"
-            ].forEach((text, index) => {
-                const cell = document.createElement("td");
-
-                cell.textContent = text;
-
-                if (index === 3) {
-                    cell.className = pass ? "pass" : "fail";
-                }
-
-                row.append(cell);
+            Object.entries(attributes).forEach(([key, value]) => {
+                node.setAttribute(key, value);
             });
 
-            $("validationRows").append(row);
+            if (text !== undefined) {
+                node.textContent = text;
+            }
+
+            return node;
         }
-    );
-}
 
-/* INITIAL DISPLAY */
+        function chart(id, config) {
+            const svg = $(id);
 
-sync();
-validation();
-update();
+            const width = Math.max(240, svg.clientWidth);
+            const height = svg.clientHeight;
 
-</script>
+            svg.replaceChildren();
+            svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+            const left = 52;
+            const right = width - 20;
+            const top = 17;
+            const bottom = height - 42;
+
+            const x = value => left +
+                (value - config.xMin) /
+                (config.xMax - config.xMin) *
+                (right - left);
+
+            const y = value => bottom -
+                (value - config.yMin) /
+                (config.yMax - config.yMin) *
+                (bottom - top);
+
+            function add(tag, attributes, text) {
+                const node = svgNode(tag, attributes, text);
+                svg.append(node);
+                return node;
+            }
+
+            const grid = {
+                stroke: "#dbe1dd",
+                "stroke-width": 1
+            };
+
+            // Horizontal grid and labels.
+            config.yTicks.forEach(value => {
+                add("line", {
+                    x1: left,
+                    x2: right,
+                    y1: y(value),
+                    y2: y(value),
+                    ...grid
+                });
+
+                add("text", {
+                    x: left - 7,
+                    y: y(value) + 4,
+                    "text-anchor": "end",
+                    "font-size": 11,
+                    fill: "#344738"
+                }, fmt(value));
+            });
+
+            const ticks = config.log
+                ? Array.from(
+                    { length: config.xMax - config.xMin + 1 },
+                    (_, index) => config.xMin + index
+                )
+                : Array.from(
+                    { length: 6 },
+                    (_, index) => config.xMax * index / 5
+                );
+
+            // Vertical grid and labels.
+            ticks.forEach((value, index) => {
+                add("line", {
+                    x1: x(value),
+                    x2: x(value),
+                    y1: top,
+                    y2: bottom,
+                    ...grid
+                });
+
+                if (
+                    ticks.length <= 7 ||
+                    index % 2 === 0 ||
+                    index === ticks.length - 1
+                ) {
+                    add("text", {
+                        x: x(value),
+                        y: bottom + 17,
+                        "text-anchor": "middle",
+                        "font-size": 11,
+                        fill: "#344738"
+                    }, config.log ? "10^" + value : fmt(value));
+                }
+            });
+
+            // Minor logarithmic grid.
+            if (config.log) {
+                for (
+                    let decade = config.xMin;
+                    decade < config.xMax;
+                    decade++
+                ) {
+                    for (let n = 2; n <= 9; n++) {
+                        const position = x(decade + Math.log10(n));
+
+                        add("line", {
+                            x1: position,
+                            x2: position,
+                            y1: top,
+                            y2: bottom,
+                            stroke: "#eff2ef",
+                            "stroke-width": 0.7
+                        });
+                    }
+                }
+            }
+
+            add("rect", {
+                x: left,
+                y: top,
+                width: right - left,
+                height: bottom - top,
+                fill: "none",
+                stroke: "#a5b3a8"
+            });
+
+            // Clip curves to the chart area.
+            const defs = add("defs", {});
+            const clip = svgNode("clipPath", {
+                id: id + "-clip"
+            });
+
+            clip.append(svgNode("rect", {
+                x: left,
+                y: top,
+                width: right - left,
+                height: bottom - top
+            }));
+
+            defs.append(clip);
+
+            const group = add("g", {
+                "clip-path": `url(#${id}-clip)`
+            });
+
+            config.curves.forEach(curve => {
+                group.append(svgNode("polyline", {
+                    points: curve.points.map(([a, b]) =>
+                        x(a) + "," + y(b)
+                    ).join(" "),
+                    fill: "none",
+                    stroke: curve.color,
+                    "stroke-width": 2,
+                    "stroke-linejoin": "round"
+                }));
+            });
+
+            // Cutoff and selected-frequency markers.
+            (config.markers || []).forEach(marker => {
+                if (marker.line) {
+                    group.append(svgNode("line", {
+                        x1: x(marker.x),
+                        x2: x(marker.x),
+                        y1: top,
+                        y2: bottom,
+                        stroke: marker.color,
+                        "stroke-width": 1.5,
+                        "stroke-dasharray": "5 4"
+                    }));
+                }
+
+                const dot = svgNode("circle", {
+                    cx: x(marker.x),
+                    cy: y(marker.y),
+                    r: 4.5,
+                    fill: marker.color,
+                    stroke: "#fff",
+                    "stroke-width": 0.7
+                });
+
+                dot.append(svgNode("title", {}, marker.label));
+                group.append(dot);
+            });
+
+            add("text", {
+                x: (left + right) / 2,
+                y: height - 6,
+                "text-anchor": "middle",
+                "font-size": 12,
+                fill: "#233d29"
+            }, config.xLabel);
+
+            add("text", {
+                transform: `translate(14 ${(top + bottom) / 2}) rotate(-90)`,
+                "text-anchor": "middle",
+                "font-size": 12,
+                fill: "#233d29"
+            }, config.yLabel);
+        }
+
+        /* =====================================
+           RESPONSE PLOTS
+        ===================================== */
+
+        function drawPlots() {
+            const omega = 2 * Math.PI * state.frequency;
+            const result = response(state.tau, omega);
+
+            const endTime = $("timeWindow").value === "auto"
+                ? 4 / state.frequency
+                : Number($("timeWindow").value);
+
+            const cycles = endTime * state.frequency;
+
+            const samples = Math.max(
+                800,
+                Math.min(16000, Math.ceil(cycles * 60))
+            );
+
+            const input = [];
+            const output = [];
+
+            /*
+             * Avoid drawing misleading undersampled waveforms
+             * when too many cycles fit into the selected window.
+             */
+            if (cycles <= 200) {
+                for (let i = 0; i <= samples; i++) {
+                    const time = endTime * i / samples;
+
+                    input.push([
+                        time,
+                        Math.sin(omega * time)
+                    ]);
+
+                    output.push([
+                        time,
+                        result.magnitude *
+                        Math.sin(omega * time + result.phase)
+                    ]);
+                }
+            }
+
+            $("samplingNote").textContent = cycles > 200
+                ? "Too many cycles for this time window. Select “4 periods · Auto” or a shorter fixed window to inspect the waveform."
+                : cycles > 40
+                    ? "Dense waveform: choose a shorter time window or “4 periods · Auto” to inspect individual cycles."
+                    : "";
+
+            chart("sinePlot", {
+                xMin: 0,
+                xMax: endTime,
+                yMin: -1.5,
+                yMax: 1.5,
+                yTicks: [-1.5, -1, -0.5, 0, 0.5, 1, 1.5],
+                xLabel: "Time t (s)",
+                yLabel: "Amplitude",
+                curves: [
+                    {
+                        points: input,
+                        color: colors.input
+                    },
+                    {
+                        points: output,
+                        color: colors.output
+                    }
+                ]
+            });
+
+            const cutoff = 1 / state.tau;
+
+            bodeMin = Math.min(
+                bodeMin,
+                Math.floor(Math.log10(Math.min(cutoff, omega)))
+            );
+
+            bodeMax = Math.max(
+                bodeMax,
+                Math.ceil(Math.log10(Math.max(cutoff, omega)))
+            );
+
+            const magnitude = [];
+            const phase = [];
+
+            for (let i = 0; i <= 500; i++) {
+                const logOmega =
+                    bodeMin + (bodeMax - bodeMin) * i / 500;
+
+                const current = response(state.tau, 10 ** logOmega);
+
+                magnitude.push([logOmega, current.db]);
+                phase.push([logOmega, current.degrees]);
+            }
+
+            const floor = Math.min(
+                -45,
+                Math.floor(result.db / 10) * 10 - 5
+            );
+
+            const common = {
+                xMin: bodeMin,
+                xMax: bodeMax,
+                log: true,
+                xLabel: "ω (rad/s)"
+            };
+
+            chart("magnitudePlot", {
+                ...common,
+                yMin: floor,
+                yMax: 5,
+
+                yTicks: floor === -45
+                    ? [-40, -30, -20, -10, 0, 5]
+                    : [
+                        floor,
+                        Math.round(floor * 0.75),
+                        Math.round(floor * 0.5),
+                        Math.round(floor * 0.25),
+                        0
+                    ],
+
+                yLabel: "Magnitude (dB)",
+
+                curves: [
+                    {
+                        points: magnitude,
+                        color: colors.input
+                    }
+                ],
+
+                markers: [
+                    {
+                        x: Math.log10(cutoff),
+                        y: 20 * Math.log10(1 / Math.sqrt(2)),
+                        color: colors.output,
+                        line: true,
+                        label: `Cutoff: ${fmt(cutoff)} rad/s, −3.01 dB`
+                    },
+                    {
+                        x: Math.log10(omega),
+                        y: result.db,
+                        color: colors.point,
+                        label:
+                            `Selected: ${fmt(omega)} rad/s, ` +
+                            `${result.db.toFixed(2)} dB`
+                    }
+                ]
+            });
+
+            chart("phasePlot", {
+                ...common,
+                yMin: -90,
+                yMax: 0,
+                yTicks: [-90, -60, -45, -30, 0],
+                yLabel: "Phase (°)",
+
+                curves: [
+                    {
+                        points: phase,
+                        color: colors.input
+                    }
+                ],
+
+                markers: [
+                    {
+                        x: Math.log10(cutoff),
+                        y: -45,
+                        color: colors.output,
+                        line: true,
+                        label: `Cutoff: ${fmt(cutoff)} rad/s, −45°`
+                    },
+                    {
+                        x: Math.log10(omega),
+                        y: result.degrees,
+                        color: colors.point,
+                        label:
+                            `Selected: ${fmt(omega)} rad/s, ` +
+                            `${result.degrees.toFixed(2)}°`
+                    }
+                ]
+            });
+        }
+
+        function schedulePlots() {
+            if (plotFrame !== null) {
+                cancelAnimationFrame(plotFrame);
+            }
+
+            plotFrame = requestAnimationFrame(() => {
+                plotFrame = null;
+                drawPlots();
+            });
+        }
+
+        /* =====================================
+           PREDICTION EXPERIMENTS
+        ===================================== */
+
+        const experiments = {
+            fUp: {
+                key: "frequency",
+                fixed: "tau",
+                direction: 1,
+                answer: "smaller"
+            },
+
+            fDown: {
+                key: "frequency",
+                fixed: "tau",
+                direction: -1,
+                answer: "larger"
+            },
+
+            tauUp: {
+                key: "tau",
+                fixed: "frequency",
+                direction: 1,
+                answer: "smaller"
+            },
+
+            tauDown: {
+                key: "tau",
+                fixed: "frequency",
+                direction: -1,
+                answer: "larger"
+            }
+        };
+
+        function predictionStatus() {
+            $("predictionResult").className = "feedback";
+            $("predictionResult").textContent = "";
+        }
+
+        function resetPrediction() {
+            predictionStart = null;
+            $("prediction").value = "";
+            predictionStatus();
+        }
+
+        /* =====================================
+           CONTROLS AND LIVE RESULTS
+        ===================================== */
+
+        function sync() {
+            for (const key of ["tau", "frequency"]) {
+                $(key + "Number").value = state[key];
+                $(key + "Slider").value = Math.log10(state[key]);
+
+                $(key + "Slider").setAttribute(
+                    "aria-valuetext",
+                    fmt(state[key]) + controlUnit(key)
+                );
+            }
+        }
+
+        function update() {
+            const omega = 2 * Math.PI * state.frequency;
+            const result = response(state.tau, omega);
+            const error = result.error * 100;
+
+            $("omegaText").textContent =
+                `ω = ${fmt(omega)} rad/s`;
+
+            $("magnitudeResult").textContent =
+                result.magnitude.toFixed(4);
+
+            $("phaseResult").textContent =
+                result.degrees.toFixed(2) + "°";
+
+            $("cutoffResult").textContent =
+                Number(
+                    (1 / (2 * Math.PI * state.tau)).toPrecision(4)
+                ) + " Hz";
+
+            $("errorResult").textContent =
+                error.toFixed(2) + "%";
+            $("errorMagnitude").textContent =
+                "Current amplitude ratio M = " +
+                result.magnitude.toFixed(4);
+
+            $("calculatorError").textContent =
+                error.toFixed(2) + "%";
+
+            $("decimalError").textContent =
+                "δ = " + result.error.toFixed(4);
+
+            $("errorExplanation").textContent =
+                `The output amplitude is ${(-error).toFixed(2)}% ` +
+                "smaller than the input amplitude.";
+
+            predictionStatus();
+            schedulePlots();
+        }
+
+        for (const key of ["tau", "frequency"]) {
+            $(key + "Slider").addEventListener("input", () => {
+                state[key] = 10 ** Number($(key + "Slider").value);
+
+                sync();
+
+                clearControlMessage();
+                update();
+            });
+
+            $(key + "Number").addEventListener("input", () => {
+                const value = Number($(key + "Number").value);
+                const [min, max] = bounds[key];
+
+                if (
+                    !Number.isFinite(value) ||
+                    value < min ||
+                    value > max
+                ) {
+                    $("controlMessage").textContent =
+                        `Enter a value from ${min} to ${max}. ` +
+                        "The plots retain the last valid settings.";
+
+                    return;
+                }
+
+                state[key] = value;
+                $(key + "Slider").value = Math.log10(value);
+
+                $(key + "Slider").setAttribute(
+                    "aria-valuetext",
+                    fmt(value) + controlUnit(key)
+                );
+
+                clearControlMessage();
+                update();
+            });
+        }
+
+        $("timeWindow").addEventListener("change", schedulePlots);
+
+        window.addEventListener("resize", schedulePlots);
+
+        $("scenario").addEventListener("change", resetPrediction);
+
+        $("prediction").addEventListener("change", () => {
+            predictionStart = $("prediction").value
+                ? { ...state }
+                : null;
+
+            predictionStatus();
+        });
+
+        function rememberPredictionSettings() {
+            if (previousExperiment) return;
+            previousExperiment = {
+                state: { ...predictionStart },
+                timeWindow: $("timeWindow").value
+            };
+            $("restorePrediction").disabled = false;
+        }
+
+        $("restorePrediction").addEventListener("click", () => {
+            if (!previousExperiment) return;
+            Object.assign(state, previousExperiment.state);
+            $("timeWindow").value = previousExperiment.timeWindow;
+            previousExperiment = null;
+            $("restorePrediction").disabled = true;
+            resetPrediction();
+            sync();
+            clearControlMessage();
+            update();
+            $("predictionResult").textContent = "Your previous settings have been restored.";
+        });
+
+        $("checkPrediction").addEventListener("click", () => {
+            if (!predictionStart || !$("prediction").value) {
+                $("predictionResult").textContent =
+                    "Choose your prediction first so we can compare it with the result.";
+
+                $("prediction").focus();
+                return;
+            }
+
+            const experiment = experiments[$("scenario").value];
+
+            const fixed =
+                Math.abs(
+                    state[experiment.fixed] -
+                    predictionStart[experiment.fixed]
+                ) <= 1e-9 * predictionStart[experiment.fixed];
+
+            const moved =
+                (
+                    state[experiment.key] -
+                    predictionStart[experiment.key]
+                ) * experiment.direction >
+                1e-9 * predictionStart[experiment.key];
+
+            if (!(fixed && moved)) {
+                const [min, max] = bounds[experiment.key];
+
+                const next = Math.min(
+                    max,
+                    Math.max(
+                        min,
+                        predictionStart[experiment.key] *
+                        (experiment.direction === 1 ? 2 : 0.5)
+                    )
+                );
+
+                if (next === predictionStart[experiment.key]) {
+                    $("predictionResult").textContent =
+                        "This experiment starts at the control limit. " +
+                        "Move away from the limit and choose your prediction again, " +
+                        "or select the opposite experiment.";
+
+                    return;
+                }
+
+                rememberPredictionSettings();
+                state[experiment.fixed] =
+                    predictionStart[experiment.fixed];
+
+                state[experiment.key] = next;
+                sync();
+
+                clearControlMessage();
+                update();
+            }
+            rememberPredictionSettings();
+            const correct =
+                $("prediction").value === experiment.answer;
+
+            $("predictionResult").className =
+                "feedback " + (correct ? "correct" : "incorrect");
+
+            $("predictionResult").textContent =
+                correct ? "Correct" : "False";
+        });
+
+        /* =====================================
+           HOMEWORK VALIDATION
+        ===================================== */
+
+        function validation() {
+            const result = response(0.2, 2);
+            const tau = maximumTau(100, 5);
+
+            const rows = [
+                [
+                    "2: Amplitude, τ = 0.2 s, ω = 2 rad/s",
+                    "0.93 ± 0.005",
+                    result.magnitude,
+                    0.93,
+                    0.005,
+                    ""
+                ],
+
+                [
+                    "2: Phase lag, τ = 0.2 s, ω = 2 rad/s",
+                    "21.8° ± 0.1°",
+                    -result.degrees,
+                    21.8,
+                    0.1,
+                    "°"
+                ],
+
+                [
+                    "3: Maximum τ, 100 Hz, 5% loss",
+                    "0.52 ms ± 0.01 ms",
+                    tau * 1000,
+                    0.52,
+                    0.01,
+                    " ms"
+                ],
+
+                [
+                    "3: Phase lag at 50 Hz using τmax",
+                    "9.3° ± 0.1°",
+                    -response(tau, 100 * Math.PI).degrees,
+                    9.3,
+                    0.1,
+                    "°"
+                ]
+            ];
+
+            rows.forEach(
+                ([name, expected, value, target, tolerance, unit]) => {
+                    const row = document.createElement("tr");
+
+                    const pass =
+                        Math.abs(value - target) <= tolerance;
+
+                    [
+                        name,
+                        expected,
+                        value.toFixed(4) + unit,
+                        pass ? "PASS" : "FAIL"
+                    ].forEach((text, index) => {
+                        const cell = document.createElement("td");
+
+                        cell.textContent = text;
+
+                        if (index === 3) {
+                            cell.className = pass ? "pass" : "fail";
+                        }
+
+                        row.append(cell);
+                    });
+
+                    $("validationRows").append(row);
+                }
+            );
+        }
+
+        /* INITIAL DISPLAY */
+
+        sync();
+        validation();
+        update();
+
+    </script>
 </body>
+
 </html>
