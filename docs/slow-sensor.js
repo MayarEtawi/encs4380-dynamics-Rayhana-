@@ -1,4 +1,3 @@
-
 "use strict";
 
 /*
@@ -254,6 +253,10 @@
   // 7. Update simulation and plots
   function refresh() {
 
+    // Keep the model buttons and the experiment list in sync
+    updateExperimentOptions();
+    syncModelSwitch();
+
     try {
 
       const p = params();
@@ -387,6 +390,7 @@
     }
 
     get("p2PredictionResult").hidden = true;
+    clearRestore();
     refresh();
   }
 
@@ -441,88 +445,319 @@
     })
   );
 
-  // 9. Predict, then check
-  get("p2Check").addEventListener("click", () => {
+  // 9. Predict, then check (same idea as P4: three predictions at once)
 
-    const result = get("p2PredictionResult");
-    result.hidden = false;
+  const experiments = {
+    sensor: "p2Sensor",
+    kp: "p2Kp",
+    ki: "p2Ki",
+    kd: "p2Kd",
+    limit: "p2Limit",
+    gain: "p2Gain",
+    tau: "p2Tau",
+    mass: "p2Mass",
+    damping: "p2Damping",
+    stiffness: "p2Stiffness"
+  };
 
-    const selected = document.querySelector(
-      'input[name="p2Prediction"]:checked'
+  const parameterNames = {
+    sensor: "Sensor time constant τs",
+    kp: "Proportional gain Kp",
+    ki: "Integral gain Ki",
+    kd: "Derivative gain Kd",
+    limit: "Actuator limit Umax",
+    gain: "Plant gain K",
+    tau: "Plant time constant τ",
+    mass: "Mass m",
+    damping: "Damping b",
+    stiffness: "Stiffness k"
+  };
+
+  const parameterKeys = {
+    sensor: "sensorTau",
+    kp: "kp",
+    ki: "ki",
+    kd: "kd",
+    limit: "umax",
+    gain: "K",
+    tau: "tau",
+    mass: "m",
+    damping: "b",
+    stiffness: "k"
+  };
+
+  // One prediction dropdown for each metric
+  const predictions = [
+    { metric: "overshoot", id: "p2PredOvershoot", name: "Overshoot" },
+    { metric: "settle", id: "p2PredSettle", name: "Settling time" },
+    { metric: "error", id: "p2PredError", name: "Final error" }
+  ];
+
+  const changeWords = {
+    increase: "Increased",
+    decrease: "Decreased",
+    same: "About the same"
+  };
+
+  // Settings saved before the last "Check & run"
+  let restorePoint = null;
+
+  function clearRestore() {
+    restorePoint = null;
+    get("p2Restore").disabled = true;
+  }
+
+  function readSettings() {
+    const values = {};
+    for (const id of ids) {
+      if (id !== "p2Plant") values[id] = get(id).value;
+    }
+    return values;
+  }
+
+  // Same tolerance rule as the old single-metric check
+  function directionOfChange(a, b) {
+    if (!Number.isFinite(a) && !Number.isFinite(b)) return "same";
+    if (!Number.isFinite(b)) return "increase";
+    if (!Number.isFinite(a)) return "decrease";
+
+    const difference = b - a;
+    const tolerance = Math.max(0.001, Math.abs(a) * 0.005);
+
+    if (Math.abs(difference) <= tolerance) return "same";
+    return difference > 0 ? "increase" : "decrease";
+  }
+
+  function showMetric(metric, value) {
+    if (!Number.isFinite(value)) return "Not settled";
+    if (metric === "overshoot") return value.toFixed(2) + "%";
+    if (metric === "settle") return value.toFixed(2) + " s";
+    return value.toFixed(3);
+  }
+
+  const shortNumber = v => String(Number(v.toFixed(3)));
+
+  // Round to the input step, so the slider shows exactly the tested value
+  function snapToStep(value, input) {
+    const step = Number(input.step);
+    if (!Number.isFinite(step) || step <= 0) return value;
+    const base = input.min === "" ? 0 : Number(input.min);
+    return Number(
+      (base + Math.round((value - base) / step) * step).toFixed(6)
     );
+  }
 
-    if (!selected) {
-      result.className =
-        "prediction-result prediction-neutral";
-      result.textContent =
-        "Choose a prediction first.";
-      return;
+  function updateExperimentOptions() {
+    const plant = get("p2Plant").value;
+    const select = get("p2Experiment");
+
+    for (const option of select.options) {
+      const value = option.value;
+
+      const firstOrder =
+        value.startsWith("gain_") ||
+        value.startsWith("tau_");
+
+      const secondOrder =
+        value.startsWith("mass_") ||
+        value.startsWith("damping_") ||
+        value.startsWith("stiffness_");
+
+      option.disabled =
+        (plant === "first" && secondOrder) ||
+        (plant === "second" && firstOrder);
+
+      option.hidden = option.disabled;
     }
 
-    try {
+    if (select.selectedOptions[0]?.disabled) {
+      select.value = [...select.options].find(
+        option => !option.disabled && option.value
+      )?.value || "";
+    }
+  }
 
+  // Plant model buttons inside the prediction card
+  const modelButtons = document.querySelectorAll(
+    "#p2PredictionSection [data-plant]"
+  );
+
+  function syncModelSwitch() {
+    const plant = get("p2Plant").value;
+    modelButtons.forEach(button =>
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.plant === plant)
+      )
+    );
+  }
+
+  modelButtons.forEach(button =>
+    button.addEventListener("click", () => {
+      const plant = get("p2Plant");
+      if (plant.value === button.dataset.plant) return;
+
+      plant.value = button.dataset.plant;
+
+      // Same events as choosing the model in the settings card
+      plant.dispatchEvent(new Event("input"));
+      plant.dispatchEvent(new Event("change"));
+    })
+  );
+
+  get("p2Plant").addEventListener("change", () => {
+    updateExperimentOptions();
+    syncModelSwitch();
+  });
+
+  updateExperimentOptions();
+  syncModelSwitch();
+
+  // Result cards (same structure as P4)
+  function renderFeedback(title, rows, note) {
+    const feedback = get("p2PredictionResult");
+
+    const make = (tag, cls, text) => {
+      const el = document.createElement(tag);
+      if (cls) el.className = cls;
+      if (text !== undefined) el.textContent = text;
+      return el;
+    };
+
+    feedback.replaceChildren();
+    feedback.className = "p2-feedback";
+    feedback.append(make("div", "p2-result-title", title));
+
+    const grid = make("div", "p2-result-grid");
+
+    for (const row of rows) {
+      const card = make(
+        "div",
+        "p2-result-card " + (row.ok ? "is-correct" : "is-wrong")
+      );
+      card.append(make("strong", "", row.name));
+      card.append(make("span", "comparison", row.comparison));
+      card.append(make(
+        "span",
+        "result-status",
+        (row.ok ? "✓ Correct · " : "✗ Different · ") +
+          changeWords[row.actual]
+      ));
+      grid.append(card);
+    }
+
+    feedback.append(grid);
+    feedback.append(make("p", "p2-result-note", note));
+    feedback.hidden = false;
+  }
+
+  function showMessage(text, isError) {
+    const feedback = get("p2PredictionResult");
+    feedback.replaceChildren();
+    feedback.className = "p2-feedback" + (isError ? " is-error" : "");
+    feedback.textContent = text;
+    feedback.hidden = false;
+  }
+
+  // Check & run
+  get("p2PredictionForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    try {
       const p = params();
 
-      const afterTau = Math.min(
-        3,
-        Math.max(p.sensorTau + 0.2, p.sensorTau * 2)
-      );
+      const experiment = get("p2Experiment").value;
+      const [parameter, direction] = experiment.split("_");
+      const id = experiments[parameter];
 
-      if (afterTau <= p.sensorTau) {
-        result.textContent =
-          "Lower the sensor time constant first.";
-        return;
+      if (!id || !parameterKeys[parameter]) {
+        throw Error("Please select a valid experiment.");
       }
 
-      // Two independent simulations
-      const a = metrics(simulate(p), p).overshoot;
+      const guesses = predictions.map(item => get(item.id).value);
 
-      const b = metrics(
-        simulate({ ...p, sensorTau: afterTau }),
-        p
-      ).overshoot;
+      if (guesses.some(value => !value)) {
+        throw Error("Choose a prediction for all three metrics first.");
+      }
 
-      const delta = b - a;
+      const input = get(id);
+      const oldValue = Number(input.value);
 
-      const expected =
-        Math.abs(delta) <= 0.1
-          ? "same"
-          : delta > 0
-            ? "increase"
-            : "decrease";
+      let newValue = direction === "up"
+        ? (oldValue === 0 ? 0.5 : oldValue * 1.5)
+        : oldValue / 1.5;
 
-      const correct = selected.value === expected;
+      const min = input.min === "" ? -Infinity : Number(input.min);
+      const max = input.max === "" ? Infinity : Number(input.max);
 
-      result.className =
-        "prediction-result " +
-        (correct
-          ? "prediction-correct"
-          : "prediction-incorrect");
+      newValue = clamp(snapToStep(newValue, input), min, max);
 
-      result.textContent =
-        (correct ? "✓ Correct! " : "✗ Not quite. ") +
-        `Sensor τs: ${p.sensorTau.toFixed(2)} → ` +
-        `${afterTau.toFixed(2)} s. ` +
-        `Overshoot: ${a.toFixed(2)}% → ` +
-        `${b.toFixed(2)}%. ` +
-        `Correct prediction: ${expected}. ` +
-        "All other settings remained unchanged.";
+      if (newValue === oldValue) {
+        throw Error(
+          "This parameter cannot be changed further in that direction."
+        );
+      }
+
+      // Original simulation
+      const before = metrics(simulate(p), p);
+
+      // Change only the selected parameter
+      const changed = { ...p, [parameterKeys[parameter]]: newValue };
+      const after = metrics(simulate(changed), changed);
+
+      // Run: save the old settings, then show the new value on the page
+      restorePoint = readSettings();
+      input.value = newValue;
+      get("p2Restore").disabled = false;
+      refresh();
+
+      // Check the three predictions
+      let correct = 0;
+
+      const rows = predictions.map((item, i) => {
+        let a = before[item.metric];
+        let b = after[item.metric];
+
+        if (item.metric === "error") {
+          a = Math.abs(a);
+          b = Math.abs(b);
+        }
+
+        const actual = directionOfChange(a, b);
+        const ok = guesses[i] === actual;
+        if (ok) correct++;
+
+        return {
+          name: item.name,
+          comparison:
+            `${showMetric(item.metric, a)} → ${showMetric(item.metric, b)}`,
+          ok,
+          actual
+        };
+      });
+
+      const plantName = p.type === "first" ? "first-order" : "second-order";
+      const action = get("p2Experiment").selectedOptions[0].textContent.trim();
+
+      renderFeedback(
+        `${action} (${shortNumber(oldValue)} → ${shortNumber(newValue)}) · Before vs. after`,
+        rows,
+        `${correct} / 3 predictions correct. Only ${parameterNames[parameter]} ` +
+        `changed; the ${plantName} plant and the other settings stayed fixed. ` +
+        "The graphs below now use the new value."
+      );
 
     } catch (err) {
-      result.className =
-        "prediction-result prediction-incorrect";
-      result.textContent =
-        "Experiment failed: " + err.message;
+      showMessage("Experiment failed: " + err.message, true);
     }
   });
 
-  get("p2Retry").addEventListener("click", () => {
+  // Restore settings
+  get("p2Restore").addEventListener("click", () => {
+    if (!restorePoint) return;
 
-    document.querySelectorAll(
-      'input[name="p2Prediction"]'
-    ).forEach(x => x.checked = false);
-
-    get("p2PredictionResult").hidden = true;
+    setValues(restorePoint);
+    showMessage("Previous settings and their response restored.", false);
   });
 
   // Independent from P1

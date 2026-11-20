@@ -149,72 +149,92 @@
 
     </section>
 
-    <section class="pid-card" id="p2PredictionSection">
+    <section class="pid-card" id="p2PredictionSection" aria-labelledby="p2PredictTitle">
 
-      <h2>Predict, then check</h2>
+      <!-- Same layout as the P4 "Predict, then check" card -->
+      <p class="lab-eyebrow">PREDICT, THEN CHECK</p>
+      <h2 id="p2PredictTitle"><span>Make a prediction. <span class="p2-underline">Test the change.</span></span></h2>
 
-      <p>
-        Predict what will happen when the sensor becomes
-        slower, then compare your answer with two actual
-        RK4 simulations. Only the sensor time constant
-        changes; the plant, setpoint and PID gains remain
-        unchanged.
-      </p>
+      <form id="p2PredictionForm">
+        <div class="p2-predict-options">
 
-      <p>
-        <strong>Experiment:</strong>
-        Increase the sensor time constant τs.
-      </p>
+          <div class="p2-predict-setup">
+            <!-- Plant model buttons (linked to "Plant model" in the settings) -->
+            <div class="p2-model">
+              <span class="p2-model-title" id="p2ModelTitle">Plant model</span>
+              <div class="p2-model-switch" role="group" aria-labelledby="p2ModelTitle">
+                <button type="button" data-plant="first" aria-pressed="true" title="K/(τs+1)">First order</button>
+                <button type="button" data-plant="second" aria-pressed="false" title="1/(ms²+bs+k)">Second order</button>
+              </div>
+            </div>
 
-      <p>
-        <strong>Question:</strong>
-        What happens to the actual output overshoot?
-      </p>
+            <label for="p2Experiment">Experiment
+              <select id="p2Experiment">
+                <option value="sensor_up">Increase sensor τs</option>
+                <option value="sensor_down">Decrease sensor τs</option>
+                <option value="kp_up">Increase Kp</option>
+                <option value="kp_down">Decrease Kp</option>
+                <option value="ki_up">Increase Ki</option>
+                <option value="ki_down">Decrease Ki</option>
+                <option value="kd_up">Increase Kd</option>
+                <option value="kd_down">Decrease Kd</option>
+                <option value="limit_up">Increase Umax</option>
+                <option value="limit_down">Decrease Umax</option>
+                <option value="gain_up">Increase plant gain K</option>
+                <option value="gain_down">Decrease plant gain K</option>
+                <option value="tau_up">Increase plant τ</option>
+                <option value="tau_down">Decrease plant τ</option>
+                <option value="mass_up">Increase mass m</option>
+                <option value="mass_down">Decrease mass m</option>
+                <option value="damping_up">Increase damping b</option>
+                <option value="damping_down">Decrease damping b</option>
+                <option value="stiffness_up">Increase stiffness k</option>
+                <option value="stiffness_down">Decrease stiffness k</option>
+              </select>
+            </label>
+          </div>
 
-      <fieldset class="prediction-options">
+          <fieldset class="p2-predict-metrics">
+            <legend>Your prediction <small>How will each metric change?</small></legend>
+            <div class="p2-predict-dropdowns">
+              <label for="p2PredOvershoot">Overshoot
+                <select id="p2PredOvershoot" required>
+                  <option value="">Choose…</option>
+                  <option value="increase">Increases</option>
+                  <option value="decrease">Decreases</option>
+                  <option value="same">Stays about the same</option>
+                </select>
+              </label>
+              <label for="p2PredSettle">Settling time
+                <select id="p2PredSettle" required>
+                  <option value="">Choose…</option>
+                  <option value="increase">Increases (slower)</option>
+                  <option value="decrease">Decreases (faster)</option>
+                  <option value="same">Stays about the same</option>
+                </select>
+              </label>
+              <label for="p2PredError">Final error
+                <select id="p2PredError" required>
+                  <option value="">Choose…</option>
+                  <option value="increase">Increases (worse)</option>
+                  <option value="decrease">Decreases (better)</option>
+                  <option value="same">Stays about the same</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
 
-        <legend>
-          What do you predict will happen?
-        </legend>
+        </div>
 
-        <label>
-          <input type="radio" name="p2Prediction" value="increase">
-          Increase
-        </label>
+        <div class="p2-predict-buttons">
+          <button id="p2Check" class="p2-btn-primary" type="submit">Check &amp; run</button>
+          <button id="p2Restore" class="p2-btn-outline" type="button" disabled>Restore settings</button>
+        </div>
+      </form>
 
-        <label>
-          <input type="radio" name="p2Prediction" value="decrease">
-          Decrease
-        </label>
+      <p class="p2-hint">Only the selected parameter changes in this mini experiment. The plant model and the other settings stay fixed.</p>
 
-        <label>
-          <input type="radio" name="p2Prediction" value="same">
-          Stay approximately the same
-        </label>
-
-      </fieldset>
-
-      <div class="pid-actions">
-
-        <button id="p2Check" type="button">
-          Run experiment &amp; check
-        </button>
-
-        <button id="p2Retry" type="button">
-          Try again
-        </button>
-
-      </div>
-
-      <div id="p2PredictionResult" class="prediction-result prediction-neutral" role="status" aria-live="polite" hidden>
-      </div>
-
-      <p class="muted">
-        The correct answer is determined by comparing
-        the simulated responses, not by assuming that
-        overshoot always increases. The result depends
-        on the selected plant and controller settings.
-      </p>
+      <div id="p2PredictionResult" class="p2-feedback" role="status" aria-live="polite" hidden></div>
 
     </section>
 

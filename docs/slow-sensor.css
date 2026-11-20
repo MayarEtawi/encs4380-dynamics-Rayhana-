@@ -66,3 +66,382 @@
     min-height: 300px;
   }
 }
+
+/* =========================================================
+   Prediction card — same look as the P4 "Predict, then check"
+   card (values copied from tuning-challenge.css).
+   Everything is scoped to #p2PredictionSection, so the rest
+   of the page and the shared stylesheets are not affected.
+   ========================================================= */
+
+#p2PredictionSection [hidden] {
+  display: none !important;
+}
+
+#p2PredictionSection .lab-eyebrow {
+  color: #a77d56;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  margin: 0 0 3px;
+}
+
+#p2PredictionSection h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 24px;
+  line-height: 1.25;
+  color: #233247;
+  margin: 0 0 13px;
+}
+
+/* Underline under "Test the change." */
+#p2PredictionSection .p2-underline {
+  position: relative;
+  display: inline-block;
+}
+
+#p2PredictionSection .p2-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 5px;
+  height: 3px;
+  border-radius: 100%;
+  background: #1f3556;
+  transform: rotate(-1deg);
+}
+
+#p2PredictionSection #p2PredictionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  align-items: stretch;
+  margin: 0;
+}
+
+/* Left: model + experiment. Right: the three predictions */
+#p2PredictionSection .p2-predict-options {
+  display: grid;
+  grid-template-columns: minmax(210px, .78fr) minmax(0, 2.22fr);
+  gap: 18px;
+  align-items: end;
+}
+
+#p2PredictionSection .p2-predict-setup {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+#p2PredictionSection label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #233247;
+}
+
+#p2PredictionSection select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 11px;
+  border: 1.5px solid #233247;
+  border-radius: 9px;
+  background-color: #fff;
+  color: #233247;
+  font: inherit;
+}
+
+#p2PredictionSection .p2-predict-metrics {
+  min-width: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#p2PredictionSection .p2-predict-metrics legend {
+  font-size: 13px;
+  color: #233247;
+  font-weight: 800;
+  margin-bottom: 7px;
+  padding: 0;
+}
+
+#p2PredictionSection .p2-predict-metrics legend small {
+  display: inline;
+  font-size: 11px;
+  color: #637185;
+  font-weight: 400;
+  margin-left: 7px;
+}
+
+#p2PredictionSection .p2-predict-dropdowns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* Plant model buttons: First order | Second order */
+#p2PredictionSection .p2-model {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#p2PredictionSection .p2-model-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #233247;
+}
+
+#p2PredictionSection .p2-model-switch {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  padding: 3px;
+  border: 1.5px solid #233247;
+  border-radius: 9px;
+  background: #fff;
+}
+
+#p2PredictionSection .p2-model-switch button {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 35px;
+  margin: 0;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #233247;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  white-space: nowrap;
+  box-shadow: none;
+  filter: none;
+  transform: none;
+  cursor: pointer;
+}
+
+#p2PredictionSection .p2-model-switch button:hover {
+  background: #f5f0e8;
+  filter: none;
+  transform: none;
+}
+
+#p2PredictionSection .p2-model-switch button[aria-pressed="true"] {
+  background: #233247;
+  color: #fff;
+}
+
+/* Check & run | Restore settings */
+#p2PredictionSection .p2-predict-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0;
+}
+
+#p2PredictionSection .p2-predict-buttons button {
+  box-sizing: border-box;
+  min-width: 148px;
+  min-height: 43px;
+  margin: 0;
+  padding: 10px 17px;
+  border: 1.5px solid #233247;
+  border-radius: 9px;
+  font: inherit;
+  font-weight: 750;
+  box-shadow: none;
+  cursor: pointer;
+  transition: filter .15s, transform .15s;
+}
+
+#p2PredictionSection .p2-btn-primary {
+  background: #233247;
+  color: #fff;
+}
+
+#p2PredictionSection .p2-btn-outline {
+  background: #fff;
+  color: #233247;
+}
+
+#p2PredictionSection .p2-predict-buttons button:hover:not(:disabled) {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+#p2PredictionSection .p2-predict-buttons button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+}
+
+#p2PredictionSection .p2-hint {
+  color: #637185;
+  font-size: 12px;
+  margin: 9px 0 0;
+}
+
+/* Result box and the three result cards */
+#p2PredictionSection .p2-feedback {
+  font-size: 13px;
+  padding: 10px 12px;
+  border-left: 3px solid #233247;
+  background: #eef2f8;
+  margin: 12px 0 0;
+  border-radius: 4px;
+  color: #233247;
+}
+
+#p2PredictionSection .p2-feedback.is-error {
+  border-left-color: #8f1d1d;
+  background: #fff6f5;
+  color: #8f1d1d;
+}
+
+#p2PredictionSection .p2-result-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #233247;
+  margin-bottom: 10px;
+}
+
+#p2PredictionSection .p2-result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+#p2PredictionSection .p2-result-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #dce2eb;
+  border-radius: 10px;
+}
+
+#p2PredictionSection .p2-result-card strong {
+  font-size: 12px;
+  color: #233247;
+}
+
+#p2PredictionSection .p2-result-card .comparison {
+  color: #4e6079;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+#p2PredictionSection .p2-result-card .result-status {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+#p2PredictionSection .p2-result-card.is-correct {
+  border-color: #a6d8b8;
+  background: #f3faf5;
+}
+
+#p2PredictionSection .p2-result-card.is-correct .result-status {
+  color: #176239;
+}
+
+#p2PredictionSection .p2-result-card.is-wrong {
+  border-color: #e9c9c7;
+  background: #fff6f5;
+}
+
+#p2PredictionSection .p2-result-card.is-wrong .result-status {
+  color: #8f1d1d;
+}
+
+#p2PredictionSection .p2-result-note {
+  font-size: 11px;
+  margin: 10px 0 0;
+  color: #637185;
+}
+
+/* Same breakpoints as P4 */
+@media (max-width: 1080px) {
+  #p2PredictionSection .p2-predict-options {
+    grid-template-columns: minmax(200px, .66fr) minmax(0, 2.34fr);
+    gap: 12px;
+  }
+
+  #p2PredictionSection .p2-predict-dropdowns {
+    gap: 7px;
+  }
+
+  #p2PredictionSection select {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 780px) {
+  #p2PredictionSection .p2-predict-options {
+    grid-template-columns: 1fr;
+  }
+
+  #p2PredictionSection .p2-predict-buttons {
+    justify-content: stretch;
+  }
+
+  #p2PredictionSection .p2-predict-buttons button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 570px) {
+  #p2PredictionSection .lab-eyebrow {
+    font-size: 9px;
+  }
+
+  #p2PredictionSection h2 {
+    font-size: 20px;
+  }
+
+  #p2PredictionSection .p2-predict-buttons button {
+    font-size: 12px;
+    padding: 9px 8px;
+  }
+}
+
+@media (max-width: 520px) {
+  #p2PredictionSection .p2-predict-dropdowns {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  #p2PredictionSection .p2-predict-metrics legend small {
+    display: block;
+    margin-left: 0;
+  }
+
+  #p2PredictionSection .p2-predict-buttons {
+    flex-wrap: wrap;
+  }
+
+  #p2PredictionSection .p2-predict-buttons button {
+    min-width: 0;
+  }
+
+  #p2PredictionSection .p2-result-grid {
+    grid-template-columns: 1fr;
+  }
+}
