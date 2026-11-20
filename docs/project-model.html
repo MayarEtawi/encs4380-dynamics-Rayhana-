@@ -1,233 +1,1255 @@
+
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>My System | Micromouse Motor</title>
+<title>My System | RAYHANA Micromouse</title>
 
-  <link rel="stylesheet" href="pid-playground.css">
-  <link rel="stylesheet" href="control-theme.css">
-  <link rel="stylesheet" href="slow-sensor.css">
-  <link rel="stylesheet" href="hw2-lab.css?v=4">
+<link rel="stylesheet" href="pid-playground.css">
+<link rel="stylesheet" href="control-theme.css">
+<link rel="stylesheet" href="slow-sensor.css">
+<link rel="stylesheet" href="hw2-lab.css?v=4">
+
+<style>
+.motor-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:14px;
+  margin:18px 0;
+}
+.motor-field {
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+  font-weight:500;
+}
+.motor-field input {
+  box-sizing:border-box;
+  width:100%;
+  padding:11px;
+  border:1px solid #a5afbb;
+  border-radius:9px;
+  background:transparent;
+  color:inherit;
+  font:inherit;
+}
+.motor-field input:focus {
+  outline:2px solid #d7aa47;
+  outline-offset:2px;
+}
+.motor-button {
+  border:0;
+  border-radius:9px;
+  background:#24344c;
+  color:white;
+  font-weight:600;
+  padding:12px 17px;
+  cursor:pointer;
+}
+.motor-button.secondary {
+  background:#d4a743;
+  color:#172333;
+}
+.motor-button:focus-visible {
+  outline:3px solid #d4a743;
+  outline-offset:3px;
+}
+.motor-buttons {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:18px 0;
+}
+.motor-mode {
+  padding:12px 18px;
+  border-radius:9px;
+  background:transparent;
+  border:1px solid #adb6c2;
+  color:inherit;
+  cursor:pointer;
+  font-weight:600;
+}
+.motor-mode.active {
+  background:#24344c;
+  color:white;
+  border-color:#24344c;
+}
+.motor-output {
+  border:1px solid #aab3be;
+  border-radius:10px;
+  padding:16px;
+  margin:17px 0;
+  line-height:1.7;
+  white-space:pre-line;
+}
+.motor-note {
+  opacity:.78;
+  line-height:1.7;
+}
+.motor-table {
+  border-collapse:collapse;
+  width:100%;
+  margin:18px 0;
+}
+.motor-table th,
+.motor-table td {
+  border-bottom:1px solid #aab3be77;
+  text-align:left;
+  padding:12px;
+}
+.motor-table th {width:40%}
+.motor-chart {
+  width:100%;
+  height:auto;
+  display:block;
+  border:1px solid #aab3be;
+  border-radius:10px;
+  background:#fff;
+  margin:14px 0;
+}
+.motor-tag {
+  display:inline-block;
+  border-radius:6px;
+  padding:5px 10px;
+  background:#f6e7bd;
+  color:#493615;
+  font-weight:600;
+  font-size:.85rem;
+}
+.motor-status {
+  font-weight:700;
+  margin-top:10px;
+}
+.motor-divider {
+  margin:22px 0;
+  border:0;
+  border-top:1px solid #aab3be77;
+}
+[hidden] {display:none!important}
+</style>
 </head>
 
 <body class="hw2">
 
-  <header class="site-header rayhana-site-header">
-    <a class="brand" href="control.html" aria-label="Rayhana Control Home">
-      <span class="brand-mark">R</span>
-      <span class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span>
-    </a>
-    <nav class="site-nav" aria-label="Homework 2 navigation">
-      <a href="index.html">← Toolkits</a>
-      <a href="control.html">Control Home</a>
-      <a href="pid-playground.html">P1 · PID Playground</a>
-      <a href="slow-sensor.html">P2 · Slow Sensor</a>
-      <a href="digital-pid.html">P3 · Digital PID</a>
-      <a href="tuning-challenge.html">P4 · Tuning Challenge</a>
-      <a href="project-model.html" aria-current="page" class="current">My System</a>
-    </nav>
+<header class="site-header rayhana-site-header">
+
+<a class="brand" href="control.html"
+   aria-label="Rayhana Control Home">
+  <span class="brand-mark">R</span>
+  <span class="brand-words">
+    <strong>RAYHANA</strong>
+    <small>PID Control Toolkit · ENCS4380</small>
+  </span>
+</a>
+
+<nav class="site-nav" aria-label="Homework 2 navigation">
+  <a href="index.html">← Toolkits</a>
+  <a href="control.html">Control Home</a>
+  <a href="pid-playground.html">P1 · PID Playground</a>
+  <a href="slow-sensor.html">P2 · Slow Sensor</a>
+  <a href="digital-pid.html">P3 · Digital PID</a>
+  <a href="tuning-challenge.html">P4 · Tuning Challenge</a>
+  <a href="project-model.html"
+     class="current"
+     aria-current="page">My System</a>
+</nav>
+
+</header>
+
+<main class="pid-wrap lab-main">
+
+<!-- HERO -->
+
+<section class="lab-hero" aria-labelledby="title">
+
+<div>
+  <span class="lab-eyebrow">
+    PROJECT APPLICATION · MY SYSTEM
+  </span>
+
+  <h1 id="title">
+    My System — Micromouse
+    <em>Drive Motor</em>
+  </h1>
+
+  <p class="intro">
+    First-order motor modeling and PID speed control
+    for the RAYHANA Micromouse robot.
+    Explore an illustrative simulation or identify
+    a plant using measured encoder data.
+  </p>
+</div>
+
+<div class="lab-art" aria-hidden="true">
+  <svg viewBox="0 0 290 150">
+    <path class="a-axis" d="M20 10V132H277"/>
+    <path class="a-set" d="M20 45H277"/>
+    <path class="a-curve"
+          d="M20 132C60 60 110 48 275 46"/>
+    <circle cx="88" cy="70" r="6"/>
+  </svg>
+  <span>PWM STEP → MOTOR SPEED</span>
+</div>
+
+</section>
 
 
-  </header>
+<!-- SECTION 1: HARDWARE -->
 
-  <main class="pid-wrap lab-main">
+<section class="pid-card">
 
-    <section class="lab-hero" aria-labelledby="title">
-      <div><span class="lab-eyebrow">PROJECT APPLICATION · MY SYSTEM</span>
-        <h1 id="title">My System — Micromouse <em>Drive Motor</em></h1>
-        <p class="intro">Project-model documentation. Replace all TODO fields with measured or cited data before final
-          submission.</p>
-      </div>
-      <div class="lab-art" aria-hidden="true"><svg viewBox="0 0 290 150">
-          <path class="a-axis" d="M20 10V132H277" />
-          <path class="a-set" d="M20 45H277" />
-          <path class="a-curve" d="M20 132C60 60 110 48 275 46" />
-          <circle cx="88" cy="70" r="6" />
-        </svg><span>PWM STEP → MOTOR SPEED</span></div>
-    </section>
+<h2>1. Motor and Hardware Specifications</h2>
+
+<p>
+  The RAYHANA Micromouse uses two N20 DC
+  geared motors with magnetic encoders.
+  Each motor is intended to be controlled
+  through a DRV8833 dual H-bridge driver
+  using an ESP32 microcontroller.
+</p>
+
+<table class="motor-table">
+<tbody>
+
+<tr>
+<th>Motor</th>
+<td>N20 DC geared motor</td>
+</tr>
+
+<tr>
+<th>Motor quantity</th>
+<td>2</td>
+</tr>
+
+<tr>
+<th>Rated voltage</th>
+<td>6 V</td>
+</tr>
+
+<tr>
+<th>Advertised speed</th>
+<td>530 RPM</td>
+</tr>
+
+<tr>
+<th>Encoder</th>
+<td>Magnetic A/B quadrature</td>
+</tr>
+
+<tr>
+<th>Microcontroller</th>
+<td>ESP32 Development Board, 30-pin</td>
+</tr>
+
+<tr>
+<th>Motor driver</th>
+<td>DRV8833 dual H-bridge</td>
+</tr>
+
+<tr>
+<th>Battery</th>
+<td>2S LiPo, 7.4 V nominal</td>
+</tr>
+
+<tr>
+<th>Motor supply</th>
+<td>Adjustable buck-boost converter, 6 V</td>
+</tr>
+
+<tr>
+<th>ESP32 supply</th>
+<td>5 V mini buck converter</td>
+</tr>
+
+<tr>
+<th>Drive wheels</th>
+<td>Preferred diameter: 30–35 mm</td>
+</tr>
+
+<tr>
+<th>Encoder resolution</th>
+<td>To be verified</td>
+</tr>
+
+</tbody>
+</table>
+
+<p>
+<strong>Motor source:</strong>
+<a href="https://roboticx.ps/product/n20-dc-motor-with-magnetic-encoder-6v-530-rpm/"
+   target="_blank"
+   rel="noopener noreferrer">
+RoboticX — N20 Motor, 6V, 530 RPM
+</a>
+</p>
+
+<p>
+<strong>Hardware documentation:</strong>
+RAYHANA Updated Parts List.
+</p>
+
+<p class="motor-note">
+The listed 530 RPM is a supplier specification.
+It does not directly determine the motor gain K
+or the time constant τ.
+</p>
+
+</section>
 
 
-    <section class="pid-card">
-      <h2>1. Motor and Measurement Source</h2>
+<!-- SECTION 2: MOTOR IDENTIFICATION -->
 
-      <p>
-        <strong>Selected motor:</strong>
-        N20 Micro DC Gear Motor Kit with Wheel
-        (30 RPM, 6 V).
-      </p>
+<section class="pid-card">
 
-      <p>
-        <strong>Rated voltage:</strong> 6 V
-      </p>
+<h2>2. First-Order Motor Model</h2>
 
-      <p>
-        <strong>Motor speed:</strong> 30 RPM at 6 V
-      </p>
+<p>
+<strong>Transfer function:</strong>
+G(s) = K / (τs + 1)
+</p>
 
-      <p>
-        <strong>Wheel diameter:</strong> 43 mm
-      </p>
+<p>
+<strong>Input:</strong> PWM duty cycle (%).
+<br>
+<strong>Output:</strong> Motor shaft speed (RPM).
+</p>
 
-      <p>
-        <strong>Wheel width:</strong> 19 mm
-      </p>
+<p>
+<strong>Plant gain:</strong>
+K = ΔRPM / ΔPWM
+</p>
 
-      <p>
-        <strong>Encoder availability:</strong>
-        Not specified by the supplier.
-        Must be confirmed before the PWM step test.
-      </p>
+<p>
+<strong>Time constant:</strong>
+τ is the time to reach 63.2% of the
+total speed change after the PWM step.
+</p>
 
-      <p>
-        <strong>Measurement method:</strong>
-        A PWM step will be applied to the motor.
-        Its speed response will be recorded using
-        an encoder to identify the motor gain K
-        and time constant tau.
-      </p>
+<hr class="motor-divider">
 
-      <p>
-        <strong>Source:</strong>
-        <a href="https://roboticx.ps/product/n20-micro-dc-gear-motor-kit-with-wheel-30rpm-6v/" target="_blank"
-          rel="noopener noreferrer">
-          RoboticX — Motor Specifications
-        </a>
-      </p>
+<h3>Select Model Source</h3>
 
-      <p class="muted">
-        The motor is currently selected for the project.
-        Experimental parameters have not yet been measured.
-      </p>
-    </section>
+<div class="motor-buttons">
+
+<button id="simulationMode"
+        type="button"
+        class="motor-mode active"
+        aria-pressed="true">
+Simulation Mode
+</button>
+
+<button id="measuredMode"
+        type="button"
+        class="motor-mode"
+        aria-pressed="false">
+Measured Mode
+</button>
+
+</div>
 
 
-    <section class="pid-card">
-      <h2>2. First-Order Motor Model</h2>
+<!-- SIMULATION MODE -->
 
-      <p>
-        G(s) = K / (τs + 1)
-      </p>
+<div id="simulationPanel">
 
-      <p>
-        Input: PWM command.
-        Output: measured motor speed.
-      </p>
+<span class="motor-tag">
+ILLUSTRATIVE MODEL — ASSUMED VALUES
+</span>
 
-      <p>
-        <strong>Initial PWM:</strong> TODO
-      </p>
+<h3>Simulation-Based Motor Model</h3>
 
-      <p>
-        <strong>Final PWM:</strong> TODO
-      </p>
+<p>
+This mode uses hypothetical parameters to
+demonstrate first-order motor behavior and
+PID tuning. The values are not experimentally
+identified and do not represent a verified
+model of the selected 530-RPM motor.
+</p>
 
-      <p>
-        <strong>Initial speed:</strong> TODO
-      </p>
+<div class="motor-grid">
 
-      <p>
-        <strong>Final speed:</strong> TODO
-      </p>
+<label class="motor-field">
+Assumed plant gain K (RPM / PWM %)
+<input id="simK"
+       type="number"
+       min="0.0001"
+       step="any"
+       value="5">
+</label>
 
-      <p>
-        <strong>Plant gain K:</strong>
-        (Final speed − Initial speed) /
-        (Final PWM − Initial PWM)
-        = TODO
-      </p>
+<label class="motor-field">
+Assumed time constant τ (s)
+<input id="simTau"
+       type="number"
+       min="0.0001"
+       step="any"
+       value="0.15">
+</label>
 
-      <p>
-        <strong>Time constant τ:</strong>
-        Time to reach 63.2% of the total speed change
-        after the PWM step = TODO seconds.
-      </p>
+</div>
 
-      <p>
-        <strong>Identified motor model:</strong>
-        TODO
-      </p>
-    </section>
+<div class="motor-buttons">
+<button id="loadSimulation"
+        type="button"
+        class="motor-button">
+Use Assumed Model
+</button>
+</div>
 
-    <section class="pid-card">
-      <h2>3. Control Objective and Specifications</h2>
+<div class="motor-output" id="simInfo">
+Illustrative model:
+G(s) = 5 / (0.15s + 1)
 
-      <p>
-        <strong>Goal:</strong>
-        Maintain accurate and consistent wheel speed
-        for Micromouse navigation.
-      </p>
+K and τ are assumed for demonstration only.
+</div>
 
-      <p>
-        <strong>Damping ratio target:</strong>
-        0.6 ≤ ζ ≤ 0.8
-      </p>
+</div>
 
-      <p>
-        <strong>Physical PWM limits:</strong>
-        0% to 100%.
-      </p>
 
-      <p>
-        <strong>Overshoot requirement:</strong>
-        TODO — define a suitable limit.
-      </p>
+<!-- MEASURED MODE -->
 
-      <p>
-        <strong>Settling time requirement:</strong>
-        TODO — justify based on robot motion.
-      </p>
-    </section>
+<div id="measuredPanel" hidden>
 
-    <section class="pid-card">
-      <h2>4. Final Controller and Evidence</h2>
+<span class="motor-tag">
+EXPERIMENTAL IDENTIFICATION
+</span>
 
-      <p>
-        <strong>PID gains:</strong>
-        Kp = TODO,
-        Ki = TODO,
-        Kd = TODO.
-      </p>
+<h3>PWM Step Test Data</h3>
 
-      <p>
-        <strong>Simulation result:</strong>
-        TODO — insert the final response plot
-        using the identified motor model.
-      </p>
+<p>
+This mode calculates motor parameters using
+logged encoder speed measurements from
+a physical PWM step test.
+</p>
 
-      <p>
-        <strong>Arduino code:</strong>
-        Use <a href="digital-pid.html#arduino-code">P3 · Digital PID</a>
-        to enter the measured K and τ, final gains, sampling time and 0–100% PWM limits.
-        Download the generated Arduino code and add the P3 settings link here.
-        Final measured configuration: TODO.
-      </p>
+<div class="motor-grid">
 
-      <p>
-        <strong>Results:</strong>
-        TODO — compare the response with
-        the chosen specifications.
-      </p>
+<label class="motor-field">
+Initial PWM (%)
+<input id="pwm0"
+       type="number"
+       min="0"
+       max="100"
+       step="any"
+       placeholder="Measured PWM">
+</label>
 
-      <p>
-        <strong>Limitations:</strong>
-        TODO — explain assumptions and
-        differences between model and hardware.
-      </p>
-    </section>
-    <section class="pid-card">
-      <h2>Continue to PID Tuning</h2>
-      <p>Use the <a href="tuning-challenge.html">P4 Tuning Challenge</a> to practise tuning a hidden plant. The P4
-        challenge is a separate teaching simulation and does not replace measured motor parameters on this page.</p>
-    </section>
+<label class="motor-field">
+Final PWM (%)
+<input id="pwm1"
+       type="number"
+       min="0"
+       max="100"
+       step="any"
+       placeholder="Measured PWM">
+</label>
 
-    <footer class="lab-footer"><span>RAYHANA · ENCS4380 · My System</span><a href="tuning-challenge.html">← P4 · Tuning
-        Challenge</a><a href="control.html">Control Home →</a></footer>
+<label class="motor-field">
+Initial speed (RPM)
+<input id="rpm0"
+       type="number"
+       min="0"
+       step="any"
+       placeholder="Encoder measurement">
+</label>
 
-  </main>
+<label class="motor-field">
+Final speed (RPM)
+<input id="rpm1"
+       type="number"
+       min="0"
+       step="any"
+       placeholder="Encoder measurement">
+</label>
+
+<label class="motor-field">
+Step time (s)
+<input id="stepTime"
+       type="number"
+       min="0"
+       step="any"
+       placeholder="From recorded data">
+</label>
+
+<label class="motor-field">
+63.2% crossing time (s)
+<input id="crossTime"
+       type="number"
+       min="0"
+       step="any"
+       placeholder="From recorded data">
+</label>
+
+</div>
+
+<button id="identify"
+        type="button"
+        class="motor-button">
+Calculate Identified Model
+</button>
+
+<div class="motor-output" id="identification">
+No measured model has been identified.
+</div>
+
+<p class="motor-note">
+The speed at 63.2% is
+Initial RPM + 0.632 × (Final RPM − Initial RPM).
+Read the crossing time from the encoder log.
+Only use this mode with real experimental data.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- SECTION 3: CONTROL SPECIFICATIONS -->
+
+<section class="pid-card">
+
+<h2>3. Control Objective and Specifications</h2>
+
+<p>
+<strong>Control objective:</strong>
+Maintain stable and accurate wheel speed
+to support predictable Micromouse motion.
+</p>
+
+<table class="motor-table">
+<tbody>
+
+<tr>
+<th>Damping ratio target</th>
+<td>0.6 ≤ ζ ≤ 0.8</td>
+</tr>
+
+<tr>
+<th>Proposed overshoot</th>
+<td>≤ 10%</td>
+</tr>
+
+<tr>
+<th>Proposed settling time</th>
+<td>≤ 1.0 s (2% band)</td>
+</tr>
+
+<tr>
+<th>Proposed steady-state error</th>
+<td>≤ 2%</td>
+</tr>
+
+<tr>
+<th>PWM output limits</th>
+<td>0–100%</td>
+</tr>
+
+</tbody>
+</table>
+
+<p>
+<strong>Justification:</strong>
+The Micromouse must maintain consistent speed
+during short maze movements. Excessive
+overshoot or slow settling may reduce
+movement accuracy and navigation reliability.
+</p>
+</section>
+
+
+<!-- SECTION 4: PID CONTROLLER -->
+
+<section class="pid-card">
+
+<h2>4. PID Controller and Simulation</h2>
+
+<p>
+The motor speed controller is modeled using
+closed-loop feedback, PWM saturation and
+numerical time-domain simulation.
+</p>
+
+<div class="motor-output" id="modelStatus">
+Active model: Illustrative simulation.
+K = 5, τ = 0.15 s.
+Not measured.
+</div>
+
+<h3>PID Parameters</h3>
+
+<div class="motor-grid">
+
+<label class="motor-field">
+Proportional gain Kp
+<input id="kp"
+       type="number"
+       min="0"
+       step="any"
+       value="0.35">
+</label>
+
+<label class="motor-field">
+Integral gain Ki
+<input id="ki"
+       type="number"
+       min="0"
+       step="any"
+       value="2">
+</label>
+
+<label class="motor-field">
+Derivative gain Kd
+<input id="kd"
+       type="number"
+       min="0"
+       step="any"
+       value="0">
+</label>
+
+<label class="motor-field">
+Speed setpoint (RPM)
+<input id="setpoint"
+       type="number"
+       min="0.001"
+       step="any"
+       value="200">
+</label>
+
+</div>
+
+<p class="motor-note">
+The displayed PID values are illustrative
+starting values, not final tuned gains.
+</p>
+
+<div class="motor-buttons">
+
+<button id="runSimulation"
+        type="button"
+        class="motor-button secondary">
+Run PID Simulation
+</button>
+
+<button id="resetGains"
+        type="button"
+        class="motor-button">
+Reset Demo Gains
+</button>
+
+</div>
+
+<div id="results"
+     class="motor-output"
+     aria-live="polite">
+Run the simulation to view controller results.
+</div>
+
+<h3>Motor Speed Response</h3>
+
+<canvas id="speedPlot"
+        class="motor-chart"
+        width="900"
+        height="330"
+        role="img"
+        aria-label="Motor speed and setpoint plot">
+</canvas>
+
+<h3>PWM Control Signal</h3>
+
+<canvas id="pwmPlot"
+        class="motor-chart"
+        width="900"
+        height="300"
+        role="img"
+        aria-label="PWM control signal over time">
+</canvas>
+
+<h3>Performance Checks</h3>
+
+<div id="checks" class="motor-output">
+No simulation results yet.
+</div>
+
+<h3>Arduino PID Code</h3>
+
+<p>
+The digital PID implementation can be
+generated using
+<a href="digital-pid.html#arduino-code">
+P3 · Digital PID
+</a>.
+</p>
+
+<p>
+The P3 implementation should use the same
+motor model, controller gains, sampling time,
+PWM limits and anti-windup settings.
+</p>
+
+<p>
+Generated Arduino code is a reference
+implementation. It has not been deployed
+or validated on physical hardware.
+</p>
+
+<h3>Limitations</h3>
+
+<p>
+The first-order model neglects nonlinear
+friction, gearbox backlash, motor dead zones,
+changing battery voltage, encoder noise
+and wheel loading.
+</p>
+
+<p>
+Simulation results are not equivalent to
+experimental verification.
+</p>
+
+</section>
+
+
+<!-- SECTION 5 -->
+
+<section class="pid-card">
+
+<h2>5. Project Integration</h2>
+
+<p>
+The intended hardware configuration uses
+an ESP32 microcontroller, two N20 encoder
+motors, and a DRV8833 motor driver.
+</p>
+
+<p>
+The PWM controller will eventually use
+encoder speed feedback to regulate
+the left and right wheel speeds.
+</p>
+
+<p>
+The current page demonstrates the control
+design process through simulation.
+</p>
+</section>
+
+
+<section class="pid-card">
+
+<h2>Continue to PID Tuning</h2>
+
+<p>
+Use
+<a href="tuning-challenge.html">
+P4 · Tuning Challenge
+</a>
+to practise tuning a separate hidden plant.
+</p>
+
+</section>
+
+<footer class="lab-footer">
+
+<span>RAYHANA · ENCS4380 · My System</span>
+
+<a href="tuning-challenge.html">
+← P4 · Tuning Challenge
+</a>
+
+<a href="control.html">
+Control Home →
+</a>
+
+</footer>
+
+</main>
+
+
+<script>
+"use strict";
+
+// ELEMENT HELPERS
+
+const el = id => document.getElementById(id);
+
+function num(id) {
+  const value = el(id).value.trim();
+  return value === "" ? NaN : Number(value);
+}
+
+function fmt(x, digits = 3) {
+  return Number.isFinite(x)
+    ? x.toFixed(digits)
+    : "N/A";
+}
+
+function clamp(x, low, high) {
+  return Math.max(low, Math.min(high, x));
+}
+
+
+// MODEL STATE
+
+let model = {
+  K: 5,
+  tau: 0.15,
+  source: "Illustrative assumed model"
+};
+
+let mode = "simulation";
+
+function updateStatus() {
+  el("modelStatus").textContent =
+    "Active model: " + model.source +
+    "\nK = " + fmt(model.K, 4) +
+    " RPM per PWM percentage point" +
+    "\nτ = " + fmt(model.tau, 4) +
+    " s\nG(s) = " +
+    fmt(model.K, 4) + " / (" +
+    fmt(model.tau, 4) + "s + 1)";
+}
+
+function clearResults() {
+  el("results").textContent =
+    "Model or settings changed. Run the simulation again.";
+
+  el("checks").textContent =
+    "No current simulation results.";
+
+  clearCanvas("speedPlot", "Run PID Simulation");
+  clearCanvas("pwmPlot", "Run PID Simulation");
+}
+
+
+// SWITCH MODES
+
+function switchMode(next) {
+  mode = next;
+
+  const simulation = next === "simulation";
+
+  el("simulationPanel").hidden = !simulation;
+  el("measuredPanel").hidden = simulation;
+
+  el("simulationMode").classList.toggle(
+    "active", simulation
+  );
+
+  el("measuredMode").classList.toggle(
+    "active", !simulation
+  );
+
+  el("simulationMode").setAttribute(
+    "aria-pressed", String(simulation)
+  );
+
+  el("measuredMode").setAttribute(
+    "aria-pressed", String(!simulation)
+  );
+
+  // Switching to measured mode must not
+  // imply measured data already exists.
+  if (simulation) {
+    loadAssumedModel();
+  } else {
+    model = null;
+    el("modelStatus").textContent =
+      "Measured Mode selected. " +
+      "Enter real PWM step data before simulation.";
+    clearResults();
+  }
+}
+
+el("simulationMode").onclick =
+  () => switchMode("simulation");
+
+el("measuredMode").onclick =
+  () => switchMode("measured");
+
+
+// ASSUMED MODEL
+
+function loadAssumedModel() {
+  const K = num("simK");
+  const tau = num("simTau");
+
+  if (
+    !Number.isFinite(K) ||
+    !Number.isFinite(tau) ||
+    K <= 0 ||
+    tau <= 0
+  ) {
+    el("simInfo").textContent =
+      "Enter positive, finite model parameters.";
+    return;
+  }
+
+  model = {
+    K,
+    tau,
+    source: "Illustrative assumed model — NOT measured"
+  };
+
+  el("simInfo").textContent =
+    "Illustrative model:\nG(s) = " +
+    fmt(K, 4) + " / (" +
+    fmt(tau, 4) + "s + 1)\n" +
+    "These parameters are assumptions, " +
+    "not experimental results.";
+
+  updateStatus();
+  clearResults();
+}
+
+el("loadSimulation").onclick = loadAssumedModel;
+
+
+// MEASURED MODEL IDENTIFICATION
+
+el("identify").onclick = () => {
+  const p0 = num("pwm0");
+  const p1 = num("pwm1");
+  const y0 = num("rpm0");
+  const y1 = num("rpm1");
+  const t0 = num("stepTime");
+  const t63 = num("crossTime");
+
+  const valid =
+    [p0,p1,y0,y1,t0,t63].every(Number.isFinite)
+    && p0 >= 0 && p0 <= 100
+    && p1 > p0 && p1 <= 100
+    && y0 >= 0 && y1 > y0
+    && t0 >= 0 && t63 > t0;
+
+  if (!valid) {
+    el("identification").textContent =
+      "Invalid data. Enter a positive PWM step, " +
+      "increasing RPM, and a crossing time " +
+      "later than the step time.";
+    return;
+  }
+
+  const K = (y1-y0)/(p1-p0);
+  const tau = t63-t0;
+  const threshold = y0+0.632*(y1-y0);
+
+  model = {
+    K,
+    tau,
+    source: "User-entered experimental data"
+  };
+
+  el("identification").textContent =
+    "63.2% threshold: " + fmt(threshold,2) +
+    " RPM\nIdentified K = " + fmt(K,4) +
+    "\nIdentified τ = " + fmt(tau,4) +
+    " s\nG(s) = " + fmt(K,4) +
+    " / (" + fmt(tau,4) + "s + 1)";
+
+  updateStatus();
+  clearResults();
+};
+
+
+// RESET DEMONSTRATION GAINS
+
+el("resetGains").onclick = () => {
+  el("kp").value = 0.35;
+  el("ki").value = 2;
+  el("kd").value = 0;
+  el("setpoint").value = 200;
+  clearResults();
+};
+
+
+// CANVAS DRAWING
+
+function clearCanvas(id, label) {
+  const canvas = el(id);
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle = "#526071";
+  ctx.font = "17px sans-serif";
+  ctx.fillText(label,42,canvas.height/2);
+}
+
+function plot(id, series, duration, ymax, ylabel) {
+  const canvas = el(id);
+  const ctx = canvas.getContext("2d");
+
+  const W = canvas.width;
+  const H = canvas.height;
+
+  const L=70, R=25, T=28, B=55;
+
+  const X = t =>
+    L+(t/duration)*(W-L-R);
+
+  const Y = y =>
+    H-B-(y/ymax)*(H-T-B);
+
+  ctx.fillStyle="#fff";
+  ctx.fillRect(0,0,W,H);
+
+  ctx.font="13px sans-serif";
+
+  // Grid and y-axis labels
+  for(let i=0;i<=5;i++) {
+    const value=ymax*i/5;
+    const yy=Y(value);
+
+    ctx.strokeStyle="#e1e5eb";
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(L,yy);
+    ctx.lineTo(W-R,yy);
+    ctx.stroke();
+
+    ctx.fillStyle="#44536a";
+    ctx.fillText(fmt(value,0),8,yy+4);
+  }
+
+  // Axes
+  ctx.strokeStyle="#536174";
+  ctx.beginPath();
+  ctx.moveTo(L,T);
+  ctx.lineTo(L,H-B);
+  ctx.lineTo(W-R,H-B);
+  ctx.stroke();
+
+  ctx.fillStyle="#34435a";
+  ctx.fillText(ylabel,8,17);
+  ctx.fillText("Time (s)",W/2,H-12);
+
+  for(let i=0;i<=5;i++) {
+    const t=duration*i/5;
+    ctx.fillText(
+      fmt(t,1),
+      X(t)-12,
+      H-B+20
+    );
+  }
+
+  // Multiple series
+  for(const line of series) {
+    ctx.strokeStyle=line.color;
+    ctx.lineWidth=2.5;
+
+    ctx.setLineDash(line.dashed?[7,5]:[]);
+    ctx.beginPath();
+
+    line.points.forEach((p,i) => {
+      if(i===0) ctx.moveTo(X(p.t),Y(p.y));
+      else ctx.lineTo(X(p.t),Y(p.y));
+    });
+
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+}
+
+
+// RUN CLOSED LOOP SIMULATION
+
+el("runSimulation").onclick = () => {
+
+  if(!model) {
+    el("results").textContent =
+      "Please identify a model before running.";
+    return;
+  }
+
+  const {K,tau} = model;
+
+  const kp=num("kp");
+  const ki=num("ki");
+  const kd=num("kd");
+  const sp=num("setpoint");
+
+  if (
+    ![K,tau,kp,ki,kd,sp].every(Number.isFinite) ||
+    K<=0 || tau<=0 ||
+    kp<0 || ki<0 || kd<0 || sp<=0
+  ) {
+    el("results").textContent =
+      "Enter valid parameters and nonnegative PID gains.";
+    return;
+  }
+
+  // Dynamic simulation interval
+  const dt=Math.min(0.002,tau/200);
+  const duration=Math.max(5,8*tau);
+  const steps=Math.ceil(duration/dt);
+
+  if(steps>500000) {
+    el("results").textContent =
+      "Simulation is too long for the current model.";
+    return;
+  }
+
+  // Initial states
+  let y=0;
+  let previousY=0;
+  let integral=0;
+
+  const speed=[];
+  const pwm=[];
+
+  const stride=Math.max(1,Math.floor(steps/1400));
+
+  for(let i=0;i<=steps;i++) {
+
+    const t=i*dt;
+    const error=sp-y;
+
+    // Derivative on measurement
+    const dy=(y-previousY)/dt;
+    const pTerm=kp*error;
+    const dTerm=-kd*dy;
+
+    const proposedI=clamp(
+      integral+error*dt,-1e6,1e6
+    );
+
+    const raw=pTerm+ki*proposedI+dTerm;
+
+    // PWM saturation
+    const u=clamp(raw,0,100);
+
+    // Conditional integration anti-windup
+    if(
+      raw===u ||
+      (raw>100 && error<0) ||
+      (raw<0 && error>0)
+    ) {
+      integral=proposedI;
+    }
+
+    previousY=y;
+
+    // Explicit Euler first-order motor
+    const nextY=y+(dt/tau)*(K*u-y);
+
+    if(!Number.isFinite(nextY) || Math.abs(nextY)>1e7) {
+      el("results").textContent =
+        "Numerical instability detected.";
+      return;
+    }
+
+    if(i%stride===0 || i===steps) {
+      speed.push({t,y});
+      pwm.push({t,y:u});
+    }
+
+    y=nextY;
+  }
+
+  // METRICS
+  const maxY=Math.max(...speed.map(p=>p.y));
+  const finalY=speed[speed.length-1].y;
+
+  const overshoot=Math.max(
+    0,100*(maxY-sp)/sp
+  );
+
+  const errorPct=100*Math.abs(finalY-sp)/sp;
+
+  let lastOutside=-1;
+
+  speed.forEach((p,i)=>{
+    if(Math.abs(p.y-sp)>0.02*sp)
+      lastOutside=i;
+  });
+
+  const settling=
+    lastOutside===speed.length-1
+      ? NaN
+      : speed[Math.max(0,lastOutside+1)].t;
+
+  const maxPWM=Math.max(...pwm.map(p=>p.y));
+  const minPWM=Math.min(...pwm.map(p=>p.y));
+
+  const overPass=overshoot<=10;
+  const settlePass=
+    Number.isFinite(settling) && settling<=1;
+  const errorPass=errorPct<=2;
+  const pwmPass=minPWM>=0 && maxPWM<=100;
+
+  // Damping ratio is not inferred from these metrics.
+  // Check closed-loop poles separately.
+
+  el("results").textContent =
+    "Model source: "+model.source+
+    "\nKp = "+fmt(kp)+
+    ", Ki = "+fmt(ki)+
+    ", Kd = "+fmt(kd)+
+    "\nOvershoot = "+fmt(overshoot,2)+"%"+
+    "\nSettling time = "+
+      (Number.isFinite(settling)
+        ? fmt(settling,3)+" s"
+        : "Not settled")+
+    "\nFinal-window error = "+
+      fmt(errorPct,2)+"%"+
+    "\nPWM range = "+
+      fmt(minPWM,1)+"% to "+
+      fmt(maxPWM,1)+"%";
+
+  el("checks").textContent =
+    "Overshoot ≤ 10%: "+
+      (overPass?"PASS":"FAIL")+
+    "\nSettling time ≤ 1s: "+
+      (settlePass?"PASS":"FAIL")+
+    "\nFinal-window error ≤ 2%: "+
+      (errorPass?"PASS":"FAIL")+
+    "\nPWM within 0–100%: "+
+      (pwmPass?"PASS":"FAIL")+
+    "\nDamping ratio: not evaluated here"+
+    "\n\nThese results are simulated, not measured.";
+
+  const ref=speed.map(p=>({t:p.t,y:sp}));
+
+  plot(
+    "speedPlot",
+    [
+      {points:speed,color:"#2563a0"},
+      {points:ref,color:"#d5a12c",dashed:true}
+    ],
+    duration,
+    Math.max(sp*1.2,maxY*1.1,1),
+    "Motor speed (RPM)"
+  );
+
+  plot(
+    "pwmPlot",
+    [
+      {points:pwm,color:"#2563a0"},
+      {
+        points:[
+          {t:0,y:100},
+          {t:duration,y:100}
+        ],
+        color:"#c58a21",
+        dashed:true
+      }
+    ],
+    duration,
+    105,
+    "PWM duty cycle (%)"
+  );
+
+};
+
+
+// CLEAR INITIAL PLOTS
+clearCanvas("speedPlot","Run PID Simulation");
+clearCanvas("pwmPlot","Run PID Simulation");
+
+</script>
 
 </body>
-
 </html>
