@@ -10,7 +10,7 @@ Interactive simulations for sensor dynamics and feedback control — everything 
 <tr>
 
 <td align="center" width="33%">
-<a href="https://mayaretawi.github.io/encs4380-dynamics-Rayhana/">
+<a href="https://mayaretawi.github.io/encs4380-dynamics-Rayhana-/">
 <b>Live Website</b>
 </a><br>
 
