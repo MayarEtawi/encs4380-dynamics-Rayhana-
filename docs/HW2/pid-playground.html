@@ -145,10 +145,15 @@
             <div><strong id="rise">—</strong><span>Rise time (10–90%)</span></div>
             <div><strong id="overshoot">—</strong><span>Overshoot</span></div>
             <div><strong id="settle">—</strong><span>Settling time (2%)</span></div>
-            <div><strong id="error">—</strong><span>Steady-state error (estimated)</span></div>
+            <div><strong id="error">—</strong><span id="errorLabel">Steady-state error (estimated)</span></div>
           </div>
-          <p class="muted">A dash means the metric was not reached within the simulation window. Steady-state error uses
-            the last simulated sample; it is not a guarantee of convergence.</p>
+          <p class="muted">How these are measured: the homework asks for these four metrics but does not fix a measurement
+            convention. Overshoot and settling follow the setpoint convention shared with P2–P4. <strong>Rise time</strong>
+            = 10–90% of the change from y(0) to the final value (so P-only responses with offset still have one).
+            <strong>Overshoot</strong> = how far y passes the setpoint r, as % of the step. <strong>Settling time</strong>
+            = last entry into the ±2% band around r, staying inside for at least the final 1 s. <strong>Steady-state
+            error</strong> = r − y at the end of the window; it is labelled “final tracking error” when the last 1 s still
+            varies by more than 0.2% of r. A dash means the metric is not defined or was not reached within the window.</p>
         </section>
         <section class="pid-card">
           <h2>Output vs. setpoint</h2>

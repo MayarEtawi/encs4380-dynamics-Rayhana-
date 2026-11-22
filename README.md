@@ -199,23 +199,31 @@ Tune a PID controller on first- or second-order plants and observe how each gain
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
 
-**Developed by:** [P1 NAME]
+**Developed by:** Hala Khalil Shojaiah (Student ID: 1231019)
+
+**P1 responsibilities:** PID Playground, Predict, Then Check experiment, and the three Homework validation checks · Bonus A: P-only experiment to find sustained oscillation · Bonus B: state feedback \(u=-Kx\) on the second-order plant
 
 **About this module:**  
 P1 shows the full feedback loop as a block diagram: setpoint, PID, actuator limit ±Umax, plant, and unity negative feedback.
 
-The user picks the plant — first order \(K/(\tau s+1)\) from Module 1 or the mass–spring–damper model from Module 3 — and sets \(K_p\), \(K_i\), \(K_d\), and the setpoint step.
+The user picks the plant — first order \(K/(\tau s+1)\) from Module 1 or the mass–spring–damper model from Module 3 — and sets \(K_p\), \(K_i\), \(K_d\), the setpoint step, actuator limit, and duration. The derivative acts on the measurement to avoid derivative kick, conditional integration prevents windup, and the loop is simulated with RK4.
 
-Two plots are shown: the output against the setpoint, and the control signal \(u(t)\) with its limits. Live metrics report **rise time (10–90%)**, **overshoot**, **settling time (2% band)**, and **steady-state error**.
+Two plots show the output against the setpoint and the control signal \(u(t)\) with its limits. Live metrics report **rise time (10–90% of the final value)**, **overshoot**, **settling time (±2% band around the setpoint)**, and **steady-state error**. The homework does not fix a measurement convention; overshoot and settling follow the setpoint convention shared with P2–P4.
 
-The derivative acts on the measurement to avoid derivative kick, and conditional integration prevents windup when the actuator saturates.
+The **Predict, Then Check** experiment compares two RK4 simulations — before and after raising \(K_p\), \(K_i\), or \(K_d\) — against the user's prediction. Metrics that cannot be measured are reported as *cannot be graded* rather than guessed.
 
-The **Predict, Then Check** experiment runs two RK4 simulations — before and after raising one gain — and checks the user's prediction against the measured change.
+The **Homework validation checks** are shown as a table of expected versus measured values:
 
-P1 also contains the three **Homework validation checks**.
+| Check | Setting | Expected |
+|---|---|---|
+| 1 | P only, \(K=\tau=1,\ K_p=9\) | \(\tau_{cl}=0.1\) s, \(e_{ss}=10\%\) |
+| 2 | PI, \(K=\tau=1,\ K_p=K_i=1\) | \(\omega_n=1\) rad/s, \(\zeta=1\) |
+| 3 | PI, stable without limiting saturation | zero step steady-state error |
+
+The page also hosts the bonus experiments. **Bonus A** runs a P-only experiment on the teaching plant \(G(s)=1/(s+1)^3\), showing sustained oscillation at \(K_u=8\) and comparing the measured period with \(P_u=2\pi/\sqrt3\approx3.628\) s. **Bonus B** applies state feedback \(u=-Kx+Nr\) to the mass–spring–damper model, checks that the eigenvalues of \(A-BK\) match the desired poles, and compares the response with PID on the same plant.
 
 **AI assistance:**  
-[What AI was used for in P1]
+Assisted with identifying errors, fixing them, and verifying results.
 
 </details>
 
