@@ -294,7 +294,6 @@ The page also generates **Arduino loop code** using the current gains, sampling 
 </details>
 
 ---
-
 ## 🎯 Module P4 · Tuning Challenge
 
 Tune a hidden plant to satisfy a randomly generated performance specification.
@@ -302,13 +301,13 @@ Tune a hidden plant to satisfy a randomly generated performance specification.
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
 
-**Developed by:** [P4 NAME]
+**Developed by:** Yasmin Badwan
 
 **About this module:**  
 P4 creates a hidden random plant, reusing the Homework 1 Module 4 generator. The plant can be either:
 
-- First order with \(K\) and \(\tau\)
-- Second order with \(\zeta\) and \(\omega_n\)
+- First order with $K$ and $\tau$
+- Second order with $\zeta$ and $\omega_n$
 
 A new specification is generated for each round. The specification includes an overshoot limit, a settling-time limit, and a zero steady-state-error requirement.
 
@@ -319,7 +318,7 @@ The challenge also includes a live preview, a **Predict, Then Check** experiment
 The user can continue tuning the controller and start a new challenge to test the design again.
 
 **AI assistance:**  
-[What AI was used for in P4]
+Assisted with interface styling, equation formatting, updating prediction interactions, and debugging the scoring and pass/fail checks.
 
 </details>
 
