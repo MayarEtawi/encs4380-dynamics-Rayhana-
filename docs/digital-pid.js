@@ -257,10 +257,81 @@
     const rows = current.samples.map(s => [s.t, s.r, s.y, s.previousError, s.proportional, s.integral, s.derivative, s.raw, s.u, s.blocked].join(','));
     download('digital-pid-samples.csv', [header, ...rows].join('\n'), 'text/csv');
   });
+  // P4 bonus part: show the calculated ZN gains and the response before (P-only at Ku)
+  // and after (ZN PID) tuning, with the same metrics as the Performance check.
+  function znCompare(gains, ku, pu) {
+    const box = $('zn-compare'); if (!box) return;
+    const round = v => Number(v.toPrecision(7));
+    const base = { ...E.DEFAULTS, plant: 'third', ts: 0.01, min: -20, max: 20, duration: 40, antiWindup: true, recovery: false };
+    const table = $('zn-compare-table'), body = table.querySelector('tbody');
+    let before, after;
+    try {
+      before = E.simulate({ ...base, kp: round(ku), ki: 0, kd: 0 });
+      after = E.simulate({ ...base, kp: round(gains.kp), ki: round(gains.ki), kd: round(gains.kd) });
+    } catch (error) {
+      body.replaceChildren(); $('zn-compare-chart').replaceChildren(); $('zn-gain-cards').replaceChildren();
+      table.querySelector('caption').textContent = 'Cannot simulate these gains: ' + error.message; return;
+    }
+    table.querySelector('caption').textContent = 'Performance metrics (same definitions as the Performance check above)';
+    // Gain cards: measured inputs, the rule, and the resulting gains.
+    $('zn-gain-cards').replaceChildren(...[
+      ['Critical gain Ku', fmt(ku, 3), 'P-only gain at sustained oscillation'],
+      ['Oscillation period Pu', `${fmt(pu, 3)} s`, 'Period at Kp = Ku'],
+      ['Ti · Td', `${fmt(pu / 2, 3)} s · ${fmt(pu / 8, 3)} s`, 'Ti = Pu/2 · Td = Pu/8'],
+      ['Kp', fmt(gains.kp, 4), 'Kp = 0.6·Ku'],
+      ['Ki', fmt(gains.ki, 4), 'Ki = Kp/Ti = 1.2·Ku/Pu'],
+      ['Kd', fmt(gains.kd, 4), 'Kd = Kp·Td = 0.075·Ku·Pu']
+    ].map(([name, value, hint]) => {
+      const card = document.createElement('div'); card.className = 'metric-card';
+      for (const [tag, text] of [['span', name], ['strong', value], ['small', hint]]) {
+        const el = document.createElement(tag); el.textContent = text; card.append(el);
+      }
+      return card;
+    }));
+    // Before/after output plot.
+    const svg = $('zn-compare-chart'), width = 760, height = 320, m = { l: 62, r: 18, t: 16, b: 46 };
+    const pw = width - m.l - m.r, ph = height - m.t - m.b, end = base.duration;
+    let lo = 0, hi = 1;
+    for (const s of [before, after]) for (const v of s.y) { lo = Math.min(lo, v); hi = Math.max(hi, v); }
+    const pad = Math.max((hi - lo) * 0.08, 0.05); lo -= pad; hi += pad;
+    const X = t => m.l + t / end * pw, Y = v => m.t + (hi - v) / (hi - lo) * ph;
+    svg.replaceChildren(svgNode('title', {}, 'Output before and after Ziegler–Nichols tuning'));
+    for (let i = 0; i <= 5; i++) {
+      const v = lo + (hi - lo) * i / 5, t = end * i / 5;
+      svg.append(svgNode('line', { x1: m.l, x2: width - m.r, y1: Y(v), y2: Y(v), stroke: '#e5e7e9' }),
+        svgNode('text', { x: m.l - 8, y: Y(v) + 4, 'text-anchor': 'end', fill: '#53647c', 'font-size': 12 }, v.toFixed(2)),
+        svgNode('text', { x: X(t), y: height - 22, 'text-anchor': 'middle', fill: '#53647c', 'font-size': 12 }, String(t)));
+    }
+    svg.append(svgNode('text', { x: width / 2, y: height - 3, 'text-anchor': 'middle', fill: '#53647c', 'font-size': 12 }, 'Time (s)'));
+    svg.append(svgNode('path', { d: `M${X(0)},${Y(1)}H${X(end)}`, fill: 'none', stroke: '#be935e', 'stroke-width': 2, 'stroke-dasharray': '8 6' }));
+    const line = (s, color, dash, w) => {
+      const stride = Math.max(1, Math.ceil(s.t.length / 2400)); let d = '';
+      for (let i = 0; i < s.t.length; i += stride) d += `${i ? 'L' : 'M'}${X(s.t[i]).toFixed(2)},${Y(s.y[i]).toFixed(2)}`;
+      svg.append(svgNode('path', { d, fill: 'none', stroke: color, 'stroke-width': w, 'stroke-linejoin': 'round', ...(dash ? { 'stroke-dasharray': dash } : {}) }));
+    };
+    line(before, '#678aa0', '6 4', 2); line(after, '#233247', '', 2.6);
+    // Metrics table.
+    const bm = E.metrics(before), am = E.metrics(after);
+    const peakU = s => s.samples.reduce((a, v) => Math.max(a, Math.abs(v.u)), 0);
+    const rows = [
+      ['Overshoot', s => describeMetric('overshoot', s.m, s.s)],
+      ['Rise time (10–90%)', s => s.s.unstable ? 'Diverged' : s.m.rise === null ? 'Not reached' : `${fmt(s.m.rise, 3)} s`],
+      ['Settling time (±2%)', s => describeMetric('settling', s.m, s.s)],
+      ['Final tracking error', s => describeMetric('error', s.m, s.s) + (s.s.unstable || s.m.steady ? '' : ' (tail not steady)')],
+      ['Time in saturation', s => `${fmt(s.m.saturation, 1)}%`],
+      ['Peak |u|', s => fmt(peakU(s.s), 2)]
+    ];
+    body.replaceChildren(...rows.map(([name, f]) => {
+      const tr = document.createElement('tr'), th = document.createElement('th'); th.scope = 'row'; th.textContent = name; tr.append(th);
+      for (const s of [{ s: before, m: bm }, { s: after, m: am }]) { const td = document.createElement('td'); td.textContent = f(s); tr.append(td); }
+      return tr;
+    }));
+  }
   function updateZN() {
     try {
       const gains = E.znGains(Number($('ku').value), Number($('pu').value));
-      $('zn-gains').textContent = `Kp = ${fmt(gains.kp, 4)} · Ki = ${fmt(gains.ki, 4)} · Kd = ${fmt(gains.kd, 4)}`; $('bonus-status').textContent = ''; return gains;
+      $('zn-gains').textContent = `Kp = ${fmt(gains.kp, 4)} · Ki = ${fmt(gains.ki, 4)} · Kd = ${fmt(gains.kd, 4)}`; $('bonus-status').textContent = '';
+      znCompare(gains, Number($('ku').value), Number($('pu').value)); return gains;
     } catch (error) { $('zn-gains').textContent = 'Enter positive Ku and Pu.'; throw error; }
   }
   for (const id of ['ku', 'pu']) $(id).addEventListener('input', () => { try { updateZN(); } catch (error) { $('bonus-status').textContent = error.message; } });

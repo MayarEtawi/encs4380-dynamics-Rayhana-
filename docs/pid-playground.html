@@ -227,9 +227,23 @@
               <div><small>Desired poles</small><strong id="ssPoles">—</strong></div>
               <div><small>Feedback K = [k₁, k₂]</small><strong id="ssGains">—</strong></div>
               <div><small>Prefilter N</small><strong id="ssPrefilter">—</strong></div>
+              <div><small>Open-loop poles eig(A)</small><strong id="ssOpenPoles">—</strong></div>
+              <div><small>Check: eig(A − BK)</small><strong id="ssClosedPoles">—</strong></div>
             </div>
+            <p class="muted" id="ssFormula">k₁ = mω<sub>n</sub>² − k · k₂ = 2mζω<sub>n</sub> − b · N = mω<sub>n</sub>²
+              (from matching det(sI − A + BK) with s² + 2ζω<sub>n</sub>s + ω<sub>n</sub>²).</p>
+            <p id="ssCheck" class="muted" role="status"></p>
             <p id="ssStatus" class="muted" role="status"></p>
             <div class="pid-plot" id="ssPlot" aria-label="State feedback response compared with PID"></div>
+            <div class="ss-table-wrap">
+              <table class="ss-table">
+                <caption>Performance metrics · same plant, setpoint, initial state and actuator limit</caption>
+                <thead>
+                  <tr><th scope="col">Metric</th><th scope="col">State feedback</th><th scope="col">PID (P1 gains)</th></tr>
+                </thead>
+                <tbody id="ssMetrics"></tbody>
+              </table>
+            </div>
             <p class="muted">For comparison, the PID trace uses the currently selected P1 gains with the same
               second-order plant, setpoint, duration and initial position. The state-feedback trace uses the same
               actuator limit. Different controller structures may give different responses despite identical plants.</p>

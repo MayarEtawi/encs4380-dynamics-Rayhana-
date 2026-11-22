@@ -241,6 +241,34 @@ function refreshStateSpace() {
     const pid = pidSecondWithInitial({ ...base, type: 'second', m, b, k }, x0);
     Plotly.react('ssPlot', [{ x: state.t, y: state.y, name: 'State feedback', mode: 'lines', line: { color: '#233247', width: 3 } }, { x: pid.t, y: pid.y, name: 'PID (same plant)', mode: 'lines', line: { color: '#6f88a3', width: 2.5 } }, { x: [0, base.duration], y: [base.r, base.r], name: 'Setpoint', mode: 'lines', line: { color: '#be935e', dash: 'dash' } }], graphLayout('State feedback vs PID — same initial conditions', 'Position y'), { responsive: true, displaylogo: false });
     $('ssStatus').textContent = `Selected poles are stable. Initial state: [${x0}, 0]. Both controllers use Umax = ${base.umax} and r = ${base.r}.`;
+    // P4 bonus part: verify the placement and report the response metrics.
+    const eig2 = M => {
+      const tr = M[0][0] + M[1][1], det = M[0][0] * M[1][1] - M[0][1] * M[1][0], d = tr * tr - 4 * det;
+      return d < 0 ? [{ re: tr / 2, im: Math.sqrt(-d) / 2 }, { re: tr / 2, im: -Math.sqrt(-d) / 2 }]
+        : [{ re: (tr + Math.sqrt(d)) / 2, im: 0 }, { re: (tr - Math.sqrt(d)) / 2, im: 0 }];
+    };
+    const showPoles = ps => ps[0].im ? `${ps[0].re.toFixed(2)} ± j${Math.abs(ps[0].im).toFixed(2)}` : `${ps[0].re.toFixed(2)}, ${ps[1].re.toFixed(2)}`;
+    const open = eig2([[0, 1], [-k / m, -b / m]]);
+    const closed = eig2([[0, 1], [-(k + state.k1) / m, -(b + state.k2) / m]]); // A − BK
+    // The placed poles are the roots of s² + 2ζωn·s + ωn²: sum = −2ζωn, product = ωn².
+    const sumErr = Math.abs(closed[0].re + closed[1].re + 2 * zeta * wn), prodErr = Math.abs((closed[0].re * closed[1].re - closed[0].im * closed[1].im) - wn * wn);
+    const placed = sumErr < 1e-9 * Math.max(1, wn) && prodErr < 1e-9 * Math.max(1, wn * wn);
+    $('ssOpenPoles').textContent = showPoles(open);
+    $('ssClosedPoles').textContent = showPoles(closed);
+    $('ssCheck').textContent = `${placed ? '✓ PASS' : '✗ FAIL'} · eig(A − BK) ${placed ? 'equals' : 'differs from'} the desired poles. ` +
+      `A − BK = [[0, 1], [${(-(k + state.k1) / m).toFixed(3)}, ${(-(b + state.k2) / m).toFixed(3)}]].`;
+    $('ssCheck').className = 'muted ' + (placed ? 'pass' : 'fail');
+    const sm = metrics(state, base.r), pm = metrics(pid, base.r);
+    const rows = [['Rise time (10–90%)', 'rise', ' s'], ['Overshoot', 'overshoot', '%'], ['Settling time (2%)', 'settle', ' s'], ['Final error', 'error', '']];
+    $('ssMetrics').replaceChildren(...rows.map(([name, key, unit]) => {
+      const tr = document.createElement('tr'), th = document.createElement('th'); th.scope = 'row'; th.textContent = name; tr.append(th);
+      for (const mm of [sm, pm]) {
+        const td = document.createElement('td');
+        td.textContent = Number.isFinite(mm[key]) ? mm[key].toFixed(3) + unit : key === 'settle' ? 'Not settled' : '—';
+        tr.append(td);
+      }
+      return tr;
+    }));
   } catch (e) { $('ssStatus').textContent = e.message; }
 }
 for (const id of ['ssMass', 'ssDamping', 'ssStiffness', 'ssWn', 'ssZeta', 'ssInitial']) $(id).addEventListener('input', refreshStateSpace);

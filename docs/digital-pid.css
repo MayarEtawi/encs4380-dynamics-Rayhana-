@@ -413,3 +413,24 @@
     padding: 14px;
   }
 }
+/* P4 bonus part: ZN before/after comparison inside the P3 bonus section */
+.digital-page .zn-compare {
+  margin: 22px 0 16px;
+  padding-top: 18px;
+  border-top: 1px solid #ddd8cc;
+  display: grid;
+  gap: 12px;
+}
+
+.digital-page .zn-compare h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.digital-page .zn-compare .hint {
+  margin: 0;
+}
+
+.digital-page .zn-legend {
+  margin-top: 4px;
+}

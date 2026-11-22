@@ -315,3 +315,33 @@
         grid-template-columns: 1fr
     }
 }
+/* P4 bonus part: state-feedback metrics table in Bonus B */
+.ss-table-wrap {
+    overflow-x: auto;
+    margin-top: 12px
+}
+
+.ss-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums
+}
+
+.ss-table caption {
+    text-align: left;
+    font-size: 12px;
+    color: #67717e;
+    padding-bottom: 6px
+}
+
+.ss-table th,
+.ss-table td {
+    padding: 9px 10px;
+    border-bottom: 1px solid #e5dbd0;
+    text-align: left
+}
+
+.ss-table thead th {
+    background: #f4eee6
+}

@@ -278,7 +278,32 @@
       <p class="hint">Kp = 0.6Ku · Ki = 1.2Ku/Pu · Kd = 0.075KuPu. Applying uses Ts = 0.01 s, limits ±20, a unit step
         and a 40 s window. These settings are a starting point; saturation and digital sampling can change the response.
         They are not motor tuning results.</p>
-      <p id="bonus-status" role="status"></p><a href="pid-playground.html#znSection">Open P1’s critical-gain experiment
+      <p id="bonus-status" role="status"></p>
+      <!-- P4 bonus part: calculated gains + before/after response with performance metrics -->
+      <div class="zn-compare" id="zn-compare" aria-labelledby="zn-compare-title">
+        <h3 id="zn-compare-title">Before and after tuning · teaching plant 1/(s + 1)³</h3>
+        <p class="hint">Before = P-only at Kp = Ku (the critical-gain experiment). After = the Ziegler–Nichols PID gains
+          above. Both runs use this page's digital PID: Ts = 0.01 s, limits ±20, anti-windup on, unit step, 40 s.</p>
+        <div class="p3-metrics" id="zn-gain-cards"></div>
+        <div class="legend zn-legend"><span class="previous-key">Before · P-only at Ku</span><span
+            class="output-key">After · ZN PID</span><span class="setpoint-key">Setpoint</span></div>
+        <div class="chart-wrap"><svg id="zn-compare-chart" viewBox="0 0 760 320" role="img"
+            aria-label="Output before and after Ziegler–Nichols tuning"></svg></div>
+        <div class="table-scroll">
+          <table id="zn-compare-table">
+            <caption>Performance metrics (same definitions as the Performance check above)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Metric</th>
+                <th scope="col">Before · P-only at Ku</th>
+                <th scope="col">After · ZN PID</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <a href="pid-playground.html#znSection">Open P1’s critical-gain experiment
         →</a>
     </section>
     <section class="reference" aria-labelledby="reference-title">
