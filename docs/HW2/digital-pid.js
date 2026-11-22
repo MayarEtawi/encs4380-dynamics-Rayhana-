@@ -81,7 +81,7 @@
         `Simulated ${fmt(p.duration, 1)} s · ${current.samples.length} controller updates · anti-windup ${p.antiWindup ? 'on' : 'off'}.`;
       if (p.recovery) $('simulation-status').textContent += ` Second step applied at ${fmt(current.recoveryTime, 3)} s.`;
       const names = [['Rise time', m.rise === null ? (p.recovery ? 'Not used' : 'Not reached') : `${fmt(m.rise, 3)} s`, '10–90% of target'],
-      ['Overshoot', `${fmt(m.overshoot)}%`, p.recovery ? 'After second step' : 'Above target'],
+      ['Overshoot', `${fmt(m.overshoot)}%`, p.recovery ? 'Past new target · after second step' : 'Above target'],
       ['Settling time', m.settling === null ? 'Not settled' : `${fmt(m.settling, 3)} s`, '±2% · final 1 s in band'],
       [m.steady ? 'Steady-state error' : 'Final tracking error', `${fmt(m.error, 3)}%`, m.steady ? 'Settled final-second mean' : 'Tail not steady'],
       ['Saturation', `${fmt(m.saturation, 1)}%`, 'Fraction of simulation time'],

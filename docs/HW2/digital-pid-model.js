@@ -1,6 +1,6 @@
 /* Rayhana P3: sampled controller, RK4 plant, metrics and Arduino generator.
  * The controller runs only at k*Ts. RK4 substeps never update the PID state.
- * No browser dependencies: the same core is exercised by Node tests.
+ * No browser dependencies, so the same core can also run in Node.
  */
 (function (root) {
   'use strict';
@@ -128,10 +128,20 @@
     const start = series.recoveryTime ?? 0;
     const target = p.recovery ? p.recoveryTarget : p.setpoint;
     const i0 = Math.max(0, t.findIndex(time => time >= start - 1e-9));
-    let peak = -Infinity, outside = -1;
+    let peak = -Infinity, trough = Infinity, outside = -1;
     for (let i = i0; i < y.length; i++) {
       peak = Math.max(peak, y[i]);
+      trough = Math.min(trough, y[i]);
       if (Math.abs(y[i] - target) > 0.02 * target + 1e-9) outside = i;
+    }
+    // Overshoot is measured past the target in the direction of the step.
+    // The first step starts from rest, so it is relative to the target.
+    // A recovery step may go down; it is relative to its own step size.
+    let overshoot = Math.max(0, (peak - target) / target * 100);
+    if (p.recovery) {
+      const step = target - y[i0];
+      if (Math.abs(step) > 1e-9 * target)
+        overshoot = Math.max(0, (step > 0 ? peak - target : target - trough) / Math.abs(step) * 100);
     }
     const candidate = outside < 0 ? i0 : outside + 1;
     const settling = !series.unstable && candidate < t.length &&
@@ -149,7 +159,7 @@
     const span = tail.reduce((v, n) => Math.max(v, n), -Infinity) - tail.reduce((v, n) => Math.min(v, n), Infinity);
     const steady = !series.unstable && t.at(-1) - start >= 1 && span <= 0.002 * target;
     return {
-      overshoot: Math.max(0, (peak - target) / target * 100), settling,
+      overshoot, settling,
       rise: !p.recovery && a !== null && b !== null ? b - a : null,
       error: Math.abs(target - mean) / target * 100, steady,
       saturation: series.saturatedTime / p.duration * 100, maxIntegral: series.maxIntegral

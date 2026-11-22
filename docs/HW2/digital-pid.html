@@ -19,7 +19,7 @@
     <a class="brand" href="control.html" aria-label="Rayhana Control Home"><span class="brand-mark">R</span><span
         class="brand-words"><strong>RAYHANA</strong><small>PID Control Toolkit · ENCS4380</small></span></a>
     <nav class="site-nav" aria-label="Homework 2 navigation">
-      <a href="index.html">← Toolkits</a><a href="control.html">Control Home</a>
+      <a href="../index.html">← Toolkits</a><a href="control.html">Control Home</a>
       <a href="pid-playground.html">P1 · PID Playground</a><a href="slow-sensor.html">P2 · Slow Sensor</a>
       <a href="digital-pid.html" aria-current="page" class="current">P3 · Digital PID</a>
       <a href="tuning-challenge.html">P4 · Tuning Challenge</a><a href="project-model.html">My System</a>
@@ -342,7 +342,8 @@
           the homework; it can produce a kick on a setpoint change. Conditional anti-windup rejects an integral
           increment when the candidate command is outside a limit and that increment pushes further into the limit. An
           increment that helps recovery is allowed.</p>
-        <p>Overshoot is relative to the target. Rise time is the first 10–90% upward crossing of the target. Settling
+        <p>Overshoot is relative to the target. After a second setpoint step, overshoot is how far the output goes past
+          the new target in the direction of that step, as a percentage of the step size. Rise time is the first 10–90% upward crossing of the target. Settling
           uses a ±2% target band and requires at least one final second in that band. Final tracking error uses the mean
           of the final second; it is called steady-state error only if the tail range is ≤0.2% of the target. Unsettled
           and divergent runs are labelled explicitly. A recovery step is applied at the first controller sample at or

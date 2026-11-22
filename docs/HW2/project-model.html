@@ -122,6 +122,17 @@
   font-weight:700;
   margin-top:10px;
 }
+.motor-measurement-notice {
+  border-left:5px solid #d4a743;
+  background:#fff9eb;
+  color:#24344c;
+}
+.motor-measurement-notice h2 {
+  margin-top:12px;
+}
+.motor-measurement-notice p:last-child {
+  margin-bottom:0;
+}
 .motor-divider {
   margin:22px 0;
   border:0;
@@ -145,7 +156,7 @@
 </a>
 
 <nav class="site-nav" aria-label="Homework 2 navigation">
-  <a href="index.html">← Toolkits</a>
+  <a href="../index.html">← Toolkits</a>
   <a href="control.html">Control Home</a>
   <a href="pid-playground.html">P1 · PID Playground</a>
   <a href="slow-sensor.html">P2 · Slow Sensor</a>
@@ -177,8 +188,9 @@
   <p class="intro">
     First-order motor modeling and PID speed control
     for the RAYHANA Micromouse robot.
-    Explore an illustrative simulation or identify
-    a plant using measured encoder data.
+    Explore the current illustrative simulation.
+    Real encoder measurements are coming soon;
+    the measured motor model is still pending.
   </p>
 </div>
 
@@ -192,6 +204,35 @@
   </svg>
   <span>PWM STEP → MOTOR SPEED</span>
 </div>
+
+</section>
+
+
+<!-- MEASUREMENT STATUS -->
+
+<section class="pid-card motor-measurement-notice"
+         aria-labelledby="measurement-status-title">
+
+<span class="motor-tag">REAL MEASUREMENTS · COMING SOON</span>
+
+<h2 id="measurement-status-title">
+Experimental Motor Measurements Are Pending
+</h2>
+
+<p>
+The hardware PWM step test and encoder logging
+have not been completed yet. Real measurement
+fields are intentionally empty. Measured values
+of K and τ will be added after the test.
+</p>
+
+<p>
+Until then, the plots and performance checks
+use an illustrative model with assumed parameters.
+They are not measured motor results, and the
+controller gains have not been validated on
+the physical motor.
+</p>
 
 </section>
 
@@ -344,7 +385,7 @@ Simulation Mode
         type="button"
         class="motor-mode"
         aria-pressed="false">
-Measured Mode
+Measured Mode · Coming Soon
 </button>
 
 </div>
@@ -413,15 +454,17 @@ K and τ are assumed for demonstration only.
 <div id="measuredPanel" hidden>
 
 <span class="motor-tag">
-EXPERIMENTAL IDENTIFICATION
+EXPERIMENTAL IDENTIFICATION · MEASUREMENTS COMING SOON
 </span>
 
-<h3>PWM Step Test Data</h3>
+<h3>PWM Step Test Data — Pending</h3>
 
 <p>
-This mode calculates motor parameters using
-logged encoder speed measurements from
-a physical PWM step test.
+Real encoder measurements are coming soon.
+These fields are intentionally empty because
+the physical PWM step test has not yet been
+completed. After the test, enter the recorded
+data here to calculate the motor parameters.
 </p>
 
 <div class="motor-grid">
@@ -491,7 +534,9 @@ Calculate Identified Model
 </button>
 
 <div class="motor-output" id="identification">
-No measured model has been identified.
+Real measurements are coming soon.
+No experimental PWM step data is available yet.
+Measured K and τ are pending.
 </div>
 
 <p class="motor-note">
@@ -733,6 +778,15 @@ the left and right wheel speeds.
 The current page demonstrates the control
 design process through simulation.
 </p>
+
+<p>
+<strong>Coming soon:</strong>
+Real encoder step-response data, identified
+motor parameters K and τ, and updated controller
+gains and simulation results based on that model.
+The illustrative results will remain clearly
+separate from experimental evidence.
+</p>
 </section>
 
 
@@ -856,8 +910,9 @@ function switchMode(next) {
   } else {
     model = null;
     el("modelStatus").textContent =
-      "Measured Mode selected. " +
-      "Enter real PWM step data before simulation.";
+      "Real measurements are coming soon. " +
+      "The fields are intentionally empty until the PWM step test is complete. " +
+      "Enter the recorded data before running a measured-model simulation.";
     clearResults();
   }
 }

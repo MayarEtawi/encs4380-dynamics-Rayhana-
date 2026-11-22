@@ -148,35 +148,35 @@ Assisted with interface styling, equation formatting, and debugging.
 
 #### Homepage
 
-![Homepage](docs/screenshots/01_homepage.png)
+![Homepage](docs/HW1/screenshots/01_homepage.png)
 
 #### Module 1 – Time Response
 
-![Module 1 Prediction](docs/screenshots/02_module1-prediction.png)
+![Module 1 Prediction](docs/HW1/screenshots/02_module1-prediction.png)
 
-![Module 1 Simulator](docs/screenshots/03_module1.png)
+![Module 1 Simulator](docs/HW1/screenshots/03_module1.png)
 
 #### Module 2 – Frequency Response
 
-![Module 2 Prediction](docs/screenshots/04_module2-prediction.png)
+![Module 2 Prediction](docs/HW1/screenshots/04_module2-prediction.png)
 
-![Module 2 Simulator](docs/screenshots/05_module2.png)
+![Module 2 Simulator](docs/HW1/screenshots/05_module2.png)
 
 #### Module 3 – Second-Order Response
 
-![Module 3 Prediction](docs/screenshots/06_module3-prediction.png)
+![Module 3 Prediction](docs/HW1/screenshots/06_module3-prediction.png)
 
-![Module 3 Simulator](docs/screenshots/07_module3.png)
+![Module 3 Simulator](docs/HW1/screenshots/07_module3.png)
 
-![Module 3 Poles](docs/screenshots/08_module3-poles.png)
+![Module 3 Poles](docs/HW1/screenshots/08_module3-poles.png)
 
-![Module 3 Validation](docs/screenshots/09_module3-validation.png)
+![Module 3 Validation](docs/HW1/screenshots/09_module3-validation.png)
 
 #### Module 4 – Guess the Sensor
 
-![Module 4 Challenge](docs/screenshots/10_module4.png)
+![Module 4 Challenge](docs/HW1/screenshots/10_module4.png)
 
-![Module 4 Results](docs/screenshots/11_module4-results.png)
+![Module 4 Results](docs/HW1/screenshots/11_module4-results.png)
 
 </details>
 
@@ -190,7 +190,7 @@ Assisted with interface styling, equation formatting, and debugging.
 
 > Homework 1 showed how slow a system is. Homework 2 shows how to make it **faster and more accurate** using feedback.
 
-Open it from the landing page → **Enter Homework 2** (`docs/control.html`).
+Open it from the landing page → **Enter Homework 2** (`docs/HW2/control.html`).
 
 ## 🎚️ Module P1 · PID Playground
 
@@ -259,7 +259,7 @@ Explore sampling time, discrete PID control, anti-windup, stair-step control sig
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
 
-**Developed by:** [P3 NAME]
+**Developed by:** Maryam Maslamani
 
 **About this module:**  
 P3 implements the digital PID controller using the homework equation:
@@ -288,8 +288,10 @@ Anti-windup can be switched on or off. A second setpoint step demonstrates how a
 
 The page also generates **Arduino loop code** using the current gains, sampling time, actuator limits, and anti-windup setting. The generated code can be copied directly using the **Copy** button or saved using **Download .ino**.
 
+The **Predict, Then Check** experiment lets the user predict how changing \(T_s\), \(K_p\), \(K_i\), \(K_d\), or the anti-windup setting will affect overshoot, settling time, and final tracking error. Two simulations — before and after the change — are compared, and the changed response is drawn as a dashed curve.
+
 **AI assistance:**  
-[What AI was used for in P3]
+Assisted with interface styling, equation formatting, updating prediction interactions.
 
 </details>
 
@@ -483,27 +485,39 @@ match the selected desired closed-loop poles and compares the state-feedback res
 
 #### Control Home
 
-![Control Home](docs/screenshots/12_control.png)
+![Control Home](docs/HW2/screenshots/01_control-home.png)
 
 #### P1 · PID Playground
 
-![P1 PID Playground](docs/screenshots/13_p1-playground.png)
+![P1 Prediction](docs/HW2/screenshots/02_p1-prediction.png)
+
+![P1 Simulator](docs/HW2/screenshots/03_p1.png)
 
 #### P2 · Slow Sensor
 
-![P2 Slow Sensor](docs/screenshots/14_p2-slow-sensor.png)
+![P2 Prediction](docs/HW2/screenshots/04_p2-prediction.png)
+
+![P2 Simulator](docs/HW2/screenshots/05_p2.png)
 
 #### P3 · Digital PID
 
-![P3 Digital PID](docs/screenshots/15_p3-digital-pid.png)
+![P3 Prediction](docs/HW2/screenshots/06_p3-prediction.png)
+
+![P3 Simulator](docs/HW2/screenshots/07_p3.png)
+
+![P3 Sampling Comparison](docs/HW2/screenshots/08_p3-sampling.png)
+
+![P3 Arduino Code](docs/HW2/screenshots/09_p3-arduino.png)
 
 #### P4 · Tuning Challenge
 
-![P4 Tuning Challenge](docs/screenshots/16_p4-tuning.png)
+![P4 Challenge](docs/HW2/screenshots/10_p4.png)
+
+![P4 Results](docs/HW2/screenshots/11_p4-results.png)
 
 #### My System
 
-![My System](docs/screenshots/17_my-system.png)
+![My System](docs/HW2/screenshots/12_my-system.png)
 
 </details>
 
