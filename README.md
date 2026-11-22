@@ -68,15 +68,14 @@ Explore sine responses, amplitude ratio, phase lag, Bode plots, and dynamic erro
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
 
-**Developed by:** Yasmin Badwan.
+**Developed by:** Yasmin Badwan
 
 **About this module:**  
-Module 2 explores the frequency response of a first-order sensor using interactive simulations. Users can adjust the time constant τ and input frequency and observe how these changes affect the output amplitude and phase lag.
+Module 2 explores the frequency response of a first-order sensor using interactive simulations. Users can adjust the time constant \(\tau\) and input frequency and observe how these changes affect the output amplitude and phase lag.
 
 The module compares input and output sine waves and displays Bode magnitude and phase plots, with markers for the selected frequency and cutoff frequency. Live measurements show the amplitude ratio, phase lag, and cutoff frequency, while the dynamic-error calculator expresses the relative amplitude error.
 
-The Predict, Then Check experiment allows users to predict how changing the frequency or time constant affects the response, run the experiment, and restore previous settings. The module also includes homework validation checks 2 and 3.
-
+The **Predict, Then Check** experiment allows users to predict how changing the frequency or time constant affects the response, run the experiment, and restore previous settings. The module also includes homework validation checks 2 and 3.
 
 **AI assistance:**  
 Assisted with improving visual consistency, styling titles and navigation links, formatting mathematical expressions, and reviewing the displayed validation calculations.
@@ -114,12 +113,12 @@ Estimate hidden sensor parameters from noisy responses and score your guesses.
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
 
-**Developed by:** Hala Shojaiah 
+**Developed by:** Hala Shojaiah
 
 **About this module:**  
 Module 4 provides an interactive challenge where users estimate the parameters of an unknown sensor by analyzing its response curve. Each round randomly generates either a first-order or second-order sensor with hidden parameters and adds a small amount of noise to simulate realistic measurements.
 
-For first-order sensors, users estimate the time constant (τ) by analyzing the response curve, using methods such as the 63.2% response point. For second-order sensors, users estimate the damping ratio (ζ) and natural frequency (ωₙ) by observing response characteristics such as overshoot and peak time.
+For first-order sensors, users estimate the time constant \(\tau\) by analyzing the response curve, using methods such as the 63.2% response point. For second-order sensors, users estimate the damping ratio \(\zeta\) and natural frequency \(\omega_n\) by observing response characteristics such as overshoot and peak time.
 
 The module includes a **Hint** feature to guide users without immediately revealing the correct parameters. After submitting their estimates, users can reveal the actual sensor values and compare their predicted response with the true response on the same plot.
 
@@ -134,30 +133,41 @@ Assisted with interface styling, equation formatting, and debugging.
 
 ---
 
-### 📸 Homework 1 screenshots
+### 📸 Homework 1 Screenshots
 
 <details>
 <summary>Open screenshots</summary>
 
 #### Homepage
+
 ![Homepage](docs/screenshots/01_homepage.png)
 
 #### Module 1 – Time Response
+
 ![Module 1 Prediction](docs/screenshots/02_module1-prediction.png)
+
 ![Module 1 Simulator](docs/screenshots/03_module1.png)
 
 #### Module 2 – Frequency Response
+
 ![Module 2 Prediction](docs/screenshots/04_module2-prediction.png)
+
 ![Module 2 Simulator](docs/screenshots/05_module2.png)
 
 #### Module 3 – Second-Order Response
+
 ![Module 3 Prediction](docs/screenshots/06_module3-prediction.png)
+
 ![Module 3 Simulator](docs/screenshots/07_module3.png)
+
 ![Module 3 Poles](docs/screenshots/08_module3-poles.png)
+
 ![Module 3 Validation](docs/screenshots/09_module3-validation.png)
 
 #### Module 4 – Guess the Sensor
+
 ![Module 4 Challenge](docs/screenshots/10_module4.png)
+
 ![Module 4 Results](docs/screenshots/11_module4-results.png)
 
 </details>
@@ -170,24 +180,13 @@ Assisted with interface styling, equation formatting, and debugging.
 
 # 🎛️ Homework 2 · PID Control Toolkit
 
-> Homework 1 showed how slow a system is. Homework 2 shows how to make it **faster and more accurate** using feedback.  
-> Open it from the landing page → **Enter Homework 2** (`docs/control.html`).
+> Homework 1 showed how slow a system is. Homework 2 shows how to make it **faster and more accurate** using feedback.
 
-| Module | Owner | What you can explore | Page |
-|---|---|---|---|
-| 🎚️ **P1 · PID Playground** | [P1 NAME] | Tune Kp, Ki, Kd on a 1st- or 2nd-order plant; live metrics and actuator limit | [`pid-playground.html`](docs/pid-playground.html) |
-| 📡 **P2 · Slow Sensor** | [P2 NAME] | True output vs. what a slow sensor reports, and the move to oscillation | [`slow-sensor.html`](docs/slow-sensor.html) |
-| 🔢 **P3 · Digital PID** | [P3 NAME] | Sampling time Ts, anti-windup, and generated Arduino code | [`digital-pid.html`](docs/digital-pid.html) |
-| 🎯 **P4 · Tuning Challenge** | [P4 NAME] | Hidden random plant, spec with pass/fail per part, and a score | [`tuning-challenge.html`](docs/tuning-challenge.html) |
-| 🐭 **My System** | Team | Micromouse drive-motor model, spec, PID design | [`project-model.html`](docs/project-model.html) |
+Open it from the landing page → **Enter Homework 2** (`docs/control.html`).
 
-Every module keeps the **Predict, then check** box, and every closed loop is simulated step by step with **RK4** — no closed-form shortcuts.
+## 🎚️ Module P1 · PID Playground
 
----
-
-## 🎚️ P1 · PID Playground
-
-Change the plant and the gains, then watch rise time, overshoot, settling time and steady-state error update live.
+Tune a PID controller on first- or second-order plants and observe how each gain affects the closed-loop response.
 
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
@@ -195,11 +194,17 @@ Change the plant and the gains, then watch rise time, overshoot, settling time a
 **Developed by:** [P1 NAME]
 
 **About this module:**  
-P1 shows the full feedback loop as a block diagram: setpoint, PID, actuator limit ±Umax, plant and unity negative feedback. The user picks the plant — first order \(K/(\tau s+1)\) from Module 1 or the mass–spring–damper from Module 3 — and sets Kp, Ki, Kd and the setpoint step.
+P1 shows the full feedback loop as a block diagram: setpoint, PID, actuator limit ±Umax, plant, and unity negative feedback.
 
-Two plots are shown: the output against the setpoint, and the control signal u(t) with its limits. Live metrics report rise time (10–90%), overshoot, settling time (2% band) and final error. The derivative acts on the measurement to avoid derivative kick, and conditional integration prevents windup when the actuator saturates.
+The user picks the plant — first order \(K/(\tau s+1)\) from Module 1 or the mass–spring–damper model from Module 3 — and sets \(K_p\), \(K_i\), \(K_d\), and the setpoint step.
 
-The **Predict, then check** box runs two RK4 simulations — before and after raising one gain — and checks the user's prediction against the measured change. P1 also contains the three **homework validation checks** (see below).
+Two plots are shown: the output against the setpoint, and the control signal \(u(t)\) with its limits. Live metrics report **rise time (10–90%)**, **overshoot**, **settling time (2% band)**, and **steady-state error**.
+
+The derivative acts on the measurement to avoid derivative kick, and conditional integration prevents windup when the actuator saturates.
+
+The **Predict, Then Check** experiment runs two RK4 simulations — before and after raising one gain — and checks the user's prediction against the measured change.
+
+P1 also contains the three **Homework validation checks**.
 
 **AI assistance:**  
 [What AI was used for in P1]
@@ -208,9 +213,9 @@ The **Predict, then check** box runs two RK4 simulations — before and after ra
 
 ---
 
-## 📡 P2 · A Slow Sensor in the Loop
+## 📡 Module P2 · A Slow Sensor in the Loop
 
-Put a first-order sensor with time constant τs in the feedback path — the controller only controls what the sensor says.
+Study how sensor dynamics inside the feedback path affect the true output, measured output, overshoot, and oscillation.
 
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
@@ -218,9 +223,19 @@ Put a first-order sensor with time constant τs in the feedback path — the con
 **Developed by:** [P2 NAME]
 
 **About this module:**  
-The sensor is modelled as \(\dot y_s = (y - y_s)/\tau_s\), and the PID acts on the sensor reading instead of the true output. The true output and the measured value are drawn on the same plot, so the gap between them is visible.
+P2 places a first-order sensor with time constant \(\tau_s\) in the feedback path. The controller acts on the sensor reading rather than directly on the true output.
 
-As τs grows, the feedback information arrives later, the overshoot grows, and the loop moves towards oscillation. The **Predict, then check** box lets the user guess how a larger τs or a gain change will affect the response before running it.
+The sensor is modelled as
+
+\[
+\dot y_s = \frac{y-y_s}{\tau_s}
+\]
+
+The true output and measured value are drawn on the same plot, making the difference between the actual system response and the sensor reading visible.
+
+As \(\tau_s\) grows, the feedback information becomes slower. The resulting delay can increase overshoot and move the closed loop toward oscillation.
+
+The **Predict, Then Check** experiment lets the user predict how increasing \(\tau_s\) or changing the controller gains will affect the response before running the simulation.
 
 **AI assistance:**  
 [What AI was used for in P2]
@@ -229,9 +244,9 @@ As τs grows, the feedback information arrives later, the overshoot grows, and t
 
 ---
 
-## 🔢 P3 · Digital PID
+## 🔢 Module P3 · Digital PID
 
-Run the controller only at sample times, see the stair-step command, and copy the Arduino code for the current gains.
+Explore sampling time, discrete PID control, anti-windup, stair-step control signals, and automatically generated Arduino code.
 
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
@@ -239,13 +254,31 @@ Run the controller only at sample times, see the stair-step command, and copy th
 **Developed by:** [P3 NAME]
 
 **About this module:**  
-The controller follows the homework equation
+P3 implements the digital PID controller using the homework equation:
 
-$$u[k] = K_p e[k] + K_i T_s \sum_{j=0}^{k} e[j] + K_d \frac{e[k]-e[k-1]}{T_s}$$
+\[
+u[k] =
+K_p e[k]
++
+K_i T_s \sum_{j=0}^{k} e[j]
++
+K_d\frac{e[k]-e[k-1]}{T_s}
+\]
 
-The command is held between samples (zero-order hold), while the plant is integrated with RK4 at a much finer step. A comparison table runs Ts = 0.01, 0.10, 0.50 and 1.00 s with the same plant and gains, so the loss of performance as Ts grows is visible.
+The controller runs only at the selected sampling instants. Between samples, the command is held using **zero-order hold**, while the plant is integrated with RK4 at a much finer simulation step.
 
-Anti-windup can be switched on or off; a second setpoint step shows how much faster the loop recovers with it. The page generates **Arduino loop code** with the current gains, Ts, limits and anti-windup setting, with **Copy** and **Download .ino** buttons.
+A comparison table runs:
+
+- \(T_s = 0.01\) s
+- \(T_s = 0.10\) s
+- \(T_s = 0.50\) s
+- \(T_s = 1.00\) s
+
+using the same plant and controller gains, making the effect of increasing sampling time visible.
+
+Anti-windup can be switched on or off. A second setpoint step demonstrates how anti-windup affects recovery after actuator saturation.
+
+The page also generates **Arduino loop code** using the current gains, sampling time, actuator limits, and anti-windup setting. The generated code can be copied directly using the **Copy** button or saved using **Download .ino**.
 
 **AI assistance:**  
 [What AI was used for in P3]
@@ -254,9 +287,9 @@ Anti-windup can be switched on or off; a second setpoint step shows how much fas
 
 ---
 
-## 🎯 P4 · Tuning Challenge
+## 🎯 Module P4 · Tuning Challenge
 
-A hidden plant, a clear spec, and a score — tune the gains until every part passes.
+Tune a hidden plant to satisfy a randomly generated performance specification.
 
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
@@ -264,9 +297,18 @@ A hidden plant, a clear spec, and a score — tune the gains until every part pa
 **Developed by:** [P4 NAME]
 
 **About this module:**  
-Each round creates a hidden random plant, reusing Homework 1's Module 4 generator: either first order (K, τ) or second order (ζ, ωn). A new spec is drawn every round: an overshoot limit, a settling-time limit and zero steady-state error.
+P4 creates a hidden random plant, reusing the Homework 1 Module 4 generator. The plant can be either:
 
-After **Run simulation**, the page shows **PASS / FAIL** for each part of the spec and a score out of 100, plus the best score of the session. A live preview, a prediction experiment and a CSV export of the last run are also included.
+- First order with \(K\) and \(\tau\)
+- Second order with \(\zeta\) and \(\omega_n\)
+
+A new specification is generated for each round. The specification includes an overshoot limit, a settling-time limit, and a zero steady-state-error requirement.
+
+After **Run Simulation**, the page reports **PASS / FAIL** for each part of the specification and calculates an overall score out of 100.
+
+The challenge also includes a live preview, a **Predict, Then Check** experiment, and CSV export of the latest simulation results.
+
+The user can continue tuning the controller and start a new challenge to test the design again.
 
 **AI assistance:**  
 [What AI was used for in P4]
@@ -275,32 +317,54 @@ After **Run simulation**, the page shows **PASS / FAIL** for each part of the sp
 
 ---
 
-## 🐭 My System · Micromouse Drive Motor
+## 🐭 Module · My System · Micromouse Drive Motor
 
-Our project plant: an N20 geared motor with encoder, driven by a DRV8833 from an ESP32.
+Apply the PID toolkit to the actual actuator used in the Micromouse project.
 
 <details>
 <summary>📐 Model · Spec · Design</summary>
 
-**Plant model:** \(G(s) = K/(\tau s + 1)\) — input PWM duty (%), output wheel speed (RPM).
+**Project plant:**  
+An N20 geared motor with encoder, driven by a DRV8833 from an ESP32.
 
-**Where the numbers come from:**  
-- *Measured mode:* K = ΔRPM / ΔPWM and τ = time to 63.2% of the speed change, from a PWM step test logged with the encoder.  
-- *Simulation mode:* illustrative values (K = 5 RPM/%, τ = 0.15 s) used until the measured values are entered. Motor source: [RoboticX — N20 Motor, 6 V, 530 RPM](https://roboticx.ps/product/n20-dc-motor-with-magnetic-encoder-6v-530-rpm/).
+**Plant model:**
 
-**Spec and why:**
+\[
+G(s)=\frac{K}{\tau s+1}
+\]
+
+The input is PWM duty (%) and the output is wheel speed (RPM).
+
+**Where the numbers come from:**
+
+- **Measured mode:**  
+  \(K=\Delta RPM/\Delta PWM\)
+
+  and
+
+  \(\tau\) is obtained from the time required to reach 63.2% of the speed change during a PWM step test logged with the encoder.
+
+- **Simulation mode:**  
+  Illustrative values \(K=5\) RPM/% and \(\tau=0.15\) s are used until measured values are entered.
+
+**Motor source:**  
+[RoboticX — N20 Motor, 6 V, 530 RPM](https://roboticx.ps/product/n20-dc-motor-with-magnetic-encoder-6v-530-rpm/)
+
+### Specification
 
 | Requirement | Target |
-|---|---|
-| Damping ratio | 0.6 ≤ ζ ≤ 0.8 |
-| Overshoot | ≤ 10% |
-| Settling time (2%) | ≤ 1.0 s |
-| Steady-state error | ≤ 2% |
-| PWM command | 0 – 100% |
+|---|---:|
+| Damping ratio | \(0.6 \leq \zeta \leq 0.8\) |
+| Overshoot | \(\leq 10\%\) |
+| Settling time (2%) | \(\leq 1.0\) s |
+| Steady-state error | \(\leq 2\%\) |
+| PWM command | 0–100% |
 
-The mouse must hold a steady speed during short maze moves; too much overshoot or slow settling makes its movement inaccurate.
+The mouse must hold a steady speed during short maze moves; excessive overshoot or slow settling can reduce movement accuracy.
 
-**Design:** final gains, the simulated speed and PWM response, the performance checks, and the Arduino code are on the [My System page](docs/project-model.html).
+### Design
+
+The **My System** page contains the plant model, controller design, simulated speed and PWM response, performance checks, and generated Arduino code.
 
 </details>
 
@@ -308,21 +372,98 @@ The mouse must hold a steady speed during short maze moves; too much overshoot o
 
 ## 🎁 Bonus · Ziegler–Nichols and State-Space Control
 
+Explore two advanced control approaches beyond the main PID modules.
+
 <details>
 <summary>🔍 What we built and who did what</summary>
 
-**Ziegler–Nichols** — on the teaching plant \(G(s) = 1/(s+1)^3\) (a first-order motor never oscillates under P-only control):  
-P-only experiment → sustained oscillation at **Ku = 8**, **Pu = 2π/√3 ≈ 3.63 s** → classic rules Kp = 0.6Ku, Ki = 1.2Ku/Pu, Kd = 0.075KuPu → before/after response with metrics.
+### Ziegler–Nichols
 
-**State-space** — on the Module 3 mass–spring–damper:  
-state feedback \(u = -Kx + Nr\) with \(k_1 = m\omega_n^2 - k\), \(k_2 = 2m\zeta\omega_n - b\), \(N = m\omega_n^2\) → the page checks that eig(A − BK) equals the chosen poles, and compares the response with PID.
+The Ziegler–Nichols experiment uses the teaching plant
+
+\[
+G(s)=\frac{1}{(s+1)^3}
+\]
+
+A first-order motor does not produce sustained oscillation under P-only control, so this teaching plant is used for the experiment.
+
+The workflow is:
+
+1. Run a P-only experiment.
+2. Increase the proportional gain until sustained oscillation occurs.
+3. Determine the critical gain \(K_u\).
+4. Determine the oscillation period \(P_u\).
+5. Apply the classic Ziegler–Nichols rules.
+6. Compare the response before and after tuning.
+
+The implemented experiment uses:
+
+\[
+K_u=8
+\]
+
+\[
+P_u=\frac{2\pi}{\sqrt{3}}\approx3.63\text{ s}
+\]
+
+The resulting gains are calculated using:
+
+\[
+K_p=0.6K_u
+\]
+
+\[
+K_i=\frac{1.2K_u}{P_u}
+\]
+
+\[
+K_d=0.075K_uP_u
+\]
+
+The page displays the calculated gains and compares the before/after response using performance metrics.
+
+### State-Space Control
+
+The state-space bonus is applied to the Module 3 mass–spring–damper model.
+
+The controller uses state feedback:
+
+\[
+u=-Kx+Nr
+\]
+
+The feedback gains are calculated from the desired natural frequency and damping ratio:
+
+\[
+k_1=m\omega_n^2-k
+\]
+
+\[
+k_2=2m\zeta\omega_n-b
+\]
+
+with the reference prefilter:
+
+\[
+N=m\omega_n^2
+\]
+
+The page checks that the eigenvalues of
+
+\[
+A-BK
+\]
+
+match the selected desired closed-loop poles and compares the state-feedback response with the PID response.
+
+### Team Contribution
 
 | Partner | Ziegler–Nichols | State-space |
 |---|---|---|
-| **P1** | P-only experiment to find sustained oscillation | State feedback u = −Kx on the 2nd-order plant |
-| **P2** | Determine Ku and Pu and explain how | Explain state variables and matrices; choose target poles |
-| **P3** | Calculate gains with the rules, simulate and verify | Compare state feedback with PID (same plant and initial state) |
-| **P4** | Display gains and before/after response with metrics | Calculate K for the chosen poles; show poles, gains and response |
+| **P1** | P-only experiment to find sustained oscillation | State feedback \(u=-Kx\) on the 2nd-order plant |
+| **P2** | Determine \(K_u\) and \(P_u\) and explain how | Explain state variables and matrices; choose target poles |
+| **P3** | Calculate gains using the rules, simulate, and verify | Compare state feedback with PID on the same plant and initial state |
+| **P4** | Display gains and before/after response with metrics | Calculate \(K\) for the chosen poles; show poles, gains, and response |
 
 </details>
 
@@ -330,37 +471,49 @@ state feedback \(u = -Kx + Nr\) with \(k_1 = m\omega_n^2 - k\), \(k_2 = 2m\zeta\
 
 ## ✅ Validation Checks
 
-For the plant \(K/(\tau s + 1)\) with K = 1 and τ = 1 s — run them from P1 with **Run validation**:
+For the plant
 
-| # | Check | Expected |
+\[
+\frac{K}{\tau s+1}
+\]
+
+with \(K=1\) and \(\tau=1\) s, run the validation checks from P1 using **Run Validation**.
+
+| # | Check | Expected result |
 |---|---|---|
-| 1 | P only, Kp = 9 | τ<sub>closed</sub> = 0.1 s, steady-state error = 10% |
-| 2 | PI, Kp = 1, Ki = 1 | ωn = 1 rad/s, ζ = 1 |
+| 1 | P only, \(K_p=9\) | \(\tau_{closed}=0.1\) s, steady-state error = 10% |
+| 2 | PI, \(K_p=1,\ K_i=1\) | \(\omega_n=1\) rad/s, \(\zeta=1\) |
 | 3 | Any stable PI | Zero steady-state error for a step |
 
 ---
 
-### 📸 Homework 2 screenshots
+### 📸 Homework 2 Screenshots
 
 <details>
 <summary>Open screenshots</summary>
 
-#### Control home
-![Control home](docs/screenshots/12_control.png)
+#### Control Home
+
+![Control Home](docs/screenshots/12_control.png)
 
 #### P1 · PID Playground
+
 ![P1 PID Playground](docs/screenshots/13_p1-playground.png)
 
 #### P2 · Slow Sensor
+
 ![P2 Slow Sensor](docs/screenshots/14_p2-slow-sensor.png)
 
 #### P3 · Digital PID
+
 ![P3 Digital PID](docs/screenshots/15_p3-digital-pid.png)
 
 #### P4 · Tuning Challenge
+
 ![P4 Tuning Challenge](docs/screenshots/16_p4-tuning.png)
 
 #### My System
+
 ![My System](docs/screenshots/17_my-system.png)
 
 </details>
@@ -369,14 +522,16 @@ For the plant \(K/(\tau s + 1)\) with K = 1 and τ = 1 s — run them from P1 wi
 
 ---
 
-## 🚀 Run locally
+## 🚀 Run Locally
 
 1. Download or clone the repository.
 2. Open `docs/index.html` in a browser.
-3. Choose **Homework 1** or **Homework 2**, then a module.
+3. Choose **Homework 1** or **Homework 2**, then select a module.
 
-An internet connection is required to load Plotly (Homework 1 Modules 1 and 4, and Homework 2 P1 and P2).
+An internet connection is required to load Plotly for Homework 1 Modules 1 and 4, and Homework 2 P1 and P2.
 
-## 🛠️ Built with
+---
+
+## 🛠️ Built With
 
 HTML · CSS · JavaScript · Plotly.js · RK4 numerical integration · GitHub Pages
