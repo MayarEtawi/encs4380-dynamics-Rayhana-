@@ -236,25 +236,12 @@ Study how sensor dynamics inside the feedback path affect the true output, measu
 <details>
 <summary>👤 Contributor · About this module · AI assistance</summary>
 
-**Developed by:** [P2 NAME]
+**Developed by:** Mayar Etawi
 
 **About this module:**  
-P2 places a first-order sensor with time constant \(\tau_s\) in the feedback path. The controller acts on the sensor reading rather than directly on the true output.
-
-The sensor is modelled as
-
-\[
-\dot y_s = \frac{y-y_s}{\tau_s}
-\]
-
-The true output and measured value are drawn on the same plot, making the difference between the actual system response and the sensor reading visible.
-
-As \(\tau_s\) grows, the feedback information becomes slower. The resulting delay can increase overshoot and move the closed loop toward oscillation.
-
-The **Predict, Then Check** experiment lets the user predict how increasing \(\tau_s\) or changing the controller gains will affect the response before running the simulation.
-
+I built the P2 Slow Sensor module as an independent page that uses the same plant models as P1. In the JavaScript, I wrote a closed-loop simulation with the state vector [y, v, I, ys], solved numerically with a fourth-order Runge–Kutta (RK4) method and an adaptive time step based on the sensor and plant time constants. The sensor is modelled as a first-order lag, τs·dys/dt = y − ys. The PID controller acts only on the measured value ys, and it uses derivative-on-measurement, actuator saturation (±Umax), and conditional-integration anti-windup. The user can switch between a first-order plant K/(τs+1) and a second-order plant 1/(ms²+bs+k). From the true output, the page computes four metrics: overshoot, 2% settling time, final tracking error, and peak sensor lag |y − ys|. Two Plotly graphs show the true output against the sensor measurement and the setpoint, and the control signal against its saturation limits. I added interactive sliders, input validation, a divergence check, and presets for a fast sensor, a slow sensor with oscillation, and a reset. I also built a "Predict, then check" card. The user picks an experiment (the list changes to match the selected plant model) and predicts how overshoot, settling time and final error will change. The page then runs the simulation before and after changing only that one parameter, compares the two runs with a small tolerance, shows the results as correct/different cards, and offers a button to restore the previous settings. All P2 styles are kept in a separate stylesheet scoped to P2, so the shared team stylesheets are not changed. The layout matches the P4 card and is responsive on smaller screens.
 **AI assistance:**  
-[What AI was used for in P2]
+AI was used to help interpret the simulation results, for example to explain why overshoot and oscillation increase as the sensor time constant $\tau_s$ grows. It also gave some help with the layout and formatting of the HTML page.
 
 </details>
 
